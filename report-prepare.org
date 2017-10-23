@@ -1,0 +1,4 @@
+* initialize report dirs
+
+  mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
+  ad ssm-report-n --working-dir . init
