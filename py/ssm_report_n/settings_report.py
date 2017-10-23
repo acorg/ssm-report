@@ -1,7 +1,7 @@
 import sys, os, copy, datetime
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-from acmacs_base.json import read_json, write_json
+from acmacs_base.json import write_json
 
 # ----------------------------------------------------------------------
 

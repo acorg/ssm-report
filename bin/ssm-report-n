@@ -18,7 +18,7 @@ from ssm_report_n import process_commands
 # ----------------------------------------------------------------------
 
 def main(args):
-    return check_working_dir(args.working_dir) or process_commands(commands=args.commands, session=args.session, verbose=args.verbose, force=args.force)
+    return check_working_dir(args.working_dir) or process_commands(commands=args.commands, verbose=args.verbose, force=args.force)
 
 # ----------------------------------------------------------------------
 
@@ -43,7 +43,6 @@ with timeit(sys.argv[0]):
 
         parser.add_argument('commands', nargs='*', action='store')
         parser.add_argument('--working-dir', action='store', dest='working_dir', default=".")
-        parser.add_argument('--session', action='store', dest='session', default=None)
 
         args = parser.parse_args()
         logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")

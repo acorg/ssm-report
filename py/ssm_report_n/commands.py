@@ -2,6 +2,8 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import subprocess
 
+from .map import make_map
+
 # from .settings import report_settings, map_settings
 # from .stat import make_stat
 # from .geographic import make_geographic, geographic_settings
@@ -14,9 +16,9 @@ class Error (RuntimeError): pass
 
 # ----------------------------------------------------------------------
 
-def process_commands(commands, session, verbose, force):
+def process_commands(commands, verbose, force):
     try:
-        Processor(session=session, verbose=verbose, force=force)._process(commands)
+        Processor(verbose=verbose, force=force)._process(commands)
     except Error as err:
         module_logger.error("ERROR: " + str(err))
         return 1
@@ -26,8 +28,7 @@ def process_commands(commands, session, verbose, force):
 
 class Processor:
 
-    def __init__(self, session, verbose, force):
-        self._session = session
+    def __init__(self, verbose, force):
         self._verbose = verbose
         self._force = force
         self._map_dirs = set()
@@ -49,7 +50,7 @@ class Processor:
         self._get_dbs()
         # self._get_merges()
         self._use_dir("tree")
-        self._use_r_dir("sp")
+        self.r_dir("sp")
         from .settings import make_settings
         make_settings()
 
@@ -86,11 +87,11 @@ class Processor:
 
     # def stat(self):
     #     """make statistics for antigens and sera found in WHO CC HI tables"""
-    #     make_stat(stat_dir=self._use_r_dir("stat"), hidb_dir=self._db_dir(), settings=report_settings(), force=self._force)
+    #     make_stat(stat_dir=self.r_dir("stat"), hidb_dir=self._db_dir(), settings=report_settings(), force=self._force)
 
     # def geo(self):
     #     """make geographic time series"""
-    #     make_geographic(geo_dir=self._use_r_dir("geo"), hidb_dir=self._db_dir(), seqdb_dir=self._db_dir(), report_settings=report_settings(), geographic_settings=geographic_settings(), force=self._force)
+    #     make_geographic(geo_dir=self.r_dir("geo"), hidb_dir=self._db_dir(), seqdb_dir=self._db_dir(), report_settings=report_settings(), geographic_settings=geographic_settings(), force=self._force)
 
         # ----------------------------------------------------------------------
 
@@ -110,31 +111,31 @@ class Processor:
 
     # def h1_tree(self):
     #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("tree", link_dir="t"), report_settings=report_settings())
+    #     tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
 
     # def h3_tree(self):
     #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("tree", link_dir="t"), report_settings=report_settings())
+    #     tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
 
     # def bvic_tree(self):
     #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("tree", link_dir="t"), report_settings=report_settings())
+    #     tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
 
     # def byam_tree(self):
     #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("tree", link_dir="t"), report_settings=report_settings())
+    #     tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
 
     # def h1_tree_information(self):
-    #     tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    #     tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
 
     # def h3_tree_information(self):
-    #     tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    #     tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
 
     # def bvic_tree_information(self):
-    #     tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    #     tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
 
     # def byam_tree_information(self):
-    #     tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self._use_r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    #     tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
 
         # ----------------------------------------------------------------------
 
@@ -177,11 +178,11 @@ class Processor:
 
     # def report(self):
     #     from .report import make_report
-    #     make_report(source_dir=Path(".").resolve(), source_dir_2=self._use_r_dir(""), output_dir=self._use_r_dir("report"), settings=report_settings())
+    #     make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), settings=report_settings())
 
     # def addendum(self):
     #     from .report import make_signature_page_addendum
-    #     make_signature_page_addendum(source_dir=self._use_r_dir("sp"), output_dir=self._use_r_dir("report"), settings=report_settings())
+    #     make_signature_page_addendum(source_dir=self.r_dir("sp"), output_dir=self.r_dir("report"), settings=report_settings())
 
     # def update_merges(self):
     #     target_dir = self._merges_dir()
@@ -224,9 +225,9 @@ class Processor:
     # H3 HI
 
     def h3_clade(self):
-        self._make_map(prefix="clade", virus_type="h3", assay="hi", mods=["clade"])
-        self._make_map(prefix="clade-6m", virus_type="h3", assay="hi", mods=["clade", "grey_older_6_months"])
-        self._make_map(prefix="clade-12m", virus_type="h3", assay="hi", mods=["clade", "grey_older_12_months"])
+        self._clade(virus_type="h3", assay="hi")
+        # self._make_map(prefix="clade-6m",  virus_type="h3", assay="hi", mods=["clade", "grey_older_6_months"])
+        # self._make_map(prefix="clade-12m", virus_type="h3", assay="hi", mods=["clade", "grey_older_12_months"])
     h3_clades = h3_clade
 
     # def h3_serology(self):
@@ -393,18 +394,18 @@ class Processor:
 
     # ----------------------------------------------------------------------
 
-    def _make_map(self, prefix, virus_type, assay, mods, information_meeting=False):
-        if information_meeting:
-            output_dir = self._use_r_dir("information", link_dir="i")
-            prefix = virus_type + "-" + assay
-        else:
-            output_dir = self._use_r_dir(virus_type + "-" + assay)
-        map_sets = map_settings(virus_type=virus_type, assay=assay)
-        if information_meeting and "information_labs" in map_sets:
-            map_sets["labs"] = map_sets["information_labs"]
-        make_map(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, mods=mods, report_settings=report_settings(), map_settings=map_sets,
-                     seqdb_file=self._seqdb_file(), information_meeting=information_meeting, force=self._force)
-        self._map_dirs.add(output_dir)
+    #$ def _make_map(self, prefix, virus_type, assay, mods, information_meeting=False):
+    #$     if information_meeting:
+    #$         output_dir = self.r_dir("information", link_dir="i")
+    #$         prefix = virus_type + "-" + assay
+    #$     else:
+    #$         output_dir = self.r_dir(virus_type + "-" + assay)
+    #$     map_sets = map_settings(virus_type=virus_type, assay=assay)
+    #$     if information_meeting and "information_labs" in map_sets:
+    #$         map_sets["labs"] = map_sets["information_labs"]
+    #$     make_map(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, mods=mods, report_settings=report_settings(), map_settings=map_sets,
+    #$                  seqdb_file=self._seqdb_file(), information_meeting=information_meeting, force=self._force)
+    #$     self._map_dirs.add(output_dir)
 
     # def _ts_mods(self):
     #     for_ssm = not report_settings()["cover"]["teleconference"]
@@ -414,7 +415,7 @@ class Processor:
     #     return mods
 
     # def _make_ts(self, virus_type, assay, mods):
-    #     output_dir = self._use_r_dir(virus_type + "-" + assay)
+    #     output_dir = self.r_dir(virus_type + "-" + assay)
     #     make_ts(output_dir=output_dir, virus_type=virus_type, assay=assay, mods=mods, period="month", report_settings=report_settings(), map_settings=map_settings(virus_type=virus_type, assay=assay),
     #                  seqdb_file=self._seqdb_file(), force=self._force)
     #     self._map_dirs.add(output_dir)
@@ -428,6 +429,11 @@ class Processor:
     #         subprocess.check_call("~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=self._seqdb_file(), settings=settings, tree=tree, pdf=pdf), shell=True)
     #     else:
     #         subprocess.check_call("~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}'".format(seqdb=self._seqdb_file(), settings=settings, tree=tree, pdf=pdf), shell=True)
+
+    # ----------------------------------------------------------------------
+
+    def _clade(self, virus_type, assay):
+        make_map(prefix="clade", virus_type=virus_type, assay=assay, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
     # ----------------------------------------------------------------------
 
@@ -488,7 +494,7 @@ class Processor:
             target_dir.mkdir(parents=True, exist_ok=True)
         return target_dir
 
-    def _use_r_dir(self, name, mkdir=True, link_dir=None):
+    def r_dir(self, name, mkdir=True, link_dir=None):
         if Path("/r/ramdisk-id").exists():
             target_dir = Path("/r/ssm-report", Path(".").resolve().name, name)
             if mkdir:
@@ -510,11 +516,11 @@ class Processor:
         return self._use_dir("merges")
 
     def _log_dir(self):
-        return self._use_r_dir("log")
+        return self.r_dir("log")
 
     def _sp_output_dir(self):
         self._sp_source_dir()
-        sp_dir = self._use_r_dir("sp")
+        sp_dir = self.r_dir("sp")
         from .signature_page import signature_page_output_dir_init
         signature_page_output_dir_init(sp_dir)
         return sp_dir
@@ -547,7 +553,7 @@ class Processor:
         if not Path("sy").exists():
             open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\" &&\nsyput /r/ssm-report/\"$(basename ${PWD})\" \"${PWD#$HOME/}\"")
             Path("sy").chmod(0o700)
-        index_html = self._use_r_dir("").joinpath("index.html")
+        index_html = self.r_dir("").joinpath("index.html")
         if not index_html.exists():
             index_html.open("w").write(sRootIndexHtml)
 
