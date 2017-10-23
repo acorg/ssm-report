@@ -10,6 +10,8 @@ sLabDisplayName = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "NIID": "NIID"
 
 sApplyFor = {
     "clade": [
+        "all_grey",
+        "egg",
         "clades",
         "vaccines"
     ]
@@ -27,19 +29,20 @@ sTitleFor = {
 # ======================================================================
 
 def make_map(output_dir, prefix, virus_type, assay, mod, force):
-    settings = json.load(open("{}-{}.json".format(virus_type, assay)))
+    s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
+    settings = json.load(s1_filename.open())
     for lab in settings["labs"]:
         module_logger.info("{}\nINFO:{} {} {} {} {}\nINFO: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), mod, " "* 93))
         output_prefix = prefix + "-" + lab.lower()
         title = sTitleFor[mod][virus_type][assay].format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper())
         title_mod = [{"N": "title", "background": "transparent", "border_width": 0, "text_size": 24, "font_weight": "bold", "display_name": [title]}]
 
-        s1_filename = output_dir.joinpath(output_prefix + ".settings.json")
-        json.dump({"apply": title_mod + sApplyFor[mod]}, s1_filename.open("w"), indent=2)
+        s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
+        json.dump({"apply": title_mod + sApplyFor[mod]}, s2_filename.open("w"), indent=2)
 
         script_filename = output_dir.joinpath(output_prefix + ".sh")
-        script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' '{chart}' '{output}'\n".format(
-            s1=s1_filename,
+        script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}' --open\n".format(
+            s1=s1_filename, s2=s2_filename,
             pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
         script_filename.chmod(0o700)
         subprocess.check_call(str(script_filename))
