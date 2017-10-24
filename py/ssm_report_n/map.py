@@ -111,10 +111,14 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force):
 def make_ts(output_dir, virus_type, assay, force):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
-    compare_with_previous = bool(report_settings["cover"]["teleconference"])
+    if report_settings["cover"]["teleconference"]:
+        module_logger.warning("COMPARE with previous!")
+        compare_with_previous = [{"N": "antigens", "select": {"test": True}, "size": 5, "order": "raise"},
+                                     {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": 8, "order": "raise"}]
+    else:
+        compare_with_previous = [{"N": "antigens", "select": {"test": True}, "size": 8, "order": "raise"}]
     s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
     settings = json.load(s1_filename.open())
-    module_logger.warning("COMPARE with previous!")
     for lab in settings["labs"]:
         for period in periods:
             module_logger.info("{}\nINFO:{} {} {} {} Time Series: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), " "* 93))
@@ -122,13 +126,17 @@ def make_ts(output_dir, virus_type, assay, force):
 
             s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
             pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab, period_name=period.text_name())
-            ts = [{"N": "antigens", "select": {"test": True, "date_range": [period.first_date(), period.after_last_date()]}, "size": 8, "order": "raise", "show": True}]
-            json.dump({"apply": pre + sApplyFor["ts_pre"] + ts + post}, s2_filename.open("w"), indent=2)
+            ts = [{"N": "antigens", "select": {"test": True, "date_range": [period.first_date(), period.after_last_date()]}, "show": True}]
+            json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
-            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}'\n".format(
-                s1=s1_filename, s2=s2_filename,
-                pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
+            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' --previous '{previous_chart}' '{chart}' '{output}'\n".format(
+                s1=s1_filename,
+                s2=s2_filename,
+                chart=get_chart(virus_type=virus_type, assay=assay, lab=lab),
+                previous_chart=get_chart(virus_type=virus_type, assay=assay, lab=lab, chart_dir=Path(report_settings["previous"], "merges")),
+                pwd=os.getcwd(),
+                output=output_dir.joinpath(output_prefix + ".pdf")))
             script_filename.chmod(0o700)
             subprocess.check_call(str(script_filename))
 
