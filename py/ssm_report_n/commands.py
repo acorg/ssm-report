@@ -142,7 +142,7 @@ class Processor:
     def h3(self):
         self.h3_clade()
         # self.h3_ts()
-        # self.h3_geography()
+        self.h3_geography()
         # self.h3_serology()
         # #self.h3_serum_sectors()
         # #self.h3_serum_coverage()
@@ -226,8 +226,8 @@ class Processor:
 
     def h3_clade(self):
         self._clade(virus_type="h3", assay="hi")
-        # self._make_map(prefix="clade-6m",  virus_type="h3", assay="hi", mods=["clade", "grey_older_6_months"])
-        # self._make_map(prefix="clade-12m", virus_type="h3", assay="hi", mods=["clade", "grey_older_12_months"])
+        self._clade_6m(virus_type="h3", assay="hi")
+        self._clade_12m(virus_type="h3", assay="hi")
     h3_clades = h3_clade
 
     # def h3_serology(self):
@@ -434,6 +434,12 @@ class Processor:
 
     def _clade(self, virus_type, assay):
         make_map(prefix="clade", virus_type=virus_type, assay=assay, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+
+    def _clade_6m(self, virus_type, assay):
+        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+
+    def _clade_12m(self, virus_type, assay):
+        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
     # ----------------------------------------------------------------------
 

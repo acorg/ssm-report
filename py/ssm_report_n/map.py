@@ -26,11 +26,29 @@ sApplyFor = {
         ],
     "clade": [
         {"N": "clades", "size": 8}
-    ]
+        ],
+    "clade_6m": [
+        {"N": "clades_last_6_months", "size": 8}
+        ],
+    "clade_12m": [
+        {"N": "clades_last_12_months", "size": 8}
+        ],
 }
 
 sTitleFor = {
     "clade": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay} by clade",
+            "neut": "{lab} {virus_type} {assay} by clade",
+        },
+    },
+    "clade_6m": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay} by clade",
+            "neut": "{lab} {virus_type} {assay} by clade",
+        },
+    },
+    "clade_12m": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
             "neut": "{lab} {virus_type} {assay} by clade",
@@ -52,7 +70,7 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force):
         json.dump({"apply": pre + sApplyFor[mod] + post}, s2_filename.open("w"), indent=2)
 
         script_filename = output_dir.joinpath(output_prefix + ".sh")
-        script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}' --open\n".format(
+        script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}'\n".format(
             s1=s1_filename, s2=s2_filename,
             pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
         script_filename.chmod(0o700)
