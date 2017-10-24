@@ -20,10 +20,12 @@ sApplyFor = {
     "post": [
         "{lab}_mid",
         "{lab}_vaccines",
+        "set_scale",
+        "set_legend",
         "{lab}_post",
         ],
     "clade": [
-        "clades",
+        {"N": "clades", "size": 8}
     ]
 }
 
