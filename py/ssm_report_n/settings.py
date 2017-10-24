@@ -31,7 +31,7 @@ def make_map_settings(virus_type, assay, force):
     if force or not map_settings_file.exists():
         module_logger.info("writing {}".format(map_settings_file))
         labs = get_s(virus_type, assay, "labs")
-        data = sMapSettings % {"labs": json.dumps(labs), "mods": ",\n".join(make_mod(virus_type=virus_type, assay=assay, lab=lab) for lab in labs)}
+        data = sMapSettings % {"labs": json.dumps(labs), "mods": get_s(virus_type=virus_type, assay=assay, name="data") + ",\n" + ",\n".join(make_mod(virus_type=virus_type, assay=assay, lab=lab) for lab in labs)}
         map_settings_file.open("w").write(data)
     return map_settings_file
 
@@ -39,7 +39,6 @@ def make_map_settings(virus_type, assay, force):
 
 def make_mod(virus_type, assay, lab):
     result = '\n    "?": "===================== {lab}  {virus_type}  {assay} ================================================="'.format(virus_type=virus_type.upper(), assay=assay.upper(), lab=lab)
-    result += ",\n" + get_s(virus_type=virus_type, assay=assay, name="data")
     result += ",\n" + get_s_lab(virus_type=virus_type, assay=assay, lab=lab, name="data")
     return result
 
