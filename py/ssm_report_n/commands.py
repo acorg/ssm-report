@@ -52,7 +52,7 @@ class Processor:
         self._use_dir("tree")
         self.r_dir("sp")
         from .settings import make_settings
-        make_settings()
+        make_settings(force=self._force)
 
     def init_git(self):
         self._init_git()
