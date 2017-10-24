@@ -64,17 +64,41 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} by clade",
         },
+        "bvic": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
+        "byam": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
     },
     "clade_6m": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
             "neut": "{lab} {virus_type} {assay} by clade",
         },
+        "h1": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
+        "bvic": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
+        "byam": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
     },
     "clade_12m": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
             "neut": "{lab} {virus_type} {assay} by clade",
+        },
+        "h1": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
+        "bvic": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
+        "byam": {
+            "hi":   "{lab} {virus_type} by clade",
         },
     },
     "geography": {
@@ -85,6 +109,12 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} by geography",
         },
+        "bvic": {
+            "hi":   "{lab} {virus_type} by geography",
+        },
+        "byam": {
+            "hi":   "{lab} {virus_type} by geography",
+        },
     },
     "serology": {
         "h3": {
@@ -92,6 +122,12 @@ sTitleFor = {
             "neut": "{lab} {virus_type} {assay} with serology antigens",
         },
         "h1": {
+            "hi":   "{lab} {virus_type} with serology antigens",
+        },
+        "bvic": {
+            "hi":   "{lab} {virus_type} with serology antigens",
+        },
+        "byam": {
             "hi":   "{lab} {virus_type} with serology antigens",
         },
     },
@@ -119,6 +155,12 @@ sTitleFor = {
             "neut": "{lab} {virus_type} {assay} {period_name}",
         },
         "h1": {
+            "hi":   "{lab} {virus_type} {period_name}",
+        },
+        "bvic": {
+            "hi":   "{lab} {virus_type} {period_name}",
+        },
+        "byam": {
             "hi":   "{lab} {virus_type} {period_name}",
         },
     },

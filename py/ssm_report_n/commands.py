@@ -271,53 +271,47 @@ class Processor:
     def h3neut_serum_coverage(self):
         make_map(prefix="serumcoverage-hk", virus_type="h3", assay="neut", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
 
-    # # ----------------------------------------------------------------------
-    # # BVIC HI
+    # ----------------------------------------------------------------------
+    # BVIC HI
 
-    # def bvic_clade(self):
-    #     self._make_map(prefix="clade", virus_type="bvic", assay="hi", mods=["clade"])
-    # bvic_clades = bvic_clade
+    def bvic_clade(self):
+        self._clade(virus_type="bvic", assay="hi")
+    bvic_clades = bvic_clade
 
-    # def bvic_serology(self):
-    #     self._make_map(prefix="serology", virus_type="bvic", assay="hi", mods=["clade_light", "serology"])
+    def bvic_serology(self):
+        self._serology(virus_type="bvic", assay="hi")
 
-    # def bvic_geography(self):
-    #     self._make_map(prefix="geography", virus_type="bvic", assay="hi", mods=["geography"])
-    # bvic_geo = bvic_geography
+    def bvic_geography(self):
+        self._geography(virus_type="bvic", assay="hi")
+    bvic_geo = bvic_geography
 
-    # def bvic_serum_sectors(self):
-    #     self._make_map(prefix="serumsectors", virus_type="bvic", assay="hi", mods=["clade", "serum_sectors"])
+    def bvic_ts(self):
+        self._ts(virus_type="bvic", assay="hi")
 
-    # def bvic_ts(self):
-    #     self._make_ts(virus_type="bvic", assay="hi", mods=self._ts_mods())
+    def bvic_information(self):
+        make_map_information(virus_type="bvic", assay="hi", output_dir=self.r_dir("information"))
 
-    # def bvic_information(self):
-    #     self._make_map(prefix="information", virus_type="bvic", assay="hi", mods=["information"], information_meeting=True)
+    # ----------------------------------------------------------------------
+    # BYAM HI
 
-    # # ----------------------------------------------------------------------
-    # # BYAM HI
+    def byam_clade(self):
+        self._clade(virus_type="byam", assay="hi")
+        self._clade_6m(virus_type="byam", assay="hi")
+        self._clade_12m(virus_type="byam", assay="hi")
+    byam_clades = byam_clade
 
-    # def byam_clade(self):
-    #     self._make_map(prefix="clade", virus_type="byam", assay="hi", mods=["clade"])
-    #     self._make_map(prefix="clade-6m", virus_type="byam", assay="hi", mods=["clade", "grey_older_6_months"])
-    #     self._make_map(prefix="clade-12m", virus_type="byam", assay="hi", mods=["clade", "grey_older_12_months"])
-    # byam_clades = byam_clade
+    def byam_serology(self):
+        self._serology(virus_type="byam", assay="hi")
 
-    # def byam_serology(self):
-    #     self._make_map(prefix="serology", virus_type="byam", assay="hi", mods=["clade_light", "serology"])
+    def byam_geography(self):
+        self._geography(virus_type="byam", assay="hi")
+    byam_geo = byam_geography
 
-    # def byam_geography(self):
-    #     self._make_map(prefix="geography", virus_type="byam", assay="hi", mods=["geography"])
-    # byam_geo = byam_geography
+    def byam_ts(self):
+        self._ts(virus_type="byam", assay="hi")
 
-    # def byam_serum_sectors(self):
-    #     self._make_map(prefix="serumsectors", virus_type="byam", assay="hi", mods=["clade", "serum_sectors"])
-
-    # def byam_ts(self):
-    #     self._make_ts(virus_type="byam", assay="hi", mods=self._ts_mods())
-
-    # def byam_information(self):
-    #     self._make_map(prefix="information", virus_type="byam", assay="hi", mods=["information"], information_meeting=True)
+    def byam_information(self):
+        make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information"))
 
     # # ----------------------------------------------------------------------
     # # Signature pages
@@ -376,32 +370,6 @@ class Processor:
             setattr(self, "sp_{}{}_{}".format(subtype, assay if assay != "hi" else "", lab), mf(subtype=subtype, assay=assay, lab=lab))
 
     # ----------------------------------------------------------------------
-
-    #$ def _make_map(self, prefix, virus_type, assay, mods, information_meeting=False):
-    #$     if information_meeting:
-    #$         output_dir = self.r_dir("information", link_dir="i")
-    #$         prefix = virus_type + "-" + assay
-    #$     else:
-    #$         output_dir = self.r_dir(virus_type + "-" + assay)
-    #$     map_sets = map_settings(virus_type=virus_type, assay=assay)
-    #$     if information_meeting and "information_labs" in map_sets:
-    #$         map_sets["labs"] = map_sets["information_labs"]
-    #$     make_map(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, mods=mods, report_settings=report_settings(), map_settings=map_sets,
-    #$                  seqdb_file=self._seqdb_file(), information_meeting=information_meeting, force=self._force)
-    #$     self._map_dirs.add(output_dir)
-
-    #$ def _ts_mods(self):
-    #$     for_ssm = not report_settings()["cover"]["teleconference"]
-    #$     mods = ["geography"]
-    #$     if not for_ssm:
-    #$         mods.extend(["compare_with_previous"])
-    #$     return mods
-
-    #$ def _make_ts(self, virus_type, assay, mods):
-    #$     output_dir = self.r_dir(virus_type + "-" + assay)
-    #$     make_ts(output_dir=output_dir, virus_type=virus_type, assay=assay, mods=mods, period="month", report_settings=report_settings(), map_settings=map_settings(virus_type=virus_type, assay=assay),
-    #$                  seqdb_file=self._seqdb_file(), force=self._force)
-    #$     self._map_dirs.add(output_dir)
 
     # def _make_tree(self, virus_type):
     #     tree_dir = self._use_dir("tree")
