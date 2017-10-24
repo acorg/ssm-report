@@ -40,6 +40,11 @@ sApplyFor = {
         {"N": "clades_light", "size": 8},
         "serology",
         ],
+    "ts_pre": [
+        {"N": "continents"},
+        {"N": "antigens", "select": "reference", "outline": "grey80", "fill": "transparent"},
+        {"N": "antigens", "select": "test", "show": False},
+        ],
 }
 
 sTitleFor = {
@@ -73,6 +78,12 @@ sTitleFor = {
             "neut": "{lab} {virus_type} {assay} with serology antigens",
         },
     },
+    "ts": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay} {period_name}",
+            "neut": "{lab} {virus_type} {assay} {period_name}",
+        },
+    },
 }
 
 # ======================================================================
@@ -98,22 +109,59 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force):
 # ----------------------------------------------------------------------
 
 def make_ts(output_dir, virus_type, assay, force):
-    pass
+    report_settings = json.load(Path("report.json").open())
+    periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
+    compare_with_previous = bool(report_settings["cover"]["teleconference"])
+    s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
+    settings = json.load(s1_filename.open())
+    module_logger.warning("COMPARE with previous!")
+    for lab in settings["labs"]:
+        for period in periods:
+            module_logger.info("{}\nINFO:{} {} {} {} Time Series: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), " "* 93))
+            output_prefix = "ts-" + lab.lower() + "-" + period.numeric_name()
+
+            s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
+            pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab, period_name=period.text_name())
+            ts = [{"N": "antigens", "select": {"test": True, "date_range": [period.first_date(), period.after_last_date()]}, "size": 8, "order": "raise", "show": True}]
+            json.dump({"apply": pre + sApplyFor["ts_pre"] + ts + post}, s2_filename.open("w"), indent=2)
+
+            script_filename = output_dir.joinpath(output_prefix + ".sh")
+            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}'\n".format(
+                s1=s1_filename, s2=s2_filename,
+                pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
+            script_filename.chmod(0o700)
+            subprocess.check_call(str(script_filename))
 
 # ----------------------------------------------------------------------
 
-def make_pre_post(virus_type, assay, mod, lab):
+def make_periods(start, end, period):
+    if period == "month":
+        from acmacs_map_draw_backend import MonthlyTimeSeries
+        ts = MonthlyTimeSeries(start=start, end=end)
+    elif period == "year":
+        from acmacs_map_draw_backend import YearlyTimeSeries
+        ts = YearlyTimeSeries(start=start, end=end)
+    elif period == "week":
+        from acmacs_map_draw_backend import WeeklyTimeSeries
+        ts = WeeklyTimeSeries(start=start, end=end)
+    else:
+        raise ValueError("Unsupported period: " + repr(period) + ", expected \"month\", \"year\", \"week\"")
+    return ts
+
+# ----------------------------------------------------------------------
+
+def make_pre_post(virus_type, assay, mod, lab, period_name=None):
     title = {
         "N": "title",
         "background": "transparent",
         "border_width": 0,
         "text_size": 24,
         "font_weight": "bold",
-        "display_name": [sTitleFor[mod][virus_type][assay].format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper())],
+        "display_name": [sTitleFor[mod][virus_type][assay].format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper(), period_name=period_name)],
     }
     return (
-        [title] + [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab) for e in sApplyFor["pre"]],
-        [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab) for e in sApplyFor["post"]]
+        [title] + [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
+        [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post"]]
         )
 
 # ----------------------------------------------------------------------

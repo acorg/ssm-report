@@ -407,18 +407,18 @@ class Processor:
     #$                  seqdb_file=self._seqdb_file(), information_meeting=information_meeting, force=self._force)
     #$     self._map_dirs.add(output_dir)
 
-    # def _ts_mods(self):
-    #     for_ssm = not report_settings()["cover"]["teleconference"]
-    #     mods = ["geography"]
-    #     if not for_ssm:
-    #         mods.extend(["compare_with_previous"])
-    #     return mods
+    #$ def _ts_mods(self):
+    #$     for_ssm = not report_settings()["cover"]["teleconference"]
+    #$     mods = ["geography"]
+    #$     if not for_ssm:
+    #$         mods.extend(["compare_with_previous"])
+    #$     return mods
 
-    # def _make_ts(self, virus_type, assay, mods):
-    #     output_dir = self.r_dir(virus_type + "-" + assay)
-    #     make_ts(output_dir=output_dir, virus_type=virus_type, assay=assay, mods=mods, period="month", report_settings=report_settings(), map_settings=map_settings(virus_type=virus_type, assay=assay),
-    #                  seqdb_file=self._seqdb_file(), force=self._force)
-    #     self._map_dirs.add(output_dir)
+    #$ def _make_ts(self, virus_type, assay, mods):
+    #$     output_dir = self.r_dir(virus_type + "-" + assay)
+    #$     make_ts(output_dir=output_dir, virus_type=virus_type, assay=assay, mods=mods, period="month", report_settings=report_settings(), map_settings=map_settings(virus_type=virus_type, assay=assay),
+    #$                  seqdb_file=self._seqdb_file(), force=self._force)
+    #$     self._map_dirs.add(output_dir)
 
     # def _make_tree(self, virus_type):
     #     tree_dir = self._use_dir("tree")
