@@ -128,19 +128,30 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force):
 
 # ----------------------------------------------------------------------
 
+sCompareWithPrevious = {
+    True: [{"N": "antigens", "select": {"test": True}, "size": 5, "order": "raise"},
+           {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": 8, "order": "raise"}],
+    False: [{"N": "antigens", "select": {"test": True}, "size": 8, "order": "raise"}]
+    }
+
 def make_ts(output_dir, virus_type, assay, force):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
-    if report_settings["cover"]["teleconference"]:
-        compare_with_previous = [{"N": "antigens", "select": {"test": True}, "size": 5, "order": "raise"},
-                                     {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": 8, "order": "raise"}]
-    else:
-        compare_with_previous = [{"N": "antigens", "select": {"test": True}, "size": 8, "order": "raise"}]
     s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
     settings = json.load(s1_filename.open())
     for lab in settings["labs"]:
+
+        if report_settings["cover"]["teleconference"]:
+            previous_chart = None
+            compare_with_previous = sCompareWithPrevious[False]
+            try:
+                previous_chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, chart_dir=Path(report_settings["previous"], "merges"))
+                compare_with_previous = sCompareWithPrevious[True]
+            except:
+                module_logger.warning("No previous chart found for {} {} {} in {}".format(virus_type, assay, lab, Path(report_settings["previous"], "merges")))
+
         for period in periods:
-            module_logger.info("{}\nINFO:{} {} {} {} Time Series: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), " "* 93))
+            module_logger.info("{}\nINFO:{} {} {} {} Time Series {} {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), period.numeric_name(), " "* 93))
             output_prefix = "ts-" + lab.lower() + "-" + period.numeric_name()
 
             s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
@@ -149,11 +160,11 @@ def make_ts(output_dir, virus_type, assay, force):
             json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
-            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' --previous '{previous_chart}' '{chart}' '{output}'\n".format(
+            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' {previous_chart} '{chart}' '{output}'\n".format(
                 s1=s1_filename,
                 s2=s2_filename,
                 chart=get_chart(virus_type=virus_type, assay=assay, lab=lab),
-                previous_chart=get_chart(virus_type=virus_type, assay=assay, lab=lab, chart_dir=Path(report_settings["previous"], "merges")),
+                previous_chart="--previous '{}'".format(previous_chart) if previous_chart else "",
                 pwd=os.getcwd(),
                 output=output_dir.joinpath(output_prefix + ".pdf")))
             script_filename.chmod(0o700)
