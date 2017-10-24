@@ -63,6 +63,12 @@ s_h3_hi_data = """
     ],
     "set_legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
+    ],
+    "serology": [
+      {"N": "antigens", "select": {"name": "WASHINGTON/106/2016", "passage": "cell"}, "fill": "#FFA500",  "report": true, "outline": "black", "size": 18, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 24}},
+      {"N": "antigens", "select": {"name": "WASHINGTON/106/2016", "passage": "egg"}, "fill": "#FFA500",  "report": true, "outline": "black", "size": 18, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 24}}
     ]"""
 
 # --------------- CDC -------------------------------------------------------

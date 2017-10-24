@@ -2,12 +2,12 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import subprocess
 
-from .map import make_map
+from .map import make_map, make_ts
 
 # from .settings import report_settings, map_settings
 # from .stat import make_stat
 # from .geographic import make_geographic, geographic_settings
-# from .map import make_map, make_ts, make_index_html as maps_make_index_html
+# from .map import make_index_html as maps_make_index_html
 # from .signature_page import tree_make, signature_page_make
 
 # ======================================================================
@@ -141,9 +141,9 @@ class Processor:
 
     def h3(self):
         self.h3_clade()
-        # self.h3_ts()
+        self.h3_ts()
         self.h3_geography()
-        # self.h3_serology()
+        self.h3_serology()
         # #self.h3_serum_sectors()
         # #self.h3_serum_coverage()
 
@@ -230,12 +230,15 @@ class Processor:
         self._clade_12m(virus_type="h3", assay="hi")
     h3_clades = h3_clade
 
-    # def h3_serology(self):
-    #     self._make_map(prefix="serology", virus_type="h3", assay="hi", mods=["clade_light", "serology"])
+    def h3_serology(self):
+        self._serology(virus_type="h3", assay="hi")
 
     def h3_geography(self):
         self._geography(virus_type="h3", assay="hi")
     h3_geo = h3_geography
+
+    def h3_ts(self):
+        self._ts(virus_type="h3", assay="hi")
 
     # def h3_serum_sectors(self):
     #     self._make_map(prefix="serumsectors", virus_type="h3", assay="hi", mods=["clade", "serum_sectors"])
@@ -243,9 +246,6 @@ class Processor:
     # def h3_serum_coverage(self):
     #     self._make_map(prefix="serumcoverage-hk", virus_type="h3", assay="hi", mods=["clade", "serum_sectors", "serum_coverage_hk"])
     #     self._make_map(prefix="serumcoverage-sw", virus_type="h3", assay="hi", mods=["clade", "serum_sectors", "serum_coverage_sw"])
-
-    # def h3_ts(self):
-    #     self._make_ts(virus_type="h3", assay="hi", mods=self._ts_mods())
 
     # def h3_ian201709(self):
     #     self._make_map(prefix="ian201709", virus_type="h3", assay="hi", mods=["clade_light", "ian201709"])
@@ -443,6 +443,12 @@ class Processor:
 
     def _geography(self, virus_type, assay):
         make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+
+    def _serology(self, virus_type, assay):
+        make_map(prefix="serology", virus_type=virus_type, assay=assay, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+
+    def _ts(self, virus_type, assay):
+        make_ts(virus_type=virus_type, assay=assay, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
     # ----------------------------------------------------------------------
 

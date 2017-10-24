@@ -36,6 +36,10 @@ sApplyFor = {
     "geography": [
         {"N": "continents", "size": 8}
         ],
+    "serology": [
+        {"N": "clades_light", "size": 8},
+        "serology",
+        ],
 }
 
 sTitleFor = {
@@ -63,6 +67,12 @@ sTitleFor = {
             "neut": "{lab} {virus_type} {assay} by geography",
         },
     },
+    "serology": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay} with serology antigens",
+            "neut": "{lab} {virus_type} {assay} with serology antigens",
+        },
+    },
 }
 
 # ======================================================================
@@ -84,6 +94,11 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force):
             pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
         script_filename.chmod(0o700)
         subprocess.check_call(str(script_filename))
+
+# ----------------------------------------------------------------------
+
+def make_ts(output_dir, virus_type, assay, force):
+    pass
 
 # ----------------------------------------------------------------------
 
