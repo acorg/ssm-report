@@ -40,6 +40,14 @@ sApplyFor = {
         {"N": "clades_light", "size": 8},
         "serology",
         ],
+    "serum_sectors": [
+        {"N": "clades", "size": 8},
+        "serum_sectors",
+        ],
+    "serum_coverage_hk": [
+        {"N": "clades", "size": 8},
+        "serum_coverage_hk",
+        ],
     "ts_pre": [
         {"N": "continents"},
         {"N": "antigens", "select": "reference", "outline": "grey80", "fill": "transparent"},
@@ -76,6 +84,18 @@ sTitleFor = {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} with serology antigens",
             "neut": "{lab} {virus_type} {assay} with serology antigens",
+        },
+    },
+    "serum_sectors": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay}",
+            "neut": "{lab} {virus_type} {assay}",
+        },
+    },
+    "serum_coverage_hk": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay}",
+            "neut": "{lab} {virus_type} {assay}",
         },
     },
     "ts": {

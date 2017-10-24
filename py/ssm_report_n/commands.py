@@ -240,15 +240,11 @@ class Processor:
     def h3_ts(self):
         self._ts(virus_type="h3", assay="hi")
 
-    # def h3_serum_sectors(self):
-    #     self._make_map(prefix="serumsectors", virus_type="h3", assay="hi", mods=["clade", "serum_sectors"])
+    def h3_serum_sectors(self):
+        self._serum_sectors(virus_type="h3", assay="hi")
 
-    # def h3_serum_coverage(self):
-    #     self._make_map(prefix="serumcoverage-hk", virus_type="h3", assay="hi", mods=["clade", "serum_sectors", "serum_coverage_hk"])
-    #     self._make_map(prefix="serumcoverage-sw", virus_type="h3", assay="hi", mods=["clade", "serum_sectors", "serum_coverage_sw"])
-
-    # def h3_ian201709(self):
-    #     self._make_map(prefix="ian201709", virus_type="h3", assay="hi", mods=["clade_light", "ian201709"])
+    def h3_serum_coverage(self):
+        make_map(prefix="serumcoverage-hk", virus_type="h3", assay="hi", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
 
     # def h3_information(self):
     #     self._make_map(prefix="information", virus_type="h3", assay="hi", mods=["information"], information_meeting=True)
@@ -446,6 +442,9 @@ class Processor:
 
     def _serology(self, virus_type, assay):
         make_map(prefix="serology", virus_type=virus_type, assay=assay, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+
+    def _serum_sectors(self, virus_type, assay):
+        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
     def _ts(self, virus_type, assay):
         make_ts(virus_type=virus_type, assay=assay, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
