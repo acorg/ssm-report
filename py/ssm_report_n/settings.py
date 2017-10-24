@@ -69,9 +69,12 @@ s_h3_hi_data = """
 
 s_h3_hi_CDC_data = """
     "CDC_vaccines": [
-      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
         {"?N": "antigens", "select": {"vaccine": {"type": "surrogate"}}, "report": true, "outline": "black", "fill": "pink", "size": 26, "show": true, "order": "raise"},
         {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg"        }}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"},
         {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant"}}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"},
@@ -97,13 +100,17 @@ s_h3_hi_CDC_data = """
 
 s_h3_hi_MELB_data = """
     "MELB_vaccines": [
-      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
         {"?N": "antigens", "select": {"vaccine": {"type": "surrogate"}}, "report": true, "outline": "black", "fill": "pink", "size": 26, "show": true, "order": "raise"},
         {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg"        }}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"},
-        {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant"}}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"},
-        {"?N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "report": true, "outline": "black", "fill": "red", "size": 26, "show": true, "order": "raise"}
+        {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant"}}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"}
     ],
     "MELB_flip": [
       "?flip_ew"
@@ -125,13 +132,20 @@ s_h3_hi_MELB_data = """
 
 s_h3_hi_NIMR_data = """
     "NIMR_vaccines": [
-      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise"},
-        {"?N": "antigens", "select": {"vaccine": {"type": "surrogate"}}, "report": true, "outline": "black", "fill": "pink", "size": 26, "show": true, "order": "raise"},
-        {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg"        }}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"},
-        {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant"}}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"},
-        {"?N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "report": true, "outline": "black", "fill": "red", "size": 26, "show": true, "order": "raise"}
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg"        }}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant"}}, "fill": "blue",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
+      {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}},                          "fill": "pink",  "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+          "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_flip": [
       "?flip_ew"
