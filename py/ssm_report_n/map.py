@@ -6,7 +6,7 @@ from .charts import get_chart
 
 # ======================================================================
 
-sLabDisplayName = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "NIID": "NIID", "MELB": "VIDRL"}
+sLabDisplayName = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "NIID": "NIID", "MELB": "VIDRL", "ALL": "CDC+Crick+NIID+VIDRL"}
 
 sApplyFor = {
     "pre": [
@@ -61,6 +61,9 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} {assay} by clade",
             "neut": "{lab} {virus_type} {assay} by clade",
         },
+        "h1": {
+            "hi":   "{lab} {virus_type} by clade",
+        },
     },
     "clade_6m": {
         "h3": {
@@ -79,11 +82,17 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} {assay} by geography",
             "neut": "{lab} {virus_type} {assay} by geography",
         },
+        "h1": {
+            "hi":   "{lab} {virus_type} by geography",
+        },
     },
     "serology": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} with serology antigens",
             "neut": "{lab} {virus_type} {assay} with serology antigens",
+        },
+        "h1": {
+            "hi":   "{lab} {virus_type} with serology antigens",
         },
     },
     "serum_sectors": {
@@ -91,17 +100,26 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} {assay}",
             "neut": "{lab} {virus_type} {assay}",
         },
+        "h1": {
+            "hi":   "{lab} {virus_type}",
+        },
     },
     "serum_coverage_hk": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay}",
             "neut": "{lab} {virus_type} {assay}",
         },
+        "h1": {
+            "hi":   "{lab} {virus_type}",
+        },
     },
     "ts": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} {period_name}",
             "neut": "{lab} {virus_type} {assay} {period_name}",
+        },
+        "h1": {
+            "hi":   "{lab} {virus_type} {period_name}",
         },
     },
 }
@@ -204,7 +222,7 @@ def make_pre_post(virus_type, assay, mod, lab, period_name=None):
 
 # ----------------------------------------------------------------------
 
-def make_map_information(output_dir, prefix, virus_type, assay, mod):
+def make_map_information(output_dir, virus_type, assay):
     raise NotImplementedError()
 
 # ======================================================================

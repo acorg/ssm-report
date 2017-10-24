@@ -75,15 +75,15 @@ class Processor:
             seqdb_filename.unlink()
         self._get_seqdb()
 
-    # def all(self):
-    #     "Generate stat, geographic maps and antigenic maps for all subtypes"
-    #     self.stat()
-    #     self.geo()
-    #     self.h3()
-    #     self.h3neut()
-    #     self.h1()
-    #     self.bvic()
-    #     self.byam()
+    def all(self):
+        "Generate stat, geographic maps and antigenic maps for all subtypes"
+        self.stat()
+        self.geo()
+        self.h3()
+        self.h3neut()
+        self.h1()
+        self.bvic()
+        self.byam()
 
     # def stat(self):
     #     """make statistics for antigens and sera found in WHO CC HI tables"""
@@ -147,42 +147,42 @@ class Processor:
         # #self.h3_serum_sectors()
         # #self.h3_serum_coverage()
 
-    # def h3neut(self):
-    #     self.h3neut_clade()
-    #     self.h3neut_ts()
-    #     self.h3neut_geography()
-    #     self.h3neut_serology()
-    #     #self.h3neut_serum_sectors()
-    #     #self.h3neut_serum_coverage()
+    def h3neut(self):
+        self.h3neut_clade()
+        self.h3neut_ts()
+        self.h3neut_geography()
+        self.h3neut_serology()
+        #self.h3neut_serum_sectors()
+        #self.h3neut_serum_coverage()
 
-    # def h1(self):
-    #     self.h1_clade()
-    #     # self.h1_geography()
-    #     self.h1_serology()
-    #     self.h1_ts()
+    def h1(self):
+        self.h1_clade()
+        # self.h1_geography()
+        self.h1_serology()
+        self.h1_ts()
 
 
-    # def bvic(self):
-    #     self.bvic_clade()
-    #     self.bvic_geography()
-    #     self.bvic_serology()
-    #     #self.bvic_serum_sectors()
-    #     self.bvic_ts()
+    def bvic(self):
+        self.bvic_clade()
+        self.bvic_geography()
+        self.bvic_serology()
+        #self.bvic_serum_sectors()
+        self.bvic_ts()
 
-    # def byam(self):
-    #     self.byam_clade()
-    #     self.byam_geography()
-    #     self.byam_serology()
-    #     #self.byam_serum_sectors()
-    #     self.byam_ts()
+    def byam(self):
+        self.byam_clade()
+        self.byam_geography()
+        self.byam_serology()
+        #self.byam_serum_sectors()
+        self.byam_ts()
 
-    # def report(self):
-    #     from .report import make_report
-    #     make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), settings=report_settings())
+    def report(self):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), settings=report_settings())
 
-    # def addendum(self):
-    #     from .report import make_signature_page_addendum
-    #     make_signature_page_addendum(source_dir=self.r_dir("sp"), output_dir=self.r_dir("report"), settings=report_settings())
+    def addendum(self):
+        from .report import make_signature_page_addendum
+        make_signature_page_addendum(source_dir=self.r_dir("sp"), output_dir=self.r_dir("report"), settings=report_settings())
 
     # def update_merges(self):
     #     target_dir = self._merges_dir()
@@ -201,25 +201,22 @@ class Processor:
     # ----------------------------------------------------------------------
     # H1 HI
 
-    # def h1_clade(self):
-    #     self._make_map(prefix="clade", virus_type="h1", assay="hi", mods=["clade"])
-    # h1_clades = h1_clade
+    def h1_clade(self):
+        self._clade(virus_type="h1", assay="hi")
+    h1_clades = h1_clade
 
-    # def h1_serology(self):
-    #     self._make_map(prefix="serology", virus_type="h1", assay="hi", mods=["clade_light", "serology"])
+    def h1_serology(self):
+        self._serology(virus_type="h1", assay="hi")
 
-    # def h1_geography(self):
-    #     self._make_map(prefix="geography", virus_type="h1", assay="hi", mods=["geography"])
-    # h1_geo = h1_geography
+    def h1_geography(self):
+        self._geography(virus_type="h1", assay="hi")
+    h1_geo = h1_geography
 
-    # # def h1_serum_sectors(self):
-    # #     self._make_map(prefix="serumsectors", virus_type="h1", assay="hi", mods=["clade", "serum_sectors"])
+    def h1_ts(self):
+        self._ts(virus_type="h1", assay="hi")
 
-    # def h1_ts(self):
-    #     self._make_ts(virus_type="h1", assay="hi", mods=self._ts_mods())
-
-    # def h1_information(self):
-    #     self._make_map(prefix="information", virus_type="h1", assay="hi", mods=["information"], information_meeting=True)
+    def h1_information(self):
+        make_map_information(virus_type="h1", assay="hi", output_dir=self.r_dir("information"))
 
     # ----------------------------------------------------------------------
     # H3 HI
@@ -246,8 +243,8 @@ class Processor:
     def h3_serum_coverage(self):
         make_map(prefix="serumcoverage-hk", virus_type="h3", assay="hi", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
 
-    # def h3_information(self):
-    #     self._make_map(prefix="information", virus_type="h3", assay="hi", mods=["information"], information_meeting=True)
+    def h3_information(self):
+        make_map_information(virus_type="h3", assay="hi", output_dir=self.r_dir("information"))
 
     # ----------------------------------------------------------------------
     # H3 Neut
