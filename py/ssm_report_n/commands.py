@@ -252,37 +252,27 @@ class Processor:
     # ----------------------------------------------------------------------
     # H3 Neut
 
-    # def h3neut_clade(self):
-    #     self._make_map(prefix="clade", virus_type="h3", assay="neut", mods=["clade"])
-    #     self._make_map(prefix="clade-6m", virus_type="h3", assay="neut", mods=["clade", "grey_older_6_months"])
-    #     self._make_map(prefix="clade-12m", virus_type="h3", assay="neut", mods=["clade", "grey_older_12_months"])
-    # h3neut_clades = h3neut_clade
-    # h3n_clade = h3neut_clade
-    # h3n_clades = h3neut_clade
+    def h3neut_clade(self):
+        self._clade(virus_type="h3", assay="neut")
+        self._clade_6m(virus_type="h3", assay="neut")
+        self._clade_12m(virus_type="h3", assay="neut")
+    h3_clades = h3_clade
 
-    # def h3neut_serology(self):
-    #     self._make_map(prefix="serology", virus_type="h3", assay="neut", mods=["clade_light", "serology"])
+    def h3neut_serology(self):
+        self._serology(virus_type="h3", assay="neut")
 
-    # def h3neut_geography(self):
-    #     self._make_map(prefix="geography", virus_type="h3", assay="neut", mods=["geography"])
-    # h3neut_geo = h3neut_geography
-    # h3n_geo = h3neut_geography
+    def h3neut_geography(self):
+        self._geography(virus_type="h3", assay="neut")
+    h3_geo = h3_geography
 
-    # def h3neut_serum_sectors(self):
-    #     self._make_map(prefix="serumsectors", virus_type="h3", assay="neut", mods=["clade", "serum_sectors"])
+    def h3neut_ts(self):
+        self._ts(virus_type="h3", assay="neut")
 
-    # def h3neut_serum_coverage(self):
-    #     self._make_map(prefix="serumcoverage-hk", virus_type="h3", assay="neut", mods=["clade", "serum_sectors", "serum_coverage_hk"])
-    #     self._make_map(prefix="serumcoverage-sw", virus_type="h3", assay="neut", mods=["clade", "serum_sectors", "serum_coverage_sw"])
+    def h3neut_serum_sectors(self):
+        self._serum_sectors(virus_type="h3", assay="neut")
 
-    # def h3neut_ts(self):
-    #     self._make_ts(virus_type="h3", assay="neut", mods=self._ts_mods())
-
-    # def h3neut_ian201709(self):
-    #     self._make_map(prefix="ian201709", virus_type="h3", assay="neut", mods=["clade_light", "ian201709"])
-
-    # def h3neut_information(self):
-    #     self._make_map(prefix="information", virus_type="h3", assay="neut", mods=["information"], information_meeting=True)
+    def h3neut_serum_coverage(self):
+        make_map(prefix="serumcoverage-hk", virus_type="h3", assay="neut", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
 
     # # ----------------------------------------------------------------------
     # # BVIC HI

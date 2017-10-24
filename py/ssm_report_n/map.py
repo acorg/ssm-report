@@ -132,7 +132,6 @@ def make_ts(output_dir, virus_type, assay, force):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
     if report_settings["cover"]["teleconference"]:
-        module_logger.warning("COMPARE with previous!")
         compare_with_previous = [{"N": "antigens", "select": {"test": True}, "size": 5, "order": "raise"},
                                      {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": 8, "order": "raise"}]
     else:
