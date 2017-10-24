@@ -33,6 +33,9 @@ sApplyFor = {
     "clade_12m": [
         {"N": "clades_last_12_months", "size": 8}
         ],
+    "geography": [
+        {"N": "continents", "size": 8}
+        ],
 }
 
 sTitleFor = {
@@ -52,6 +55,12 @@ sTitleFor = {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
             "neut": "{lab} {virus_type} {assay} by clade",
+        },
+    },
+    "geography": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay} by geography",
+            "neut": "{lab} {virus_type} {assay} by geography",
         },
     },
 }

@@ -233,9 +233,9 @@ class Processor:
     # def h3_serology(self):
     #     self._make_map(prefix="serology", virus_type="h3", assay="hi", mods=["clade_light", "serology"])
 
-    # def h3_geography(self):
-    #     self._make_map(prefix="geography", virus_type="h3", assay="hi", mods=["geography"])
-    # h3_geo = h3_geography
+    def h3_geography(self):
+        self._geography(virus_type="h3", assay="hi")
+    h3_geo = h3_geography
 
     # def h3_serum_sectors(self):
     #     self._make_map(prefix="serumsectors", virus_type="h3", assay="hi", mods=["clade", "serum_sectors"])
@@ -440,6 +440,9 @@ class Processor:
 
     def _clade_12m(self, virus_type, assay):
         make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+
+    def _geography(self, virus_type, assay):
+        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
     # ----------------------------------------------------------------------
 
