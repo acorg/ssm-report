@@ -4,9 +4,9 @@ import subprocess
 
 from .map import make_map, make_ts, make_map_information
 from .stat import make_stat
+from .geographic import make_geographic
 
 # from .settings import report_settings, map_settings
-# from .geographic import make_geographic, geographic_settings
 # from .map import make_index_html as maps_make_index_html
 # from .signature_page import tree_make, signature_page_make
 
@@ -89,9 +89,9 @@ class Processor:
         """make statistics for antigens and sera found in WHO CC HI tables"""
         make_stat(stat_dir=self.r_dir("stat"), hidb_dir=self._db_dir(), force=self._force)
 
-    # def geo(self):
-    #     """make geographic time series"""
-    #     make_geographic(geo_dir=self.r_dir("geo"), hidb_dir=self._db_dir(), seqdb_dir=self._db_dir(), report_settings=report_settings(), geographic_settings=geographic_settings(), force=self._force)
+    def geo(self):
+        """make geographic time series"""
+        make_geographic(geo_dir=self.r_dir("geo"), db_dir=self._db_dir(), force=self._force)
 
         # ----------------------------------------------------------------------
 
