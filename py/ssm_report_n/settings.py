@@ -93,7 +93,7 @@ s_h1_hi_ALL_data = """
         "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "ALL_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "ALL_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -128,7 +128,7 @@ s_h1_hi_CDC_data = """
         "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "CDC_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "CDC_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -191,7 +191,7 @@ s_h3_hi_CDC_data = """
         {"?N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "report": true, "outline": "black", "fill": "red", "size": 26, "show": true, "order": "raise"}
     ],
     "CDC_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "CDC_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -223,7 +223,7 @@ s_h3_hi_MELB_data = """
         {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant"}}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"}
     ],
     "MELB_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "MELB_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -258,7 +258,7 @@ s_h3_hi_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "NIMR_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -325,7 +325,7 @@ s_h3_neut_CDC_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "CDC_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "CDC_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -360,7 +360,7 @@ s_h3_neut_MELB_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "MELB_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "MELB_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -395,7 +395,7 @@ s_h3_neut_NIID_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIID_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "NIID_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -430,7 +430,7 @@ s_h3_neut_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "NIMR_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -463,7 +463,7 @@ s_bvic_hi_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 24}}
     ]"""
 
-# --------------- CDC -------------------------------------------------------
+# --------------- CDC B/Vic HI -------------------------------------------------------
 
 s_bvic_hi_CDC_data = """
     "CDC_vaccines": [
@@ -475,7 +475,7 @@ s_bvic_hi_CDC_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
@@ -483,7 +483,7 @@ s_bvic_hi_CDC_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "CDC_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "CDC_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -498,7 +498,7 @@ s_bvic_hi_CDC_data = """
     "CDC_post": [
     ]"""
 
-# --------------- MELB -------------------------------------------------------
+# --------------- MELB B/Vic HI -------------------------------------------------------
 
 s_bvic_hi_MELB_data = """
     "MELB_vaccines": [
@@ -510,7 +510,7 @@ s_bvic_hi_MELB_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
@@ -518,13 +518,13 @@ s_bvic_hi_MELB_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "MELB_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "MELB_rotate": [
       {"N": "rotate", "degrees": 0}
     ],
     "MELB_viewport": [
-      {"N": "viewport", "rel": [0, 0, 0]}
+      {"N": "viewport", "rel": [4, 6.5, -7]}
     ],
     "MELB_pre": [
     ],
@@ -533,7 +533,7 @@ s_bvic_hi_MELB_data = """
     "MELB_post": [
     ]"""
 
-# --------------- NIID -------------------------------------------------------
+# --------------- NIID B/Vic HI -------------------------------------------------------
 
 s_bvic_hi_NIID_data = """
     "NIID_vaccines": [
@@ -545,7 +545,7 @@ s_bvic_hi_NIID_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
@@ -553,13 +553,13 @@ s_bvic_hi_NIID_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIID_flip": [
-      "?flip_ew"
+      {"N": "flip", "direction": "ew"}
     ],
     "NIID_rotate": [
-      {"N": "rotate", "degrees": 0}
+      {"N": "rotate", "degrees": 90}
     ],
     "NIID_viewport": [
-      {"N": "viewport", "rel": [0, 0, 0]}
+      {"N": "viewport", "rel": [1.6, 1.2, -3]}
     ],
     "NIID_pre": [
     ],
@@ -568,7 +568,7 @@ s_bvic_hi_NIID_data = """
     "NIID_post": [
     ]"""
 
-# --------------- NIMR -------------------------------------------------------
+# --------------- NIMR B/Vic HI -------------------------------------------------------
 
 s_bvic_hi_NIMR_data = """
     "NIMR_vaccines": [
@@ -580,7 +580,7 @@ s_bvic_hi_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "red",   "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
+      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "egg"        }}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "reassortant"}}, "fill": "green", "report": true, "outline": "black", "size": 26, "show": true, "order": "raise",
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},
@@ -588,13 +588,13 @@ s_bvic_hi_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "NIMR_rotate": [
       {"N": "rotate", "degrees": 0}
     ],
     "NIMR_viewport": [
-      {"N": "viewport", "rel": [0, 0, 0]}
+      {"N": "viewport", "rel": [4, 4, -7]}
     ],
     "NIMR_pre": [
     ],
@@ -621,7 +621,7 @@ s_byam_hi_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 24}}
     ]"""
 
-# --------------- CDC -------------------------------------------------------
+# --------------- B/Yam HI CDC -------------------------------------------------------
 
 s_byam_hi_CDC_data = """
     "CDC_vaccines": [
@@ -641,7 +641,7 @@ s_byam_hi_CDC_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "CDC_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "CDC_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -656,7 +656,7 @@ s_byam_hi_CDC_data = """
     "CDC_post": [
     ]"""
 
-# --------------- MELB -------------------------------------------------------
+# --------------- B/Yam HI MELB -------------------------------------------------------
 
 s_byam_hi_MELB_data = """
     "MELB_vaccines": [
@@ -676,7 +676,7 @@ s_byam_hi_MELB_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "MELB_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "MELB_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -691,7 +691,7 @@ s_byam_hi_MELB_data = """
     "MELB_post": [
     ]"""
 
-# --------------- NIID -------------------------------------------------------
+# --------------- B/Yam HI NIID -------------------------------------------------------
 
 s_byam_hi_NIID_data = """
     "NIID_vaccines": [
@@ -711,7 +711,7 @@ s_byam_hi_NIID_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIID_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "NIID_rotate": [
       {"N": "rotate", "degrees": 0}
@@ -726,7 +726,7 @@ s_byam_hi_NIID_data = """
     "NIID_post": [
     ]"""
 
-# --------------- NIMR -------------------------------------------------------
+# --------------- B/Yam HI NIMR -------------------------------------------------------
 
 s_byam_hi_NIMR_data = """
     "NIMR_vaccines": [
@@ -746,7 +746,7 @@ s_byam_hi_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_flip": [
-      "?flip_ew"
+      {"?N": "flip", "direction": "ew"}
     ],
     "NIMR_rotate": [
       {"N": "rotate", "degrees": 0}
