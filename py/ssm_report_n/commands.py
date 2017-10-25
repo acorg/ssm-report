@@ -2,7 +2,7 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import subprocess
 
-from .map import make_map, make_ts
+from .map import make_map, make_ts, make_map_information
 from .stat import make_stat
 
 # from .settings import report_settings, map_settings
@@ -216,7 +216,7 @@ class Processor:
         self._ts(virus_type="h1", assay="hi")
 
     def h1_information(self):
-        make_map_information(virus_type="h1", assay="hi", output_dir=self.r_dir("information"))
+        make_map_information(virus_type="h1", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
 
     # ----------------------------------------------------------------------
     # H3 HI
@@ -244,7 +244,7 @@ class Processor:
         make_map(prefix="serumcoverage-hk", virus_type="h3", assay="hi", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
 
     def h3_information(self):
-        make_map_information(virus_type="h3", assay="hi", output_dir=self.r_dir("information"))
+        make_map_information(virus_type="h3", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
 
     # ----------------------------------------------------------------------
     # H3 Neut
@@ -271,6 +271,9 @@ class Processor:
     def h3neut_serum_coverage(self):
         make_map(prefix="serumcoverage-hk", virus_type="h3", assay="neut", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
 
+    def h3neut_information(self):
+        make_map_information(virus_type="h3", assay="neut", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+
     # ----------------------------------------------------------------------
     # BVIC HI
 
@@ -289,7 +292,7 @@ class Processor:
         self._ts(virus_type="bvic", assay="hi")
 
     def bvic_information(self):
-        make_map_information(virus_type="bvic", assay="hi", output_dir=self.r_dir("information"))
+        make_map_information(virus_type="bvic", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
 
     # ----------------------------------------------------------------------
     # BYAM HI
@@ -311,7 +314,7 @@ class Processor:
         self._ts(virus_type="byam", assay="hi")
 
     def byam_information(self):
-        make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information"))
+        make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
 
     # # ----------------------------------------------------------------------
     # # Signature pages

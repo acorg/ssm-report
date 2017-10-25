@@ -24,6 +24,11 @@ sApplyFor = {
         "set_legend",
         "{lab}_post",
         ],
+    "post_information": [
+        "{lab}_mid",
+        "{lab}_vaccines_information",
+        "{lab}_post",
+        ],
     "clade": [
         {"N": "clades", "size": 8}
         ],
@@ -39,6 +44,10 @@ sApplyFor = {
     "serology": [
         {"N": "clades_light", "size": 8},
         "serology",
+        ],
+    "information": [
+        "information",
+        {"N": "legend", "show": False}
         ],
     "serum_sectors": [
         {"N": "clades", "size": 8},
@@ -168,10 +177,10 @@ sTitleFor = {
 
 # ======================================================================
 
-def make_map(output_dir, prefix, virus_type, assay, mod, force):
+def make_map(output_dir, prefix, virus_type, assay, mod, force, settings_labs_key="labs"):
     s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
     settings = json.load(s1_filename.open())
-    for lab in settings["labs"]:
+    for lab in settings[settings_labs_key]:
         module_logger.info("{}\nINFO:{} {} {} {} {}\nINFO: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), mod, " "* 93))
         output_prefix = prefix + "-" + lab.lower()
 
@@ -249,23 +258,29 @@ def make_periods(start, end, period):
 # ----------------------------------------------------------------------
 
 def make_pre_post(virus_type, assay, mod, lab, period_name=None):
-    title = {
-        "N": "title",
-        "background": "transparent",
-        "border_width": 0,
-        "text_size": 24,
-        "font_weight": "bold",
-        "display_name": [sTitleFor[mod][virus_type][assay].format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper(), period_name=period_name)],
-    }
-    return (
-        [title] + [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
-        [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post"]]
-        )
+    if mod == "information":
+        return (
+            [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
+            [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post_information"]]
+            )
+    else:
+        title = {
+            "N": "title",
+            "background": "transparent",
+            "border_width": 0,
+            "text_size": 24,
+            "font_weight": "bold",
+            "display_name": [sTitleFor[mod][virus_type][assay].format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper(), period_name=period_name)],
+        }
+        return (
+            [title] + [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
+            [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post"]]
+            )
 
 # ----------------------------------------------------------------------
 
-def make_map_information(output_dir, virus_type, assay):
-    raise NotImplementedError()
+def make_map_information(output_dir, virus_type, assay, force):
+    make_map(output_dir=output_dir, prefix=virus_type + "-" + assay, virus_type=virus_type, assay=assay, mod="information", force=force, settings_labs_key="information_labs")
 
 # ======================================================================
 ### Local Variables:
