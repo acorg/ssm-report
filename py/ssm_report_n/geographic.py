@@ -3,7 +3,7 @@ from pathlib import Path
 import sys, pprint, datetime, copy
 
 from acmacs_base.json import read_json, write_json
-from acmacs_map_draw import geographic_time_series
+#from acmacs_map_draw import geographic_time_series
 
 # ----------------------------------------------------------------------
 
