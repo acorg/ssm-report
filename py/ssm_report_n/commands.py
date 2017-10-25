@@ -3,9 +3,9 @@ from pathlib import Path
 import subprocess
 
 from .map import make_map, make_ts
+from .stat import make_stat
 
 # from .settings import report_settings, map_settings
-# from .stat import make_stat
 # from .geographic import make_geographic, geographic_settings
 # from .map import make_index_html as maps_make_index_html
 # from .signature_page import tree_make, signature_page_make
@@ -85,9 +85,9 @@ class Processor:
         self.bvic()
         self.byam()
 
-    # def stat(self):
-    #     """make statistics for antigens and sera found in WHO CC HI tables"""
-    #     make_stat(stat_dir=self.r_dir("stat"), hidb_dir=self._db_dir(), settings=report_settings(), force=self._force)
+    def stat(self):
+        """make statistics for antigens and sera found in WHO CC HI tables"""
+        make_stat(stat_dir=self.r_dir("stat"), hidb_dir=self._db_dir(), force=self._force)
 
     # def geo(self):
     #     """make geographic time series"""
