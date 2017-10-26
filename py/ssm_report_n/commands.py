@@ -5,10 +5,11 @@ import subprocess
 from .map import make_map, make_ts, make_map_information
 from .stat import make_stat
 from .geographic import make_geographic
+from .signature_page import tree_make
 
 # from .settings import report_settings, map_settings
 # from .map import make_index_html as maps_make_index_html
-# from .signature_page import tree_make, signature_page_make
+# from .signature_page import signature_page_make
 
 # ======================================================================
 
@@ -95,12 +96,28 @@ class Processor:
 
         # ----------------------------------------------------------------------
 
-    # def tree(self):
-    #     """Generate tree images for all subtypes."""
-    #     self.h1_tree()
-    #     self.h3_tree()
-    #     self.bvic_tree()
-    #     self.byam_tree()
+    def tree(self):
+        """Generate tree images for all subtypes."""
+        self.h1_tree()
+        self.h3_tree()
+        self.bvic_tree()
+        self.byam_tree()
+
+    def h1_tree(self):
+        """instructions on making phylogenetic trees"""
+        tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
+    def h3_tree(self):
+        """instructions on making phylogenetic trees"""
+        tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
+    def bvic_tree(self):
+        """instructions on making phylogenetic trees"""
+        tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
+    def byam_tree(self):
+        """instructions on making phylogenetic trees"""
+        tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
 
     # def tree_information(self):
     #     """Generate tree images for all subtypes."""
@@ -108,22 +125,6 @@ class Processor:
     #     self.h3_tree_information()
     #     self.bvic_tree_information()
     #     self.byam_tree_information()
-
-    # def h1_tree(self):
-    #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
-
-    # def h3_tree(self):
-    #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
-
-    # def bvic_tree(self):
-    #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
-
-    # def byam_tree(self):
-    #     """instructions on making phylogenetic trees"""
-    #     tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), report_settings=report_settings())
 
     # def h1_tree_information(self):
     #     tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
