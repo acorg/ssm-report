@@ -5,10 +5,7 @@ import subprocess
 from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html
 from .stat import make_stat
 from .geographic import make_geographic
-from .signature_page import tree_make
-
-# from .settings import report_settings, map_settings
-# from .signature_page import signature_page_make
+from .signature_page import tree_make, signature_page_make
 
 # ======================================================================
 
@@ -182,19 +179,19 @@ class Processor:
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=self.r_dir("sp"), output_dir=self.r_dir("report"))
 
-    # def update_merges(self):
-    #     target_dir = self._merges_dir()
-    #     module_logger.info("Updating merges in " + repr(str(target_dir)))
-    #     from . import acmacs
-    #     acmacs.get_recent_merges(target_dir, session=self._session, force=True)
+    def update_merges(self):
+        target_dir = self._merges_dir()
+        module_logger.info("Updating merges in " + repr(str(target_dir)))
+        from . import acmacs
+        acmacs.get_recent_merges(target_dir, force=True)
 
-    # def h1_overlay(self):
-    #     target_dir = self._merges_dir()
-    #     from . import acmacs
-    #     acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir(), force=True)
+    def h1_overlay(self):
+        target_dir = self._merges_dir()
+        from . import acmacs
+        acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir(), force=True)
 
-    # def update_hidb(self):
-    #     self._get_hidb()
+    def update_hidb(self):
+        self._get_hidb()
 
     # ----------------------------------------------------------------------
     # H1 HI
@@ -314,50 +311,50 @@ class Processor:
     def byam_information(self):
         make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
 
-    # # ----------------------------------------------------------------------
-    # # Signature pages
+    # ----------------------------------------------------------------------
+    # Signature pages
 
-    # def signature_page(self):
-    #     """Generate all signature pages"""
-    #     self.sp_h1()
-    #     self.sp_h3()
-    #     self.sp_h3neut()
-    #     self.sp_bvic()
-    #     self.sp_byam()
+    def signature_page(self):
+        """Generate all signature pages"""
+        self.sp_h1()
+        self.sp_h3()
+        self.sp_h3neut()
+        self.sp_bvic()
+        self.sp_byam()
 
-    # sp = signature_page
-    # sigp = signature_page
-    # signature_pages = signature_page
+    sp = signature_page
+    sigp = signature_page
+    signature_pages = signature_page
 
-    # def sp_h1(self):
-    #     self.sp_h1_all()
-    #     self.sp_h1_cdc()
-    #     self.sp_h1_melb()
-    #     self.sp_h1_niid()
-    #     self.sp_h1_nimr()
+    def sp_h1(self):
+        self.sp_h1_all()
+        self.sp_h1_cdc()
+        self.sp_h1_melb()
+        self.sp_h1_niid()
+        self.sp_h1_nimr()
 
-    # def sp_h3(self):
-    #     self.sp_h3_cdc()
-    #     self.sp_h3_melb()
-    #     self.sp_h3_nimr()
+    def sp_h3(self):
+        self.sp_h3_cdc()
+        self.sp_h3_melb()
+        self.sp_h3_nimr()
 
-    # def sp_h3neut(self):
-    #     self.sp_h3neut_cdc()
-    #     self.sp_h3neut_melb()
-    #     self.sp_h3neut_niid()
-    #     self.sp_h3neut_nimr()
+    def sp_h3neut(self):
+        self.sp_h3neut_cdc()
+        self.sp_h3neut_melb()
+        self.sp_h3neut_niid()
+        self.sp_h3neut_nimr()
 
-    # def sp_bvic(self):
-    #     self.sp_bvic_cdc()
-    #     self.sp_bvic_melb()
-    #     self.sp_bvic_niid()
-    #     self.sp_bvic_nimr()
+    def sp_bvic(self):
+        self.sp_bvic_cdc()
+        self.sp_bvic_melb()
+        self.sp_bvic_niid()
+        self.sp_bvic_nimr()
 
-    # def sp_byam(self):
-    #     self.sp_byam_cdc()
-    #     self.sp_byam_melb()
-    #     self.sp_byam_niid()
-    #     self.sp_byam_nimr()
+    def sp_byam(self):
+        self.sp_byam_cdc()
+        self.sp_byam_melb()
+        self.sp_byam_niid()
+        self.sp_byam_nimr()
 
     def _make_sp_makers(self):
         def mf(subtype, assay, lab):
@@ -451,12 +448,12 @@ class Processor:
     def _seqdb_file(self):
         return self._db_dir().joinpath("seqdb.json.xz")
 
-    # def _get_merges(self):
-    #     target_dir = self._merges_dir()
-    #     module_logger.info("Updating merges in " + repr(str(target_dir)))
-    #     from . import acmacs
-    #     acmacs.get_recent_merges(target_dir, session=self._session)
-    #     acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir())
+    def _get_merges(self):
+        target_dir = self._merges_dir()
+        module_logger.info("Updating merges in " + repr(str(target_dir)))
+        from . import acmacs
+        acmacs.get_recent_merges(target_dir)
+        acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir())
 
     def _use_dir(self, name, mkdir=True):
         target_dir = Path(name).resolve(strict=False)
