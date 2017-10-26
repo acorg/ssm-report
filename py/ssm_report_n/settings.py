@@ -10,7 +10,7 @@ def make_settings(force=False):
     from .settings_report import make_report_settings
     make_report_settings()
     from .geographic import make_geographic_settings
-    make_geographic_settings()
+    make_geographic_settings(force=force)
     for entry in [
             {"virus_type": "h3", "assay": "hi"},
             {"virus_type": "h3", "assay": "neut"},
