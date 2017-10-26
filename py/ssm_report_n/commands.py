@@ -119,24 +119,24 @@ class Processor:
         """instructions on making phylogenetic trees"""
         tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
 
-    # def tree_information(self):
-    #     """Generate tree images for all subtypes."""
-    #     self.h1_tree_information()
-    #     self.h3_tree_information()
-    #     self.bvic_tree_information()
-    #     self.byam_tree_information()
+    def tree_information(self):
+        """Generate tree images for all subtypes."""
+        self.h1_tree_information()
+        self.h3_tree_information()
+        self.bvic_tree_information()
+        self.byam_tree_information()
 
-    # def h1_tree_information(self):
-    #     tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    def h1_tree_information(self):
+        tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
 
-    # def h3_tree_information(self):
-    #     tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    def h3_tree_information(self):
+        tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
 
-    # def bvic_tree_information(self):
-    #     tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    def bvic_tree_information(self):
+        tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
 
-    # def byam_tree_information(self):
-    #     tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), report_settings=report_settings(), settings_infix="information")
+    def byam_tree_information(self):
+        tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
 
         # ----------------------------------------------------------------------
 
