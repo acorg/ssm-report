@@ -311,7 +311,7 @@ class LatexSignaturePageAddendum (LatexReport):
             })
 
     def add_pdfs(self):
-        from .display_name import sLabOrder
+        from .stat import sLabOrder
         self.add_pdf(subtype="h1", assay="hi", lab="all")
         for lab in sLabOrder:
             self.add_pdf(subtype="h3", assay="hi", lab=lab.lower())
