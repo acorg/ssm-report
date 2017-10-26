@@ -177,6 +177,8 @@ sTitleFor = {
 
 # ======================================================================
 
+sDirsForIndex = set()
+
 def make_map(output_dir, prefix, virus_type, assay, mod, force, settings_labs_key="labs"):
     s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
     settings = json.load(s1_filename.open())
@@ -194,6 +196,7 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, settings_labs_ke
             pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
         script_filename.chmod(0o700)
         subprocess.check_call(str(script_filename))
+    sDirsForIndex.add(output_dir)
 
 # ----------------------------------------------------------------------
 
@@ -281,6 +284,41 @@ def make_pre_post(virus_type, assay, mod, lab, period_name=None):
 
 def make_map_information(output_dir, virus_type, assay, force):
     make_map(output_dir=output_dir, prefix=virus_type + "-" + assay, virus_type=virus_type, assay=assay, mod="information", force=force, settings_labs_key="information_labs")
+
+# ----------------------------------------------------------------------
+
+def make_index_html():
+    for output_dir in sDirsForIndex:
+        if output_dir.name != "information":
+            module_logger.info('making html index in {}'.format(output_dir))
+            with output_dir.joinpath("index.html").open("w") as f:
+                title = "{} {}".format(output_dir.name.upper(), output_dir.parent.name)
+                f.write("""<html><head>
+                        <style>
+                          ul {list-style-type: none;}
+                          li {margin: 0.5em 0; }
+                          object {width: 800px; height: 815px;}
+                          td {vertical-align: top; border-bottom: 1px solid grey; padding-bottom: 1em;}
+                          td.vaccine-data {padding-left: 1em;}
+                          td.vaccine-data div {height: 815px; overflow: auto; white-space: nowrap;}
+                          .vaccine-report { font-size: 1em; }
+                          .vaccine-title { display: none; }
+                          .vaccine-chosen { padding-left: 1em; font-weight: bold; }
+                          .vaccine-header { }
+                          .antigen-name { padding-left: 1em; }
+                          .serum-name { padding-left: 3em; }
+                        </style>
+                        <title>%(title)s</title></head><body>\n""" % {"title": title})
+                # img {border: 1px solid black;}
+                for filename in sorted(output_dir.glob("*.pdf")):
+                    f.write("<h3>{} {}</h3>\n".format(output_dir.name.upper(), filename.stem))
+                    # f.write('<img src="{}" />\n'.format(filename.name))
+                    f.write('<table><tbody><tr>\n<td><object data="{}#toolbar=0"></object></td>\n'.format(filename.name)) # toolbar=0 is for chrome
+                    vaccine_data_file = output_dir.joinpath(filename.stem + ".vaccines.html")
+                    if vaccine_data_file.exists():
+                        f.write("<td class=\"vaccine-data\"><div>" + vaccine_data_file.open().read() + "</div></td>")
+                    f.write("</tr></tbody></table>\n")
+                f.write("</body></html>\n")
 
 # ======================================================================
 ### Local Variables:

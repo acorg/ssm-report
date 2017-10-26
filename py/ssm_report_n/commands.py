@@ -2,13 +2,12 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import subprocess
 
-from .map import make_map, make_ts, make_map_information
+from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html
 from .stat import make_stat
 from .geographic import make_geographic
 from .signature_page import tree_make
 
 # from .settings import report_settings, map_settings
-# from .map import make_index_html as maps_make_index_html
 # from .signature_page import signature_page_make
 
 # ======================================================================
@@ -32,7 +31,6 @@ class Processor:
     def __init__(self, verbose, force):
         self._verbose = verbose
         self._force = force
-        self._map_dirs = set()
         self._make_sp_makers()
 
     def _process(self, commands):
@@ -42,8 +40,7 @@ class Processor:
             for command in commands:
                 command = command.replace("-", "_").lower()
                 getattr(self, command)()
-            for map_dir in self._map_dirs:
-                maps_make_index_html(map_dir)
+            maps_make_index_html()
 
     def init(self):
         """initialize ssm report data directory structure"""
