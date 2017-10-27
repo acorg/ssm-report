@@ -123,6 +123,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
     _signature_page_update_viewport(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     # update vaccine drawing from ssm settings
     _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
+    _signature_page_add_antigen_sample(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
 
     write_json(settings_file, settings)
 
@@ -130,42 +131,37 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
 
 def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):
 
-    vaccines = map_settings["mods"][lab.upper() + "_vaccines"] # in the map-draw format
-    # convert to the old format
+    def make_entry(map_draw_entry):
+        module_logger.debug("map_draw_entry {}".format(map_draw_entry))
+        sigp_entry = {"show": map_draw_entry.get("show", True), "label": {"offset": [0, 1]}}
+        try:
+            sigp_entry["type"] = map_draw_entry["select"]["vaccine"]["type"]
+        except KeyError:
+            pass
+        try:
+            sigp_entry["passage"] = map_draw_entry["select"]["vaccine"]["passage"]
+        except KeyError:
+            pass
+        try:
+            sigp_entry["fill"] = map_draw_entry["fill"]
+        except KeyError:
+            pass
+        module_logger.debug("sigp_entry {}".format(sigp_entry))
+        return sigp_entry
 
     _remove_mod_entries(settings, "vaccines")
 
-    # try:
-    #     for v_mod in map_settings["mods"][lab.upper() + "_vaccines"]:
-    #         if vp_mod.get("N") == "viewport":
-    #             viewport = vp_mod
-    # except KeyError:
-    #     pass
+    vaccines = map_settings["mods"][lab.upper() + "_vaccines"] # in the map-draw format
+    # convert to the old format
 
-    # def fix_map_mod(mm):
-    #     return {k: v for k,v in mm.items() if k not in ["size", "label"]}
+    mods = ([
+        {"outline": "white", "size": 15, "label": {"color": "black", "font_family": "helvetica neu", "name_type": "abbreviated_location_with_passage_type", "size": 9, "slant": "normal", "weight": "normal"}},
+        ]
+        + [make_entry(e) for e in vaccines])
 
-    # for mod in settings["antigenic_maps"]["mods"]:
-    #     if isinstance(mod, dict) and mod.get("N") == "vaccines":
-    #         vaccine_mods = mod.setdefault("mods", [])
-    #         for map_mod_all in filter(lambda e: e.get("N") == "vaccines", map_settings.get("4_mod_post", [])):
-    #             map_mods = [mm2 for mm2 in (fix_map_mod(mm) for mm in map_mod_all.get("by_lab", {}).get(lab.upper(), {}).get("mods", [])) if mm2]
-    #             # pprint.pprint(map_mods)
-    #         mod["mods"].extend(map_mods)
-    #         break
 
-    # for mod in settings["antigenic_maps"]["mods"]:
-    #     if isinstance(mod, dict) and mod.get("N") == "vaccines":
-    #         vaccine_mods = mod.setdefault("mods", [])
-    #         vaccine_mods1 = list(filter(lambda e: not e.get("label") and not e.get("name"), vaccine_mods))
-    #         # pprint.pprint(vaccine_mods1)
-    #         vaccine_mods2 = list(filter(lambda e: e.get("label") or e.get("name"), vaccine_mods))
-    #         # pprint.pprint(vaccine_mods2)
-    #         for map_mod_all in filter(lambda e: e.get("N") == "vaccines", map_settings.get("4_mod_post", [])):
-    #             map_mods = [mm2 for mm2 in (fix_map_mod(mm) for mm in map_mod_all.get("by_lab", {}).get(lab.upper(), {}).get("mods", [])) if mm2]
-    #             # pprint.pprint(map_mods)
-    #             mod["mods"] = vaccine_mods1 + map_mods + vaccine_mods2
-    #         break
+    vaccine_data = {"N": "vaccines", "mods": mods}
+    settings["antigenic_maps"]["mods"].append(vaccine_data)
 
 # ----------------------------------------------------------------------
 
@@ -192,6 +188,15 @@ def _signature_page_update_viewport(virus_type, assay, lab, settings, map_settin
         settings["antigenic_maps"]["mods"].append(viewport)
     else:
         module_logger.warning("No viewport for {} found".format(lab.upper()))
+
+# ----------------------------------------------------------------------
+
+def _signature_page_add_antigen_sample(virus_type, assay, lab, settings, map_settings):
+    antigen_sample = {"?N": "antigens", "select": {"index": 4981, "name": "TEXAS/2/2013 E5 2015-02-03"}, "shown_on_all": True,
+                          "size": 15, "fill": "pink", "outline": "white",
+                          "label": {"offset": [0, 1], "display_name": "TX/2/13-egg", "size": 9},
+                          "raise_": True, "raise_if_not_found": False}
+    settings["antigenic_maps"]["mods"].append(antigen_sample)
 
 # ======================================================================
 
