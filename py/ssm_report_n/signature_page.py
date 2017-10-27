@@ -85,7 +85,7 @@ def _tree_update_settings_h3(data, settings):
 # ======================================================================
 
 def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb):
-    module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
+    # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
     prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
     tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
@@ -118,7 +118,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
     settings["antigenic_maps"]["columns"] = 3
     settings["signature_page"]["antigenic_maps_width"] = 579
 
-    map_settings=map_settings(virus_type=virus_type, assay=assay)
+    map_settings = read_json("{virus_type}-{assay}.json".format(virus_type=virus_type, assay=assay))
     # update viewport from ssm settings
     _signature_page_update_viewport(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     # update vaccine drawing from ssm settings
@@ -130,17 +130,29 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
 
 def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):
 
-    def fix_map_mod(mm):
-        return {k: v for k,v in mm.items() if k not in ["size", "label"]}
+    vaccines = map_settings["mods"][lab.upper() + "_vaccines"] # in the map-draw format
+    # convert to the old format
 
-    for mod in settings["antigenic_maps"]["mods"]:
-        if isinstance(mod, dict) and mod.get("N") == "vaccines":
-            vaccine_mods = mod.setdefault("mods", [])
-            for map_mod_all in filter(lambda e: e.get("N") == "vaccines", map_settings.get("4_mod_post", [])):
-                map_mods = [mm2 for mm2 in (fix_map_mod(mm) for mm in map_mod_all.get("by_lab", {}).get(lab.upper(), {}).get("mods", [])) if mm2]
-                # pprint.pprint(map_mods)
-            mod["mods"].extend(map_mods)
-            break
+    _remove_mod_entries(settings, "vaccines")
+
+    # try:
+    #     for v_mod in map_settings["mods"][lab.upper() + "_vaccines"]:
+    #         if vp_mod.get("N") == "viewport":
+    #             viewport = vp_mod
+    # except KeyError:
+    #     pass
+
+    # def fix_map_mod(mm):
+    #     return {k: v for k,v in mm.items() if k not in ["size", "label"]}
+
+    # for mod in settings["antigenic_maps"]["mods"]:
+    #     if isinstance(mod, dict) and mod.get("N") == "vaccines":
+    #         vaccine_mods = mod.setdefault("mods", [])
+    #         for map_mod_all in filter(lambda e: e.get("N") == "vaccines", map_settings.get("4_mod_post", [])):
+    #             map_mods = [mm2 for mm2 in (fix_map_mod(mm) for mm in map_mod_all.get("by_lab", {}).get(lab.upper(), {}).get("mods", [])) if mm2]
+    #             # pprint.pprint(map_mods)
+    #         mod["mods"].extend(map_mods)
+    #         break
 
     # for mod in settings["antigenic_maps"]["mods"]:
     #     if isinstance(mod, dict) and mod.get("N") == "vaccines":
@@ -166,21 +178,28 @@ def _signature_page_update_viewport(virus_type, assay, lab, settings, map_settin
         return None
 
     viewport = None
-    for entry in map_settings.get("2_mod_vt_pre", []):
-        if entry.get("N") == "viewport":
-            vp = entry.get("by_lab", {}).get(lab.upper(), {}).get("value")
-            if vp:
-                viewport = {"N": "viewport", "viewport": vp}
-            break
+    try:
+        for vp_mod in map_settings["mods"][lab.upper() + "_viewport"]:
+            if vp_mod.get("N") == "viewport":
+                viewport = vp_mod
+    except KeyError:
+        pass
+
     if viewport:
-        vi = viewport_index()
-        if vi is not None:
-            settings["antigenic_maps"]["mods"].append(settings["antigenic_maps"]["mods"][vi])
-            settings["antigenic_maps"]["mods"][-1]["N"] = "?viewport"
-            del settings["antigenic_maps"]["mods"][vi]
+        _remove_mod_entries(settings, "viewport")
+        # add new viewport entry
+        # module_logger.debug("Viewport {}".format(viewport))
         settings["antigenic_maps"]["mods"].append(viewport)
+    else:
+        module_logger.warning("No viewport for {} found".format(lab.upper()))
 
 # ======================================================================
+
+def _remove_mod_entries(settings, key):
+    for index in sorted((no for no, mod in enumerate(settings["antigenic_maps"]["mods"]) if mod.get("N", mod.get("?N")) in [key, "?" + key, key + "?"]), reverse=True):
+        del settings["antigenic_maps"]["mods"][index]
+
+# ----------------------------------------------------------------------
 
 def subprocess_check_call(command):
     module_logger.info(command)
