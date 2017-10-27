@@ -357,15 +357,14 @@ class Processor:
         self.sp_byam_nimr()
 
     def _make_sp_makers(self):
-        def mf(subtype, assay, lab):
-            return lambda: signature_page_make(subtype=subtype, assay=assay, lab=lab, map_settings=map_settings(virus_type=subtype, assay=assay),
-                                                   sp_source_dir=self._sp_source_dir(), sp_output_dir=self._sp_output_dir(),
+        def mf(virus_type, assay, lab):
+            return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._sp_source_dir(), sp_output_dir=self._sp_output_dir(),
                                                    tree_dir=self._use_dir("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file())
         for lab in ["cdc", "melb", "niid", "nimr"]:
-            for subtype, assay in [["h3", "hi"], ["h3", "neut"], ["h1", "hi"], ["bvic", "hi"], ["byam", "hi"]]:
-                setattr(self, "sp_{}{}_{}".format(subtype, assay if assay != "hi" else "", lab), mf(subtype=subtype, assay=assay, lab=lab))
-        for subtype, assay, lab in [["h1", "hi", "all"]]:
-            setattr(self, "sp_{}{}_{}".format(subtype, assay if assay != "hi" else "", lab), mf(subtype=subtype, assay=assay, lab=lab))
+            for virus_type, assay in [["h3", "hi"], ["h3", "neut"], ["h1", "hi"], ["bvic", "hi"], ["byam", "hi"]]:
+                setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), mf(virus_type=virus_type, assay=assay, lab=lab))
+        for virus_type, assay, lab in [["h1", "hi", "all"]]:
+            setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), mf(virus_type=virus_type, assay=assay, lab=lab))
 
     # ----------------------------------------------------------------------
 

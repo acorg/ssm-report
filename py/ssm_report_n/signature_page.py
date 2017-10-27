@@ -84,28 +84,28 @@ def _tree_update_settings_h3(data, settings):
 
 # ======================================================================
 
-def signature_page_make(subtype, assay, lab, map_settings, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb):
-    # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
-    prefix = "{}-{}-{}".format(subtype, lab, assay)
+def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb):
+    module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
+    prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
-    tree = tree_dir.joinpath(subtype + ".tree.json.xz")
-    tree_settings = sp_source_dir.joinpath(subtype + ".tree.settings.json")
-    # chart = merge_dir.joinpath("{}-{}-{}.sdb.xz".format(lab, subtype.replace("b", "b-").replace("h1", "h1pdm"), assay))
-    chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, subtype.replace("b", "b-").replace("h1", "h1pdm"), assay))
+    tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
+    tree_settings = sp_source_dir.joinpath(virus_type + ".tree.settings.json")
+    # chart = merge_dir.joinpath("{}-{}-{}.sdb.xz".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
+    chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
     pdf = sp_output_dir.joinpath(prefix + ".pdf")
     if not settings.exists():
         subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' --no-draw --init-settings '{settings}' --tree '{tree}' -o '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
-        _signature_page_update_settings(subtype=subtype, assay=assay, lab=lab, settings_file=settings, map_settings=map_settings)
+        _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings)
     subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' -s '{settings}' --tree '{tree}' -o '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_settings(subtype, assay, lab, settings_file, map_settings):
+def _signature_page_update_settings(virus_type, assay, lab, settings_file):
     settings = read_json(settings_file)
-    if subtype == "h3":
-        settings["title"]["title"] = "{} {} {}".format(sVirusTypeShort[subtype], assay.upper(), sLabDisplayName[lab.upper()])
+    if virus_type == "h3":
+        settings["title"]["title"] = "{} {} {}".format(sVirusTypeShort[virus_type], assay.upper(), sLabDisplayName[lab.upper()])
     else:
-        settings["title"]["title"] = "{} {}".format(sVirusTypeShort[subtype], sLabDisplayName[lab.upper()])
+        settings["title"]["title"] = "{} {}".format(sVirusTypeShort[virus_type], sLabDisplayName[lab.upper()])
     settings.pop("clades", None)
     settings.pop("hz_sections", None)
     settings.pop("time_series", None)
@@ -118,16 +118,17 @@ def _signature_page_update_settings(subtype, assay, lab, settings_file, map_sett
     settings["antigenic_maps"]["columns"] = 3
     settings["signature_page"]["antigenic_maps_width"] = 579
 
+    map_settings=map_settings(virus_type=virus_type, assay=assay)
     # update viewport from ssm settings
-    _signature_page_update_viewport(subtype=subtype, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
+    _signature_page_update_viewport(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     # update vaccine drawing from ssm settings
-    _signature_page_update_vaccines(subtype=subtype, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
+    _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
 
     write_json(settings_file, settings)
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_vaccines(subtype, assay, lab, settings, map_settings):
+def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):
 
     def fix_map_mod(mm):
         return {k: v for k,v in mm.items() if k not in ["size", "label"]}
@@ -156,7 +157,7 @@ def _signature_page_update_vaccines(subtype, assay, lab, settings, map_settings)
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_viewport(subtype, assay, lab, settings, map_settings):
+def _signature_page_update_viewport(virus_type, assay, lab, settings, map_settings):
 
     def viewport_index():
         for no, mod in enumerate(settings["antigenic_maps"]["mods"]):
