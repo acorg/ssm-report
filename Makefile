@@ -11,8 +11,8 @@ include $(ACMACSD_ROOT)/share/makefiles/Makefile.dist-build.vars
 all: check-acmacsd-root install
 
 install: check-acmacsd-root
-	ln -sf $(abspath py)/ssm_report_n $(AD_PY)
-	ln -sf $(abspath bin)/ssm-report-n $(AD_BIN)
+	ln -sf $(abspath py)/ssm_report $(AD_PY)
+	ln -sf $(abspath bin)/ssm-report $(AD_BIN)
 
 test: install
 	echo "WARNING: ssm-report test not implemented yet" >&2
