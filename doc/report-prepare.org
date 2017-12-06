@@ -1,0 +1,32 @@
+* Gisaid
+** visit [http://gisaid.org](http://gisaid.org) and login (at right)
+** Click EpiFlu (top middle)
+** Hold Cmd and click A and B in the Type.
+** Set COLLECTION date From to 2017-08-01 (or later depending on the number of isolates upon search, see below)
+** _Leave originating lab empty!_
+** Select **Submitting lab** them all using Cmd
+
+    (Change height of the submitting lab <select> 500px)
+
+         [Australia, North Melbourne] WHO CC ...
+         [United Kingdom, London] National Institute for Medical Research
+         [United Kingdom, London] Crick
+         [United states, Atlanta] CDC
+         ? [China, Bejing] WHO Chinese National Influenza Center
+
+** Required segments: HA
+** Click Search. Total must not exceed 20k isolates (gisaid does not allow downloading more)
+** Click leftmost checkbox in header to select all
+** Click Download
+** Format: Sequences (DNA) as FASTA
+** DNA: HA
+** FASTA Header: Isolate name |  Collection date | Passage details/history |  Sample ID by submitting lab | Submitting lab | Type |  Lineage
+** Date format: YYYY-MM-DD
+** Click download
+** Install file: ~/AD/sources/ssm-report/bin/gisaid-fasta-install (just run it without arguments)
+** make seqdb from newly downloaded fasta file only just to check file content and hidb matching
+   ad seqdb-create --db /r/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /r/not-found.txt ~/ac/tables-store/sequences/gisaid-all-20170801-20171104.fas.bz2
+* initialize report dirs
+
+  mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
+  ad ssm-report --working-dir . init

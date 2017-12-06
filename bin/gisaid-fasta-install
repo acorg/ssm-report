@@ -1,0 +1,75 @@
+#! /bin/bash
+
+SRC="$HOME/Downloads/gisaid_epiflu_sequence.fasta"
+if [[ ! -f "$SRC" ]]; then
+    SRC="/r/gisaid_epiflu_sequence.fasta"
+fi
+TARGET_DIR="$HOME/ac/tables-store/sequences"
+
+main()
+{
+    if [ ! -f "$SRC" ]; then
+        echo "ERROR: $SRC not found" >&2
+        exit 1
+    fi
+    clear_resource_fork
+    dos_to_unix
+    DATES=$(sequence_dates)
+    START_DATE=$(normalize_date $(first_line "$DATES"))
+    END_DATE=$(normalize_date $(last_line "$DATES"))
+    echo "START_DATE: $START_DATE"
+    echo "END_DATE:   $END_DATE"
+    NEW_NAME="$TARGET_DIR"/gisaid-all-"$START_DATE"-"$END_DATE".fas.bz2
+    if [ -f "$NEW_NAME" ]; then
+        echo "ERROR: $NEW_NAME already exists!" >&2
+        exit 1
+    fi
+    bzip2 -9vc "$SRC" > "$NEW_NAME"
+    echo "$NEW_NAME"
+    echo
+    echo "   rm $SRC"
+    echo
+    ssax
+}
+
+clear_resource_fork()
+{
+    if [ -x /usr/bin/xattr ]; then
+        for a in $(xattr "$SRC"); do
+            xattr -d "$a" "$SRC"
+        done
+    fi
+}
+
+dos_to_unix()
+{
+    dos2unix "$SRC"
+}
+
+normalize_date()
+{
+    # strip spaces and -
+    printf "%s" "${1//[[:space:]\-]/}"
+}
+
+sequence_dates()
+{
+    grep "^>" "$SRC" | cut -d '|' -f 2 | sort -u
+}
+
+first_line()
+{
+    printf "%s" "${1%%$'\n'*}"
+}
+
+last_line()
+{
+    printf "%s" "${1##*$'\n'}"
+}
+
+main
+
+# ======================================================================
+### Local Variables:
+### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
+### End:
