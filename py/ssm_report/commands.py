@@ -43,7 +43,7 @@ class Processor:
         """initialize ssm report data directory structure"""
         self._init_git()
         self._get_dbs()
-        # self._get_merges()
+        self._get_merges()
         self._use_dir("tree")
         self.r_dir("sp")
         from .settings import make_settings

@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import sys, datetime, collections, re, csv, json
+import sys, datetime, collections, re, csv, json, subprocess
 
 from acmacs_base.json import read_json, write_json
 
@@ -60,20 +60,9 @@ def _make_stat(output_dir, hidb_dir, start, end, previous_stat_dir, make_all_nam
 # ----------------------------------------------------------------------
 
 def _compute_stat(output_dir, hidb_dir, start, end):
-    stat_antigens = hidb_m.HiDbStat()
-    stat_sera = hidb_m.HiDbStat()
-    stat_sera_unique = hidb_m.HiDbStat()
-    hidb_m.hidb_setup(hidb_dir=str(hidb_dir), locdb_filename=str(hidb_dir.joinpath("locationdb.json.xz")), verbose=True)
-    for virus_type in ["H1", "H3", "B"]:
-        hidb = hidb_m.get_hidb(virus_type=virus_type, timer=True)
-        hidb.stat_antigens(stat=stat_antigens, start_date=start, end_date=end)
-        hidb.stat_sera(stat=stat_sera, stat_unique=stat_sera_unique, start_date=start, end_date=end)
-    stat_antigens.compute_totals()
-    stat_sera.compute_totals()
-    stat_sera_unique.compute_totals()
-    stat = {"antigens": stat_antigens.as_dict(), "sera": stat_sera.as_dict(), "sera_unique": stat_sera_unique.as_dict(), "date": datetime.date.today().strftime("%Y-%m-%d")}
-    write_json(output_dir.joinpath("stat.json.xz"), stat, indent=2)
-    return stat
+    output = output_dir.joinpath("stat.json.xz")
+    subprocess.check_call("ad hidb5-stat --start '{start}' --end '{end}' --db-dir '{db_dir}' '{output}'".format(start=start, end=end, db_dir=hidb_dir, output=output), shell=True)
+    return read_json(output)
 
 # ----------------------------------------------------------------------
 
@@ -90,9 +79,10 @@ def _load_previous_stat(previous_stat_dir):
 
 def _make_tabs(output_dir, stat, previous_stat):
     for virus_type in stat['antigens']:
-        for lab in stat['antigens'][virus_type]:
-            for period in ('month', 'year'):
-                _make_tab(output_dir=output_dir, output_suffix='.txt', stat=stat, previous_stat=previous_stat, virus_type=virus_type, lab=lab, period=period, make_header=_make_header_tab, make_line=_make_line_tab, make_separator=_make_separator_tab, make_footer=_make_footer_tab)
+        if virus_type != "BUNKNOWN":
+            for lab in stat['antigens'][virus_type]:
+                for period in ('month', 'year'):
+                    _make_tab(output_dir=output_dir, output_suffix='.txt', stat=stat, previous_stat=previous_stat, virus_type=virus_type, lab=lab, period=period, make_header=_make_header_tab, make_line=_make_line_tab, make_separator=_make_separator_tab, make_footer=_make_footer_tab)
 
 # ======================================================================
 
@@ -103,8 +93,8 @@ def _make_tab(output_dir, output_suffix, stat, previous_stat, virus_type, lab, p
     if previous_stat:
         previous_vt = _fix_virus_type_for_previous(virus_type, previous_stat)
         previous_data_antigens = previous_stat['antigens'][previous_vt][lab]
-        previous_data_sera_unique = previous_stat['sera_unique'][previous_vt][lab]
-        previous_data_sera = previous_stat['sera'][previous_vt][lab]
+        previous_data_sera_unique = previous_stat['sera_unique'].get(previous_vt, {}).get(lab, {})
+        previous_data_sera = previous_stat['sera'].get(previous_vt, {}).get(lab, {})
     else:
         previous_data_antigens, previous_data_sera_unique, previous_data_sera = {}, {}, {}
     filename = Path(output_dir, '{lab}-{virus_type}{period}-tab{output_suffix}'.format(virus_type=sVirusTypeForFilename[virus_type.lower()], lab=lab.lower(), period=sPeriodForFilename[period], output_suffix=output_suffix))
