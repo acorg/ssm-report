@@ -57,6 +57,8 @@
   "cover"
   "time_series" (at the end)
   "previous"
+* edit setting files
+e *.json
 * make stat
   ad ssm-report --force stat
 * make trees on albertine
@@ -77,15 +79,8 @@ T=$(tmux new-window -n TREE -P "sleep 3; /home/eu/bin/iterm-badge bvic; cd /syn/
 for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/$vt/YYYY-MMDD-HHMM/tree.json.xz tree/$vt.tree.json.xz; done
 ** preview trees
 for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz --tree tree/$vt.tree.json.xz -o $T/$vt.pdf && open $T/$vt.pdf; done
-* --------------------
-* edit setting files
-
-  cd ~/ac/results/ssm/YYYY-MMDD-*
-  e *.json
-
 * make maps
-
-  $ACMACSD_ROOT/bin/ssm-report --working-dir . all
+ad ssm-report geo
 
   args: stat geo
         h1-clade h1-ts h1-serology
@@ -97,9 +92,7 @@ for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz --tree tree
         h1-overlay (~17min)
 
 ** make lispmds save colored by clade
-
-    ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
-
+ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
 * make trees
 
   $ACMACSD_ROOT/bin/ssm-report --working-dir . tree
