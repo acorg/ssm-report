@@ -26,7 +26,113 @@
 ** Install file: ~/AD/sources/ssm-report/bin/gisaid-fasta-install (just run it without arguments)
 ** make seqdb from newly downloaded fasta file only just to check file content and hidb matching
    ad seqdb-create --db /r/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /r/not-found.txt ~/ac/tables-store/sequences/gisaid-all-20170801-20171104.fas.bz2
-* initialize report dirs
+* initialize report dirs (run in terminal: asks password!)
+  #+BEGIN_SRC bash
+    mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
+    ad ssm-report --working-dir . init
+  #+END_SRC
+  running time: ~ 25 min
+** The command above performs:
+*** inits git at albertine:who-reports and local
+*** downloads hidb from albertine
+*** makes seqdb from all fasta files, not found location names saved to log/not-found-locations.txt
+*** downloads merges from acmacs-web
+*** makes h1pdm overlay merge
+*** generates settings files
+** Individual commands:
+*** update hidb on albertine: ad hidb-update-hidb /syn/eu/log/hidb4-night-build.log
+*** download hidb from albertine: ad hidb-get-from-albertine && cp ~/AD/data/hidb4.*.json.xz db
+*** just re-make seqdb (in case of downloading new sequences or fixing locations)
+  ad ssm-report --working-dir . remake-seqdb
+  running time: ~ 8 min
+*** copy seqdb to ~/AD/data: cp db/seqdb.json.xz ~/AD/data
+*** sync ~/ac/results/ssm/YYYY-MMDD-* and ~/AD/data/seqdb.json.xz to syn: ./sy && rsync ~/AD/data/seqdb.json.xz albertine:AD/data
+*** update merges (in case new tables arrived and processed) and hidb
+  ad ssm-report update-merges (run in terminal, asks password)
+  on albertine: $ACMACSD_ROOT/bin/hidb-update-hidb /syn/eu/log/hidb4-update-hidb4.log (~5min)
+  rm -f stat/* geo/*; ad ssm-report --force update_hidb stat geo
+*** re-make H1pdm overlay merge (~17min)
+  ad ssm-report --working-dir . h1-overlay
+* edit report.json
+  "cover"
+  "time_series" (at the end)
+  "previous"
+* make stat
+  ad ssm-report --force stat
+* --------------------
+* make trees on albertine
+** prepare directories
 
-  mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
-  ad ssm-report --working-dir . init
+  D=$(date +%Y-%m%d-%H%M) && for V in bvic byam h1 h3; do mkdir /syn/eu/ac/results/whocc-tree/$V/$D; cp ~/AD/data/seqdb.json.xz /syn/eu/ac/results/whocc-tree/$V/$D; done
+
+** in each directory export sequences to fasta
+
+  unset v_base && declare -A v_base && v_base=([h3]="HAWAII/22/2012 MDCK" [h1]="SWITZERLAND/9772556/2013 SIAT2" [bvic]="VICTORIA/830/2013 MDCK2" [byam]="B/CHRISTCHURCH/503/2013 MDCK1") && for v in "${!v_base[@]}"; do ( cd /syn/eu/ac/results/whocc-tree/$v/$D && env LD_LIBRARY_PATH=$HOME/AD/lib ~/AD/bin/seqdb-export --db ./seqdb.json.xz --flu $v --recent 4000 --hamming-distance-threshold 160 --tree-maker --base-seq "${v_base[$v]}" source.fas ); done
+
+** in each directory initialize the tree maker
+
+  for V in bvic byam h1 h3; do ( cd /syn/eu/ac/results/whocc-tree/$V/$D && ad tree-maker init ); done
+
+** in each directory edit tree-maker.config: for V in bvic byam h1 h3; do ea /syn/eu/ac/results/whocc-tree/$V/$D/tree-maker.config; done
+
+  modify "machines", "garli_num_runs", "raxml_num_runs"
+
+** in each directory submit maker (in a separate tmux window) and wait for completion
+
+  ad tree-maker wait
+
+  # env LD_LIBRARY_PATH=$HOME/AD/lib ~/AD/bin/tree-maker wait
+
+** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
+
+  for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/$vt/YYYY-MMDD-HHMM/tree.json.xz tree/$vt.tree.json.xz; done
+
+** preview trees
+
+  for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz --tree tree/$vt.tree.json.xz -o $T/$vt.pdf && open $T/$vt.pdf; done
+
+* edit setting files
+
+  cd ~/ac/results/ssm/YYYY-MMDD-*
+  e *.json
+
+* make maps
+
+  $ACMACSD_ROOT/bin/ssm-report --working-dir . all
+
+  args: stat geo
+        h1-clade h1-ts h1-serology
+        h3-ts h3-clade h3-geo h3-serology
+        h3neut-ts h3neut-clade h3neut-geo h3neut-serology
+        bvic-ts bvic-clade bvic-serology
+        byam-ts byam-clade byam-serology
+        update-merges
+        h1-overlay (~17min)
+
+** make lispmds save colored by clade
+
+    ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
+
+* make trees
+
+  $ACMACSD_ROOT/bin/ssm-report --working-dir . tree
+
+  Upon making initial trees, edit settings in tree/
+
+  If not all trees are ready, it's possible to make individual trees
+
+  $ACMACSD_ROOT/bin/ssm-report --working-dir . bvic-tree
+
+* make report
+
+  $ACMACSD_ROOT/bin/ssm-report --working-dir . report
+
+* make signature pages
+
+  ad ssm-report --working-dir . sp
+  ad ssm-report --working-dir . sp-h3-cdc
+  ad ssm-report --working-dir . sp-h3neut-cdc
+
+* make addendum with the signature pages
+
+  $ACMACSD_ROOT/bin/ssm-report --working-dir . addendum
