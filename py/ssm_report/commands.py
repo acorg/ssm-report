@@ -406,12 +406,12 @@ class Processor:
     def _get_dbs(self):
         self._get_locdb()
         self._get_hidb()
-        # self._get_seqdb()
+        self._get_seqdb()
 
     def _get_hidb(self):
         target_dir = self._db_dir()
         module_logger.info("Updating hidb in " + repr(str(target_dir)))
-        subprocess.check_call("rsync -av 'albertine:AD/data/hidb4.*.json.xz' '{}'".format(target_dir), shell=True)
+        subprocess.check_call("rsync -av 'albertine:AD/data/hidb5.*.{{json.xz,hidb5b}}' '{}'".format(target_dir), shell=True)
 
     def _get_locdb(self):
         target_dir = self._db_dir()
@@ -427,20 +427,9 @@ class Processor:
         seqdb_mtime = seqdb_filename.exists() and seqdb_filename.stat().st_mtime
         if not seqdb_mtime or any(ff.stat().st_mtime >= seqdb_mtime for ff in fasta_files):
             module_logger.info("Creating seqdb from " + str(len(fasta_files)) + " fasta files")
-            import seqdb
-            seqdb.create(
-                hidb_dir=self._db_dir(),
-                seqdb_filename=seqdb_filename,
-                fasta_files=fasta_files,
-                match_hidb=True,
-                add_clades=True,
-                save=True,
-                report_all_passages=False,
-                report_identical=False,
-                report_not_aligned_prefixes=None,
-                save_not_found_locations_to=self._log_dir().joinpath("not-found-locations.txt"),
-                verbose=self._verbose
-                )
+            subprocess.check_call("ad seqdb-create --db '{seqdb_filename}' --hidb-dir '{hidb_dir}' --match-hidb --clades --save-not-found-locations '{not_found_locations}' {verbose} '{fasta_files}'".format(
+                seqdb_filename=seqdb_filename, hidb_dir=self._db_dir(), not_found_locations=self._log_dir().joinpath("not-found-locations.txt"), verbose="-v" if self._verbose else "",
+                fasta_files="' '".join(str(f) for f in fasta_files)), shell=True)
         else:
             module_logger.info('seqdb is up to date')
 

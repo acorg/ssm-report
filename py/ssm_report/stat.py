@@ -3,7 +3,6 @@ from pathlib import Path
 import sys, datetime, collections, re, csv, json
 
 from acmacs_base.json import read_json, write_json
-import hidb as hidb_m
 
 # ======================================================================
 
