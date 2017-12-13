@@ -78,7 +78,7 @@ T=$(tmux new-window -n TREE -P "sleep 3; /home/eu/bin/iterm-badge bvic; cd /syn/
 ** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
 for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/$vt/YYYY-MMDD-HHMM/tree.json.xz tree/$vt.tree.json.xz; done
 ** preview trees
-for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz --tree tree/$vt.tree.json.xz -o $T/$vt.pdf && open $T/$vt.pdf; done
+for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz tree/$vt.tree.json.xz $T/$vt.pdf && open $T/$vt.pdf; done
 * make maps
 ad ssm-report geo
 
@@ -95,13 +95,13 @@ ad ssm-report geo
 ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
 * make trees
 
-  $ACMACSD_ROOT/bin/ssm-report --working-dir . tree
+  ad ssm-report tree
 
   Upon making initial trees, edit settings in tree/
 
   If not all trees are ready, it's possible to make individual trees
 
-  $ACMACSD_ROOT/bin/ssm-report --working-dir . bvic-tree
+  ad ssm-report bvic-tree
 
 * make report
 

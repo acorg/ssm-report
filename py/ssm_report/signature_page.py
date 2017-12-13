@@ -29,9 +29,9 @@ def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings"):
     pdf = output_dir.joinpath(subtype + ".tree.pdf")
     settings = tree_dir.joinpath(subtype + ".tree." + settings_infix + ".json")
     if not settings.exists():
-        subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' --tree '{tree}' --output '{pdf}'".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
+        subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
         _tree_update_settings(subtype=subtype, settings=settings)
-    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' --tree '{tree}' --output '{pdf}'".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
+    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
 
 # ----------------------------------------------------------------------
 
@@ -81,6 +81,15 @@ def _tree_update_settings_h3(data, settings):
     data["tree"]["mods"] = [
         {"mod": "hide-if-cumulative-edge-length-bigger-than", "d1": 0.04},
         ]
+    for clade_data in data["clades"]["clades"]:
+        if clade_data["name"] == "3C3A":
+            clade_data["display_name"] = "3C3a"
+        elif clade_data["name"] == "3C2A":
+            clade_data["display_name"] = "3C2a"
+        elif clade_data["name"] == "3C2A1":
+            clade_data["display_name"] = "3C2a1"
+            clade_data["section_inclusion_tolerance"] = 30
+            clade_data["slot"] = 1
 
 # ======================================================================
 
