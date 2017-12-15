@@ -63,10 +63,12 @@ def main(args):
                 os.setsid()
                 original_stdout_fd = sys.stdout.fileno()
                 sys.stdout.close()
-                os.dup2(open("stdout.txt", "w").fileno(), original_stdout_fd)
+                new_stdout = open("stdout.txt", "w")   # do not open inside os.dup2 call to avoid immediate closing of the file
+                os.dup2(new_stdout.fileno(), original_stdout_fd)
                 original_stderr_fd = sys.stderr.fileno()
                 sys.stderr.close()
-                os.dup2(open("stderr.txt", "w").fileno(), original_stderr_fd)
+                new_stderr = open("stderr.txt", "w")   # do not open inside os.dup2 call to avoid immediate closing of the file
+                os.dup2(new_stderr.fileno(), original_stderr_fd)
                 os.execvp("tree-maker", ["wait"])
 
 # ----------------------------------------------------------------------
