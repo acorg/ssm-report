@@ -65,7 +65,7 @@ e *.json
 * make trees on albertine
 ** prepare directories
 (on jagd) ./syput
-ad make-trees-on-albertine $RD/seqdb.json.xz
+ad make-trees-on-albertine --garli 256 --raxml 256 $RD/seqdb.json.xz
 ** OLD prepare directories (before 2017-12-15)
 (on jagd) ./syput
 RD=/syn/eu/ac/results/ssm/YYYY-MMDD-???/db; D=$(date +%Y-%m%d-%H%M) && for V in bvic byam h1 h3; do mkdir /syn/eu/ac/results/whocc-tree/$V/$D; cp $RD/seqdb.json.xz /syn/eu/ac/results/whocc-tree/$V/$D; done
