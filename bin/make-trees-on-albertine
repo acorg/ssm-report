@@ -13,10 +13,12 @@ from acmacs_base import timeit, json
 
 DATA = {
     "i19": {
-        "root_dir": "/syn/eu/ac/results/ssm"
+        "root_dir": "/syn/eu/ac/results/whocc-tree",
+        "submit": True,
     },
     "jagd": {
-        "root_dir": "/r/ssm-report/tree-maker"
+        "root_dir": "/r/ssm-report/tree-maker",
+        "submit": False,
     },
 }
 
@@ -46,12 +48,26 @@ def main(args):
         shutil.copy(args.seqdb[0], seqdb_path)
         subprocess.check_call(["seqdb-export", "--db", seqdb_path, "--flu", vt, "--recent", "4000", "--hamming-distance-threshold", "160", "--tree-maker", "--base-seq", BASE_SEQUENCES[vt], "source.fas"])
         subprocess.check_call(["tree-maker", "init"])
+
+        # edit config
         config = json.read_json(Path("tree-maker.config"))
         del config["_"]
         config["machines"] = list(e.strip() for e in args.machines.split(","))
         config["garli_num_runs"] = args.garli_num_runs
         config["raxml_num_runs"] = args.raxml_num_runs
         json.write_json(Path("tree-maker.config"), config)
+
+        # submit
+        if setup["submit"]:
+            if os.fork() == 0:
+                os.setsid()
+                original_stdout_fd = sys.stdout.fileno()
+                sys.stdout.close()
+                os.dup2(open("stdout.txt", "w").fileno(), original_stdout_fd)
+                original_stderr_fd = sys.stderr.fileno()
+                sys.stderr.close()
+                os.dup2(open("stderr.txt", "w").fileno(), original_stderr_fd)
+                os.execvp("tree-maker", ["wait"])
 
 # ----------------------------------------------------------------------
 

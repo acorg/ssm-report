@@ -66,23 +66,26 @@ e *.json
 ** prepare directories
 (on jagd) ./syput
 ad make-trees-on-albertine --garli 256 --raxml 256 $RD/seqdb.json.xz
+-> tree-maker wait will be running in background and will send email on completion
+** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
+for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/YYYY-MMDD-HHMM/$vt/tree.json.xz tree/$vt.tree.json.xz; done
+** preview trees
+for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz tree/$vt.tree.json.xz $T/$vt.pdf && open $T/$vt.pdf; done
 ** OLD prepare directories (before 2017-12-15)
 (on jagd) ./syput
 RD=/syn/eu/ac/results/ssm/YYYY-MMDD-???/db; D=$(date +%Y-%m%d-%H%M) && for V in bvic byam h1 h3; do mkdir /syn/eu/ac/results/whocc-tree/$V/$D; cp $RD/seqdb.json.xz /syn/eu/ac/results/whocc-tree/$V/$D; done
-** in each directory export sequences to fasta
+*** in each directory export sequences to fasta
 unset v_base && declare -A v_base && v_base=([h3]="HAWAII/22/2012 MDCK" [h1]="SWITZERLAND/9772556/2013 SIAT2" [bvic]="VICTORIA/830/2013 MDCK2" [byam]="B/CHRISTCHURCH/503/2013 MDCK1") && for v in "${!v_base[@]}"; do ( cd /syn/eu/ac/results/whocc-tree/$v/$D && ad seqdb-export --db ./seqdb.json.xz --flu $v --recent 4000 --hamming-distance-threshold 160 --tree-maker --base-seq "${v_base[$v]}" source.fas ); done
-** in each directory initialize the tree maker
+*** in each directory initialize the tree maker
 for V in bvic byam h1 h3; do ( cd /syn/eu/ac/results/whocc-tree/$V/$D && ad tree-maker init ); done
-** in each directory edit tree-maker.config:
+*** in each directory edit tree-maker.config:
 for V in bvic byam h1 h3; do ea /syn/eu/ac/results/whocc-tree/$V/$D/tree-maker.config; done
-*** modify "machines", "garli_num_runs", "raxml_num_runs"
-** in each directory submit maker (in a separate tmux window) and wait for completion
+**** modify "machines", "garli_num_runs", "raxml_num_runs"
+*** in each directory submit maker (in a separate tmux window) and wait for completion
 T=$(tmux new-window -n TREE -P "sleep 3; /home/eu/bin/iterm-badge bvic; cd /syn/eu/ac/results/whocc-tree/bvic/$D; pwd; ad tree-maker wait; bash"); tmux split-window -t "$T" "sleep 3; iterm-badge byam; cd /syn/eu/ac/results/whocc-tree/byam/$D; pwd; ad tree-maker wait; bash"; tmux split-window -h -t "$T" "sleep 3; iterm-badge h1; cd /syn/eu/ac/results/whocc-tree/h1/$D; pwd; ad tree-maker wait; bash"; tmux split-window -h -t "$T" "sleep 3; iterm-badge h3; cd /syn/eu/ac/results/whocc-tree/h3/$D; pwd; ad tree-maker wait; bash"
 # ad tree-maker wait
-** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
+*** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
 for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/$vt/YYYY-MMDD-HHMM/tree.json.xz tree/$vt.tree.json.xz; done
-** preview trees
-for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz tree/$vt.tree.json.xz $T/$vt.pdf && open $T/$vt.pdf; done
 * make maps
 ad ssm-report geo
 
