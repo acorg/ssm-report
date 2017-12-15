@@ -43,7 +43,7 @@ def main(args):
         vt_dir = maker_dir.joinpath(vt)
         vt_dir.mkdir()
         print(vt_dir)
-        os.chdir(vt_dir)
+        os.chdir(str(vt_dir))
         seqdb_path = "seqdb.json.xz"
         shutil.copy(args.seqdb[0], seqdb_path)
         subprocess.check_call(["seqdb-export", "--db", seqdb_path, "--flu", vt, "--recent", "4000", "--hamming-distance-threshold", "160", "--tree-maker", "--base-seq", BASE_SEQUENCES[vt], "source.fas"])
