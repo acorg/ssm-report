@@ -13,6 +13,7 @@ all: check-acmacsd-root install
 install: check-acmacsd-root
 	ln -sf $(abspath py)/ssm_report $(AD_PY)
 	ln -sf $(abspath bin)/ssm-report $(AD_BIN)
+	ln -sf $(abspath bin)/make-trees-on-albertine $(AD_BIN)
 
 test: install
 	echo "WARNING: ssm-report test not implemented yet" >&2

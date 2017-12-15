@@ -1,0 +1,70 @@
+#! /usr/bin/env python3
+# -*- Python -*-
+
+import sys, os, socket, datetime, shutil, subprocess, traceback
+if sys.version_info.major != 3: raise RuntimeError("Run script with python3")
+from pathlib import Path
+sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
+import logging; module_logger = logging.getLogger(__name__)
+
+from acmacs_base import timeit
+
+# ----------------------------------------------------------------------
+
+DATA = {
+    "i19": {
+        "root_dir": "/syn/eu/ac/results/ssm"
+    },
+    "jagd": {
+        "root_dir": "/r/ssm-report/tree-maker"
+    },
+}
+
+BASE_SEQUENCES = {
+    "h3": "HAWAII/22/2012 MDCK",
+    "h1": "SWITZERLAND/9772556/2013 SIAT2",
+    "bvic": "VICTORIA/830/2013 MDCK2",
+    "byam": "B/CHRISTCHURCH/503/2013 MDCK1",
+}
+
+# ----------------------------------------------------------------------
+
+def main(args):
+    try:
+        setup = DATA[socket.gethostname()]
+    except KeyError:
+        raise RuntimeError("This script can be run on the following hosts: " + " ".join(list(DATA)))
+    date = datetime.datetime.now().strftime("%Y-%m%d-%H%M")
+    maker_dir = Path(setup["root_dir"], date)
+    maker_dir.mkdir(parents=True)
+    for vt in BASE_SEQUENCES:
+        vt_dir = maker_dir.joinpath(vt)
+        vt_dir.mkdir()
+        print(vt_dir)
+        seqdb_path = vt_dir.joinpath("seqdb.json.xz")
+        shutil.copy(args.seqdb[0], seqdb_path)
+        subprocess.check_call(["seqdb-export", "--db", seqdb_path, "--flu", vt, "--recent", "4000", "--hamming-distance-threshold", "160", "--tree-maker", "--base-seq", BASE_SEQUENCES[vt], vt_dir.joinpath("source.fas")])
+
+# ----------------------------------------------------------------------
+
+with timeit(sys.argv[0]):
+    try:
+        import argparse
+        parser = argparse.ArgumentParser(description=__doc__)
+        parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
+        parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False)
+
+        parser.add_argument('seqdb', nargs=1, action='store')
+
+        args = parser.parse_args()
+        logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
+        exit_code = main(args)
+    except Exception as err:
+        logging.error('{}\n{}'.format(err, traceback.format_exc()))
+        exit_code = 1
+exit(exit_code)
+
+# ======================================================================
+### Local Variables:
+### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
+### End:
