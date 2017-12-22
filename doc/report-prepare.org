@@ -68,9 +68,11 @@ e *.json
 ad make-trees-on-albertine --garli 256 --raxml 256 $RD/seqdb.json.xz
 -> tree-maker wait will be running in background and will send email on completion
 ** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
-for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/YYYY-MMDD-HHMM/$vt/tree.json.xz tree/$vt.tree.json.xz; done
+ad ssm-report get-trees-from-albertine
+OR
+  for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/YYYY-MMDD-HHMM/$vt/tree.json.xz tree/$vt.tree.json.xz; done
 ** preview trees
-for vt in bvic byam h1 h3; do ~/AD/bin/sigp --seqdb db/seqdb.json.xz tree/$vt.tree.json.xz $T/$vt.pdf && open $T/$vt.pdf; done
+for vt in bvic byam h1 h3; do ad sigp --db-dir db tree/$vt.tree.json.xz $T/$vt.pdf --open; done
 ** OLD prepare directories (before 2017-12-15)
 (on jagd) ./syput
 RD=/syn/eu/ac/results/ssm/YYYY-MMDD-???/db; D=$(date +%Y-%m%d-%H%M) && for V in bvic byam h1 h3; do mkdir /syn/eu/ac/results/whocc-tree/$V/$D; cp $RD/seqdb.json.xz /syn/eu/ac/results/whocc-tree/$V/$D; done

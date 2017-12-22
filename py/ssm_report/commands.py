@@ -5,7 +5,7 @@ import subprocess
 from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html
 from .stat import make_stat
 from .geographic import make_geographic
-from .signature_page import tree_make, signature_page_make
+from .signature_page import tree_make, signature_page_make, trees_get_from_albertine
 
 # ======================================================================
 
@@ -89,6 +89,9 @@ class Processor:
         make_geographic(geo_dir=self.r_dir("geo"), db_dir=self._db_dir(), force=self._force)
 
         # ----------------------------------------------------------------------
+
+    def get_trees_from_albertine(self):
+        trees_get_from_albertine(tree_dir=self._use_dir("tree"))
 
     def tree(self):
         """Generate tree images for all subtypes."""

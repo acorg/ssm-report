@@ -6,6 +6,7 @@ from acmacs_base.json import read_json, write_json
 from .map import sLabDisplayName
 
 sVirusTypeShort = {"A(H1N1)": "H1", "A(H3N2)": "H3", "BVIC": "B/Vic", "BYAM": "B/Yam", "h1": "H1", "h3": "H3", "bvic": "B/Vic", "byam": "B/Yam"}
+sVirusTypes = ["h1", "h3", "bvic", "byam"]
 
 # ======================================================================
 
@@ -16,11 +17,18 @@ def signature_page_output_dir_init(sp_dir):
             f.write(sIndex)
 
 def signature_page_source_dir_init(sp_dir):
-    for subtype in ["h1", "h3", "bvic", "byam"]:
+    for subtype in sVirusTypes:
         for suff in [".tree.json.xz", ".tree.settings.json"]:
             sl = sp_dir.joinpath(subtype + suff)
             if not sl.is_symlink():
                 sl.symlink_to(Path("..", "tree", sl.name))
+
+# ======================================================================
+
+def trees_get_from_albertine(tree_dir):
+    albertine_dir = subprocess.check_output("ssh albertine ls -1d '/syn/eu/ac/results/whocc-tree/20*'", shell=True).decode("utf-8").strip().split("\n")[-1]
+    for vt in sVirusTypes:
+        subprocess_check_call("scp 'albertine:{albertine_dir}/{vt}/tree.json.xz' '{tree_dir}/{vt}.tree.json.xz'".format(albertine_dir=albertine_dir, vt=vt, tree_dir=tree_dir))
 
 # ======================================================================
 
@@ -31,7 +39,7 @@ def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings"):
     if not settings.exists():
         subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
         _tree_update_settings(subtype=subtype, settings=settings)
-    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
+    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}' --open".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
 
 # ----------------------------------------------------------------------
 
@@ -88,10 +96,13 @@ def _tree_update_settings_h3(data, settings):
     for clade_data in data["clades"]["clades"]:
         if clade_data["name"] == "3C3A":
             clade_data["display_name"] = "3C3a"
+            clade_data["label_offset"] = [5, 0]
         elif clade_data["name"] == "3C2A":
             clade_data["display_name"] = "3C2a"
+            clade_data["label_offset"] = [5, -200]
         elif clade_data["name"] == "3C2A1":
             clade_data["display_name"] = "3C2a1"
+            clade_data["label_offset"] = [5, 0]
             clade_data["section_inclusion_tolerance"] = 30
             clade_data["slot"] = 1
 
