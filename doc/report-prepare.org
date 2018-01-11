@@ -2,7 +2,7 @@
 ** visit [http://gisaid.org](http://gisaid.org) and login (at right)
 ** Click EpiFlu (top middle)
 ** Hold Cmd and click A and B in the Type.
-** Set COLLECTION date From to 2017-09-01 (or later depending on the number of isolates upon search, see below)
+** Set COLLECTION date From to 2017-10-01 (or later depending on the number of isolates upon search, see below)
 ** _Leave originating lab empty!_
 ** Select **Submitting lab** them all using Cmd
 
@@ -30,9 +30,9 @@
 * initialize report dirs (run in terminal: asks password!)
   #+BEGIN_SRC bash
     mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
-    ad ssm-report --working-dir . init
+    ad ssm-report init
   #+END_SRC
-  running time: ~ 25 min
+  running time: ~ 25 min (asks acmacs-web password in few minutes after start)
 ** The command above performs:
 *** inits git at albertine:who-reports and local
 *** downloads hidb from albertine
@@ -64,8 +64,8 @@ e *.json
   ad ssm-report --force stat
 * make trees on albertine
 ** prepare directories
-(on jagd) ./syput
-ad make-trees-on-albertine --garli 256 --raxml 256 $RD/seqdb.json.xz
+(on jagd) ./sy
+ad make-trees-on-albertine --garli 256 --raxml 256 db/seqdb.json.xz
 -> tree-maker wait will be running in background and will send email on completion
 ** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
 ad ssm-report get-trees-from-albertine

@@ -37,6 +37,7 @@ def main(args):
     except KeyError:
         raise RuntimeError("This script can be run on the following hosts: " + " ".join(list(DATA)))
     date = datetime.datetime.now().strftime("%Y-%m%d-%H%M")
+    source_seqdb = os.path.realpath(args.seqdb[0])
     maker_dir = Path(setup["root_dir"], date)
     maker_dir.mkdir(parents=True)
     for vt in BASE_SEQUENCES:
@@ -45,7 +46,7 @@ def main(args):
         print(vt_dir)
         os.chdir(str(vt_dir))
         seqdb_path = "seqdb.json.xz"
-        shutil.copy(args.seqdb[0], seqdb_path)
+        shutil.copy(source_seqdb, seqdb_path)
         subprocess.check_call(["seqdb-export", "--db", seqdb_path, "--flu", vt, "--recent", "4000", "--hamming-distance-threshold", "160", "--tree-maker", "--base-seq", BASE_SEQUENCES[vt], "source.fas"])
         subprocess.check_call(["tree-maker", "init"])
 
