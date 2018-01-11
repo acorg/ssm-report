@@ -65,7 +65,7 @@ e *.json
 * make trees on albertine
 ** prepare directories
 (on jagd) ./sy
-ad make-trees-on-albertine --garli 256 --raxml 256 db/seqdb.json.xz
+(on albertine) ad make-trees-on-albertine --garli 256 --raxml 256 ~/ac/results/ssm/YYYY-MMDD-tc1/seqdb.json.xz
 -> tree-maker wait will be running in background and will send email on completion
 ** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
 ad ssm-report get-trees-from-albertine
