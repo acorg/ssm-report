@@ -25,18 +25,21 @@ def make_geographic(geo_dir, db_dir, force=False):
             subprocess.check_call(str(script_filename))
             prefixes[virus_type] = output
 
-        make_index_html(geo_dir.joinpath("index.html"), prefixes)
+        make_index_html(geo_dir.joinpath("index.html"), prefixes, safari=False)
+        make_index_html(geo_dir.joinpath("index.safari.html"), prefixes, safari=True)
 
 # ----------------------------------------------------------------------
 
-def make_index_html(output_file, prefixes):
+def make_index_html(output_file, prefixes, safari):
     with output_file.open("w") as f:
         f.write("<html><head><style>\nimg {border: 1px solid black;}\nul {list-style-type: none;}\nli {margin: 0.5em 0; }\nobject {width: 800px; height: 415px; }\n</style><title>Geographic maps</title></head><body>\n")
         for vt in sorted(prefixes):
             f.write("<h1>{}</h1>\n<ul>".format(vt))
             for fn in prefixes[vt].parent.glob(prefixes[vt].name + "*.pdf"):
-                #f.write('<li><img src="{}" /></li>\n'.format(Path(fn).name))
-                f.write('<li><object data="{}#toolbar=0"></object></li>\n'.format(Path(fn).name)) # toolbar=0 is for chrome
+                if safari:
+                    f.write('<li><img src="{}" /></li>\n'.format(Path(fn).name))
+                else:
+                    f.write('<li><object data="{}#toolbar=0"></object></li>\n'.format(Path(fn).name)) # toolbar=0 is for chrome
             f.write("</ul>\n")
         f.write("</body></html>\n")
 
