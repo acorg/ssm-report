@@ -1,4 +1,4 @@
-import sys, os, json, subprocess
+import sys, os, json, subprocess, pprint
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 
@@ -223,12 +223,12 @@ def make_ts(output_dir, virus_type, assay, force):
                 module_logger.warning("No previous chart found for {} {} {} in {}".format(virus_type, assay, lab, Path(report_settings["previous"], "merges")))
 
         for period in periods:
-            module_logger.info("{}\nINFO:{} {} {} {} Time Series {} {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), period.numeric_name(), " "* 93))
-            output_prefix = "ts-" + lab.lower() + "-" + period.numeric_name()
+            module_logger.info("{}\nINFO:{} {} {} {} Time Series {} {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), period["numeric_name"], " "* 93))
+            output_prefix = "ts-" + lab.lower() + "-" + period["numeric_name"]
 
             s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
-            pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab, period_name=period.text_name())
-            ts = [{"N": "antigens", "select": {"test": True, "date_range": [period.first_date(), period.after_last_date()]}, "show": True}]
+            pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab, period_name=period["text_name"])
+            ts = [{"N": "antigens", "select": {"test": True, "date_range": [period["first_date"], period["after_last_date"]]}, "show": True}]
             json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
@@ -241,22 +241,28 @@ def make_ts(output_dir, virus_type, assay, force):
                 output=output_dir.joinpath(output_prefix + ".pdf")))
             script_filename.chmod(0o700)
             subprocess.check_call(str(script_filename))
+    sDirsForIndex.add(output_dir)
 
 # ----------------------------------------------------------------------
 
 def make_periods(start, end, period):
-    if period == "month":
-        from acmacs_map_draw_backend import MonthlyTimeSeries
-        ts = MonthlyTimeSeries(start=start, end=end)
-    elif period == "year":
-        from acmacs_map_draw_backend import YearlyTimeSeries
-        ts = YearlyTimeSeries(start=start, end=end)
-    elif period == "week":
-        from acmacs_map_draw_backend import WeeklyTimeSeries
-        ts = WeeklyTimeSeries(start=start, end=end)
-    else:
-        raise ValueError("Unsupported period: " + repr(period) + ", expected \"month\", \"year\", \"week\"")
-    return ts
+    data = json.loads(subprocess.check_output("ad time-series-gen {period}ly {start} {end}".format(period=period, start=start, end=end), shell=True))
+    # pprint.pprint(data)
+    return data
+
+# def make_periods(start, end, period):
+#     if period == "month":
+#         from acmacs_map_draw_backend import MonthlyTimeSeries
+#         ts = MonthlyTimeSeries(start=start, end=end)
+#     elif period == "year":
+#         from acmacs_map_draw_backend import YearlyTimeSeries
+#         ts = YearlyTimeSeries(start=start, end=end)
+#     elif period == "week":
+#         from acmacs_map_draw_backend import WeeklyTimeSeries
+#         ts = WeeklyTimeSeries(start=start, end=end)
+#     else:
+#         raise ValueError("Unsupported period: " + repr(period) + ", expected \"month\", \"year\", \"week\"")
+#     return ts
 
 # ----------------------------------------------------------------------
 
@@ -288,6 +294,7 @@ def make_map_information(output_dir, virus_type, assay, force):
 # ----------------------------------------------------------------------
 
 def make_index_html():
+    # module_logger.info("make_index_html {}".format(sDirsForIndex))
     for output_dir in sDirsForIndex:
         if output_dir.name != "information":
             module_logger.info('making html index in {}'.format(output_dir))
