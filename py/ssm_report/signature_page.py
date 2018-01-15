@@ -118,9 +118,9 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
     pdf = sp_output_dir.joinpath(prefix + ".pdf")
     if not settings.exists():
-        subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' --no-draw --init-settings '{settings}' --tree '{tree}' -o '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
+        subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' --no-draw --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
         _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings)
-    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' -s '{settings}' --tree '{tree}' -o '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
+    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' -s '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
 
 # ----------------------------------------------------------------------
 
@@ -140,7 +140,10 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
             mod["N"] = "?" + mod["N"]
 
     settings["antigenic_maps"]["columns"] = 3
-    settings["signature_page"]["antigenic_maps_width"] = 579
+    if virus_type == "h3":
+        settings["signature_page"]["antigenic_maps_width"] = 431.35
+    else:
+        settings["signature_page"]["antigenic_maps_width"] = 579
 
     map_settings = read_json("{virus_type}-{assay}.json".format(virus_type=virus_type, assay=assay))
     # update viewport from ssm settings

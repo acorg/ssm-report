@@ -110,6 +110,7 @@ ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-ne
 
   If not all trees are ready, it's possible to make individual trees
 
+  ad ssm-report h3-tree
   ad ssm-report bvic-tree
 
 * make report
@@ -118,9 +119,9 @@ ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-ne
 
 * make signature pages
 
-  ad ssm-report --working-dir . sp
-  ad ssm-report --working-dir . sp-h3-cdc
-  ad ssm-report --working-dir . sp-h3neut-cdc
+  ad ssm-report sp
+  ad ssm-report sp-h3-cdc
+  ad ssm-report sp-h3neut-cdc
 
 * make addendum with the signature pages
 
