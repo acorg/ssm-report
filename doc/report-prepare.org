@@ -52,8 +52,8 @@
   ad ssm-report update-merges (run in terminal, asks password)
   on albertine: $ACMACSD_ROOT/bin/hidb-update-hidb /syn/eu/log/whocc-hidb5-update.log (~1.5min)
   rm -f stat/* geo/*; ad ssm-report --force update_hidb stat geo
-*** re-make H1pdm overlay merge (~17min)
-  ad ssm-report --working-dir . h1-overlay
+*** re-make H1pdm overlay merge (~18min)
+  ad ssm-report h1-overlay
 * edit report.json
   "cover"
   "time_series" (at the end)
