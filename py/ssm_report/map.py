@@ -293,6 +293,27 @@ def make_map_information(output_dir, virus_type, assay, force):
 
 # ----------------------------------------------------------------------
 
+sHead = """<html>
+<head>
+  <style>
+    ul {list-style-type: none;}
+    li {margin: 0.5em 0; }
+    object {width: 800px; height: 815px;}
+    td {vertical-align: top; border-bottom: 1px solid grey; padding-bottom: 1em;}
+    td.vaccine-data {padding-left: 1em;}
+    td.vaccine-data div {height: 815px; overflow: auto; white-space: nowrap;}
+    .vaccine-report { font-size: 1em; }
+    .vaccine-title { display: none; }
+    .vaccine-chosen { padding-left: 1em; font-weight: bold; }
+    .vaccine-header { }
+    .antigen-name { padding-left: 1em; }
+    .serum-name { padding-left: 3em; }
+  </style>
+  <title>%(title)s</title>
+</head>
+<body>
+"""
+
 def make_index_html():
     # module_logger.info("make_index_html {}".format(sDirsForIndex))
     for output_dir in sDirsForIndex:
@@ -301,22 +322,7 @@ def make_index_html():
             for safari in [False, True]:
                 with output_dir.joinpath("index{}.html".format(".safari" if safari else "")).open("w") as f:
                     title = "{} {}".format(output_dir.name.upper(), output_dir.parent.name)
-                    f.write("""<html><head>
-                            <style>
-                              ul {list-style-type: none;}
-                              li {margin: 0.5em 0; }
-                              object {width: 800px; height: 815px;}
-                              td {vertical-align: top; border-bottom: 1px solid grey; padding-bottom: 1em;}
-                              td.vaccine-data {padding-left: 1em;}
-                              td.vaccine-data div {height: 815px; overflow: auto; white-space: nowrap;}
-                              .vaccine-report { font-size: 1em; }
-                              .vaccine-title { display: none; }
-                              .vaccine-chosen { padding-left: 1em; font-weight: bold; }
-                              .vaccine-header { }
-                              .antigen-name { padding-left: 1em; }
-                              .serum-name { padding-left: 3em; }
-                            </style>
-                            <title>%(title)s</title></head><body>\n""" % {"title": title})
+                    f.write(sHead % {"title": title})
                     # img {border: 1px solid black;}
                     for filename in sorted(output_dir.glob("*.pdf")):
                         f.write("<h3>{} {}</h3>\n".format(output_dir.name.upper(), filename.stem))
@@ -329,6 +335,21 @@ def make_index_html():
                             f.write("<td class=\"vaccine-data\"><div>" + vaccine_data_file.open().read() + "</div></td>")
                         f.write("</tr></tbody></table>\n")
                     f.write("</body></html>\n")
+
+def make_index_clade_html():
+    module_logger.info('making html clade index in {}'.format(os.getcwd()))
+    for safari in [False, True]:
+        with Path("index-clade{}.html".format(".safari" if safari else "")).open("w") as f:
+            f.write(sHead % {"title": "By Clade"})
+            # img {border: 1px solid black;}
+            for filename in sorted(Path(".").glob("*/clade-[cmn]*.pdf")):
+                f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
+                if safari:
+                    f.write('<img src="{}" />\n'.format(filename))
+                else:
+                    f.write('<table><tbody><tr>\n<td><object data="{}#toolbar=0"></object></td>\n'.format(filename)) # toolbar=0 is for chrome
+                f.write("</tr></tbody></table>\n")
+            f.write("</body></html>\n")
 
 # ======================================================================
 ### Local Variables:

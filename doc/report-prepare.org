@@ -111,6 +111,7 @@ ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-ne
   If not all trees are ready, it's possible to make individual trees
 
   ad ssm-report h3-tree
+  ad ssm-report byam-tree
   ad ssm-report bvic-tree
 
 * make report
