@@ -16,6 +16,7 @@ sApplyFor = {
         "{lab}_viewport",
         "all_grey",
         "egg",
+        "lower_reference",
         ],
     "post": [
         "{lab}_mid",
@@ -342,7 +343,7 @@ def make_index_clade_html():
         with Path("index-clade{}.html".format(".safari" if safari else "")).open("w") as f:
             f.write(sHead % {"title": "By Clade"})
             # img {border: 1px solid black;}
-            for filename in sorted(Path(".").glob("*/clade-[cmn]*.pdf")):
+            for filename in sorted(Path(".").glob("*/clade-[acmn]*.pdf")):
                 f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
                 if safari:
                     f.write('<img src="{}" />\n'.format(filename))

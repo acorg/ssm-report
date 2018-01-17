@@ -259,7 +259,7 @@ class Processor:
 
     def h3neut_geography(self):
         self._geography(virus_type="h3", assay="neut")
-    h3_geo = h3_geography
+    h3neut_geo = h3neut_geography
 
     def h3neut_ts(self):
         self._ts(virus_type="h3", assay="neut")
