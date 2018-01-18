@@ -41,7 +41,7 @@
 *** makes h1pdm overlay merge
 *** generates settings files
 ** Individual commands:
-*** update hidb on albertine: ad hidb-update-hidb /syn/eu/log/hidb4-night-build.log
+*** update hidb on albertine: ad whocc-update-ace-store && ad whocc-hidb5-update
 *** download hidb from albertine: ad hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
 *** just re-make seqdb (in case of downloading new sequences or fixing locations)
   ad ssm-report remake-seqdb
@@ -126,4 +126,4 @@ ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-ne
 
 * make addendum with the signature pages
 
-  $ACMACSD_ROOT/bin/ssm-report --working-dir . addendum
+  ad ssm-report addendum

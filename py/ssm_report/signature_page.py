@@ -125,6 +125,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
 # ----------------------------------------------------------------------
 
 def _signature_page_update_settings(virus_type, assay, lab, settings_file):
+    # module_logger.warning("_signature_page_update_settings {} {} {}".format(virus_type, assay, lab))
     settings = read_json(settings_file)
     if virus_type == "h3":
         settings["title"]["title"] = "{} {} {}".format(sVirusTypeShort[virus_type], assay.upper(), sLabDisplayName[lab.upper()])
@@ -140,7 +141,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
             mod["N"] = "?" + mod["N"]
 
     settings["antigenic_maps"]["columns"] = 3
-    if virus_type == "h3":
+    if virus_type in ["h3", "byam"]:
         settings["signature_page"]["antigenic_maps_width"] = 431.35
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
