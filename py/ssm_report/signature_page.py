@@ -148,7 +148,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
 
     map_settings = read_json("{virus_type}-{assay}.json".format(virus_type=virus_type, assay=assay))
     # update viewport from ssm settings
-    _signature_page_update_viewport(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
+    _signature_page_update_viewport_rotate_flip(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     # update vaccine drawing from ssm settings
     _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     _signature_page_add_antigen_sample(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
@@ -211,29 +211,20 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_viewport(virus_type, assay, lab, settings, map_settings):
+def _signature_page_update_viewport_rotate_flip(virus_type, assay, lab, settings, map_settings):
 
-    def viewport_index():
-        for no, mod in enumerate(settings["antigenic_maps"]["mods"]):
-            if mod.get("N") == "viewport":
-                return no
-        return None
-
-    viewport = None
-    try:
-        for vp_mod in map_settings["mods"][lab.upper() + "_viewport"]:
-            if vp_mod.get("N") == "viewport":
-                viewport = vp_mod
-    except KeyError:
-        pass
-
-    if viewport:
-        _remove_mod_entries(settings, "viewport")
-        # add new viewport entry
-        # module_logger.debug("Viewport {}".format(viewport))
-        settings["antigenic_maps"]["mods"].append(viewport)
-    else:
-        module_logger.warning("No viewport for {} found".format(lab.upper()))
+    for field in ["flip", "rotate", "viewport"]:
+        data = None
+        try:
+            module_logger.debug("{} {}".format(lab.upper() + "_" + field, map_settings["mods"][lab.upper() + "_" + field]))
+            for mod in map_settings["mods"][lab.upper() + "_" + field]:
+                if mod.get("N") == field:
+                    data = mod
+        except KeyError:
+            module_logger.warning("No {} for {} found".format(field, lab.upper()))
+        if data:
+            _remove_mod_entries(settings, field)
+            settings["antigenic_maps"]["mods"].append(data)
 
 # ----------------------------------------------------------------------
 
