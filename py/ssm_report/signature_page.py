@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import subprocess, datetime, pprint
+import subprocess, datetime, copy, pprint
 
 from acmacs_base.json import read_json, write_json
 from .map import sLabDisplayName
@@ -159,37 +159,55 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
 
 def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):
 
-    def make_entry(map_draw_entry):
-        module_logger.debug("map_draw_entry {}".format(map_draw_entry))
-        sigp_entry = {"show": map_draw_entry.get("show", True), "label": {"offset": [0, 1]}}
-        try:
-            sigp_entry["type"] = map_draw_entry["select"]["vaccine"]["type"]
-        except KeyError:
-            pass
-        try:
-            sigp_entry["passage"] = map_draw_entry["select"]["vaccine"]["passage"]
-        except KeyError:
-            pass
-        try:
-            sigp_entry["fill"] = map_draw_entry["fill"]
-        except KeyError:
-            pass
-        module_logger.debug("sigp_entry {}".format(sigp_entry))
-        return sigp_entry
+    # remove old entries
+    for index in sorted((no for no, mod in enumerate(settings["antigenic_maps"]["mods"]) if mod.get("N", mod.get("?N")) in ["antigens", "?antigens", "antigens?"] and mod.get("select", {}).get("vaccine")), reverse=True):
+        del settings["antigenic_maps"]["mods"][index]
 
-    _remove_mod_entries(settings, "vaccines")
+    vaccines = map_settings["mods"][lab.upper() + "_vaccines"]
+    # pprint.pprint(vaccines)
+    for entry in vaccines:
+        vaccine_data = copy.deepcopy(entry)
+        if vaccine_data.get("label"):
+            vaccine_data["label"]["name_type"] = "abbreviated_location_with_passage_type"
+            vaccine_data["label"]["size"] = 9
+        vaccine_data["outline"] = "white"
+        vaccine_data["report"] = True
+        vaccine_data["size"] = 15
+        settings["antigenic_maps"]["mods"].append(vaccine_data)
 
-    vaccines = map_settings["mods"][lab.upper() + "_vaccines"] # in the map-draw format
-    # convert to the old format
+# def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):
 
-    mods = ([
-        {"outline": "white", "size": 15, "label": {"color": "black", "font_family": "helvetica neu", "name_type": "abbreviated_location_with_passage_type", "size": 9, "slant": "normal", "weight": "normal"}},
-        ]
-        + [make_entry(e) for e in vaccines])
+#     def make_entry(map_draw_entry):
+#         module_logger.debug("map_draw_entry {}".format(map_draw_entry))
+#         sigp_entry = {"show": map_draw_entry.get("show", True), "label": {"offset": [0, 1]}}
+#         try:
+#             sigp_entry["type"] = map_draw_entry["select"]["vaccine"]["type"]
+#         except KeyError:
+#             pass
+#         try:
+#             sigp_entry["passage"] = map_draw_entry["select"]["vaccine"]["passage"]
+#         except KeyError:
+#             pass
+#         try:
+#             sigp_entry["fill"] = map_draw_entry["fill"]
+#         except KeyError:
+#             pass
+#         module_logger.debug("sigp_entry {}".format(sigp_entry))
+#         return sigp_entry
+
+#     _remove_mod_entries(settings, "vaccines")
+
+#     vaccines = map_settings["mods"][lab.upper() + "_vaccines"] # in the map-draw format
+#     # convert to the old format
+
+#     mods = ([
+#         {"outline": "white", "size": 15, "label": {"color": "black", "font_family": "helvetica neu", "name_type": "abbreviated_location_with_passage_type", "size": 9, "slant": "normal", "weight": "normal"}},
+#         ]
+#         + [make_entry(e) for e in vaccines])
 
 
-    vaccine_data = {"N": "vaccines", "mods": mods}
-    settings["antigenic_maps"]["mods"].append(vaccine_data)
+#     vaccine_data = {"N": "vaccines", "mods": mods}
+#     settings["antigenic_maps"]["mods"].append(vaccine_data)
 
 # ----------------------------------------------------------------------
 
