@@ -2,7 +2,7 @@
 ** visit [http://gisaid.org](http://gisaid.org) and login (at right)
 ** Click EpiFlu (top middle)
 ** Hold Cmd and click A and B in the Type.
-** Set COLLECTION date From to 2017-10-01 (or later depending on the number of isolates upon search, see below)
+** Set COLLECTION date From to 2017-11-01 (or later depending on the number of isolates upon search, see below)
 ** _Leave originating lab empty!_
 ** Select **Submitting lab** them all using Cmd
 
@@ -65,7 +65,7 @@ e *.json
 * make trees on albertine
 ** prepare directories
 (on jagd) ./sy
-(on albertine) ad make-trees-on-albertine --garli 256 --raxml 256 ~/ac/results/ssm/YYYY-MMDD-tc1/seqdb.json.xz
+(on albertine) ad make-trees-on-albertine --garli 256 --raxml 256 ~/ac/results/ssm/YYYY-MMDD-tc1/db/seqdb.json.xz
 -> tree-maker wait will be running in background and will send email on completion
 ** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
 ad ssm-report get-trees-from-albertine
