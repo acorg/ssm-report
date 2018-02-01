@@ -114,6 +114,8 @@ s_h1_hi_ALL_data = """
     "ALL_mid": [
     ],
     "ALL_post": [
+    ],
+    "ALL_serology": [
     ]"""
 
 # --------------- CDC H1 -------------------------------------------------------
@@ -136,6 +138,8 @@ s_h1_hi_CDC_data = """
         "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "CDC_vaccines_information": [
+    ],
+    "CDC_serology": [
     ],
     "CDC_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -207,6 +211,8 @@ s_h3_hi_CDC_data = """
     ],
     "CDC_vaccines_information": [
     ],
+    "CDC_serology": [
+    ],
     "CDC_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
@@ -240,6 +246,8 @@ s_h3_hi_MELB_data = """
         {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant"}}, "report": true, "outline": "black", "fill": "blue", "size": 26, "show": true, "order": "raise"}
     ],
     "MELB_vaccines_information": [
+    ],
+    "MELB_serology": [
     ],
     "MELB_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -277,6 +285,8 @@ s_h3_hi_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_vaccines_information": [
+    ],
+    "NIMR_serology": [
     ],
     "NIMR_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -352,6 +362,8 @@ s_h3_neut_CDC_data = """
     ],
     "CDC_vaccines_information": [
     ],
+    "CDC_serology": [
+    ],
     "CDC_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
@@ -388,6 +400,8 @@ s_h3_neut_MELB_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "MELB_vaccines_information": [
+    ],
+    "MELB_serology": [
     ],
     "MELB_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -426,6 +440,8 @@ s_h3_neut_NIID_data = """
     ],
     "NIID_vaccines_information": [
     ],
+    "NIID_serology": [
+    ],
     "NIID_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
@@ -462,6 +478,8 @@ s_h3_neut_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_vaccines_information": [
+    ],
+    "NIMR_serology": [
     ],
     "NIMR_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -523,6 +541,8 @@ s_bvic_hi_CDC_data = """
     ],
     "CDC_vaccines_information": [
     ],
+    "CDC_serology": [
+    ],
     "CDC_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
@@ -559,6 +579,8 @@ s_bvic_hi_MELB_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "MELB_vaccines_information": [
+    ],
+    "MELB_serology": [
     ],
     "MELB_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -597,6 +619,8 @@ s_bvic_hi_NIID_data = """
     ],
     "NIID_vaccines_information": [
     ],
+    "NIID_serology": [
+    ],
     "NIID_flip": [
       {"N": "flip", "direction": "ew"}
     ],
@@ -633,6 +657,8 @@ s_bvic_hi_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_vaccines_information": [
+    ],
+    "NIMR_serology": [
     ],
     "NIMR_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -694,6 +720,8 @@ s_byam_hi_CDC_data = """
     ],
     "CDC_vaccines_information": [
     ],
+    "CDC_serology": [
+    ],
     "CDC_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
@@ -730,6 +758,8 @@ s_byam_hi_MELB_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "MELB_vaccines_information": [
+    ],
+    "MELB_serology": [
     ],
     "MELB_flip": [
       {"?N": "flip", "direction": "ew"}
@@ -768,6 +798,8 @@ s_byam_hi_NIID_data = """
     ],
     "NIID_vaccines_information": [
     ],
+    "NIID_serology": [
+    ],
     "NIID_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
@@ -804,6 +836,8 @@ s_byam_hi_NIMR_data = """
           "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
     "NIMR_vaccines_information": [
+    ],
+    "NIMR_serology": [
     ],
     "NIMR_flip": [
       {"?N": "flip", "direction": "ew"}

@@ -189,7 +189,11 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, settings_labs_ke
 
         s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
         pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab)
-        json.dump({"apply": pre + sApplyFor[mod] + post}, s2_filename.open("w"), indent=2)
+        if mod == "serology":
+            inside = [lab + "_serology"]
+        else:
+            inside = []
+        json.dump({"apply": pre + sApplyFor[mod] + inside + post}, s2_filename.open("w"), indent=2)
 
         script_filename = output_dir.joinpath(output_prefix + ".sh")
         script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}'\n".format(
@@ -271,7 +275,7 @@ def make_pre_post(virus_type, assay, mod, lab, period_name=None):
     if mod == "information":
         return (
             [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
-            [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post_information"]]
+            [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post_information"]],
             )
     else:
         title = {
