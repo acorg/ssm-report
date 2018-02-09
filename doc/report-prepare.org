@@ -71,6 +71,11 @@ e *.json
 ad ssm-report get-trees-from-albertine
 OR
   for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/YYYY-MMDD-HHMM/$vt/tree.json.xz tree/$vt.tree.json.xz; done
+
+  scp albertine:/syn/eu/ac/results/whocc-tree/2018-0206-1320/byam/tree.json.xz tree/byam.tree.json.xz
+  scp albertine:/syn/eu/ac/results/whocc-tree/2018-0206-1320/bvic/tree.json.xz tree/bvic.tree.json.xz
+  scp albertine:/syn/eu/ac/results/whocc-tree/2018-0206-1320/h1/tree.json.xz tree/h1.tree.json.xz
+  scp albertine:/syn/eu/ac/results/whocc-tree/2018-0206-1320/h3/tree.json.xz tree/h3.tree.json.xz
 ** preview trees
 for vt in bvic byam h1 h3; do ad sigp --db-dir db tree/$vt.tree.json.xz $T/$vt.pdf --open; done
 ** OLD prepare directories (before 2017-12-15)
@@ -110,6 +115,7 @@ ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-ne
 
   If not all trees are ready, it's possible to make individual trees
 
+  ad ssm-report h1-tree
   ad ssm-report h3-tree
   ad ssm-report byam-tree
   ad ssm-report bvic-tree
