@@ -218,9 +218,9 @@ def make_ts(output_dir, virus_type, assay, force):
     settings = json.load(s1_filename.open())
     for lab in settings["labs"]:
 
+        compare_with_previous = sCompareWithPrevious[False]
+        previous_chart = None
         if report_settings["cover"]["teleconference"]:
-            previous_chart = None
-            compare_with_previous = sCompareWithPrevious[False]
             try:
                 previous_chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, chart_dir=Path(report_settings["previous"], "merges"))
                 compare_with_previous = sCompareWithPrevious[True]
