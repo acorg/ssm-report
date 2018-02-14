@@ -10,7 +10,16 @@ from .map import sLabDisplayName
 
 def make_report(source_dir, source_dir_2, output_dir):
     report_settings = read_json("report.json")
-    report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, settings=report_settings)
+    report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report.tex", settings=report_settings)
+    report.make()
+    report.compile(update_toc=True)
+    report.view()
+
+# ----------------------------------------------------------------------
+
+def make_report_abbreviated(source_dir, source_dir_2, output_dir):
+    report_settings = read_json("report-abbreviated.json")
+    report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-abbreviated.tex", settings=report_settings)
     report.make()
     report.compile(update_toc=True)
     report.view()
@@ -36,10 +45,10 @@ class LatexReport:
     sLatexCommand = "cd '{run_dir}' && pdflatex -interaction=nonstopmode -file-line-error '{latex_source}'"
     sViewCommand = "open '{output}'"
 
-    def __init__(self, source_dir, source_dir_2, output_dir, settings):
+    def __init__(self, source_dir, source_dir_2, output_dir, output_name, settings):
         self.source_dir = source_dir
         self.source_dir_2 = source_dir_2
-        self.latex_source = output_dir.joinpath("report.tex")
+        self.latex_source = output_dir.joinpath(output_name)
         self.settings = settings
         self.data = []
         settings_dates = settings["time_series"]["date"]

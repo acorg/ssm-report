@@ -51,6 +51,7 @@ def _tree_update_settings(subtype, settings):
     data.pop("mapped_antigens", None)
     data.pop("antigenic_maps", None)
     globals().get("_tree_update_settings_" + subtype)(data=data, settings=settings)
+    data["tree"]["ladderize"] = "max-edge-length"
     write_json(settings, data)
 
 # ----------------------------------------------------------------------
