@@ -28,11 +28,11 @@
    ad seqdb-create --db /r/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /r/not-found.txt ~/ac/tables-store/sequences/gisaid-all-20170801-20171104.fas.bz2
    ad seqdb-info /r/seqdb.json.xz
 * initialize report dirs (run in terminal: asks password!)
-  #+BEGIN_SRC bash
-    mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
-    ad ssm-report init
-  #+END_SRC
-  running time: ~ 25 min (asks acmacs-web password in few minutes after start)
+#+BEGIN_SRC bash
+mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
+ad ssm-report init
+#+END_SRC
+running time: ~ 25 min (asks acmacs-web password in few minutes after start)
 ** The command above performs:
 *** inits git at albertine:who-reports and local
 *** downloads hidb from albertine
