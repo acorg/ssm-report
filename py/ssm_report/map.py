@@ -54,9 +54,8 @@ sApplyFor = {
         {"N": "clades", "size": 8},
         "serum_sectors",
         ],
-    "serum_coverage_hk": [
+    "serum_coverage": [
         {"N": "clades", "size": 8},
-        "serum_coverage_hk",
         ],
     "ts_pre": [
         {"N": "continents"},
@@ -150,7 +149,7 @@ sTitleFor = {
             "hi":   "{lab} {virus_type}",
         },
     },
-    "serum_coverage_hk": {
+    "serum_coverage": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay}",
             "neut": "{lab} {virus_type} {assay}",
@@ -184,24 +183,43 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, settings_labs_ke
     s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
     settings = json.load(s1_filename.open())
     for lab in settings[settings_labs_key]:
-        module_logger.info("{}\nINFO:{} {} {} {} {}\nINFO: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), mod, " "* 93))
-        output_prefix = prefix + "-" + lab.lower()
-
-        s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
-        pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab)
-        if mod == "serology":
-            inside = [lab + "_serology"]
-        else:
-            inside = []
-        json.dump({"apply": pre + sApplyFor[mod] + inside + post}, s2_filename.open("w"), indent=2)
-
-        script_filename = output_dir.joinpath(output_prefix + ".sh")
-        script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}'\n".format(
-            s1=s1_filename, s2=s2_filename,
-            pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
-        script_filename.chmod(0o700)
-        subprocess.check_call(str(script_filename))
+        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, s1_filename=s1_filename)
     sDirsForIndex.add(output_dir)
+
+# ----------------------------------------------------------------------
+
+def make_serum_coverage_maps(output_dir, virus_type, assay, settings_labs_key="labs"):
+    s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
+    settings = json.load(s1_filename.open())
+    for lab in settings[settings_labs_key]:
+        for mod in settings["mods"]:
+            mod_prefix= lab + "_serum_coverage_"
+            if mod.startswith(mod_prefix):
+                make_map_for_lab(output_dir=output_dir, prefix="serumcoverage-" + mod[len(mod_prefix):], virus_type=virus_type, assay=assay, lab=lab, mod=mod, s1_filename=s1_filename)
+    sDirsForIndex.add(output_dir)
+
+# ----------------------------------------------------------------------
+
+def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, s1_filename):
+    module_logger.info("{}\nINFO:{} {} {} {} {}\nINFO: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), mod, " "* 93))
+    output_prefix = prefix + "-" + lab.lower()
+
+    s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
+    pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab)
+    if mod == "serology":
+        inside = [lab + "_serology"]
+    elif "_serum_coverage_" in mod:
+        inside = sApplyFor["serum_coverage"] + [mod]
+    else:
+        inside = []
+    json.dump({"apply": pre + sApplyFor.get(mod, []) + inside + post}, s2_filename.open("w"), indent=2)
+
+    script_filename = output_dir.joinpath(output_prefix + ".sh")
+    script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' '{chart}' '{output}'\n".format(
+        s1=s1_filename, s2=s2_filename,
+        pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output_dir.joinpath(output_prefix + ".pdf")))
+    script_filename.chmod(0o700)
+    subprocess.check_call(str(script_filename))
 
 # ----------------------------------------------------------------------
 
@@ -278,13 +296,17 @@ def make_pre_post(virus_type, assay, mod, lab, period_name=None):
             [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post_information"]],
             )
     else:
+        if "_serum_coverage_" in mod:
+            title_format = sTitleFor["serum_coverage"][virus_type][assay]
+        else:
+            title_format = sTitleFor[mod][virus_type][assay]
         title = {
             "N": "title",
             "background": "transparent",
             "border_width": 0,
             "text_size": 24,
             "font_weight": "bold",
-            "display_name": [sTitleFor[mod][virus_type][assay].format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper(), period_name=period_name)],
+            "display_name": [title_format.format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper(), period_name=period_name)],
         }
         return (
             [title] + [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],

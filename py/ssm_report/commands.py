@@ -2,7 +2,7 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import subprocess
 
-from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
+from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html, make_serum_coverage_maps
 from .stat import make_stat
 from .geographic import make_geographic
 from .signature_page import tree_make, signature_page_make, trees_get_from_albertine
@@ -144,7 +144,7 @@ class Processor:
         self.h3_geography()
         self.h3_serology()
         # #self.h3_serum_sectors()
-        # #self.h3_serum_coverage()
+        self.h3_serum_coverage()
 
     def h3neut(self):
         self.h3neut_clade()
@@ -152,7 +152,7 @@ class Processor:
         self.h3neut_geography()
         self.h3neut_serology()
         #self.h3neut_serum_sectors()
-        #self.h3neut_serum_coverage()
+        self.h3neut_serum_coverage()
 
     def h1(self):
         self.h1_clade()
@@ -244,7 +244,8 @@ class Processor:
         self._serum_sectors(virus_type="h3", assay="hi")
 
     def h3_serum_coverage(self):
-        make_map(prefix="serumcoverage-hk", virus_type="h3", assay="hi", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
+        make_serum_coverage_maps(virus_type="h3", assay="hi", output_dir=self.r_dir("h3-hi"))
+    h3_cov = h3_serum_coverage
 
     def h3_information(self):
         make_map_information(virus_type="h3", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
@@ -256,23 +257,30 @@ class Processor:
         self._clade(virus_type="h3", assay="neut")
         self._clade_6m(virus_type="h3", assay="neut")
         self._clade_12m(virus_type="h3", assay="neut")
-    h3_clades = h3_clade
+    h3neut_clades = h3neut_clade
+    h3n_clades = h3neut_clade
+    h3n_clade = h3neut_clade
 
     def h3neut_serology(self):
         self._serology(virus_type="h3", assay="neut")
+    h3n_serology = h3neut_serology
 
     def h3neut_geography(self):
         self._geography(virus_type="h3", assay="neut")
     h3neut_geo = h3neut_geography
+    h3n_geo = h3neut_geography
 
     def h3neut_ts(self):
         self._ts(virus_type="h3", assay="neut")
+    h3n_ts = h3neut_ts
 
     def h3neut_serum_sectors(self):
         self._serum_sectors(virus_type="h3", assay="neut")
 
     def h3neut_serum_coverage(self):
-        make_map(prefix="serumcoverage-hk", virus_type="h3", assay="neut", mod="serum_coverage_hk", output_dir=self.r_dir("h3-hi"), force=self._force)
+        make_serum_coverage_maps(virus_type="h3", assay="neut", output_dir=self.r_dir("h3-neut"))
+    h3neut_cov = h3neut_serum_coverage
+    h3n_cov = h3neut_serum_coverage
 
     def h3neut_information(self):
         make_map_information(virus_type="h3", assay="neut", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
