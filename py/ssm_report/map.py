@@ -363,10 +363,10 @@ def make_index_html():
                         f.write("</tr></tbody></table>\n")
                     f.write("</body></html>\n")
 
-def make_index_clade_html():
+def make_index_clade_html(output_dir):
     module_logger.info('making html clade index in {}'.format(os.getcwd()))
     for safari in [False, True]:
-        with Path("index-clade{}.html".format(".safari" if safari else "")).open("w") as f:
+        with Path(output_dir, "index-clade{}.html".format(".safari" if safari else "")).open("w") as f:
             f.write(sHead % {"title": "By Clade"})
             # img {border: 1px solid black;}
             for filename in sorted(Path(".").glob("*/clade-[acmn]*.pdf")):
@@ -378,12 +378,12 @@ def make_index_clade_html():
                 f.write("</tr></tbody></table>\n")
             f.write("</body></html>\n")
 
-def make_index_serum_coverage_html():
+def make_index_serum_coverage_html(output_dir):
     filenames = sorted(Path(".").glob("*/serumcoverage*.pdf"))
     if filenames:
         module_logger.info('making html serum coverage index in {}'.format(os.getcwd()))
         for safari in [False, True]:
-            with Path("index-serumcoverage{}.html".format(".safari" if safari else "")).open("w") as f:
+            with Path(output_dir, "index-serumcoverage{}.html".format(".safari" if safari else "")).open("w") as f:
                 f.write(sHead % {"title": "Serum Coverage"})
                 # img {border: 1px solid black;}
                 for filename in filenames:

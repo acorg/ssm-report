@@ -38,8 +38,8 @@ class Processor:
                 command = command.replace("-", "_").lower()
                 getattr(self, command)()
             maps_make_index_html()
-            make_index_clade_html()
-            make_index_serum_coverage_html()
+            make_index_clade_html(self.r_dir(""))
+            make_index_serum_coverage_html(self.r_dir(""))
 
     def init(self):
         """initialize ssm report data directory structure"""
@@ -345,10 +345,10 @@ class Processor:
 
     def sp_h1(self):
         self.sp_h1_all()
-        self.sp_h1_cdc()
-        self.sp_h1_melb()
-        self.sp_h1_niid()
-        self.sp_h1_nimr()
+        # self.sp_h1_cdc()
+        # self.sp_h1_melb()
+        # self.sp_h1_niid()
+        # self.sp_h1_nimr()
 
     def sp_h3(self):
         self.sp_h3_cdc()
