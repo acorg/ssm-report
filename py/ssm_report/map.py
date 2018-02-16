@@ -55,7 +55,7 @@ sApplyFor = {
         "serum_sectors",
         ],
     "serum_coverage": [
-        {"N": "clades", "size": 8},
+        #{"N": "clades", "size": 8},
         ],
     "ts_pre": [
         {"N": "continents"},
