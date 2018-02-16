@@ -378,6 +378,23 @@ def make_index_clade_html():
                 f.write("</tr></tbody></table>\n")
             f.write("</body></html>\n")
 
+def make_index_serum_coverage_html():
+    filenames = sorted(Path(".").glob("*/serumcoverage*.pdf"))
+    if filenames:
+        module_logger.info('making html serum coverage index in {}'.format(os.getcwd()))
+        for safari in [False, True]:
+            with Path("index-serumcoverage{}.html".format(".safari" if safari else "")).open("w") as f:
+                f.write(sHead % {"title": "Serum Coverage"})
+                # img {border: 1px solid black;}
+                for filename in filenames:
+                    f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
+                    if safari:
+                        f.write('<img src="{}" />\n'.format(filename))
+                    else:
+                        f.write('<table><tbody><tr>\n<td><object data="{}#toolbar=0"></object></td>\n'.format(filename)) # toolbar=0 is for chrome
+                    f.write("</tr></tbody></table>\n")
+                f.write("</body></html>\n")
+
 # ======================================================================
 ### Local Variables:
 ### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))

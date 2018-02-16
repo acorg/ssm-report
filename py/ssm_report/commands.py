@@ -2,7 +2,7 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import subprocess
 
-from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html, make_serum_coverage_maps
+from .map import make_map, make_serum_coverage_maps, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html, make_index_serum_coverage_html
 from .stat import make_stat
 from .geographic import make_geographic
 from .signature_page import tree_make, signature_page_make, trees_get_from_albertine
@@ -39,6 +39,7 @@ class Processor:
                 getattr(self, command)()
             maps_make_index_html()
             make_index_clade_html()
+            make_index_serum_coverage_html()
 
     def init(self):
         """initialize ssm report data directory structure"""
