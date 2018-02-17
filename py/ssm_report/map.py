@@ -386,23 +386,24 @@ def make_index_serum_coverage_html(output_dir):
         else:
             f.write('<td><object data="{}#toolbar=0"></object></td>\n'.format(filename)) # toolbar=0 is for chrome
 
-    filenames = sorted(Path(".").glob("*/serumcoverage*.all-*.pdf"))
-    if filenames:
-        for safari in [False, True]:
-            index_filename = Path(output_dir, "index-serumcoverage{}.html".format(".safari" if safari else ""))
-            module_logger.info('making html serum coverage index: {}'.format(index_filename))
-            with index_filename.open("w") as f:
-                f.write(sHead % {"title": "Serum Coverage"})
-                # img {border: 1px solid black;}
-                for filename in filenames:
-                    f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
-                    f.write("<table><tr>\n")
-                    make_image(f=f, filename=filename, safari=safari)
-                    filename2 = Path(str(filename).replace(".all-", ".12m-"))
-                    if filename.exists():
-                        make_image(f=f, filename=filename2, safari=safari)
-                    f.write("</tr></table>\n")
-                f.write("</body></html>\n")
+    for tag, pattern in [["cdc-hi", "h3-hi/serumcoverage*.all-cdc.pdf"], ["melb-hi", "h3-hi/serumcoverage*.all-melb.pdf"], ["nimr-hi", "h3-hi/serumcoverage*.all-nimr.pdf"], ["niid-neut", "h3-neut/serumcoverage*.all-niid.pdf"], ["cdc-neut", "h3-neut/serumcoverage*.all-cdc.pdf"], ["melb-neut", "h3-neut/serumcoverage*.all-melb.pdf"], ["nimr-neut", "h3-neut/serumcoverage*.all-nimr.pdf"]]:
+        filenames = sorted(Path(".").glob(pattern))
+        if filenames:
+            for safari in [False, True]:
+                index_filename = Path(output_dir, "index-serumcoverage-{}{}.html".format(tag, ".safari" if safari else ""))
+                module_logger.info('making html serum coverage index: {}'.format(index_filename))
+                with index_filename.open("w") as f:
+                    f.write(sHead % {"title": "Serum Coverage"})
+                    # img {border: 1px solid black;}
+                    for filename in filenames:
+                        f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
+                        f.write("<table><tr>\n")
+                        make_image(f=f, filename=filename, safari=safari)
+                        filename2 = Path(str(filename).replace(".all-", ".12m-"))
+                        if filename.exists():
+                            make_image(f=f, filename=filename2, safari=safari)
+                        f.write("</tr></table>\n")
+                    f.write("</body></html>\n")
 
 # ======================================================================
 ### Local Variables:
