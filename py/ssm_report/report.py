@@ -26,6 +26,15 @@ def make_report_abbreviated(source_dir, source_dir_2, output_dir):
 
 # ----------------------------------------------------------------------
 
+def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
+    report_settings = read_json("report-serumcoverage.json")
+    report = LatexSerumCoverageAddendum(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-serumcoverage.tex", settings=report_settings)
+    report.make()
+    report.compile(update_toc=True)
+    report.view()
+
+# ----------------------------------------------------------------------
+
 def make_signature_page_addendum(source_dir, output_dir):
     report_settings = read_json("report.json")
     addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings)
@@ -291,8 +300,8 @@ class LatexReport:
 class LatexSignaturePageAddendum (LatexReport):
 
     def __init__(self, source_dir, output_dir, settings):
-        super().__init__(source_dir, None, output_dir, settings)
-        self.latex_source = output_dir.joinpath("addendum.tex")
+        super().__init__(source_dir, None, output_dir, "addendum.tex", settings)
+        # self.latex_source = output_dir.joinpath("addendum.tex")
         self.substitute.update({
             "documentclass": "\documentclass[a4paper,landscape,12pt]{article}",
             "cover_top_space": "40pt",
@@ -334,6 +343,31 @@ class LatexSignaturePageAddendum (LatexReport):
         filename = self.source_dir.joinpath("{}-{}-{}.pdf".format(subtype, lab, assay))
         if filename.exists():
             self.data.append(latex.T_SignaturePage.format(image=filename))
+
+# ----------------------------------------------------------------------
+
+class LatexSerumCoverageAddendum (LatexReport):
+
+    def __init__(self, source_dir, source_dir_2, output_dir, output_name, settings):
+        super().__init__(source_dir, source_dir_2, output_dir, output_name, settings)
+        self.substitute.update({
+            # "documentclass": "\documentclass[a4paper,landscape,12pt]{article}",
+            # "cover_top_space": "40pt",
+            # "cover_after_meeting_date_space": "100pt",
+            #"usepackage": "\\usepackage[noheadfoot,nomarginpar,margin=0pt,bottom=20pt,paperheight=1400.0pt,paperwidth=900.0pt]{geometry}",
+            #"usepackage": "\\usepackage[noheadfoot,nomarginpar,margin=0pt,bottom=10pt,paperheight=900.0pt,paperwidth=565.0pt]{geometry}",
+            "usepackage": "\\usepackage[noheadfoot,nomarginpar,margin=1pt,bottom=10pt]{geometry}",
+            "cover_quotation": "\\quotation",
+            })
+
+    def make_cover(self, *args):
+        self.data.append(latex.T_Cover)
+        self.substitute.update({
+            "report_hemisphere": self.settings["cover"]["hemisphere"],
+            "report_year": self.settings["cover"]["year"],
+            "teleconference": "Addendum",
+            "meeting_date": self.settings["cover"]["meeting_date"],
+            })
 
 # ----------------------------------------------------------------------
 

@@ -184,6 +184,10 @@ class Processor:
         from .report import make_report_abbreviated
         make_report_abbreviated(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"))
 
+    def report_serumcoverage(self):
+        from .report import make_report_serumcoverage
+        make_report_serumcoverage(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"))
+
     def addendum(self):
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=self.r_dir("sp"), output_dir=self.r_dir("report"))
