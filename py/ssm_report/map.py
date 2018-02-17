@@ -364,9 +364,10 @@ def make_index_html():
                     f.write("</body></html>\n")
 
 def make_index_clade_html(output_dir):
-    module_logger.info('making html clade index in {}'.format(os.getcwd()))
     for safari in [False, True]:
-        with Path(output_dir, "index-clade{}.html".format(".safari" if safari else "")).open("w") as f:
+        index_filename = Path(output_dir, "index-clade{}.html".format(".safari" if safari else ""))
+        module_logger.info('making html clade index: {}'.format(index_filename))
+        with index_filename.open("w") as f:
             f.write(sHead % {"title": "By Clade"})
             # img {border: 1px solid black;}
             for filename in sorted(Path(".").glob("*/clade-[acmn]*.pdf")):
@@ -379,20 +380,28 @@ def make_index_clade_html(output_dir):
             f.write("</body></html>\n")
 
 def make_index_serum_coverage_html(output_dir):
-    filenames = sorted(Path(".").glob("*/serumcoverage*.pdf"))
+    def make_image(f, filename, safari):
+        if safari:
+            f.write('<td><img src="{}" /></td>\n'.format(filename))
+        else:
+            f.write('<td><object data="{}#toolbar=0"></object></td>\n'.format(filename)) # toolbar=0 is for chrome
+
+    filenames = sorted(Path(".").glob("*/serumcoverage*.all-*.pdf"))
     if filenames:
-        module_logger.info('making html serum coverage index in {}'.format(os.getcwd()))
         for safari in [False, True]:
-            with Path(output_dir, "index-serumcoverage{}.html".format(".safari" if safari else "")).open("w") as f:
+            index_filename = Path(output_dir, "index-serumcoverage{}.html".format(".safari" if safari else ""))
+            module_logger.info('making html serum coverage index: {}'.format(index_filename))
+            with index_filename.open("w") as f:
                 f.write(sHead % {"title": "Serum Coverage"})
                 # img {border: 1px solid black;}
                 for filename in filenames:
                     f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
-                    if safari:
-                        f.write('<img src="{}" />\n'.format(filename))
-                    else:
-                        f.write('<table><tbody><tr>\n<td><object data="{}#toolbar=0"></object></td>\n'.format(filename)) # toolbar=0 is for chrome
-                    f.write("</tr></tbody></table>\n")
+                    f.write("<table><tr>\n")
+                    make_image(f=f, filename=filename, safari=safari)
+                    filename2 = Path(str(filename).replace(".all-", ".12m-"))
+                    if filename.exists():
+                        make_image(f=f, filename=filename2, safari=safari)
+                    f.write("</tr></table>\n")
                 f.write("</body></html>\n")
 
 # ======================================================================
