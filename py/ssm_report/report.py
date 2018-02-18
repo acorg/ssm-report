@@ -337,7 +337,7 @@ class LatexSignaturePageAddendum (LatexReport):
         self.substitute.update({
             "report_hemisphere": self.settings["cover"]["hemisphere"],
             "report_year": self.settings["cover"]["year"],
-            "teleconference": "Addendum",
+            "teleconference": "Addendum 1 (signature pages)",
             "meeting_date": self.settings["cover"]["meeting_date"],
             })
 
@@ -378,7 +378,7 @@ class LatexSerumCoverageAddendum (LatexReport):
         self.substitute.update({
             "report_hemisphere": self.settings["cover"]["hemisphere"],
             "report_year": self.settings["cover"]["year"],
-            "teleconference": "Addendum",
+            "teleconference": self.settings["cover"]["teleconference"],
             "meeting_date": self.settings["cover"]["meeting_date"],
             })
 
