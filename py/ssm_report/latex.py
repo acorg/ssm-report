@@ -109,10 +109,10 @@ T_Setup = r"""%no-eol%
     \begin{tabular}{c c}
 }{\end{tabular}\end{center}\par}
 
-\newenvironment{AntigenicMapTableWithSep}[2]{
+\newenvironment{AntigenicMapTableWithSep}[3]{
   \setlength{\tabcolsep}{#1}
   \renewcommand{\arraystretch}{#2}
-  \newcommand{\AntigenicMap}[1]{\includegraphics[width=\AntigenicMapTableMapSize,frame]{##1}}
+  \newcommand{\AntigenicMap}[1]{\includegraphics[width={(\textheight-20pt) * {#3}},frame]{##1}}
   \begin{center}
     \begin{tabular}{c c}
 }{\end{tabular}\end{center}\par}

@@ -238,6 +238,19 @@ class LatexReport:
                 self.make_new_page()
             self._antigenic_map_table(images_on_page)
 
+    def make_map_with_title(self, page):
+        image = Path(page["image"]).resolve()
+        tabcolsep = page.get("tabcolsep", 1.0)
+        arraystretch = page.get("arraystretch", 2.5)
+        image_scale = page.get("scale", "16 / 60")
+        title = page.get("title")
+        if image and image.exists():
+            self.data.append("\\begin{AntigenicMapTableWithSep}{%fpt}{%f}{%s}" % (tabcolsep, arraystretch, image_scale))
+            if title:
+                self.data.append("%s \\\\" % title)
+            self.data.append("\\AntigenicMap{%s}" % image)
+            self.data.append("\\end{AntigenicMapTableWithSep}")
+
     # ----------------------------------------------------------------------
 
     def write(self):
