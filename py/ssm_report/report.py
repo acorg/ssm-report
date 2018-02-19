@@ -8,9 +8,16 @@ from .map import sLabDisplayName
 
 # ======================================================================
 
-def make_report(source_dir, source_dir_2, output_dir):
-    report_settings = read_json("report.json")
-    report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report.tex", settings=report_settings)
+def make_report(source_dir, source_dir_2, output_dir, report_settings_file="report.json"):
+    report_settings = read_json(report_settings_file)
+    output_name = report_settings.get("output_name", "report.tex")
+    report_type = report_settings.get("type", "report")
+    if report_type == "report":
+        report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name=output_name, settings=report_settings)
+    elif report_type == "signature_pages":
+        report = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, output_name=output_name, settings=report_settings)
+    else:
+        raise RuntimeError("Unrecognized report type: {!r}".format(report_type))
     report.make()
     report.compile(update_toc=True)
     report.view()
@@ -37,6 +44,7 @@ def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
 
 def make_signature_page_addendum(source_dir, output_dir):
     report_settings = read_json("report.json")
+    report_settings["cover"]["teleconference"] = "Addendum 1 (signature pages)"
     addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings)
     addendum.make()
     addendum.compile(update_toc=True)
@@ -60,13 +68,8 @@ class LatexReport:
         self.latex_source = output_dir.joinpath(output_name)
         self.settings = settings
         self.data = []
-        settings_dates = settings["time_series"]["date"]
-        self.start = datetime.datetime.strptime(settings_dates["start"], "%Y-%m-%d").date()
-        self.end = datetime.datetime.strptime(settings_dates["end"], "%Y-%m-%d").date() # - datetime.timedelta(days=1)
         LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
         self.substitute = {
-            "time_series_start": self.start.strftime("%B %Y"),
-            "time_series_end": (self.end - datetime.timedelta(days=1)).strftime("%B %Y"),
             "documentclass": "\documentclass[a4paper,12pt]{article}",
             "cover_top_space": "130pt",
             "cover_after_meeting_date_space": "180pt",
@@ -75,7 +78,13 @@ class LatexReport:
             "now": datetime.datetime.now(LOCAL_TIMEZONE).strftime("%Y-%m-%d %H:%M %Z"),
             "$0": sys.argv[0],
             }
-        self._make_ts_dates()
+        if settings.get("time_series"):
+            settings_dates = settings["time_series"]["date"]
+            self.start = datetime.datetime.strptime(settings_dates["start"], "%Y-%m-%d").date()
+            self.end = datetime.datetime.strptime(settings_dates["end"], "%Y-%m-%d").date() # - datetime.timedelta(days=1)
+            self.substitute["time_series_start"] = self.start.strftime("%B %Y")
+            self.substitute["time_series_end"] = (self.end - datetime.timedelta(days=1)).strftime("%B %Y")
+            self._make_ts_dates()
 
     def make(self):
         self.data.extend([latex.T_Head, latex.T_ColorsBW, latex.T_Setup, latex.T_Begin])
@@ -312,8 +321,8 @@ class LatexReport:
 
 class LatexSignaturePageAddendum (LatexReport):
 
-    def __init__(self, source_dir, output_dir, settings):
-        super().__init__(source_dir, None, output_dir, "addendum.tex", settings)
+    def __init__(self, source_dir, output_dir, output_name="addendum.tex", settings=None):
+        super().__init__(source_dir, None, output_dir, output_name, settings)
         # self.latex_source = output_dir.joinpath("addendum.tex")
         self.substitute.update({
             "documentclass": "\documentclass[a4paper,landscape,12pt]{article}",
@@ -337,20 +346,26 @@ class LatexSignaturePageAddendum (LatexReport):
         self.substitute.update({
             "report_hemisphere": self.settings["cover"]["hemisphere"],
             "report_year": self.settings["cover"]["year"],
-            "teleconference": "Addendum 1 (signature pages)",
+            "teleconference": self.settings["cover"]["teleconference"],
             "meeting_date": self.settings["cover"]["meeting_date"],
             })
 
     def add_pdfs(self):
-        from .stat import sLabOrder
-        self.add_pdf(subtype="h1", assay="hi", lab="all")
-        for lab in sLabOrder:
-            self.add_pdf(subtype="h3", assay="hi", lab=lab.lower())
-            self.add_pdf(subtype="h3", assay="neut", lab=lab.lower())
-        for subtype in ["bvic", "byam"]:
+        if self.settings.get("files"):
+            for filename in (Path(f) for f in self.settings["files"]):
+                module_logger.debug("{}".format(filename))
+                if filename.exists():
+                    self.data.append(latex.T_SignaturePage.format(image=filename.resolve()))
+        else:
+            from .stat import sLabOrder
+            self.add_pdf(subtype="h1", assay="hi", lab="all")
             for lab in sLabOrder:
-                # if not (subtype == "byam" and lab == "NIMR"):
-                self.add_pdf(subtype=subtype, assay="hi", lab=lab.lower())
+                self.add_pdf(subtype="h3", assay="hi", lab=lab.lower())
+                self.add_pdf(subtype="h3", assay="neut", lab=lab.lower())
+            for subtype in ["bvic", "byam"]:
+                for lab in sLabOrder:
+                    # if not (subtype == "byam" and lab == "NIMR"):
+                    self.add_pdf(subtype=subtype, assay="hi", lab=lab.lower())
 
     def add_pdf(self, subtype, assay, lab):
         filename = self.source_dir.joinpath("{}-{}-{}.pdf".format(subtype, lab, assay))
