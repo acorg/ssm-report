@@ -200,6 +200,10 @@ class Processor:
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), report_settings_file="report-addendum-4.json")
 
+    def report_5(self):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), report_settings_file="report-addendum-5.json")
+
     def update_merges(self):
         target_dir = self._merges_dir()
         module_logger.info("Updating merges in " + repr(str(target_dir)))
