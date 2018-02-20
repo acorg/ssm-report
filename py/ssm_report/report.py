@@ -242,10 +242,14 @@ class LatexReport:
             self.data.append(latex.T_OverviewMap.format(image=image))
 
     def make_maps(self, page):
+        image_scale = page.get("scale", "9 / 30")
+        tabcolsep = page.get("tabcolsep", 7.0)
+        arraystretch = page.get("arraystretch", 3.5)
+        title = page.get("title")
         for page_no, images_on_page in enumerate(itertools.zip_longest(*([iter(image and Path(image).resolve() for image in page["images"])] * 6))):
             if page_no:
                 self.make_new_page()
-            self._antigenic_map_table(images_on_page)
+            self._antigenic_map_table(images_on_page, title=title, image_scale=image_scale, tabcolsep=tabcolsep, arraystretch=arraystretch)
 
     def make_map_with_title(self, page):
         image = Path(page["image"]).resolve()
@@ -293,8 +297,13 @@ class LatexReport:
     #         else:
     #             yield self.ts_dates[no], None
 
-    def _antigenic_map_table(self, images):
-        self.data.append("\\begin{AntigenicMapTable}")
+    def _antigenic_map_table(self, images, title=None, image_scale=None, tabcolsep=None, arraystretch=None):
+        if image_scale is not None:
+            self.data.append("\\begin{AntigenicMapTableWithSep}{%fpt}{%f}{%s}" % (tabcolsep, arraystretch, image_scale))
+        else:
+            self.data.append("\\begin{AntigenicMapTable}")
+        if title:
+            self.data.append("\multicolumn{2}{>{\hspace{0.3em}}c<{\hspace{0.3em}}}{%s} \\\\" % title)
         for no in range(0, len(images), 2):
             if images[no] and images[no + 1]:
                 self.data.append("\\AntigenicMap{%s} & \\AntigenicMap{%s} \\\\" % (images[no], images[no + 1]))
@@ -302,7 +311,10 @@ class LatexReport:
                 self.data.append("\\AntigenicMap{%s} & \\\\" % (images[no], ))
             elif images[no+1]:
                 self.data.append("& \\AntigenicMap{%s} \\\\" % (images[no + 1], ))
-        self.data.append("\\end{AntigenicMapTable}")
+        if image_scale is not None:
+            self.data.append("\\end{AntigenicMapTableWithSep}")
+        else:
+            self.data.append("\\end{AntigenicMapTable}")
 
     def _previous_stat_source(self):
         previous_dir = self.settings.get("previous")
@@ -375,18 +387,6 @@ class LatexSignaturePageAddendum (LatexReport):
 # ----------------------------------------------------------------------
 
 class LatexSerumCoverageAddendum (LatexReport):
-
-    def __init__(self, source_dir, source_dir_2, output_dir, output_name, settings):
-        super().__init__(source_dir, source_dir_2, output_dir, output_name, settings)
-        self.substitute.update({
-            # "documentclass": "\documentclass[a4paper,landscape,12pt]{article}",
-            # "cover_top_space": "40pt",
-            # "cover_after_meeting_date_space": "100pt",
-            #"usepackage": "\\usepackage[noheadfoot,nomarginpar,margin=0pt,bottom=20pt,paperheight=1400.0pt,paperwidth=900.0pt]{geometry}",
-            #"usepackage": "\\usepackage[noheadfoot,nomarginpar,margin=0pt,bottom=10pt,paperheight=900.0pt,paperwidth=565.0pt]{geometry}",
-            "usepackage": "\\usepackage[noheadfoot,nomarginpar,margin=1pt,bottom=10pt]{geometry}",
-            "cover_quotation": "\\quotation",
-            })
 
     def make_cover(self, *args):
         self.data.append(latex.T_Cover)
