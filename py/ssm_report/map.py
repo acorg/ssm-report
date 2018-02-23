@@ -197,16 +197,6 @@ def make_serum_coverage_maps(output_dir, lab, virus_type, assay):
             if mod[0] != "?":
                 make_map_for_lab(output_dir=output_dir, prefix="serumcoverage-{}.{}".format(lab, mod), virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=[s1_filename, s2_filename])
 
-# def make_serum_coverage_maps(output_dir, virus_type, assay, settings_labs_key="labs"):
-#     s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
-#     settings = json.load(s1_filename.open())
-#     for lab in settings[settings_labs_key]:
-#         for mod in settings["mods"]:
-#             mod_prefix= lab + "_serum_coverage_"
-#             if mod.startswith(mod_prefix):
-#                 make_map_for_lab(output_dir=output_dir, prefix="serumcoverage-" + mod[len(mod_prefix):], virus_type=virus_type, assay=assay, lab=lab, mod=mod, s1_filename=s1_filename)
-#     sDirsForIndex.add(output_dir)
-
 # ----------------------------------------------------------------------
 
 def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files):
