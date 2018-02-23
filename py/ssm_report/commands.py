@@ -260,10 +260,6 @@ class Processor:
     def h3_serum_sectors(self):
         self._serum_sectors(virus_type="h3", assay="hi")
 
-    def h3_serum_coverage(self):
-        make_serum_coverage_maps(virus_type="h3", assay="hi", output_dir=self.r_dir("h3-hi"))
-    h3_cov = h3_serum_coverage
-
     def h3_information(self):
         make_map_information(virus_type="h3", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
 
@@ -293,11 +289,6 @@ class Processor:
 
     def h3neut_serum_sectors(self):
         self._serum_sectors(virus_type="h3", assay="neut")
-
-    def h3neut_serum_coverage(self):
-        make_serum_coverage_maps(virus_type="h3", assay="neut", output_dir=self.r_dir("h3-neut"))
-    h3neut_cov = h3neut_serum_coverage
-    h3n_cov = h3neut_serum_coverage
 
     def h3neut_information(self):
         make_map_information(virus_type="h3", assay="neut", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
@@ -406,9 +397,48 @@ class Processor:
         output_dir = self._use_dir("serumcoverage")
         for assay in ["hi", "neut"]:
             for merge in self._merges_dir().glob("*-h3-" + assay + ".ace"):
-                cmd = "chart-serum-circles '{merge}' --json '{json}'".format(merge=merge, json=output_dir.joinpath(merge.stem + ".json"))
-                module_logger.info(cmd)
-                subprocess.check_call(cmd, shell=True)
+                output_file = output_dir.joinpath(merge.stem + ".json")
+                if not output_file.exists():
+                    cmd = "chart-serum-circles '{merge}' --json '{json}'".format(merge=merge, json=output_file)
+                    module_logger.info(cmd)
+                    subprocess.check_call(cmd, shell=True)
+
+    def _serumcircle_report(self, merge_name):
+        cmd = "chart-serum-circles '{merge}'".format(merge=self._merges_dir().joinpath(merge_name.replace("_", "-") + ".ace"))
+        module_logger.info(cmd)
+        subprocess.check_call(cmd, shell=True)
+
+    def serumcircle_report_cdc_h3_hi(self): self._serumcircle_report("cdc_h3_hi")
+    def serumcircle_report_cdc_h3_neut(self): self._serumcircle_report("cdc_h3_neut")
+    def serumcircle_report_melb_h3_hi(self): self._serumcircle_report("melb_h3_hi")
+    def serumcircle_report_melb_h3_neut(self): self._serumcircle_report("melb_h3_neut")
+    def serumcircle_report_niid_h3_neut(self): self._serumcircle_report("niid_h3_neut")
+    def serumcircle_report_nimr_h3_hi(self): self._serumcircle_report("nimr_h3_hi")
+    def serumcircle_report_nimr_h3_neut(self): self._serumcircle_report("nimr_h3_neut")
+
+    def _serumcoverage(self, lab, virus_type, assay):
+        make_serum_coverage_maps(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(virus_type + "-" + assay))
+
+    def serumcoverage_cdc_h3_hi(self): self._serumcoverage(lab="cdc", virus_type="h3", assay="hi")
+    def serumcoverage_cdc_h3_neut(self): self._serumcoverage(lab="cdc", virus_type="h3", assay="neut")
+    def serumcoverage_melb_h3_hi(self): self._serumcoverage(lab="melb", virus_type="h3", assay="hi")
+    def serumcoverage_melb_h3_neut(self): self._serumcoverage(lab="melb", virus_type="h3", assay="neut")
+    def serumcoverage_niid_h3_neut(self): self._serumcoverage(lab="niid", virus_type="h3", assay="neut")
+    def serumcoverage_nimr_h3_hi(self): self._serumcoverage(lab="nimr", virus_type="h3", assay="hi")
+    def serumcoverage_nimr_h3_neut(self): self._serumcoverage(lab="nimr", virus_type="h3", assay="neut")
+
+    def serumcoverage_h3_hi(self):
+        self.serumcoverage_cdc_h3_hi()
+        self.serumcoverage_melb_h3_hi()
+        self.serumcoverage_nimr_h3_hi()
+    h3_cov = serumcoverage_h3_hi
+
+    def serumcoverage_h3_neut(self):
+        self.serumcoverage_cdc_h3_neut()
+        self.serumcoverage_melb_h3_neut()
+        self.serumcoverage_niid_h3_neut()
+        self.serumcoverage_nimr_h3_neut()
+    h3neut_cov = serumcoverage_h3_neut
 
     # ----------------------------------------------------------------------
 
@@ -487,13 +517,15 @@ class Processor:
         acmacs.get_recent_merges(target_dir)
         acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir())
 
-    def _use_dir(self, name, mkdir=True):
+    @classmethod
+    def _use_dir(cls, name, mkdir=True):
         target_dir = Path(name).resolve(strict=False)
         if name and mkdir:
             target_dir.mkdir(parents=True, exist_ok=True)
         return target_dir
 
-    def r_dir(self, name, mkdir=True, link_dir=None):
+    @classmethod
+    def r_dir(cls, name, mkdir=True, link_dir=None):
         if Path("/r/ramdisk-id").exists():
             target_dir = Path("/r/ssm-report", Path(".").resolve().name, name)
             if mkdir:
@@ -505,27 +537,32 @@ class Processor:
                     print(target_dir, link_dir)
                     Path(link_dir).symlink_to(target_dir)
         else:
-            target_dir = self._use_dir(name, mkdir=mkdir)
+            target_dir = cls._use_dir(name, mkdir=mkdir)
         return target_dir
 
-    def _db_dir(self):
-        return self._use_dir("db")
+    @classmethod
+    def _db_dir(cls):
+        return cls._use_dir("db")
 
-    def _merges_dir(self):
-        return self._use_dir("merges")
+    @classmethod
+    def _merges_dir(cls):
+        return cls._use_dir("merges")
 
-    def _log_dir(self):
-        return self.r_dir("log")
+    @classmethod
+    def _log_dir(cls):
+        return cls.r_dir("log")
 
-    def _sp_output_dir(self):
-        self._sp_source_dir()
-        sp_dir = self.r_dir("sp")
+    @classmethod
+    def _sp_output_dir(cls):
+        cls._sp_source_dir()
+        sp_dir = cls.r_dir("sp")
         from .signature_page import signature_page_output_dir_init
         signature_page_output_dir_init(sp_dir)
         return sp_dir
 
-    def _sp_source_dir(self):
-        sp_dir = self._use_dir("sp")
+    @classmethod
+    def _sp_source_dir(cls):
+        sp_dir = cls._use_dir("sp")
         # module_logger.warning("sp_source_dir {}".format(sp_dir))
         from .signature_page import signature_page_source_dir_init
         signature_page_source_dir_init(sp_dir)

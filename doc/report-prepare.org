@@ -108,7 +108,32 @@ ad ssm-report geo
 ** make lispmds save colored by clade
 ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
 * serum coverage maps
+** init
 ad ssm-report serumcoverage-init
+   if (serumcoverage/<lab>-h3-<assay>.json absent)
+     $ ad chart-serum-circles <merge.ace> --json serumcoverage/<lab>-h3-<assay>.json
+** report circle radii
+ad ssm-report serumcircle-report-cdc-h3-hi
+ad ssm-report serumcircle-report-cdc-h3-neut
+ad ssm-report serumcircle-report-melb-h3-hi
+ad ssm-report serumcircle-report-melb-h3-neut
+ad ssm-report serumcircle-report-niid-h3-neut
+ad ssm-report serumcircle-report-nimr-h3-hi
+ad ssm-report serumcircle-report-nimr-h3-neut
+** make plots
+ad ssm-report h3-cov
+ad ssm-report h3neut-cov
+
+ad ssm-report serumcoverage-h3-hi
+ad ssm-report serumcoverage-h3-neut
+
+ad ssm-report serumcoverage-cdc-h3-hi
+ad ssm-report serumcoverage-cdc-h3-neut
+ad ssm-report serumcoverage-melb-h3-hi
+ad ssm-report serumcoverage-melb-h3-neut
+ad ssm-report serumcoverage-niid-h3-neut
+ad ssm-report serumcoverage-nimr-h3-hi
+ad ssm-report serumcoverage-nimr-h3-neut
 * make trees
 
   ad ssm-report tree
