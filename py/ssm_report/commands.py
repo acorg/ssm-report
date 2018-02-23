@@ -2,7 +2,7 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import subprocess
 
-from .map import make_map, make_serum_coverage_maps, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html, make_index_serum_coverage_html
+from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
 from .stat import make_stat
 from .geographic import make_geographic
 from .signature_page import tree_make, signature_page_make, trees_get_from_albertine
@@ -39,7 +39,6 @@ class Processor:
                 getattr(self, command)()
             maps_make_index_html()
             make_index_clade_html(self.r_dir(""))
-            # make_index_serum_coverage_html(self.r_dir(""))
 
     def init(self):
         """initialize ssm report data directory structure"""
@@ -417,7 +416,9 @@ class Processor:
     def serumcircle_report_nimr_h3_neut(self): self._serumcircle_report("nimr_h3_neut")
 
     def _serumcoverage(self, lab, virus_type, assay):
+        from .map import make_serum_coverage_maps, make_serum_coverage_index
         make_serum_coverage_maps(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(virus_type + "-" + assay))
+        make_serum_coverage_index(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(""), pdf_dir=self.r_dir(virus_type + "-" + assay))
 
     def serumcoverage_cdc_h3_hi(self): self._serumcoverage(lab="cdc", virus_type="h3", assay="hi")
     def serumcoverage_cdc_h3_neut(self): self._serumcoverage(lab="cdc", virus_type="h3", assay="neut")
