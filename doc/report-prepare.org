@@ -107,6 +107,8 @@ ad ssm-report geo
 
 ** make lispmds save colored by clade
 ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
+* serum coverage maps
+ad ssm-report serumcoverage-init
 * make trees
 
   ad ssm-report tree
@@ -133,3 +135,4 @@ ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-ne
 * make addendum with the signature pages
 
   ad ssm-report addendum
+* TODO information meeting tree

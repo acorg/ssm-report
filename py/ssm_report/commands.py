@@ -39,7 +39,7 @@ class Processor:
                 getattr(self, command)()
             maps_make_index_html()
             make_index_clade_html(self.r_dir(""))
-            make_index_serum_coverage_html(self.r_dir(""))
+            # make_index_serum_coverage_html(self.r_dir(""))
 
     def init(self):
         """initialize ssm report data directory structure"""
@@ -398,6 +398,17 @@ class Processor:
                 setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), mf(virus_type=virus_type, assay=assay, lab=lab))
         for virus_type, assay, lab in [["h1", "hi", "all"]]:
             setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), mf(virus_type=virus_type, assay=assay, lab=lab))
+
+    # ----------------------------------------------------------------------
+    # Serum coverage
+
+    def serumcoverage_init(self):
+        output_dir = self._use_dir("serumcoverage")
+        for assay in ["hi", "neut"]:
+            for merge in self._merges_dir().glob("*-h3-" + assay + ".ace"):
+                cmd = "chart-serum-circles '{merge}' --json '{json}'".format(merge=merge, json=output_dir.joinpath(merge.stem + ".json"))
+                module_logger.info(cmd)
+                subprocess.check_call(cmd, shell=True)
 
     # ----------------------------------------------------------------------
 
