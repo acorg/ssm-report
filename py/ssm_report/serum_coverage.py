@@ -1,7 +1,8 @@
-import sys, os, json, pprint
+import sys, os, json, pprint, copy
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 from .map import make_map_for_lab
+from acmacs_base.json import write_json
 
 # ----------------------------------------------------------------------
 
@@ -150,6 +151,30 @@ sSrAgRow = """\
 #                         f.write("</tr></table>\n")
 #                     f.write("</body></html>\n")
 
+
+# ----------------------------------------------------------------------
+
+def make_serum_coverage_report_settings():
+    serum_coverage_report_file = Path("report-serumcoverage.json")
+    if not serum_coverage_report_file.exists():
+        report_settings = json.load(Path("report.json").open())
+        report = {
+            "cover": report_settings["cover"],
+            "page_numbering": report_settings["page_numbering"],
+            "pages": [
+                {"type": "cover"},
+                "new_page",
+                {"type": "serum_coverage_map_set", "lab": "CDC", "assay": "HI", "virus_type": "H3"},
+                {"type": "serum_coverage_map_set", "lab": "CDC", "assay": "NEUT", "virus_type": "H3"},
+                {"type": "serum_coverage_map_set", "lab": "NIMR", "assay": "HI", "virus_type": "H3"},
+                {"type": "serum_coverage_map_set", "lab": "NIMR", "assay": "NEUT", "virus_type": "H3"},
+                {"type": "serum_coverage_map_set", "lab": "NIID", "assay": "NEUT", "virus_type": "H3"},
+                {"type": "serum_coverage_map_set", "lab": "MELB", "assay": "HI", "virus_type": "H3"},
+                {"type": "serum_coverage_map_set", "lab": "MELB", "assay": "NEUT", "virus_type": "H3"},
+                ],
+            }
+        report["cover"]["addendum"] = "Addendum 2 (sera coverage)"
+        write_json(serum_coverage_report_file, report, compact=True)
 
 # ======================================================================
 ### Local Variables:

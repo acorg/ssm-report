@@ -325,6 +325,10 @@ T_Cover = r"""%no-eol%
 
 \vspace{10pt}
 \noindent
+%addendum%
+
+\vspace{50pt}
+\noindent
 %meeting_date%
 \par
 }

@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import sys, re, subprocess, datetime, collections, itertools
+import sys, re, subprocess, datetime, collections, itertools, pprint, json
 
 from acmacs_base.json import read_json
 from . import latex
@@ -130,6 +130,7 @@ class LatexReport:
             "report_hemisphere": self.settings["cover"]["hemisphere"],
             "report_year": self.settings["cover"]["year"],
             "teleconference": self.settings["cover"]["teleconference"],
+            "addendum": self.settings["cover"].get("addendum", ""),
             "meeting_date": self.settings["cover"]["meeting_date"],
             })
 
@@ -359,6 +360,7 @@ class LatexSignaturePageAddendum (LatexReport):
             "report_hemisphere": self.settings["cover"]["hemisphere"],
             "report_year": self.settings["cover"]["year"],
             "teleconference": self.settings["cover"]["teleconference"],
+            "addendum": self.settings["cover"].get("addendum", ""),
             "meeting_date": self.settings["cover"]["meeting_date"],
             })
 
@@ -394,8 +396,25 @@ class LatexSerumCoverageAddendum (LatexReport):
             "report_hemisphere": self.settings["cover"]["hemisphere"],
             "report_year": self.settings["cover"]["year"],
             "teleconference": self.settings["cover"]["teleconference"],
+            "addendum": self.settings["cover"]["addendum"],
             "meeting_date": self.settings["cover"]["meeting_date"],
             })
+
+#    {"type": "maps", "arraystretch": 1.0, "images": ["h3-hi/serumcoverage-ANTANANARIVO_2018-007.empirical.all-cdc.pdf", "h3-hi/serumcoverage-ANTANANARIVO_2018-007.theoretical.all-cdc.pdf"],
+#     "title": "CDC HI A(H3N2)/ANTANANARIVO/1067/2016 SIAT3 (2017-10-01) CDC 2018-007"},
+
+    def make_serum_coverage_map_set(self, page):
+        reviewed = sorted(Path(".").glob("serumcoverage-reviewed-{lab}-{virus_type}-{assay}.*.json".format(**page).lower()))[-1:]
+        if reviewed:
+            map_data = json.load(reviewed[0].open())
+            for map_info in map_data:
+                subpage = {
+                    "type": "maps",
+                    "arraystretch": 1.0,
+                    "images": ["{}.{}-{}.pdf".format(map_info, infix, page["lab"].lower()) for infix in ["empirical.all", "theoretical.all"]],
+                    "title": "{} {} {}".format(sLabDisplayName[page["lab"]], page["assay"], map_info.replace("_", " "))
+                    }
+                self.make_maps(subpage)
 
 # ----------------------------------------------------------------------
 

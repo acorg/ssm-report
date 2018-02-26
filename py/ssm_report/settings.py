@@ -9,6 +9,8 @@ from acmacs_base.dict_merge import dict_merge
 def make_settings(force=False):
     from .settings_report import make_report_settings
     make_report_settings()
+    from .serum_coverage import make_serum_coverage_report_settings
+    make_serum_coverage_report_settings()
     from .geographic import make_geographic_settings
     make_geographic_settings(force=force)
     for entry in [
@@ -180,19 +182,20 @@ s_h3_hi_data = """
       "clades",
       {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
-    ],
-    "serum_sectors": [
-      {"N": "serum_circle", "serum": {"lab": "provide-lab", "index": "provide serum selector"}, "?antigen": {"index": 0}, "report": true,
-       "circle": {"fill": "#C08080FF", "outline": "blue", "outline_width": 2, "angle_degrees": [0, 30], "radius_line_dash": "dash2", "?radius_line_color": "red", "?radius_line_width": 1},
-       "mark_serum": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}},
-       "mark_antigen": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}}}
-    ],
-    "serum_coverage_hk": [
-      {"N": "serum_coverage", "serum": {"lab": "provide lab", "index": "provide serum selector"}, "?antigen": {"index": 1}, "report": true,
-       "mark_serum": {"fill": "red", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12, "weight": "bold"}},
-       "within_4fold": {"outline": "pink", "outline_width": 3, "order": "raise"},
-       "outside_4fold": {"fill": "grey50", "outline": "black", "order": "raise"}}
     ]"""
+
+    # "serum_sectors": [
+    #   {"N": "serum_circle", "serum": {"lab": "provide-lab", "index": "provide serum selector"}, "?antigen": {"index": 0}, "report": true,
+    #    "circle": {"fill": "#C08080FF", "outline": "blue", "outline_width": 2, "angle_degrees": [0, 30], "radius_line_dash": "dash2", "?radius_line_color": "red", "?radius_line_width": 1},
+    #    "mark_serum": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}},
+    #    "mark_antigen": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}}}
+    # ],
+    # "serum_coverage_hk": [
+    #   {"N": "serum_coverage", "serum": {"lab": "provide lab", "index": "provide serum selector"}, "?antigen": {"index": 1}, "report": true,
+    #    "mark_serum": {"fill": "red", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12, "weight": "bold"}},
+    #    "within_4fold": {"outline": "pink", "outline_width": 3, "order": "raise"},
+    #    "outside_4fold": {"fill": "grey50", "outline": "black", "order": "raise"}}
+    # ]
 
 # --------------- CDC H3 HI -------------------------------------------------------
 
@@ -327,19 +330,20 @@ s_h3_neut_data = """
       "clades",
       {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
-    ],
-    "serum_sectors": [
-      {"N": "serum_circle", "serum": {"lab": "provide-lab", "index": "provide serum selector"}, "?antigen": {"index": 0}, "report": true,
-       "circle": {"fill": "#C08080FF", "outline": "blue", "outline_width": 2, "angle_degrees": [0, 30], "radius_line_dash": "dash2", "?radius_line_color": "red", "?radius_line_width": 1},
-       "mark_serum": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}},
-       "mark_antigen": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}}}
-    ],
-    "serum_coverage_hk": [
-      {"N": "serum_coverage", "serum": {"lab": "provide lab", "index": "provide serum selector"}, "?antigen": {"index": 1}, "report": true,
-       "mark_serum": {"fill": "red", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12, "weight": "bold"}},
-       "within_4fold": {"outline": "pink", "outline_width": 3, "order": "raise"},
-       "outside_4fold": {"fill": "grey50", "outline": "black", "order": "raise"}}
     ]"""
+
+    # "serum_sectors": [
+    #   {"N": "serum_circle", "serum": {"lab": "provide-lab", "index": "provide serum selector"}, "?antigen": {"index": 0}, "report": true,
+    #    "circle": {"fill": "#C08080FF", "outline": "blue", "outline_width": 2, "angle_degrees": [0, 30], "radius_line_dash": "dash2", "?radius_line_color": "red", "?radius_line_width": 1},
+    #    "mark_serum": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}},
+    #    "mark_antigen": {"fill": "lightblue", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12}}}
+    # ],
+    # "serum_coverage_hk": [
+    #   {"N": "serum_coverage", "serum": {"lab": "provide lab", "index": "provide serum selector"}, "?antigen": {"index": 1}, "report": true,
+    #    "mark_serum": {"fill": "red", "outline": "black", "order": "raise", "label": {"name_type": "full", "offset": [0, 1.2], "color": "black", "size": 12, "weight": "bold"}},
+    #    "within_4fold": {"outline": "pink", "outline_width": 3, "order": "raise"},
+    #    "outside_4fold": {"fill": "grey50", "outline": "black", "order": "raise"}}
+    # ]
 
 # --------------- CDC H3 Neut -------------------------------------------------------
 

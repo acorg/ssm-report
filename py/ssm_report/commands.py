@@ -417,7 +417,7 @@ class Processor:
 
     def _serumcoverage(self, lab, virus_type, assay):
         from .serum_coverage import make_serum_coverage_maps, make_serum_coverage_index
-        # make_serum_coverage_maps(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(virus_type + "-" + assay))
+        make_serum_coverage_maps(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(virus_type + "-" + assay))
         make_serum_coverage_index(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(""), pdf_dir=self.r_dir(virus_type + "-" + assay))
 
     def serumcoverage_cdc_h3_hi(self): self._serumcoverage(lab="cdc", virus_type="h3", assay="hi")
