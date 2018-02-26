@@ -125,16 +125,23 @@ class Processor:
         self.byam_tree_information()
 
     def h1_tree_information(self):
-        tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
+        self._tree_information("h1")
 
     def h3_tree_information(self):
-        tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
+        self._tree_information("h3")
 
     def bvic_tree_information(self):
-        tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
+        self._tree_information("bvic")
 
     def byam_tree_information(self):
-        tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
+        self._tree_information("byam")
+
+    def _tree_information(self, virus_type):
+
+        tree_dir = self._use_dir("tree")
+        from .signature_page import tree_make_information_settings
+        tree_make_information_settings(virus_type=virus_type, tree_dir=tree_dir)
+        tree_make(subtype=virus_type, tree_dir=tree_dir, seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
 
         # ----------------------------------------------------------------------
 

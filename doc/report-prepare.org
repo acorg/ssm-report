@@ -174,4 +174,10 @@ $ ad ssm-report report-serumcoverage
 * make addendum with the signature pages
 
   ad ssm-report addendum
-* TODO information meeting tree
+* information meeting tree
+commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
+
+ad ssm-report h1-tree-information
+ad ssm-report h3-tree-information
+ad ssm-report bvic-tree-information
+ad ssm-report byam-tree-information

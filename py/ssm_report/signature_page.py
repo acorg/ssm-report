@@ -43,6 +43,25 @@ def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings"):
 
 # ----------------------------------------------------------------------
 
+def tree_make_information_settings(virus_type, tree_dir):
+    info_settings = tree_dir.joinpath("{}.tree.information.json".format(virus_type))
+    if not info_settings.exists():
+        settings = read_json(tree_dir.joinpath("{}.tree.settings.json".format(virus_type)))
+        for clade_data in settings["clades"]["clades"]:
+            clade_data["show"] = False
+        settings["title"]["title"] = ""
+        settings["tree"]["aa_transition"]["per_branch"]["show"] = False
+        settings["tree"].update({
+            "color_nodes": "continent",
+            "force_line_width": True,
+            # "label_style": {"family": "", "slant": "normal", "weight": "normal"},
+            "line_color": "black",
+            "line_width": 1.5,
+            })
+        write_json(info_settings, settings)
+
+# ----------------------------------------------------------------------
+
 def _tree_update_settings(subtype, settings):
     data = read_json(settings)
     data["title"]["title"] = sVirusTypeShort[subtype]
