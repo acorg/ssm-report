@@ -411,8 +411,8 @@ class LatexSerumCoverageAddendum (LatexReport):
                 subpage = {
                     "type": "maps",
                     "arraystretch": 1.0,
-                    "images": ["{}.{}-{}.pdf".format(map_info, infix, page["lab"].lower()) for infix in ["empirical.all", "theoretical.all"]],
-                    "title": "{} {} {}".format(sLabDisplayName[page["lab"]], page["assay"], map_info.replace("_", " "))
+                    "images": ["{}.{}-{}.pdf".format(map_info["prefix"], infix, page["lab"].lower()) for infix in ["empirical.all", "theoretical.all"]],
+                    "title": "{} {} {}".format(sLabDisplayName[page["lab"]], page["assay"], map_info["serum_name"])
                     }
                 self.make_maps(subpage)
 

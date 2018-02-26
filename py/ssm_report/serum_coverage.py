@@ -21,11 +21,12 @@ def make_serum_coverage_maps(output_dir, lab, virus_type, assay):
 
 def make_serum_coverage_index(output_dir, lab, virus_type, assay, pdf_dir):
 
-    def make_cell(base_filename, infix, safari):
+    def make_cell(base_filename, infix, mod_data, safari):
         filename = "{}-{}/{}".format(virus_type, assay, Path(base_filename).name)
         result = ""
         if infix == "theoretical.all":
-            result += '<td class="checkbox"><input class="sr-ag-row-selector" type="checkbox" onchange="checkbox_toggled(this);" file="{prefix}" /></td>\n'.format(prefix=filename[:filename.find(".theoretical.all")])
+            result += '<td class="checkbox"><input class="sr-ag-row-selector" type="checkbox" onchange="checkbox_toggled(this);" file="{prefix}" serum_name="{serum_name}" serum_no="{serum_no}" antigen_name="{antigen_name}" antigen_no="{antigen_no}"/></td>\n'.format(
+                prefix=filename[:filename.find(".theoretical.all")], **mod_data)
         else:
             filename = filename.replace("theoretical.all", infix)
         if safari:
@@ -52,7 +53,7 @@ def make_serum_coverage_index(output_dir, lab, virus_type, assay, pdf_dir):
                     if pdf.exists():
                         mod_data = settings["mods"][mod][0]
                         if mod_data.get("N") == "comment" and mod_data.get("type") == "data":
-                            f.write(sSrAgRow.format(**mod_data, columns="\n".join(make_cell(base_filename=pdf, infix=infix, safari=safari) for infix in ["theoretical.all", "theoretical.12m", "empirical.all", "empirical.12m"])))
+                            f.write(sSrAgRow.format(**mod_data, columns="\n".join(make_cell(base_filename=pdf, infix=infix, mod_data=mod_data, safari=safari) for infix in ["theoretical.all", "theoretical.12m", "empirical.all", "empirical.12m"])))
                         else:
                             f.write("<h3>{}</h3>\n".format(pdf.stem))
             f.write("</body></html>\n")
@@ -84,7 +85,7 @@ sHead = """<html>
     }
 
     function export_selection() {
-      var selected  = Object.values(document.getElementsByClassName("sr-ag-row-selector")).filter(function(v) { return v.checked; }).map(function(v) { return v.getAttribute("file"); });
+      var selected  = Object.values(document.getElementsByClassName("sr-ag-row-selector")).filter(function(v) { return v.checked; }).map(function(v) { return {"prefix": v.getAttribute("file"), "serum_name": v.getAttribute("serum_name"), "serum_no": v.getAttribute("serum_no"), "antigen_name": v.getAttribute("antigen_name"), "antigen_no": v.getAttribute("antigen_no")}; });
       if (selected.length > 0) {
         var export_anchor = document.getElementById('export_anchor');
         export_anchor.setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(selected, null, 2)));
@@ -95,6 +96,10 @@ sHead = """<html>
       else {
         alert("Please select serum-antigen pairs using checkboxes on the left");
       }
+    }
+
+    function check_all() {
+      Object.values(document.getElementsByClassName("sr-ag-row-selector")).filter(function(v) { return !v.checked; }).forEach(function(v) { v.click(); });
     }
 
     function findAncestor(el, cls) {
@@ -108,6 +113,7 @@ sHead = """<html>
   <h2>%(title)s</h2>
   <p>Please select serum-antigen pair rows to be included in the report, then click Export button and send me downloaded %(export_filename)s file.</p>
   <input class="export" type="submit" value="Export" onclick="export_selection();" />
+  <input class="check_all" type="submit" value="Select All" onclick="check_all();" />
   <a id="export_anchor" style="display:none"></a>
 """
 
