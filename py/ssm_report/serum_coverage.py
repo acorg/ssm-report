@@ -43,7 +43,7 @@ def make_serum_coverage_index(output_dir, lab, virus_type, assay, pdf_dir):
                 "title": "Serum Coverage {} {} {}".format(lab.upper(), virus_type.upper(), assay.upper()),
                 "width": 400,
                 "height": 415,
-                "export_filename": "serumcoverage-{}-{}.json".format(lab, virus_type),
+                "export_filename": "serumcoverage-reviewed-{}-{}-{}.DATE.json".format(lab, virus_type, assay),
                 })
             for mod in settings["serum_coverage_mods"]["theoretical.all"]:
                 if mod[0] != "?":
@@ -71,7 +71,7 @@ sHead = """<html>
     div.sr-ag-row { border-left: 5px solid transparent; }
     div.sr-ag-row.sr-ag-chosen { border-left: 5px solid #E0E0FF; }
     table.serum-coverage td.sr-ag-chosen { background-color: #E0E0FF; }
-    p { margin-left: 1em; }
+    p { margin-left: 1em; width: 40em; }
     input.export { margin-left: 1em; }
   </style>
   <script>
@@ -87,7 +87,8 @@ sHead = """<html>
       if (selected.length > 0) {
         var export_anchor = document.getElementById('export_anchor');
         export_anchor.setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(selected, null, 2)));
-        export_anchor.setAttribute("download", "%(export_filename)s");
+        var datestamp = new Date().toISOString().slice(0, 10).replace(/-/g, "") + "-" + new Date().toISOString().slice(11, 16).replace(/:/g, "");
+        export_anchor.setAttribute("download", "%(export_filename)s".replace("DATE", datestamp));
         export_anchor.click();
       }
       else {
