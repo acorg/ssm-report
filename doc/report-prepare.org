@@ -2,7 +2,7 @@
 ** visit [[http://gisaid.org][gisaid]] and login (at right)
 ** Click EpiFlu (top middle)
 ** Hold Cmd and click A and B in the Type.
-** Set COLLECTION date From to 2017-12-17 (or later depending on the number of isolates upon search, see below)
+** Set COLLECTION date From to 2018-05-01 (or later depending on the number of isolates upon search, see below)
 ** _Leave originating lab empty!_
 ** Select **Submitting lab** them all using Cmd
 
@@ -46,6 +46,8 @@ running time: ~ 25 min (asks acmacs-web password in few minutes after start)
 *** just re-make seqdb (in case of downloading new sequences or fixing locations)
   ad ssm-report remake-seqdb
   running time: ~ 8 min
+
+  ad seqdb-create --db /r/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /r/not-found.txt ~/ac/tables-store/sequences/*.fas.bz2
 *** copy seqdb to ~/AD/data: cp db/seqdb.json.xz ~/AD/data && rsync ~/AD/data/seqdb.json.xz albertine:AD/data
 *** sync ~/ac/results/ssm/YYYY-MMDD-* and ~/AD/data/seqdb.json.xz to syn: ./sy && rsync ~/AD/data/seqdb.json.xz albertine:AD/data
 *** update merges (in case new tables arrived and processed) and hidb
