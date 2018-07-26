@@ -59,7 +59,7 @@ sSettings = {
   "priority": ["YAMAGATA", "VICTORIA", "VICTORIA_DEL"]
 }
 
-sColoringByVirusType = {"b": "lineage-deletion-mutants", "h1": "clade", "h3": "clade"}
+sColoringByVirusType = {"b": "lineage-deletion-mutants", "h1": "continent", "h3": "clade"}
 
 # ======================================================================
 

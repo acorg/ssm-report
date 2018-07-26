@@ -647,6 +647,15 @@ sRootIndexHtml = """
       <li><a href="bvic-hi/index.html">B/Vic</a></li>
       <li><a href="byam-hi/index.html">B/Yam</a></li>
     </ul>
+    <h2>Geographic maps</h2>
+    <ul>
+      <li><a href="geo/index.html">for Chrome</a></li>
+      <li><a href="geo/index.safari.html">for Safari</a></li>
+    </ul>
+    <h2>Stat</h2>
+    <ul>
+      <li><a href="stat/index.html">Stat</a></li>
+    </ul>
     <h2>Signature pages</h2>
     <ul>
       <li><a href="sp/index.html">H3, H3 neut, H1, B/Vic, B/Yam</a></li>
