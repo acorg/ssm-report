@@ -641,11 +641,11 @@ sRootIndexHtml = """
     </ul>
     <h2>Antigenic maps</h2>
     <ul>
-      <li><a href="h3-hi/index.html">H3 HI</a></li>
-      <li><a href="h3-neut/index.html">H3 Neut</a></li>
-      <li><a href="h1-hi/index.html">H1</a></li>
-      <li><a href="bvic-hi/index.html">B/Vic</a></li>
-      <li><a href="byam-hi/index.html">B/Yam</a></li>
+      <li><a href="h1-hi/index.html">H1</a> (<a href="h1-hi/index.safari.html">Safari</a>)</li>
+      <li><a href="h3-hi/index.html">H3 HI</a> (<a href="h3-hi/index.safari.html">Safari</a>)</li>
+      <li><a href="h3-neut/index.html">H3 Neut</a> (<a href="h3-neut/index.safari.html">Safari</a>)</li>
+      <li><a href="bvic-hi/index.html">B/Vic</a> (<a href="bvic-hi/index.safari.html">Safari</a>)</li>
+      <li><a href="byam-hi/index.html">B/Yam</a> (<a href="byam-hi/index.safari.html">Safari</a>)</li>
     </ul>
     <h2>Geographic maps</h2>
     <ul>
