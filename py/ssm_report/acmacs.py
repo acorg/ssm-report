@@ -1,4 +1,4 @@
-import sys, subprocess
+import sys, subprocess, pprint
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 # from . import error, utility
@@ -32,7 +32,11 @@ def get_recent_merges(target_dir :Path, session=None, force=False):
         except:
             merge_data = {}
 
-        response = api(session=session).command(C="ad_whocc_recent_merges", log=False, labs=None, virus_types=None)['data']
+        response = api(session=session).command(C="ad_whocc_recent_merges", log=False, labs=None, virus_types=None)
+        if "data" not in response:
+            module_logger.error("No \"data\" in response of ad_whocc_recent_merges api command:\n{}".format(pprint.pformat(response)))
+            raise RuntimeError("Unexpected result of ad_whocc_recent_merges c2 api command")
+        response = response['data']
         response.sort(key=lambda e: "{lab:4s} {virus_type:10s} {assay}".format(**e))
         module_logger.info('WHO CC recent merges\n{}'.format("\n".join("{lab:4s} {virus_type:14s} {assay:31s} {chart_id}".format(**e) for e in response)))
 
