@@ -62,6 +62,9 @@ sApplyFor = {
         {"N": "antigens", "select": "reference", "outline": "grey80", "fill": "transparent"},
         {"N": "antigens", "select": "test", "show": False},
         ],
+    "ts_post": [
+        "no_legend"
+        ],
 }
 
 sTitleFor = {
@@ -241,7 +244,7 @@ def make_ts(output_dir, virus_type, assay, force):
             s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
             pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab, period_name=period["text_name"])
             ts = [{"N": "antigens", "select": {"test": True, "date_range": [period["first_date"], period["after_last_date"]]}, "show": True}]
-            json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + post}, s2_filename.open("w"), indent=2)
+            json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + sApplyFor["ts_post"] + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
             script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' {previous_chart} '{chart}' '{output}'\n".format(

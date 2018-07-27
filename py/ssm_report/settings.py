@@ -71,6 +71,9 @@ s_h1_hi_data = """
     "set_legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
     ],
+    "no_legend": [
+      {"N": "legend", "show": false}
+    ],
     "information": [
       "clades",
       {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
@@ -171,6 +174,9 @@ s_h3_hi_data = """
     ],
     "set_legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
+    ],
+    "no_legend": [
+      {"N": "legend", "show": false}
     ],
     "serology": [
       {"N": "antigens", "select": {"name": "WASHINGTON/106/2016", "passage": "cell"}, "fill": "#FFA500",  "report": true, "outline": "black", "size": 18, "show": true, "order": "raise",
@@ -319,6 +325,9 @@ s_h3_neut_data = """
     ],
     "set_legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
+    ],
+    "no_legend": [
+      {"N": "legend", "show": false}
     ],
     "serology": [
       {"N": "antigens", "select": {"name": "WASHINGTON/106/2016", "passage": "cell"}, "fill": "#FFA500",  "report": true, "outline": "black", "size": 18, "show": true, "order": "raise",
@@ -514,6 +523,9 @@ s_bvic_hi_data = """
     "set_legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
     ],
+    "no_legend": [
+      {"N": "legend", "show": false}
+    ],
     "information": [
       "clades",
       {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
@@ -692,6 +704,9 @@ s_byam_hi_data = """
     ],
     "set_legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
+    ],
+    "no_legend": [
+      {"N": "legend", "show": false}
     ],
     "information": [
       "clades",
