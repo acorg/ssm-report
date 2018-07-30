@@ -53,6 +53,7 @@ get trees:
   scp i19:/syn/eu/ac/results/whocc-tree/YYYY-MMDD/\*.tree.json.xz tree; ln -s BV.tree.json.xz tree/bvic.tree.json.xz; ln -s BY.tree.json.xz tree/byam.tree.json.xz
 
 then run:
+  ad ssm-report tree
 
 ** OBSOLETE (before 2018-07-26)
 *** prepare directories
