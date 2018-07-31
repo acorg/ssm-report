@@ -681,6 +681,18 @@ sRootIndexHtml = """
     <ul>
       <li><a href="sp/index.html">H3, H3 neut, H1, B/Vic, B/Yam</a></li>
     </ul>
+    <h2>Serum coverage</h2>
+    <p>Please visit index pages linked below and read the instructions at the top of the pages.</p>
+    <ul>
+      <li><a href="index-serumcoverage-cdc-h3-hi.html">CDC H3 HI</a> (<a href="index-serumcoverage-cdc-h3-hi.safari.html">Safari</a>)</li>
+      <li><a href="index-serumcoverage-nimr-h3-hi.html">Crick H3 HI</a> (<a href="index-serumcoverage-nimr-h3-hi.safari.html">Safari</a>)</li>
+      <li><a href="index-serumcoverage-melb-h3-hi.html">VIDRL H3 HI</a> (<a href="index-serumcoverage-melb-h3-hi.safari.html">Safari</a>)</li>
+      <br>
+      <li><a href="index-serumcoverage-cdc-h3-neut.html">CDC H3 Neut</a> (<a href="index-serumcoverage-cdc-h3-neut.safari.html">Safari</a>)</li>
+      <li><a href="index-serumcoverage-nimr-h3-neut.html">Crick H3 Neut</a> (<a href="index-serumcoverage-nimr-h3-neut.safari.html">Safari</a>)</li>
+      <li><a href="index-serumcoverage-niid-h3-neut.html">NIID H3 Neut</a> (<a href="index-serumcoverage-niid-h3-neut.safari.html">Safari</a>)</li>
+      <li><a href="index-serumcoverage-melb-h3-neut.html">VIDRL H3 Neut</a> (<a href="index-serumcoverage-melb-h3-neut.safari.html">Safari</a>)</li>
+    </ul>
   </body>
 </html>
 """
