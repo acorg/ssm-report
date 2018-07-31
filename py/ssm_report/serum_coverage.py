@@ -12,10 +12,18 @@ def make_serum_coverage_maps(output_dir, lab, virus_type, assay):
     s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
     s2_filename = Path("serumcoverage/{}-{}-{}.json".format(lab, virus_type, assay)).resolve()
     mods_coverage = json.load(s2_filename.open())["serum_coverage_mods"]
+    failed_maps = []
     for radius_time_type in sRadiusTime:
         for mod in mods_coverage[radius_time_type]:
             if mod[0] != "?":
-                make_map_for_lab(output_dir=output_dir, prefix="serumcoverage-{}.{}".format(lab, mod), virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=[s1_filename, s2_filename])
+                try:
+                    make_map_for_lab(output_dir=output_dir, prefix="serumcoverage-{}.{}".format(lab, mod), virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=[s1_filename, s2_filename])
+                except Exception as err:
+                    module_logger.error(str(err))
+                    failed_maps.append({"virus_type": virus_type, "assay": assay, "lab": lab, "mod": mod, "error": err})
+    if failed_maps:
+        module_logger.error("Some maps cannot be made:\n{}".format(pprint.pformat(failed_maps)))
+        raise RuntimeError(failed_maps)
 
 # ----------------------------------------------------------------------
 

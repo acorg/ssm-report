@@ -120,7 +120,7 @@ button at the top, send generated serumcoverage-reviewed-<lab>-h3-<assay>.DATE.j
 file to me.
 
 ad ssm-report h3-cov
-ad ssm-report h3neut-cov
+ad ssm-report h3neut-cov   ~40 min
 
 ad ssm-report serumcoverage-h3-hi
 ad ssm-report serumcoverage-h3-neut

@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import subprocess
+import subprocess, pprint
 
 from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
 from .stat import make_stat
@@ -436,16 +436,30 @@ class Processor:
     def serumcoverage_nimr_h3_neut(self): self._serumcoverage(lab="nimr", virus_type="h3", assay="neut")
 
     def serumcoverage_h3_hi(self):
-        self.serumcoverage_cdc_h3_hi()
-        self.serumcoverage_melb_h3_hi()
-        self.serumcoverage_nimr_h3_hi()
+        failed = []
+        for cmd in ["serumcoverage_cdc_h3_hi", "serumcoverage_melb_h3_hi", "serumcoverage_nimr_h3_hi"]:
+            try:
+                getattr(self, cmd)()
+            except Exception as err:
+                failed.append(err)
+        if failed:
+            module_logger.error("Maps failed:\n{}".format(pprint.pformat(failed)))
+            raise RuntimeError("Maps failed")
+        # self.serumcoverage_cdc_h3_hi()
+        # self.serumcoverage_melb_h3_hi()
+        # self.serumcoverage_nimr_h3_hi()
     h3_cov = serumcoverage_h3_hi
 
     def serumcoverage_h3_neut(self):
-        self.serumcoverage_cdc_h3_neut()
-        self.serumcoverage_melb_h3_neut()
-        self.serumcoverage_niid_h3_neut()
-        self.serumcoverage_nimr_h3_neut()
+        failed = []
+        for cmd in ["serumcoverage_cdc_h3_neut", "serumcoverage_melb_h3_neut", "serumcoverage_niid_h3_neut", "serumcoverage_nimr_h3_neut"]:
+            try:
+                getattr(self, cmd)()
+            except Exception as err:
+                failed.append(err)
+        if failed:
+            module_logger.error("Maps failed:\n{}".format(pprint.pformat(failed)))
+            raise RuntimeError("Maps failed")
     h3neut_cov = serumcoverage_h3_neut
 
     # ----------------------------------------------------------------------
@@ -638,6 +652,13 @@ sRootIndexHtml = """
       <li><a href="tree/h3.tree.pdf">H3</a></li>
       <li><a href="tree/bvic.tree.pdf">B/Vic</a></li>
       <li><a href="tree/byam.tree.pdf">B/Yam</a></li>
+    </ul>
+    <h2>Phylogenetic Trees and splitting into HZ sections</h2>
+    <ul>
+      <li><a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H1.html">H1</a> (<a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H1.safari.html">Safari</a>)</li>
+      <li><a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H3.html">H3</a> (<a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H3.safari.html">Safari</a>)</li>
+      <li><a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BV.html">B/Vic</a> (<a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BV.safari.html">Safari</a>)</li>
+      <li><a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BY.html">B/Yam</a> (<a href="https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BY.safari.html">Safari</a>)</li>
     </ul>
     <h2>Antigenic maps</h2>
     <ul>
