@@ -119,7 +119,7 @@ below.  Reviewer should select sr-ag rows in those pages, click export
 button at the top, send generated serumcoverage-reviewed-<lab>-h3-<assay>.DATE.json
 file to me.
 
-ad ssm-report h3-cov
+ad ssm-report h3-cov       ~4 hours!
 ad ssm-report h3neut-cov   ~40 min
 
 ad ssm-report serumcoverage-h3-hi
