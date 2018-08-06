@@ -182,7 +182,7 @@ sReport = {
         {"type": "?************************* B *****************************"},
         {"type": "section_begin", "title": "B", "subtype": "b"},
         {"type": "subsection_begin", "subtype": "b", "title": "B Victoria and Yamagata geographic data"},
-        {"type": "geographic_data_description", "coloring": "b_lineage"},
+        {"type": "geographic_data_description", "coloring": "b_lineage_vic_deletion_mutants"},
         "new_page",
         {"type": "geographic_ts", "subtype": "b"},
         "new_page",
