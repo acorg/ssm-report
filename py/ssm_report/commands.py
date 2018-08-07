@@ -623,7 +623,8 @@ class Processor:
             open("rr", "w").write("#! /bin/bash\ncd $(dirname $0) &&\n$ACMACSD_ROOT/bin/ssm-report --working-dir . report &&\n./sy\n")
             Path("rr").chmod(0o700)
         if not Path("sy").exists():
-            open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\" &&\nsyput /r/ssm-report/\"$(basename ${PWD})\" \"${PWD#$HOME/}\"")
+            # open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\" &&\nsyput /r/ssm-report/\"$(basename ${PWD})\" \"${PWD#$HOME/}\"")
+            open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\"")
             Path("sy").chmod(0o700)
         index_html = self.r_dir("").joinpath("index.html")
         if not index_html.exists():
