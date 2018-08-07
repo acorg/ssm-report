@@ -65,6 +65,7 @@ sApplyFor = {
     "ts_post": [
         "no_legend"
         ],
+    None: []
 }
 
 sTitleFor = {
@@ -112,6 +113,12 @@ sTitleFor = {
         "byam": {
             "hi":   "{lab} {virus_type} by clade",
         },
+    },
+    "aa_at_131": {
+        "h3": {
+            "hi":   "{lab} {virus_type} {assay} by amino-acids at 131",
+            "neut": "{lab} {virus_type} {assay} by amino-acids at 131",
+        }
     },
     "geography": {
         "h3": {
@@ -201,9 +208,10 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
         inside = [lab + "_serology"]
     elif "serum_coverage_circle" in mod:
         inside = sApplyFor["serum_coverage_circle"] + [mod]
+        mod = None
     else:
         inside = []
-    json.dump({"apply": pre + sApplyFor.get(mod, []) + inside + post}, s2_filename.open("w"), indent=2)
+    json.dump({"apply": pre + sApplyFor.get(mod, [mod]) + inside + post}, s2_filename.open("w"), indent=2)
 
     script_filename = output_dir.joinpath(output_prefix + ".sh")
     settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))

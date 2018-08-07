@@ -253,6 +253,9 @@ class Processor:
         self._clade_12m(virus_type="h3", assay="hi")
     h3_clades = h3_clade
 
+    def h3_aa_at_131(self):
+        self._aa_at(virus_type="h3", assay="hi", positions=[131])
+
     def h3_serology(self):
         self._serology(virus_type="h3", assay="hi")
 
@@ -279,6 +282,9 @@ class Processor:
     h3neut_clades = h3neut_clade
     h3n_clades = h3neut_clade
     h3n_clade = h3neut_clade
+
+    def h3neut_aa_at_131(self):
+        self._aa_at(virus_type="h3", assay="neut", positions=[131])
 
     def h3neut_serology(self):
         self._serology(virus_type="h3", assay="neut")
@@ -486,6 +492,10 @@ class Processor:
 
     def _clade_12m(self, virus_type, assay):
         make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+
+    def _aa_at(self, virus_type, assay, positions):
+        mod = "aa_at_" + "_".join(str(pos) for pos in positions)
+        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
     def _geography(self, virus_type, assay):
         make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
