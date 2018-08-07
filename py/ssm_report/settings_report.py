@@ -233,6 +233,18 @@ sReport = {
             "bvic-hi/clade-niid.pdf", "bvic-hi/clade-melb.pdf"
             ]},
         "new_page",
+        {"type": "subsection_begin", "subtype": "bvic", "title": "B/Vic antigenic maps colored by phylogenetic clade (since {twelve_month_ago})"},
+        {"type": "maps", "images": [
+            "bvic-hi/clade-12m-cdc.pdf", "bvic-hi/clade-12m-nimr.pdf",
+            "bvic-hi/clade-12m-niid.pdf", "bvic-hi/clade-12m-melb.pdf"
+            ]},
+        "new_page",
+        {"type": "subsection_begin", "subtype": "bvic", "title": "B/Vic antigenic maps colored by phylogenetic clade (since {six_month_ago})"},
+        {"type": "maps", "images": [
+            "bvic-hi/clade-6m-cdc.pdf", "bvic-hi/clade-6m-nimr.pdf",
+            "bvic-hi/clade-6m-niid.pdf", "bvic-hi/clade-6m-melb.pdf"
+            ]},
+        "new_page",
         {"type": "subsection_begin", "subtype": "bvic", "title": "B/Vic antigenic maps with serology antigens"},
         {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
         {"type": "maps", "images": [
@@ -276,6 +288,18 @@ sReport = {
         {"type": "maps", "images": [
             "byam-hi/clade-cdc.pdf", "byam-hi/clade-nimr.pdf",
             "byam-hi/clade-niid.pdf", "byam-hi/clade-melb.pdf"
+            ]},
+        "new_page",
+        {"type": "subsection_begin", "subtype": "byam", "title": "B/Yam antigenic maps colored by phylogenetic clade (since {twelve_month_ago})"},
+        {"type": "maps", "images": [
+            "byam-hi/clade-12m-cdc.pdf", "byam-hi/clade-12m-nimr.pdf",
+            "byam-hi/clade-12m-niid.pdf", "byam-hi/clade-12m-melb.pdf"
+            ]},
+        "new_page",
+        {"type": "subsection_begin", "subtype": "byam", "title": "B/Yam antigenic maps colored by phylogenetic clade (since {six_month_ago})"},
+        {"type": "maps", "images": [
+            "byam-hi/clade-6m-cdc.pdf", "byam-hi/clade-6m-nimr.pdf",
+            "byam-hi/clade-6m-niid.pdf", "byam-hi/clade-6m-melb.pdf"
             ]},
         "new_page",
         {"type": "subsection_begin", "subtype": "byam", "title": "B/Yam antigenic maps with serology antigens"},

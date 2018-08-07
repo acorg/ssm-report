@@ -310,6 +310,8 @@ class Processor:
 
     def bvic_clade(self):
         self._clade(virus_type="bvic", assay="hi")
+        self._clade_6m(virus_type="bvic", assay="hi")
+        self._clade_12m(virus_type="bvic", assay="hi")
     bvic_clades = bvic_clade
 
     def bvic_serology(self):
