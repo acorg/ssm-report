@@ -114,10 +114,10 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} by clade",
         },
     },
-    "aa_at_131": {
+    "aa_at_142": {
         "h3": {
-            "hi":   "{lab} {virus_type} {assay} by amino-acids at 131",
-            "neut": "{lab} {virus_type} {assay} by amino-acids at 131",
+            "hi":   "{lab} {virus_type} {assay} by amino-acids at 142",
+            "neut": "{lab} {virus_type} {assay} by amino-acids at 142",
         }
     },
     "geography": {

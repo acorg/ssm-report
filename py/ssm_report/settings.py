@@ -178,8 +178,8 @@ s_h3_hi_data = """
     "no_legend": [
       {"N": "legend", "show": false}
     ],
-    "aa_at_131": [
-      {"N": "amino-acids", "pos": [131], "outline": "black", "legend": {"count": true}, "order": "raise"}
+    "aa_at_142": [
+      {"N": "amino-acids", "pos": [142], "outline": "black", "legend": {"count": true}, "order": "raise"}
     ],
     "serology": [
       {"N": "antigens", "select": {"name": "WASHINGTON/106/2016", "passage": "cell"}, "fill": "#FFA500",  "report": true, "outline": "black", "size": 18, "show": true, "order": "raise",

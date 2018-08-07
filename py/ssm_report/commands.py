@@ -253,8 +253,8 @@ class Processor:
         self._clade_12m(virus_type="h3", assay="hi")
     h3_clades = h3_clade
 
-    def h3_aa_at_131(self):
-        self._aa_at(virus_type="h3", assay="hi", positions=[131])
+    def h3_aa_at_142(self):
+        self._aa_at(virus_type="h3", assay="hi", positions=[142])
 
     def h3_serology(self):
         self._serology(virus_type="h3", assay="hi")
@@ -283,8 +283,8 @@ class Processor:
     h3n_clades = h3neut_clade
     h3n_clade = h3neut_clade
 
-    def h3neut_aa_at_131(self):
-        self._aa_at(virus_type="h3", assay="neut", positions=[131])
+    def h3neut_aa_at_142(self):
+        self._aa_at(virus_type="h3", assay="neut", positions=[142])
 
     def h3neut_serology(self):
         self._serology(virus_type="h3", assay="neut")
