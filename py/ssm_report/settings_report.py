@@ -222,6 +222,7 @@ sReport = {
         "new_page",
         {"type": "subsection_begin", "subtype": "bvic", "title": "B/Vic phylogenetic tree"},
         {"type": "phylogenetic_description"},
+        {"type": "phylogenetic_description_bvic_del"},
         "new_page",
         {"type": "phylogenetic_tree", "subtype": "bvic"},
         "new_page",

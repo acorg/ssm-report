@@ -226,6 +226,9 @@ class LatexReport:
     def make_phylogenetic_description(self, page):
         self.data.append(latex.T_PhylogeneticTreeDescription)
 
+    def make_phylogenetic_description_bvic_del(self, page):
+        self.data.append(latex.T_PhylogeneticTreeDescription_BVicDeletion)
+
     def make_phylogenetic_tree(self, page):
         image = self.source_dir.joinpath("tree", page["subtype"].lower() + ".tree.pdf")
         if not image.exists() and self.source_dir_2:

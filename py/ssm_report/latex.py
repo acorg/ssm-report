@@ -510,6 +510,15 @@ with the best likelihood score from RAxML using GARLI v2.1 under the model
 parameters determined by MODELTEST. Garli was run for 1,000,000 generations.
 """
 
+T_PhylogeneticTreeDescription_BVicDeletion = r"""%no-eol%
+\vspace{1em}
+\noindent
+Light grey short horizontal lines at the bottom part of the tree between tree
+and time series mark deletion mutants, i.e. strains having deletion at
+positions 162 and 163. Dark grey short horizontal lines above them mark triple
+deletion mutants, i.e. the strains having deletions at positions 163, 166, 167.
+"""
+
 # ----------------------------------------------------------------------
 
 T_PhylogeneticTree = r"\PhylogeneticTreeFit{{{image}}}"
