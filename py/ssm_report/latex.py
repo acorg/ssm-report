@@ -516,7 +516,7 @@ T_PhylogeneticTreeDescription_BVicDeletion = r"""%no-eol%
 Light grey short horizontal lines at the bottom part of the tree between tree
 and time series mark deletion mutants, i.e. strains having deletion at
 positions 162 and 163. Dark grey short horizontal lines above them mark triple
-deletion mutants, i.e. the strains having deletions at positions 163, 166, 167.
+deletion mutants, i.e. the strains having deletions at positions 163, 164, 165.
 """
 
 # ----------------------------------------------------------------------
