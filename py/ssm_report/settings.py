@@ -179,7 +179,7 @@ s_h3_hi_data = """
       {"N": "legend", "show": false}
     ],
     "aa_at_142": [
-      {"N": "amino-acids", "pos": [142], "outline": "black", "legend": {"count": true}, "order": "raise"}
+      {"N": "amino-acids", "pos": [142], "colors": {"G": "#049457", "K": "#F76A05", "R": "#A020F0", "N": "#93EDC3", "E": "#ED93BD", "X": "#666666"}, "outline": "black", "legend": {"count": true}, "order": "raise"}
     ],
     "serology": [
       {"N": "antigens", "select": {"name": "WASHINGTON/106/2016", "passage": "cell"}, "fill": "#FFA500",  "report": true, "outline": "black", "size": 18, "show": true, "order": "raise",
