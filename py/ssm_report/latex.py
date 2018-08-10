@@ -510,6 +510,28 @@ with the best likelihood score from RAxML using GARLI v2.1 under the model
 parameters determined by MODELTEST. Garli was run for 1,000,000 generations.
 """
 
+T_PhylogeneticTreeDescription_H3_142 = r"""%no-eol%
+\vspace{3em}
+\noindent
+The phylogenetic tree is color coded by amino-acid at position 142:
+DarkGreen = G, Orange = K, Turquoise = N, Purple = R, Pink = E, DarkGrey = X.
+The month in which recent strains in the tree were isolated is indicated
+by horizontal bars to the right of the tree drawn at the same vertical
+position as the position of the strain in the tree. The horizontal bars
+are also colored by amino-acid at position 142. This tree is zoomable, and when zoomed the
+strain names and dates on which they were isolated can be read.
+
+\vspace{1em}
+\noindent
+Nucleotide sequences of the HA1 domain of the HA were aligned. MODELTEST was run
+on the aligned sequences and GTR+I+gamma4 was determined to be the most
+appropriate evolutionary model for phylogenetic tree construction. Initial
+tree construction was performed using RAxML v8.2.8 under the GTRGAMMAI
+model. Global optimization of branch topology was then performed on the tree
+with the best likelihood score from RAxML using GARLI v2.1 under the model
+parameters determined by MODELTEST. Garli was run for 1,000,000 generations.
+"""
+
 T_PhylogeneticTreeDescription_BVicDeletion = r"""%no-eol%
 \vspace{1em}
 \noindent

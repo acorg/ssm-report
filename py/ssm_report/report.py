@@ -226,6 +226,9 @@ class LatexReport:
     def make_phylogenetic_description(self, page):
         self.data.append(latex.T_PhylogeneticTreeDescription)
 
+    def make_phylogenetic_description_h3_142(self, page):
+        self.data.append(latex.T_PhylogeneticTreeDescription_H3_142)
+
     def make_phylogenetic_description_bvic_del(self, page):
         self.data.append(latex.T_PhylogeneticTreeDescription_BVicDeletion)
 
