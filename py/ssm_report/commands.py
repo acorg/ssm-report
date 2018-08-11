@@ -694,7 +694,8 @@ sRootIndexHtml = """
     </ul>
     <h2>Signature pages</h2>
     <ul>
-      <li><a href="sp/index.html">H3, H3 neut, H1, B/Vic, B/Yam</a></li>
+      <li><a href="report/addendum.pdf">Pdf with all signature pages (Addendum)</a></li>
+      <li><a href="sp/index.html">Web page with multiple pdfs, big and slow</a></li>
     </ul>
     <h2>Serum coverage</h2>
     <p>Please visit index pages linked below and read the instructions at the top of the pages.</p>
