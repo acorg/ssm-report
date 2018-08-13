@@ -618,7 +618,7 @@ class Processor:
 
         # local
         if not Path(".gitignore").exists():
-            open(".gitignore", "w").write("bvic-hi\nbyam-hi\ndb\ngeo\nh1-hi\nh3-hi\nh3-neut\nlog\nmerges\nreport\nstat\n.backup\n*.pdf\n")
+            open(".gitignore", "w").write("bvic-hi\nbyam-hi\ndb\ngeo\nh1-hi\nh3-hi\nh3-neut\nlog\nmerges\nreport\nstat\n.backup\n*.pdf\n*.ace\n*.acd1.xz\n*.acd1.bz2\n*.save\n*.save.xz\n")
         if not Path("rr").exists():
             open("rr", "w").write("#! /bin/bash\ncd $(dirname $0) &&\n$ACMACSD_ROOT/bin/ssm-report --working-dir . report &&\n./sy\n")
             Path("rr").chmod(0o700)
