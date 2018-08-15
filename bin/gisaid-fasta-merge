@@ -16,23 +16,41 @@ def main(args):
     for src, data in ((src, load(src)) for src in args.sources):
         for name, seq in data:
             if name not in all_seqs:
-                all_seqs[name] = {"seq": seq, "src": [src]}
-            elif all_seqs[name]["seq"] != seq:
-                module_logger.warning("diff seq {!r} in {} and {}".format(name, src, all_seqs[name]["src"]))
-                all_seqs[name]["src"].append("? " + src)
+                all_seqs[name] = {"seq": [seq], "src": [src]}
+            elif seq not in all_seqs[name]["seq"]:
+                found = False
+                for seq_no in range(len(all_seqs[name]["seq"])):
+                    exisiting_seq = all_seqs[name]["seq"][seq_no]
+                    if seq in exisiting_seq:
+                        found = True
+                        break
+                    elif exisiting_seq in seq:
+                        all_seqs[name]["seq"][seq_no] = seq
+                        found = True
+                        break
+                if not found:
+                    module_logger.warning("diff seq {!r} in {} and {}".format(name, src, all_seqs[name]["src"]))
+                    all_seqs[name]["seq"].append(seq)
+                    if src not in all_seqs[name]["src"]:
+                        all_seqs[name]["src"].append("? " + src)
             elif src not in all_seqs[name]["src"]:
                 all_seqs[name]["src"].append(src)
     module_logger.info("{} seqeunces found".format(len(all_seqs)))
+
     report_1 = {}
     for seq_src in all_seqs.values():
         key = tuple(seq_src["src"])
         report_1.setdefault(key, 0)
         report_1[key] += 1
-    module_logger.info("\n" + pprint.pformat(report_1))
+    key_repr = lambda key: " + ".join(key)
+    key_size = max(len(key_repr(key)) for key in report_1)
+    for key in sorted(report_1):
+        module_logger.info("{:<{}s}  {}".format(key_repr(key), key_size, report_1[key]))
     keys_sorted = sorted(all_seqs.keys(), key=lambda k: k.split(" | ")[1])
     for key in keys_sorted:
-        print(key)
-        print(all_seqs[key]["seq"])
+        for seq in all_seqs[key]["seq"]:
+            print(">" + key)
+            print(seq)
 
 # ----------------------------------------------------------------------
 

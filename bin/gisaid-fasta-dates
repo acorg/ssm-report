@@ -17,8 +17,10 @@ main()
     DATES=$(sequence_dates)
     START_DATE=$(normalize_date $(first_line "$DATES"))
     END_DATE=$(normalize_date $(last_line "$DATES"))
+    YEARS=$(echo "${DATES}" | cut -b 1-4 | sort | uniq -c)
     echo "START_DATE: $START_DATE"
     echo "END_DATE:   $END_DATE"
+    echo "${YEARS}"
 }
 
 dos_to_unix()
@@ -43,7 +45,7 @@ sequence_dates()
             GREP="xzgrep"
             ;;
     esac
-    "${GREP}" "^>" "$SRC" | cut -d '|' -f 2 | sort -u
+    "${GREP}" "^>" "$SRC" | cut -d '|' -f 2 | tr -d " " | sort -u
 }
 
 first_line()
