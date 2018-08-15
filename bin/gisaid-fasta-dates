@@ -1,10 +1,11 @@
 #! /bin/bash
 
-SRC="$HOME/Downloads/gisaid_epiflu_sequence.fasta"
-if [[ ! -f "$SRC" ]]; then
-    SRC="/r/gisaid_epiflu_sequence.fasta"
+if [ $# -ne 1 ]; then
+    echo Usage: $0 "<fasta.fas>"
+    exit 67
 fi
-TARGET_DIR="$HOME/ac/tables-store/sequences"
+
+SRC="$1"
 
 main()
 {
@@ -12,35 +13,12 @@ main()
         echo "ERROR: $SRC not found" >&2
         exit 1
     fi
-    clear_resource_fork
-    dos_to_unix
+    # dos_to_unix
     DATES=$(sequence_dates)
     START_DATE=$(normalize_date $(first_line "$DATES"))
     END_DATE=$(normalize_date $(last_line "$DATES"))
     echo "START_DATE: $START_DATE"
     echo "END_DATE:   $END_DATE"
-    NEW_NAME="$TARGET_DIR"/gisaid-all-"$START_DATE"-"$END_DATE".fas.bz2
-    echo "${NEW_NAME}"
-    exit 2
-    if [ -f "$NEW_NAME" ]; then
-        echo "ERROR: $NEW_NAME already exists!" >&2
-        exit 1
-    fi
-    bzip2 -9vc "$SRC" > "$NEW_NAME"
-    echo "$NEW_NAME"
-    echo
-    echo "   rm $SRC"
-    echo
-    ssax
-}
-
-clear_resource_fork()
-{
-    if [ -x /usr/bin/xattr ]; then
-        for a in $(xattr "$SRC"); do
-            xattr -d "$a" "$SRC"
-        done
-    fi
 }
 
 dos_to_unix()
@@ -56,7 +34,16 @@ normalize_date()
 
 sequence_dates()
 {
-    grep "^>" "$SRC" | cut -d '|' -f 2 | sort -u
+    local GREP="grep"
+    case ${SRC} in
+        *.bz2)
+            GREP="bzgrep"
+            ;;
+        *.xz)
+            GREP="xzgrep"
+            ;;
+    esac
+    "${GREP}" "^>" "$SRC" | cut -d '|' -f 2 | sort -u
 }
 
 first_line()
@@ -68,6 +55,7 @@ last_line()
 {
     printf "%s" "${1##*$'\n'}"
 }
+
 
 main
 
