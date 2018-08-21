@@ -19,7 +19,7 @@ main()
     END_DATE=$(normalize_date $(last_line "$DATES"))
     echo "START_DATE: $START_DATE"
     echo "END_DATE:   $END_DATE"
-    NEW_NAME="$TARGET_DIR"/gisaid-all-"$(date +%Y%m%d)"-"$START_DATE"-"$END_DATE".fas.bz2
+    NEW_NAME="$TARGET_DIR"/gisaid-all-"$(date +%Y%m%d)"-"$START_DATE"-"$END_DATE".fas.xz
     echo "${NEW_NAME}"
     if [ -f "$NEW_NAME" ]; then
         echo "ERROR: $NEW_NAME already exists!" >&2
