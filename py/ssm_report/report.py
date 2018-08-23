@@ -69,8 +69,9 @@ class LatexReport:
         self.settings = settings
         self.data = []
         LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
+        paper_size = settings.get("paper_size", "a4")   # a4, letter https://tug.org/TUGboat/tb35-3/tb111thurnherr.pdf
         self.substitute = {
-            "documentclass": "\documentclass[a4paper,12pt]{article}",
+            "documentclass": "\documentclass[%spaper,12pt]{article}" % (paper_size,),
             "cover_top_space": "130pt",
             "cover_after_meeting_date_space": "180pt",
             "usepackage": "",
