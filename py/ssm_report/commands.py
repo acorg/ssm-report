@@ -38,9 +38,9 @@ sReCommand = re.compile(f"{sVirusTypePattern}_([a-z0-9]+)_{sLabsPattern}$", re.I
 
 # ----------------------------------------------------------------------
 
-def process_commands(commands, verbose, force):
+def process_commands(commands, verbose, force, open):
     try:
-        Processor(verbose=verbose, force=force)._process(commands)
+        Processor(verbose=verbose, force=force, open=open)._process(commands)
     except Error as err:
         module_logger.error("ERROR: " + str(err))
         return 1
@@ -50,9 +50,10 @@ def process_commands(commands, verbose, force):
 
 class Processor:
 
-    def __init__(self, verbose, force):
+    def __init__(self, verbose, force, open):
         self._verbose = verbose
         self._force = force
+        self._open = open
         self._make_sp_makers()
 
     def _process(self, commands):
@@ -517,30 +518,30 @@ class Processor:
     # ----------------------------------------------------------------------
 
     def clade(self, virus_type, assay, lab=None):
-        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
     _clade = clade
 
     def _clade_6m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
     clade6m = _clade_6m
 
     def _clade_12m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
     clade12m = _clade_12m
 
     def _aa_at(self, virus_type, assay, positions):
         mod = "aa_at_" + "_".join(str(pos) for pos in positions)
-        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
 
     def _geography(self, virus_type, assay):
-        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
 
     def serology(self, virus_type, assay, lab=None):
-        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
     _serology = serology
 
     def _serum_sectors(self, virus_type, assay):
-        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
 
     def _ts(self, virus_type, assay):
         make_ts(virus_type=virus_type, assay=assay, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
