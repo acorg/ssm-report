@@ -22,7 +22,7 @@ def make_lab(text):
     return sLabName.get(text, text)
 
 sVirusType = {"h3n": "h3", "h3neut": "h3", "bv": "bvic", "by": "byam", "v": "bvic", "y": "byam", "n": "h3", "h": "h3", "1": "h1", "3": "h3"}
-sVirusTypePattern = "(h1|h3|h3n|h3neut|bv|by|bvic|byam)"
+sVirusTypePattern = "(h1|h3|h3n|h3neut|bv|by|bvic|byam|v|y)"
 
 def make_virus_type(text):
     text = text.lower()
