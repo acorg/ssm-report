@@ -6,6 +6,10 @@ from .charts import get_chart
 
 # ======================================================================
 
+sLogDelimiter = "*" * 70
+def n_spaces(n):
+    return " " * n
+
 sLabDisplayName = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "NIID": "NIID", "MELB": "VIDRL", "ALL": "CDC+Crick+NIID+VIDRL"}
 
 sApplyFor = {
@@ -189,23 +193,23 @@ sTitleFor = {
 
 sDirsForIndex = set()
 
-def make_map(output_dir, prefix, virus_type, assay, mod, force, settings_labs_key="labs"):
-    s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
-    settings = json.load(s1_filename.open())
-    for lab in settings[settings_labs_key]:
-        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=[s1_filename])
+def make_map(output_dir, prefix, virus_type, assay, mod, force, lab=None, settings_labs_key="labs"):
+    settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
+    labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
+    for lab in labs:
+        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files)
     sDirsForIndex.add(output_dir)
 
 # ----------------------------------------------------------------------
 
 def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files):
-    module_logger.info("{}\nINFO:{} {} {} {} {}\nINFO: {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), mod, " "* 93))
+    module_logger.info(f"{sLogDelimiter}\nINFO:{n_spaces(30)} {lab.upper()} {virus_type.upper()} {assay.upper()} {mod}\nINFO: {n_spaces(93)}")
     output_prefix = prefix + "-" + lab.lower()
 
     s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
     pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab.upper())
     if mod == "serology":
-        inside = [lab + "_serology"]
+        inside = [lab.upper() + "_serology"]
     elif "serum_coverage_circle" in mod:
         inside = sApplyFor["serum_coverage_circle"] + [mod]
         mod = None
