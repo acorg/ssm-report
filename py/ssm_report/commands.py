@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import subprocess, pprint
+import re, subprocess, pprint
 
 from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
 from .stat import make_stat
@@ -10,6 +10,31 @@ from .signature_page import tree_make, signature_page_make, trees_get_from_alber
 # ======================================================================
 
 class Error (RuntimeError): pass
+
+# ----------------------------------------------------------------------
+
+sLabName = {"vidrl": "melb", "crick": "nimr", "c": "cdc", "m": "melb", "j": "niid", "e": "nimr"}
+sLabsPattern = "(cdc|cnic|melb|niid|nimr|vidrl|crick|c|m|j|e)"
+
+def make_lab(text):
+    global sLabName
+    text = text.lower()
+    return sLabName.get(text, text)
+
+sVirusType = {"h3n": "h3", "h3neut": "h3", "bv": "bvic", "by": "byam", "v": "bvic", "y": "byam", "n": "h3", "h": "h3", "1": "h1", "3": "h3"}
+sVirusTypePattern = "(h1|h3|h3n|h3neut|bv|by|bvic|byam)"
+
+def make_virus_type(text):
+    text = text.lower()
+    return sVirusType.get(text, text)
+
+sAssay = {"n": "neut", "h3n": "neut", "h3neut": "neut"}
+
+def make_assay(text):
+    text = text.lower()
+    return sAssay.get(text, "hi")
+
+sReCommand = re.compile(f"{sVirusTypePattern}_([a-z0-9]+)_{sLabsPattern}$", re.I)
 
 # ----------------------------------------------------------------------
 
@@ -36,7 +61,12 @@ class Processor:
         else:
             for command in commands:
                 command = command.replace("-", "_").lower()
-                getattr(self, command)()
+                m = sReCommand.match(command)
+                if m:
+                    # module_logger.debug(f"virus_type={make_virus_type(m.group(1))} assay={make_assay(m.group(1))} lab={make_lab(m.group(3))}")
+                    getattr(self, m.group(2))(virus_type=make_virus_type(m.group(1)), assay=make_assay(m.group(1)), lab=make_lab(m.group(3)))
+                else:
+                    getattr(self, command)()
             maps_make_index_html()
             make_index_clade_html(self.r_dir(""))
 
@@ -286,8 +316,8 @@ class Processor:
     def h3neut_aa_at_142(self):
         self._aa_at(virus_type="h3", assay="neut", positions=[142])
 
-    def h3neut_serology(self):
-        self._serology(virus_type="h3", assay="neut")
+    def h3neut_serology(self, lab=None):
+        self._serology(virus_type="h3", assay="neut", lab=lab)
     h3n_serology = h3neut_serology
 
     def h3neut_geography(self):
@@ -486,14 +516,17 @@ class Processor:
 
     # ----------------------------------------------------------------------
 
-    def _clade(self, virus_type, assay):
-        make_map(prefix="clade", virus_type=virus_type, assay=assay, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    def clade(self, virus_type, assay, lab=None):
+        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    _clade = clade
 
-    def _clade_6m(self, virus_type, assay):
-        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    def _clade_6m(self, virus_type, assay, lab=None):
+        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    clade6m = _clade_6m
 
-    def _clade_12m(self, virus_type, assay):
-        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    def _clade_12m(self, virus_type, assay, lab=None):
+        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    clade12m = _clade_12m
 
     def _aa_at(self, virus_type, assay, positions):
         mod = "aa_at_" + "_".join(str(pos) for pos in positions)
@@ -502,8 +535,9 @@ class Processor:
     def _geography(self, virus_type, assay):
         make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
-    def _serology(self, virus_type, assay):
-        make_map(prefix="serology", virus_type=virus_type, assay=assay, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    def serology(self, virus_type, assay, lab=None):
+        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
+    _serology = serology
 
     def _serum_sectors(self, virus_type, assay):
         make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
