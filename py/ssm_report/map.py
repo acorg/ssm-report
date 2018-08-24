@@ -193,16 +193,16 @@ sTitleFor = {
 
 sDirsForIndex = set()
 
-def make_map(output_dir, prefix, virus_type, assay, mod, force, lab=None, settings_labs_key="labs", open=False):
+def make_map(output_dir, prefix, virus_type, assay, mod, force, lab=None, settings_labs_key="labs", open_image=None):
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
     labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
     for lab in labs:
-        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, open=open)
+        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, open_image=open_image)
     sDirsForIndex.add(output_dir)
 
 # ----------------------------------------------------------------------
 
-def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, open):
+def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, open_image):
     module_logger.info(f"{sLogDelimiter}\nINFO:{n_spaces(30)} {lab.upper()} {virus_type.upper()} {assay.upper()} {mod}\nINFO: {n_spaces(93)}")
     output_prefix = prefix + "-" + lab.lower()
 
@@ -225,8 +225,10 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
         pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output))
     script_filename.chmod(0o700)
     subprocess.check_call(str(script_filename))
-    if open: # and Path("/usr/bin/open").exists():
-        subprocess.Popen(["/usr/bin/qlmanage", "-p", output], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if open_image == "quicklook":
+        subprocess.Popen(["/usr/bin/qlmanage", "-p", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    elif open_image == "open":
+        subprocess.Popen(["/usr/bin/open", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 # ----------------------------------------------------------------------
 

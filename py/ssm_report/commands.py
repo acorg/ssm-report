@@ -38,9 +38,9 @@ sReCommand = re.compile(f"{sVirusTypePattern}_([a-z0-9]+)_{sLabsPattern}$", re.I
 
 # ----------------------------------------------------------------------
 
-def process_commands(commands, verbose, force, open):
+def process_commands(commands, verbose, force, open_image):
     try:
-        Processor(verbose=verbose, force=force, open=open)._process(commands)
+        Processor(verbose=verbose, force=force, open_image=open_image)._process(commands)
     except Error as err:
         module_logger.error("ERROR: " + str(err))
         return 1
@@ -50,10 +50,10 @@ def process_commands(commands, verbose, force, open):
 
 class Processor:
 
-    def __init__(self, verbose, force, open):
+    def __init__(self, verbose, force, open_image):
         self._verbose = verbose
         self._force = force
-        self._open = open
+        self._open_image = open_image
         self._make_sp_makers()
 
     def _process(self, commands):
@@ -180,7 +180,7 @@ class Processor:
         self.h3_clade()
         self.h3_ts()
         self.h3_geography()
-        self.h3_serology()
+        self.serology(virus_type="h3", assay="hi")()
         # #self.h3_serum_sectors()
         self.h3_serum_coverage()
 
@@ -188,7 +188,7 @@ class Processor:
         self.h3neut_clade()
         self.h3neut_ts()
         self.h3neut_geography()
-        self.h3neut_serology()
+        self.serology(virus_type="h3", assay="neut")()
         #self.h3neut_serum_sectors()
         self.h3neut_serum_coverage()
 
@@ -202,14 +202,14 @@ class Processor:
     def bvic(self):
         self.bvic_clade()
         self.bvic_geography()
-        self.bvic_serology()
+        self.serology(virus_type="bvic", assay="hi")()
         #self.bvic_serum_sectors()
         self.bvic_ts()
 
     def byam(self):
         self.byam_clade()
         self.byam_geography()
-        self.byam_serology()
+        self.serology(virus_type="byam", assay="hi")()
         #self.byam_serum_sectors()
         self.byam_ts()
 
@@ -287,9 +287,6 @@ class Processor:
     def h3_aa_at_142(self):
         self._aa_at(virus_type="h3", assay="hi", positions=[142])
 
-    def h3_serology(self):
-        self._serology(virus_type="h3", assay="hi")
-
     def h3_geography(self):
         self._geography(virus_type="h3", assay="hi")
     h3_geo = h3_geography
@@ -317,10 +314,6 @@ class Processor:
     def h3neut_aa_at_142(self):
         self._aa_at(virus_type="h3", assay="neut", positions=[142])
 
-    def h3neut_serology(self, lab=None):
-        self._serology(virus_type="h3", assay="neut", lab=lab)
-    h3n_serology = h3neut_serology
-
     def h3neut_geography(self):
         self._geography(virus_type="h3", assay="neut")
     h3neut_geo = h3neut_geography
@@ -345,9 +338,6 @@ class Processor:
         self._clade_12m(virus_type="bvic", assay="hi")
     bvic_clades = bvic_clade
 
-    def bvic_serology(self):
-        self._serology(virus_type="bvic", assay="hi")
-
     def bvic_geography(self):
         self._geography(virus_type="bvic", assay="hi")
     bvic_geo = bvic_geography
@@ -366,9 +356,6 @@ class Processor:
         self._clade_6m(virus_type="byam", assay="hi")
         self._clade_12m(virus_type="byam", assay="hi")
     byam_clades = byam_clade
-
-    def byam_serology(self):
-        self._serology(virus_type="byam", assay="hi")
 
     def byam_geography(self):
         self._geography(virus_type="byam", assay="hi")
@@ -518,30 +505,30 @@ class Processor:
     # ----------------------------------------------------------------------
 
     def clade(self, virus_type, assay, lab=None):
-        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
+        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
     _clade = clade
 
     def _clade_6m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
+        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
     clade6m = _clade_6m
 
     def _clade_12m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
+        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
     clade12m = _clade_12m
 
     def _aa_at(self, virus_type, assay, positions):
         mod = "aa_at_" + "_".join(str(pos) for pos in positions)
-        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
+        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
 
     def _geography(self, virus_type, assay):
-        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
+        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
 
     def serology(self, virus_type, assay, lab=None):
-        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
+        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
     _serology = serology
 
     def _serum_sectors(self, virus_type, assay):
-        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open=self._open)
+        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
 
     def _ts(self, virus_type, assay):
         make_ts(virus_type=virus_type, assay=assay, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
