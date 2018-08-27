@@ -35,13 +35,16 @@ sApplyFor = {
         "{lab}_post",
         ],
     "clade": [
-        {"N": "clades", "size": 8}
+        {"N": "clades", "size": 8},
+        "*{lab}_clades"
         ],
     "clade_6m": [
-        {"N": "clades_last_6_months", "size": 8}
+        {"N": "clades_last_6_months", "size": 8},
+        "*{lab}_clades_last_6_months"
         ],
     "clade_12m": [
-        {"N": "clades_last_12_months", "size": 8}
+        {"N": "clades_last_12_months", "size": 8},
+        "*{lab}_clades_last_12_months"
         ],
     "geography": [
         {"N": "continents", "size": 8}
@@ -215,7 +218,8 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
         mod = None
     else:
         inside = []
-    json.dump({"apply": pre + sApplyFor.get(mod, [mod]) + inside + post}, s2_filename.open("w"), indent=2)
+    for_mod = [e.format(virus_type=virus_type, assay=assay.upper(), mod=mod, lab=lab.upper()) if isinstance(e, str) else e for e in sApplyFor.get(mod, [mod])]
+    json.dump({"apply": pre + for_mod + inside + post}, s2_filename.open("w"), indent=2)
 
     script_filename = output_dir.joinpath(output_prefix + ".sh")
     settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
