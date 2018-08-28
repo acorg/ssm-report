@@ -82,6 +82,7 @@ def _tree_update_settings_bvic(data, settings):
     data["tree"]["mods"] = [
         {"mod": "hide-if-cumulative-edge-length-bigger-than", "d1": 0.0191},
         {"mod": "mark-clade-with-line", "clade": "DEL2017", "color": "#A0A0A0", "line_width": 0.2},
+        {"mod": "mark-clade-with-line", "clade": "TRIPLEDEL2017", "color": "#606060", "line_width": 0.2},
         {"mod": "before2015-58P-or-146I-or-559I", "?": "hides 1B"},
         {"?mod": "hide-between", "s1": "B/SHANGHAI-BAOSHAN/193/2011__MDCK1/MDCK1", "s2": "B/SOUTH%20AUSTRALIA/18/2011__MDCK1"},
         {"?mod": "hide-between", "s1": "B/JIANGSU-JINGJIANG/33/2012__MDCK2/MDCK2", "s2": "B/PHILIPPINES/2533/2011__MDCK1"}
