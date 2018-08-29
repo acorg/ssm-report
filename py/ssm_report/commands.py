@@ -316,6 +316,7 @@ class Processor:
 
     def h3neut_aa_at_142(self):
         self._aa_at(virus_type="h3", assay="neut", positions=[142])
+    h3n_aa_at_142 = h3neut_aa_at_142
 
     def h3neut_geography(self):
         self._geography(virus_type="h3", assay="neut")
@@ -651,8 +652,11 @@ class Processor:
         # local
         if not Path(".gitignore").exists():
             open(".gitignore", "w").write("bvic-hi\nbyam-hi\ndb\ngeo\nh1-hi\nh3-hi\nh3-neut\nlog\nmerges\nreport\nstat\n.backup\n*.pdf\n*.ace\n*.acd1.xz\n*.acd1.bz2\n*.save\n*.save.xz\n")
+        if not Path("rename-report-on-server").exists():
+            open("rename-report-on-server", "w").write("#! /bin/bash\ncd $(dirname $0) &&\nssh i19 \"cd $(pwd); pwd; stat -c %y report/report.pdf; if [[ -d report && -f report/report.pdf ]]; then mv report/report.pdf report/report.\$(stat -c %y report/report.pdf | sed 's/\..*//g; s/-//g; s/://g; s/ /-/g').pdf; else echo no report dir; fi\"\n")
+            Path("rename-report-on-server").chmod(0o700)
         if not Path("rr").exists():
-            open("rr", "w").write("#! /bin/bash\ncd $(dirname $0) &&\n$ACMACSD_ROOT/bin/ssm-report --working-dir . report &&\n./sy\n")
+            open("rr", "w").write("#! /bin/bash\ncd $(dirname $0) &&\n$ACMACSD_ROOT/bin/ssm-report --working-dir . report &&\n./rename-report-on-server &&\n./sy\n")
             Path("rr").chmod(0o700)
         if not Path("sy").exists():
             # open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\" &&\nsyput /r/ssm-report/\"$(basename ${PWD})\" \"${PWD#$HOME/}\"")
