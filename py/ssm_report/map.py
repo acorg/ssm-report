@@ -26,7 +26,6 @@ sApplyFor = {
         "{lab}_mid",
         "{lab}_vaccines",
         "set_scale",
-        "set_legend",
         "{lab}_post",
         ],
     "post_information": [
@@ -36,15 +35,18 @@ sApplyFor = {
         ],
     "clade": [
         {"N": "clades", "size": 8},
-        "*{lab}_clades"
+        "*{lab}_clades",
+        "set_legend"
         ],
     "clade_6m": [
         {"N": "clades_last_6_months", "size": 8},
-        "*{lab}_clades_last_6_months"
+        "*{lab}_clades_last_6_months",
+        "set_legend"
         ],
     "clade_12m": [
         {"N": "clades_last_12_months", "size": 8},
-        "*{lab}_clades_last_12_months"
+        "*{lab}_clades_last_12_months",
+        "set_legend"
         ],
     "geography": [
         {"N": "continents", "size": 8}
@@ -52,6 +54,7 @@ sApplyFor = {
     "serology": [
         {"N": "clades_light", "size": 8},
         "serology",
+        "set_legend"
         ],
     "information": [
         "information",
