@@ -263,7 +263,7 @@ class Processor:
     h1_clades = h1_clade
 
     def h1_serology(self):
-        self._serology(virus_type="h1", assay="hi")
+        self.serology(virus_type="h1", assay="hi")
 
     def h1_geography(self):
         self._geography(virus_type="h1", assay="hi")
@@ -294,6 +294,9 @@ class Processor:
     def h3_ts(self, lab=None):
         make_ts(virus_type="h3", assay="hi", lab=lab, output_dir=self.r_dir("h3-hi"), force=self._force)
 
+    def h3_serology(self):
+        self.serology(virus_type="h3", assay="hi")
+
     def h3_serum_sectors(self):
         self._serum_sectors(virus_type="h3", assay="hi")
 
@@ -323,6 +326,10 @@ class Processor:
         make_ts(virus_type="h3", assay="neut", lab=lab, output_dir=self.r_dir("h3-neut"), force=self._force)
     h3n_ts = h3neut_ts
 
+    def h3neut_serology(self):
+        self.serology(virus_type="h3", assay="neut")
+    h3n_serology = h3neut_serology
+
     def h3neut_serum_sectors(self):
         self._serum_sectors(virus_type="h3", assay="neut")
 
@@ -345,6 +352,9 @@ class Processor:
     def bvic_ts(self, lab=None):
         make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=self.r_dir("bvic-hi"), force=self._force)
 
+    def bvic_serology(self):
+        self.serology(virus_type="bvic", assay="hi")
+
     def bvic_information(self):
         make_map_information(virus_type="bvic", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
 
@@ -363,6 +373,9 @@ class Processor:
 
     def byam_ts(self, lab=None):
         make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=self.r_dir("byam-hi"), force=self._force)
+
+    def byam_serology(self):
+        self.serology(virus_type="byam", assay="hi")
 
     def byam_information(self):
         make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
