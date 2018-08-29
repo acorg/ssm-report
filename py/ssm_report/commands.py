@@ -269,8 +269,8 @@ class Processor:
         self._geography(virus_type="h1", assay="hi")
     h1_geo = h1_geography
 
-    def h1_ts(self):
-        self._ts(virus_type="h1", assay="hi")
+    def h1_ts(self, lab=None):
+        make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=self.r_dir("h1-hi"), force=self._force)
 
     def h1_information(self):
         make_map_information(virus_type="h1", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
@@ -291,8 +291,8 @@ class Processor:
         self._geography(virus_type="h3", assay="hi")
     h3_geo = h3_geography
 
-    def h3_ts(self):
-        self._ts(virus_type="h3", assay="hi")
+    def h3_ts(self, lab=None):
+        make_ts(virus_type="h3", assay="hi", lab=lab, output_dir=self.r_dir("h3-hi"), force=self._force)
 
     def h3_serum_sectors(self):
         self._serum_sectors(virus_type="h3", assay="hi")
@@ -319,8 +319,8 @@ class Processor:
     h3neut_geo = h3neut_geography
     h3n_geo = h3neut_geography
 
-    def h3neut_ts(self):
-        self._ts(virus_type="h3", assay="neut")
+    def h3neut_ts(self, lab=None):
+        make_ts(virus_type="h3", assay="neut", lab=lab, output_dir=self.r_dir("h3-neut"), force=self._force)
     h3n_ts = h3neut_ts
 
     def h3neut_serum_sectors(self):
@@ -342,8 +342,8 @@ class Processor:
         self._geography(virus_type="bvic", assay="hi")
     bvic_geo = bvic_geography
 
-    def bvic_ts(self):
-        self._ts(virus_type="bvic", assay="hi")
+    def bvic_ts(self, lab=None):
+        make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=self.r_dir("bvic-hi"), force=self._force)
 
     def bvic_information(self):
         make_map_information(virus_type="bvic", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
@@ -361,8 +361,8 @@ class Processor:
         self._geography(virus_type="byam", assay="hi")
     byam_geo = byam_geography
 
-    def byam_ts(self):
-        self._ts(virus_type="byam", assay="hi")
+    def byam_ts(self, lab=None):
+        make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=self.r_dir("byam-hi"), force=self._force)
 
     def byam_information(self):
         make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
@@ -529,9 +529,6 @@ class Processor:
 
     def _serum_sectors(self, virus_type, assay):
         make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
-
-    def _ts(self, virus_type, assay):
-        make_ts(virus_type=virus_type, assay=assay, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force)
 
     # ----------------------------------------------------------------------
 

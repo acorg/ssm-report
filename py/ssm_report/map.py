@@ -242,13 +242,12 @@ sCompareWithPrevious = {
     False: [{"N": "antigens", "select": {"test": True}, "size": 8, "order": "raise"}]
     }
 
-def make_ts(output_dir, virus_type, assay, force):
+def make_ts(output_dir, virus_type, assay, lab, force):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
-    s1_filename = Path("{}-{}.json".format(virus_type, assay)).resolve()
-    settings = json.load(s1_filename.open())
-    for lab in settings["labs"]:
-
+    settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
+    labs = [lab] if lab else json.load(Path("{}-{}.json".format(virus_type, assay)).resolve().open())["labs"]
+    for lab in labs:
         compare_with_previous = sCompareWithPrevious[False]
         previous_chart = None
         if report_settings["cover"]["teleconference"]:
@@ -263,14 +262,14 @@ def make_ts(output_dir, virus_type, assay, force):
             output_prefix = "ts-" + lab.lower() + "-" + period["numeric_name"]
 
             s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
+            settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
             pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab, period_name=period["text_name"])
             ts = [{"N": "antigens", "select": {"test": True, "date_range": [period["first_date"], period["after_last_date"]]}, "show": True}]
             json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + sApplyFor["ts_post"] + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
-            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v -s '{s1}' -s '{s2}' {previous_chart} '{chart}' '{output}'\n".format(
-                s1=s1_filename,
-                s2=s2_filename,
+            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v {settings_args} {previous_chart} '{chart}' '{output}'\n".format(
+                settings_args=settings_args,
                 chart=get_chart(virus_type=virus_type, assay=assay, lab=lab),
                 previous_chart="--previous '{}'".format(previous_chart) if previous_chart else "",
                 pwd=os.getcwd(),
