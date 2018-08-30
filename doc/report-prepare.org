@@ -26,7 +26,7 @@ running time: ~ 25 min (asks acmacs-web password in few minutes after start)
 *** sync ~/ac/results/ssm/YYYY-MMDD-* and ~/AD/data/seqdb.json.xz to syn: ./sy && rsync ~/AD/data/seqdb.json.xz albertine:AD/data
 *** update merges (in case new tables arrived and processed) and hidb
   ad ssm-report update-merges (run in terminal, asks password)
-  on albertine: $ACMACSD_ROOT/bin/hidb-update-hidb /syn/eu/log/whocc-hidb5-update.log (~1.5min)
+  on albertine: ad hidb-update-hidb /syn/eu/log/whocc-hidb5-update.log (~1.5min)
   rm -f stat/* geo/*; ad ssm-report --force update_hidb stat geo
 *** re-make H1pdm overlay merge (~18min)
   ad ssm-report h1-overlay
