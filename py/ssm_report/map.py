@@ -208,7 +208,7 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, lab=None, settin
 
 # ----------------------------------------------------------------------
 
-def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, open_image):
+def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, open_image=None):
     module_logger.info(f"{sLogDelimiter}\nINFO:{n_spaces(30)} {lab.upper()} {virus_type.upper()} {assay.upper()} {mod}\nINFO: {n_spaces(93)}")
     output_prefix = prefix + "-" + lab.lower()
 
