@@ -653,7 +653,7 @@ class Processor:
         if not Path(".gitignore").exists():
             open(".gitignore", "w").write("bvic-hi\nbyam-hi\ndb\ngeo\nh1-hi\nh3-hi\nh3-neut\nlog\nmerges\nreport\nstat\n.backup\n*.pdf\n*.ace\n*.acd1.xz\n*.acd1.bz2\n*.save\n*.save.xz\n")
         if not Path("rename-report-on-server").exists():
-            open("rename-report-on-server", "w").write("#! /bin/bash\ncd $(dirname $0) &&\nssh i19 \"cd $(pwd); pwd; stat -c %y report/report.pdf; if [[ -d report && -f report/report.pdf ]]; then mv report/report.pdf report/report.\$(stat -c %y report/report.pdf | sed 's/\..*//g; s/-//g; s/://g; s/ /-/g').pdf; else echo no report dir; fi\"\n")
+            open("rename-report-on-server", "w").write("#! /bin/bash\ncd $(dirname $0) &&\nssh i19 \"cd $(pwd); if [[ -d report && -f report/report.pdf ]]; then mv report/report.pdf report/report.\$(stat -c %y report/report.pdf | sed 's/\..*//g; s/-//g; s/://g; s/ /-/g').pdf; else echo no report dir; fi\"\n")
             Path("rename-report-on-server").chmod(0o700)
         if not Path("rr").exists():
             open("rr", "w").write("#! /bin/bash\ncd $(dirname $0) &&\n$ACMACSD_ROOT/bin/ssm-report --working-dir . report &&\n./rename-report-on-server &&\n./sy\n")
