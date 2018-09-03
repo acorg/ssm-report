@@ -219,6 +219,8 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     elif "serum_coverage_circle" in mod:
         inside = sApplyFor["serum_coverage_circle"] + [mod]
         mod = None
+    elif mod == "aa_at_142":
+        inside = ["*" + lab.upper() + "_aa_at_142"]
     else:
         inside = []
     for_mod = [e.format(virus_type=virus_type, assay=assay.upper(), mod=mod, lab=lab.upper()) if isinstance(e, str) else e for e in sApplyFor.get(mod, [mod])]
