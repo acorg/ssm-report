@@ -566,7 +566,7 @@ class Processor:
     def _get_seqdb(self):
         seqdb_filename = self._seqdb_file()
         module_logger.info("Updating seqdb in " + repr(str(seqdb_filename)))
-        fasta_files = sorted(Path("~/ac/tables-store/sequences").expanduser().resolve().glob("*.fas.bz2"))
+        fasta_files = sorted(Path("~/ac/tables-store/sequences").expanduser().resolve().glob("*.fas.*"))
         seqdb_mtime = seqdb_filename.exists() and seqdb_filename.stat().st_mtime
         if not seqdb_mtime or any(ff.stat().st_mtime >= seqdb_mtime for ff in fasta_files):
             module_logger.info("Creating seqdb from " + str(len(fasta_files)) + " fasta files")
