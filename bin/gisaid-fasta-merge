@@ -35,7 +35,7 @@ def main(args):
                         all_seqs[name]["src"].append("? " + src)
             elif src not in all_seqs[name]["src"]:
                 all_seqs[name]["src"].append(src)
-    module_logger.info("{} seqeunces found".format(len(all_seqs)))
+    module_logger.info("{} sequences found".format(len(all_seqs)))
 
     report_1 = {}
     for seq_src in all_seqs.values():
@@ -45,7 +45,11 @@ def main(args):
     key_repr = lambda key: " + ".join(key)
     key_size = max(len(key_repr(key)) for key in report_1)
     for key in sorted(report_1):
-        module_logger.info("{:<{}s}  {}".format(key_repr(key), key_size, report_1[key]))
+        module_logger.info("{:>6d} {}".format(report_1[key], key_repr(key))) #, key_size, ))
+        if report_1[key] < 20:
+            for name, seq_src in all_seqs.items():
+                if tuple(seq_src["src"]) == key:
+                    module_logger.info(f"      {name}")
     keys_sorted = sorted(all_seqs.keys(), key=lambda k: k.split(" | ")[1])
     for key in keys_sorted:
         for seq in all_seqs[key]["seq"]:
