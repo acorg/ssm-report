@@ -122,6 +122,35 @@ class Processor:
 
         # ----------------------------------------------------------------------
 
+    def map_settings(self):
+        self.h1_map_settings()
+        self.h3_map_settings()
+        self.h3neut_map_settings()
+        self.bvic_map_settings()
+        self.byam_map_settings()
+
+    def h1_map_settings(self):
+        from .settings import make_map_settings
+        make_map_settings(virus_type='h1', assay='hi', force=self._force)
+
+    def h3_map_settings(self):
+        from .settings import make_map_settings
+        make_map_settings(virus_type='h3', assay='hi', force=self._force)
+
+    def h3neut_map_settings(self):
+        from .settings import make_map_settings
+        make_map_settings(virus_type='h3', assay='neut', force=self._force)
+
+    def bvic_map_settings(self):
+        from .settings import make_map_settings
+        make_map_settings(virus_type='bvic', assay='hi', force=self._force)
+
+    def byam_map_settings(self):
+        from .settings import make_map_settings
+        make_map_settings(virus_type='byam', assay='hi', force=self._force)
+
+        # ----------------------------------------------------------------------
+
     def get_trees_from_albertine(self):
         trees_get_from_albertine(tree_dir=self._use_dir("tree"))
 

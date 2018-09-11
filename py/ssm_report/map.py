@@ -53,7 +53,7 @@ sApplyFor = {
         ],
     "serology": [
         {"N": "clades_light", "size": 8},
-        "serology",
+        "*serology",
         "set_legend"
         ],
     "information": [
