@@ -169,6 +169,10 @@ class Processor:
         """instructions on making phylogenetic trees"""
         tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
 
+    def h3_tree_142(self):
+        """instructions on making phylogenetic trees"""
+        tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), tree_infix=".142")
+
     def bvic_tree(self):
         """instructions on making phylogenetic trees"""
         tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))

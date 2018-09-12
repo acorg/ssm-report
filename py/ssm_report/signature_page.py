@@ -32,14 +32,14 @@ def trees_get_from_albertine(tree_dir):
 
 # ======================================================================
 
-def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings"):
-    tree = tree_dir.joinpath(subtype + ".tree.json.xz")
-    pdf = output_dir.joinpath(subtype + ".tree.pdf")
-    settings = tree_dir.joinpath(subtype + ".tree." + settings_infix + ".json")
+def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings", tree_infix=""):
+    tree = tree_dir.joinpath(f"{subtype}.tree.json.xz")
+    pdf = output_dir.joinpath(f"{subtype}.tree{tree_infix}.pdf")
+    settings = tree_dir.joinpath(f"{subtype}.tree{tree_infix}.{settings_infix}.json")
     if not settings.exists():
-        subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
+        subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'")
         _tree_update_settings(subtype=subtype, settings=settings)
-    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}' --open".format(seqdb=seqdb, settings=settings, tree=tree, pdf=pdf))
+    subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}' --open")
 
 # ----------------------------------------------------------------------
 
