@@ -155,9 +155,8 @@ $ ad ssm-report report-serumcoverage
   ad ssm-report bvic-tree
 
 * make report
-
-  $ACMACSD_ROOT/bin/ssm-report --working-dir . report
-
+ad ssm-report report
+upload report to https://worldhealthorg-my.sharepoint.com/:f:/r/personal/lievrem_who_int/Documents/Shared/InfluenzaVCM?csf=1&e=Oz64DA
 * make signature pages
 
   ad ssm-report sp
