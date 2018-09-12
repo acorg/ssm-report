@@ -898,7 +898,7 @@ s_bvic_hi_CDC_data = """
       {"N": "rotate", "degrees": 0}
     ],
     "CDC_viewport": [
-      {"N": "viewport", "rel": [10, 10, -15]}
+      {"N": "viewport", "rel": [2, 2, -4]}
     ],
     "CDC_pre": [
     ],
