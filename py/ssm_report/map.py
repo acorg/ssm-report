@@ -208,9 +208,11 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, lab=None, settin
 
 # ----------------------------------------------------------------------
 
-def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, open_image=None):
-    module_logger.info(f"{sLogDelimiter}\nINFO:{n_spaces(30)} {lab.upper()} {virus_type.upper()} {assay.upper()} {mod}\nINFO: {n_spaces(93)}")
-    output_prefix = prefix + "-" + lab.lower()
+def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, infix=None, open_image=None):
+    infix = infix or ""
+    chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, infix=infix)
+    module_logger.info(f"{sLogDelimiter}\nINFO:{n_spaces(30)} {lab.upper()} {virus_type.upper()} {assay.upper()} {infix} {mod}\nINFO: {n_spaces(93)}")
+    output_prefix = f"{prefix}-{lab.lower()}{infix}"
 
     s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
     pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab.upper())
@@ -230,8 +232,7 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
     output = output_dir.joinpath(output_prefix + ".pdf")
     script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v {settings_args} '{chart}' '{output}'\n".format(
-        settings_args=settings_args,
-        pwd=os.getcwd(), chart=get_chart(virus_type=virus_type, assay=assay, lab=lab), output=output))
+        settings_args=settings_args, pwd=os.getcwd(), chart=chart, output=output))
     script_filename.chmod(0o700)
     subprocess.check_call(str(script_filename))
     if open_image == "quicklook":
