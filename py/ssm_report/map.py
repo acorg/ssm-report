@@ -248,7 +248,7 @@ sCompareWithPrevious = {
     False: [{"N": "antigens", "select": {"test": True}, "size": 8, "order": "raise"}]
     }
 
-def make_ts(output_dir, virus_type, assay, lab, force):
+def make_ts(output_dir, virus_type, assay, lab, infix=None, force=None):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
@@ -265,18 +265,18 @@ def make_ts(output_dir, virus_type, assay, lab, force):
 
         for period in periods:
             module_logger.info("{}\nINFO:{} {} {} {} Time Series {} {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), period["numeric_name"], " "* 93))
-            output_prefix = "ts-" + lab.lower() + "-" + period["numeric_name"]
+            output_prefix = f"ts-{lab.lower()}{infix}-{period['numeric_name']}"
 
-            s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
+            s2_filename = output_dir.joinpath(f"{output_prefix}.settings.json")
             settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
-            pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab, period_name=period["text_name"])
+            pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab.upper(), period_name=period["text_name"], infix=infix)
             ts = [{"N": "antigens", "select": {"test": True, "date_range": [period["first_date"], period["after_last_date"]]}, "show": True}]
             json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + sApplyFor["ts_post"] + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
             script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v {settings_args} {previous_chart} '{chart}' '{output}'\n".format(
                 settings_args=settings_args,
-                chart=get_chart(virus_type=virus_type, assay=assay, lab=lab),
+                chart=get_chart(virus_type=virus_type, assay=assay, lab=lab, infix=infix),
                 previous_chart="--previous '{}'".format(previous_chart) if previous_chart else "",
                 pwd=os.getcwd(),
                 output=output_dir.joinpath(output_prefix + ".pdf")))

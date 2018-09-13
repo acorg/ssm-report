@@ -373,7 +373,7 @@ class Processor:
         output_dir = self.r_dir(virus_type + "-" + assay)
         for mod in ["clade", "clade_6m", "clade_12m", "aa_at_142", "geography", "serology"]:
             make_map_for_lab(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, lab=lab, infix=infix, mod=mod, output_dir=output_dir, settings_files=settings_files, open_image=self._open_image)
-        #make_ts(virus_type="h3", assay="neut", lab="niid", output_dir=self.r_dir("h3-neut"), force=self._force)
+        make_ts(virus_type=virus_type, assay=assay, lab=lab, output_dir=output_dir, infix=infix, force=self._force)
         from . import map as map_m
         map_m.sDirsForIndex.add(output_dir)
     h3n_niid_oseltamivir = h3neut_niid_oseltamivir
