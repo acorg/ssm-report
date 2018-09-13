@@ -208,7 +208,7 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, lab=None, settin
 
 # ----------------------------------------------------------------------
 
-def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, infix=None, open_image=None):
+def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, infix="", open_image=None):
     infix = infix or ""
     chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, infix=infix)
     module_logger.info(f"{sLogDelimiter}\nINFO:{n_spaces(30)} {lab.upper()} {virus_type.upper()} {assay.upper()} {infix} {mod}\nINFO: {n_spaces(93)}")
@@ -248,7 +248,7 @@ sCompareWithPrevious = {
     False: [{"N": "antigens", "select": {"test": True}, "size": 8, "order": "raise"}]
     }
 
-def make_ts(output_dir, virus_type, assay, lab, infix=None, force=None):
+def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
