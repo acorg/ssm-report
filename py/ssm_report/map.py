@@ -82,7 +82,7 @@ sTitleFor = {
     "clade": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
-            "neut": "{lab} {virus_type} {assay} by clade",
+            "neut": "{lab} {virus_type} {assay}{infix} by clade",
         },
         "h1": {
             "hi":   "{lab} {virus_type} by clade",
@@ -97,7 +97,7 @@ sTitleFor = {
     "clade_6m": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
-            "neut": "{lab} {virus_type} {assay} by clade",
+            "neut": "{lab} {virus_type} {assay}{infix} by clade",
         },
         "h1": {
             "hi":   "{lab} {virus_type} by clade",
@@ -112,7 +112,7 @@ sTitleFor = {
     "clade_12m": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
-            "neut": "{lab} {virus_type} {assay} by clade",
+            "neut": "{lab} {virus_type} {assay}{infix} by clade",
         },
         "h1": {
             "hi":   "{lab} {virus_type} by clade",
@@ -127,13 +127,13 @@ sTitleFor = {
     "aa_at_142": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by amino-acids at 142",
-            "neut": "{lab} {virus_type} {assay} by amino-acids at 142",
+            "neut": "{lab} {virus_type} {assay}{infix} by amino-acids at 142",
         }
     },
     "geography": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by geography",
-            "neut": "{lab} {virus_type} {assay} by geography",
+            "neut": "{lab} {virus_type} {assay}{infix} by geography",
         },
         "h1": {
             "hi":   "{lab} {virus_type} by geography",
@@ -148,7 +148,7 @@ sTitleFor = {
     "serology": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} with serology antigens",
-            "neut": "{lab} {virus_type} {assay} with serology antigens",
+            "neut": "{lab} {virus_type} {assay}{infix} with serology antigens",
         },
         "h1": {
             "hi":   "{lab} {virus_type} with serology antigens",
@@ -215,7 +215,7 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     output_prefix = f"{prefix}-{lab.lower()}{infix}"
 
     s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
-    pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab.upper())
+    pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab.upper(), infix=infix)
     if mod == "serology":
         inside = [lab.upper() + "_serology"]
     elif "serum_coverage_circle" in mod:
@@ -307,7 +307,7 @@ def make_periods(start, end, period):
 
 # ----------------------------------------------------------------------
 
-def make_pre_post(virus_type, assay, mod, lab, period_name=None):
+def make_pre_post(virus_type, assay, mod, lab, infix=None, period_name=None):
     if mod == "information":
         return (
             [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
@@ -318,13 +318,17 @@ def make_pre_post(virus_type, assay, mod, lab, period_name=None):
             title_format = sTitleFor["serum_coverage"][virus_type][assay]
         else:
             title_format = sTitleFor[mod][virus_type][assay]
+        if infix == "-oseltamivir":
+            infix = " with oseltamivir"
+        else:
+            infix = ""
         title = {
             "N": "title",
             "background": "transparent",
             "border_width": 0,
             "text_size": 24,
             "font_weight": "bold",
-            "display_name": [title_format.format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper(), period_name=period_name)],
+            "display_name": [title_format.format(lab=sLabDisplayName[lab], virus_type=virus_type.upper(), assay=assay.upper(), period_name=period_name, infix=infix)],
         }
         return (
             [title] + [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],

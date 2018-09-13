@@ -2,7 +2,7 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import re, subprocess, pprint
 
-from .map import make_map, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
+from .map import make_map, make_map_for_lab, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
 from .stat import make_stat
 from .geographic import make_geographic
 from .signature_page import tree_make, signature_page_make, trees_get_from_albertine
@@ -363,6 +363,20 @@ class Processor:
     def h3neut_serology(self):
         self.serology(virus_type="h3", assay="neut")
     h3n_serology = h3neut_serology
+
+    def h3neut_niid_oseltamivir(self):
+        virus_type = "h3"
+        assay = "neut"
+        lab = "niid"
+        infix = "-oseltamivir"
+        settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
+        output_dir = self.r_dir(virus_type + "-" + assay)
+        for mod in ["clade", "clade_6m", "clade_12m", "aa_at_142", "geography", "serology"]:
+            make_map_for_lab(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, lab=lab, infix=infix, mod=mod, output_dir=output_dir, settings_files=settings_files, open_image=self._open_image)
+        #make_ts(virus_type="h3", assay="neut", lab="niid", output_dir=self.r_dir("h3-neut"), force=self._force)
+        from . import map as map_m
+        map_m.sDirsForIndex.add(output_dir)
+    h3n_niid_oseltamivir = h3neut_niid_oseltamivir
 
     def h3neut_serum_sectors(self):
         self._serum_sectors(virus_type="h3", assay="neut")
