@@ -156,6 +156,12 @@ class LatexReport:
     def make_serum_circle_description(self, page=None):
         self.data.append(latex.T_SerumCirclesDescription)
 
+    def make_latex(self, page):
+        if isinstance(page["text"], str):
+            self.data.append(page["text"])
+        else:
+            self.data.append("\n".join(page["text"]))
+
     # ----------------------------------------------------------------------
 
     def make_geographic_data_description(self, page):
