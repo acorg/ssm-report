@@ -422,11 +422,13 @@ class LatexSerumCoverageAddendum (LatexReport):
         if reviewed:
             map_data = json.load(reviewed[0].open())
             for map_info in map_data:
+                prefix = map_info["prefix"].replace('#', '')
+                serum_name = map_info["serum_name"].replace('#', '\\#').replace('&', '\\&')
                 subpage = {
                     "type": "maps",
                     "arraystretch": 1.0,
-                    "images": ["{}.{}-{}.pdf".format(map_info["prefix"], infix, page["lab"].lower()) for infix in ["empirical.all", "theoretical.all"]],
-                    "title": "{} {} {}".format(sLabDisplayName[page["lab"]], page["assay"], map_info["serum_name"])
+                    "images": ["{}.{}-{}.pdf".format(prefix, infix, page["lab"].lower()) for infix in ["empirical.12m", "theoretical.12m"]],
+                    "title": "{} {} {}".format(sLabDisplayName[page["lab"]], page["assay"], serum_name)
                     }
                 self.make_maps(subpage)
 
