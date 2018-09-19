@@ -167,24 +167,30 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
 
-    map_settings = read_json("{virus_type}-{assay}.json".format(virus_type=virus_type, assay=assay))
+    map_settings = read_json(f"{virus_type}-{assay}.json")
+    vaccine_settings = read_json(f"vaccines.{virus_type}-{assay}.json")
     # update viewport from ssm settings
     _signature_page_update_viewport_rotate_flip(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     # update vaccine drawing from ssm settings
-    _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
+    _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings, vaccine_settings=vaccine_settings)
     _signature_page_add_antigen_sample(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
 
     write_json(settings_file, settings)
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):
+def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings, vaccine_settings):
 
     # remove old entries
     for index in sorted((no for no, mod in enumerate(settings["antigenic_maps"]["mods"]) if mod.get("N", mod.get("?N")) in ["antigens", "?antigens", "antigens?"] and mod.get("select", {}).get("vaccine")), reverse=True):
         del settings["antigenic_maps"]["mods"][index]
 
-    vaccines = map_settings["mods"][lab.upper() + "_vaccines"]
+    if vaccine_settings:
+        vaccines = vaccine_settings["mods"].get(lab.upper() + "_vaccines")
+        if vaccines is None:
+            vaccines = vaccine_settings["mods"]["ALL_vaccines"]
+    else:
+        vaccines = map_settings["mods"][lab.upper() + "_vaccines"]
     # pprint.pprint(vaccines)
     for entry in vaccines:
         vaccine_data = copy.deepcopy(entry)
