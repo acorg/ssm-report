@@ -388,6 +388,8 @@ class LatexSignaturePageAddendum (LatexReport):
             from .stat import sLabOrder
             self.add_pdf(subtype="h1", assay="hi", lab="all")
             for lab in sLabOrder:
+                self.add_pdf(subtype="h1", assay="hi", lab=lab.lower())
+            for lab in sLabOrder:
                 self.add_pdf(subtype="h3", assay="hi", lab=lab.lower())
                 self.add_pdf(subtype="h3", assay="neut", lab=lab.lower())
             for subtype in ["bvic", "byam"]:
