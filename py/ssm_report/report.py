@@ -261,10 +261,11 @@ class LatexReport:
         tabcolsep = page.get("tabcolsep", 7.0)
         arraystretch = page.get("arraystretch", 3.5)
         title = page.get("title")
+        fontsize = page.get("fontsize", R"\normalsize")
         for page_no, images_on_page in enumerate(itertools.zip_longest(*([iter(image and Path(image).resolve() for image in page["images"])] * 6))):
             if page_no:
                 self.make_new_page()
-            self._antigenic_map_table(images_on_page, title=title, image_scale=image_scale, tabcolsep=tabcolsep, arraystretch=arraystretch)
+            self._antigenic_map_table(images_on_page, title=title, image_scale=image_scale, tabcolsep=tabcolsep, arraystretch=arraystretch, fontsize=fontsize)
 
     def make_map_with_title(self, page):
         image = Path(page["image"]).resolve()
@@ -312,13 +313,13 @@ class LatexReport:
     #         else:
     #             yield self.ts_dates[no], None
 
-    def _antigenic_map_table(self, images, title=None, image_scale=None, tabcolsep=None, arraystretch=None):
+    def _antigenic_map_table(self, images, title=None, image_scale=None, tabcolsep=None, arraystretch=None, fontsize=R"\normalsize"):
         if image_scale is not None:
             self.data.append("\\begin{AntigenicMapTableWithSep}{%fpt}{%f}{%s}" % (tabcolsep, arraystretch, image_scale))
         else:
             self.data.append("\\begin{AntigenicMapTable}")
         if title:
-            self.data.append("\multicolumn{2}{>{\hspace{0.3em}}c<{\hspace{0.3em}}}{%s} \\\\" % title)
+            self.data.append("\multicolumn{2}{>{\hspace{0.3em}}c<{\hspace{0.3em}}}{{%s %s}} \\\\" % (fontsize, title))
         for no in range(0, len(images), 2):
             if images[no] and images[no + 1]:
                 self.data.append("\\AntigenicMap{%s} & \\AntigenicMap{%s} \\\\" % (images[no], images[no + 1]))
@@ -426,11 +427,19 @@ class LatexSerumCoverageAddendum (LatexReport):
             for map_info in map_data:
                 prefix = map_info["prefix"].replace('#', '')
                 serum_name = map_info["serum_name"].replace('#', '\\#').replace('&', '\\&')
+                title = "{} {} {}".format(sLabDisplayName[page["lab"]], page["assay"], serum_name)
+                if len(title) < 70:
+                    fontsize = R"\normalsize"
+                elif len(title) < 90:
+                    fontsize = R"\footnotesize"
+                else:
+                    fontsize = R"\scriptsize"
                 subpage = {
                     "type": "maps",
                     "arraystretch": 1.0,
                     "images": ["{}.{}-{}.pdf".format(prefix, infix, page["lab"].lower()) for infix in ["empirical.12m", "theoretical.12m"]],
-                    "title": "{} {} {}".format(sLabDisplayName[page["lab"]], page["assay"], serum_name)
+                    "title": title,
+                    "fontsize": fontsize
                     }
                 self.make_maps(subpage)
 
