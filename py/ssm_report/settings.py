@@ -107,8 +107,8 @@ sVaccineSettings = {
       "? INFORMATION": "======================================================================",
 
     "ALL_vaccines_information": [
-      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 45, "show": true, "order": "raise"},
-      {"N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "report": true, "outline": "black", "fill": "red", "size": 45, "show": true, "order": "raise"}
+      {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 45, "show": true, "order": "raise"},
+      {"?N": "antigens", "select": {"vaccine": {"type": "current",  "passage": "cell"       }}, "report": true, "outline": "black", "fill": "red", "size": 45, "show": true, "order": "raise"}
     ],
 
     "CDC_vaccines_information": [
@@ -616,9 +616,11 @@ s_h1_hi_data = """
       {"N": "legend", "show": false}
     ],
     "information": [
-      "clades",
-      {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
-      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
+      {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
     ]
     """
 
@@ -680,9 +682,11 @@ s_h3_hi_data = """
       {"N": "amino-acids", "pos": [142], "colors": {"G": "#049457", "K": "#F76A05", "R": "#A020F0", "N": "#93EDC3", "E": "#ED93BD", "I": "#742f32", "X": "#666666"}, "outline": "black", "legend": {"count": true}, "order": "raise"}
     ],
     "information": [
-      "clades",
-      {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
-      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
+      {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
     ]"""
 
     # "serum_sectors": [
@@ -772,9 +776,11 @@ s_h3_neut_data = """
       {"N": "legend", "show": false}
     ],
     "information": [
-      "clades",
-      {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
-      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
+      {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
     ]"""
 
     # "serum_sectors": [
@@ -883,9 +889,13 @@ s_bvic_hi_data = """
       {"N": "legend", "show": false}
     ],
     "information": [
-      "clades",
-      {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
-      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
+      {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"clade": "DEL2017"}, "fill": "#DE8244", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017"}, "fill": "#BF3EFF", "outline": "black", "raise_": true}
     ]"""
 
 # --------------- CDC B/Vic HI -------------------------------------------------------
@@ -981,9 +991,11 @@ s_byam_hi_data = """
       {"N": "legend", "show": false}
     ],
     "information": [
-      "clades",
-      {"N": "antigens", "select": {"older_than_days": 183}, "fill": "grey80", "outline": "grey80", "order": "lower"},
-      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
+      {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
     ]"""
 
 # --------------- B/Yam HI CDC -------------------------------------------------------

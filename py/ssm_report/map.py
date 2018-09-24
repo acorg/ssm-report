@@ -30,7 +30,7 @@ sApplyFor = {
         ],
     "post_information": [
         "{lab}_mid",
-        "{lab}_vaccines_information",
+        "*{lab}_vaccines_information",
         "{lab}_post",
         ],
     "clade": [
