@@ -199,11 +199,11 @@ sTitleFor = {
 
 sDirsForIndex = set()
 
-def make_map(output_dir, prefix, virus_type, assay, mod, force, lab=None, settings_labs_key="labs", open_image=None):
+def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=None, settings_labs_key="labs", open_image=None):
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
     labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
     for lab in labs:
-        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, open_image=open_image)
+        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, infix=infix, open_image=open_image)
     sDirsForIndex.add(output_dir)
 
 # ----------------------------------------------------------------------
@@ -308,7 +308,7 @@ def make_periods(start, end, period):
 # ----------------------------------------------------------------------
 
 def make_pre_post(virus_type, assay, mod, lab, infix=None, period_name=None):
-    if mod == "information":
+    if mod in ["information", "information_clades"]:
         return (
             [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
             [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post_information"]],
@@ -338,7 +338,9 @@ def make_pre_post(virus_type, assay, mod, lab, infix=None, period_name=None):
 # ----------------------------------------------------------------------
 
 def make_map_information(output_dir, virus_type, assay, force):
-    make_map(output_dir=output_dir, prefix=virus_type + "-" + assay, virus_type=virus_type, assay=assay, mod="information", force=force, settings_labs_key="information_labs")
+    make_map(output_dir=output_dir, prefix=f"{virus_type}-{assay}", virus_type=virus_type, assay=assay, mod="information", force=force, settings_labs_key="information_labs")
+    if virus_type == "h3":
+        make_map(output_dir=output_dir, prefix=f"{virus_type}-{assay}.clades", virus_type=virus_type, assay=assay, mod="information_clades", force=force, settings_labs_key="information_labs")
 
 # ----------------------------------------------------------------------
 

@@ -687,6 +687,11 @@ s_h3_hi_data = """
       {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
       {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
       {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
+    ],
+    "information_clades": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "clades_last_12_months", "size": 15}
     ]"""
 
     # "serum_sectors": [
@@ -781,6 +786,11 @@ s_h3_neut_data = """
       {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
       {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
       {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
+    ],
+    "information_clades": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "clades_last_12_months", "size": 15}
     ]"""
 
     # "serum_sectors": [
