@@ -621,6 +621,11 @@ s_h1_hi_data = """
       {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
       {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
       {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
+    ],
+    "information_clades": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "clades_last_12_months", "size": 15}
     ]
     """
 
@@ -906,6 +911,11 @@ s_bvic_hi_data = """
       {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true},
       {"N": "antigens", "select": {"clade": "DEL2017"}, "fill": "#DE8244", "outline": "black", "raise_": true},
       {"N": "antigens", "select": {"clade": "TRIPLEDEL2017"}, "fill": "#BF3EFF", "outline": "black", "raise_": true}
+    ],
+    "information_clades": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "clades_last_12_months", "size": 15}
     ]"""
 
 # --------------- CDC B/Vic HI -------------------------------------------------------
@@ -1006,6 +1016,11 @@ s_byam_hi_data = """
       {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
       {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
       {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
+    ],
+    "information_clades": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "clades_last_12_months", "size": 15}
     ]"""
 
 # --------------- B/Yam HI CDC -------------------------------------------------------
