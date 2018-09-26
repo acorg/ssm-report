@@ -625,7 +625,8 @@ s_h1_hi_data = """
     "information_clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15}
+      {"N": "clades_last_12_months", "size": 15},
+      "no_legend"
     ]
     """
 
@@ -696,7 +697,8 @@ s_h3_hi_data = """
     "information_clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15}
+      {"N": "clades_last_12_months", "size": 15},
+      "no_legend"
     ]"""
 
     # "serum_sectors": [
@@ -795,7 +797,8 @@ s_h3_neut_data = """
     "information_clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15}
+      {"N": "clades_last_12_months", "size": 15},
+      "no_legend"
     ]"""
 
     # "serum_sectors": [
@@ -915,7 +918,8 @@ s_bvic_hi_data = """
     "information_clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15}
+      {"N": "clades_last_12_months", "size": 15},
+      "no_legend"
     ]"""
 
 # --------------- CDC B/Vic HI -------------------------------------------------------
@@ -1020,7 +1024,8 @@ s_byam_hi_data = """
     "information_clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15}
+      {"N": "clades_last_12_months", "size": 15},
+      "no_legend"
     ]"""
 
 # --------------- B/Yam HI CDC -------------------------------------------------------
