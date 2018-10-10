@@ -102,11 +102,14 @@ def _tree_update_settings_byam(data, settings):
         clade_data["label_offset"] = [5, 0]
 
 def _tree_update_settings_h1(data, settings):
-    data["signature_page"].update({"left": 50, "right": 0, "clades_width": 60})
+    data["signature_page"].update({"left": 50, "right": 0, "clades_width": 100})
     data["tree"]["mods"] = [
         {"mod": "hide-if-cumulative-edge-length-bigger-than", "d1": 0.021},
         ]
     data["title"]["title"] = "A(H1N1)"
+    for clade_data in data["clades"]["clades"]:
+        if clade_data["name"] == "6B":
+            clade_data["slot"] = 4
 
 def _tree_update_settings_h3(data, settings):
     data["signature_page"].update({"left": 50, "right": 0, "clades_width": 100})
