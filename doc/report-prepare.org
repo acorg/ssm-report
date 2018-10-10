@@ -41,7 +41,7 @@ e *.json
 * make trees on albertine
 ** run make-signature-pages
   cd /syn/eu/ac/results/whocc-tree
-  ad make-signature-pages -t YYYY-MMDD --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
+  ad make-signature-pages -t $(date +%Y-%m%d) --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
 
 it generates trees and various pdfs in /syn/eu/ac/results/whocc-tree/YYYY-MMDD. to view the results visit
 https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H1.safari.html
