@@ -98,6 +98,9 @@ def _tree_update_settings_byam(data, settings):
     report_settings = read_json("report.json")
     data["signature_page"].update({"left": 70, "right": 0, "clades_width": 50})
     data["time_series"]["begin"] = (datetime.datetime.strptime(report_settings["time_series"]["date"]["end"], "%Y-%m-%d") - datetime.timedelta(days=25*30)).strftime("%Y-%m-01")
+    data["tree"]["mods"] = [
+        {"mod": "hide-if-cumulative-edge-length-bigger-than", "d1": 0.043},
+        ]
     for clade_data in data["clades"]["clades"]:
         clade_data["label_offset"] = [5, 0]
 
@@ -112,23 +115,14 @@ def _tree_update_settings_h1(data, settings):
             clade_data["slot"] = 4
 
 def _tree_update_settings_h3(data, settings):
-    data["signature_page"].update({"left": 50, "right": 0, "clades_width": 100})
+    data["signature_page"].update({"left": 50, "right": 0, "clades_width": 160, "time_series_width": 250})
     data["tree"]["mods"] = [
         {"mod": "hide-if-cumulative-edge-length-bigger-than", "d1": 0.04},
         ]
     data["title"]["title"] = "A(H3N2)"
     for clade_data in data["clades"]["clades"]:
-        if clade_data["name"] == "3C3A":
-            clade_data["display_name"] = "3C3a"
-            clade_data["label_offset"] = [5, 0]
-        elif clade_data["name"] == "3C2A":
-            clade_data["display_name"] = "3C2a"
-            clade_data["label_offset"] = [5, -200]
-        elif clade_data["name"] == "3C2A1":
-            clade_data["display_name"] = "3C2a1"
-            clade_data["label_offset"] = [5, 0]
-            clade_data["section_inclusion_tolerance"] = 30
-            clade_data["slot"] = 1
+        if clade_data["name"] == "3C.2A":
+            clade_data["slot"] = 7
 
 # ======================================================================
 
