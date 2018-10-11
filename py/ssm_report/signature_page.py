@@ -58,20 +58,24 @@ def tree_make_information_settings(virus_type, tree_dir):
             "line_color": "black",
             "line_width": 1.5,
             })
-        write_json(info_settings, settings)
+        write_json(info_settings, settings, object_fields_sorting_key=signature_page_settins_object_fields_sorting_key)
 
 # ----------------------------------------------------------------------
 
 def _tree_update_settings(subtype, settings):
     data = read_json(settings)
+    data.pop("_", None)
     data["title"]["title"] = sVirusTypeShort[subtype]
     data["signature_page"].pop("antigenic_maps_width", None)
     data["signature_page"].pop("mapped_antigens_margin_right", None)
     data.pop("mapped_antigens", None)
     data.pop("antigenic_maps", None)
+    for entry_by_aa_label in data["tree"]["aa_transition"]["per_branch"]["by_aa_label"]:
+        for field in ["style", "color", "interline", "label_connection_line_color", "label_connection_line_width", "show", "size"]:
+            entry_by_aa_label.pop(field, None)
     globals().get("_tree_update_settings_" + subtype)(data=data, settings=settings)
     # data["tree"]["ladderize"] = "max-edge-length"
-    write_json(settings, data)
+    write_json(settings, data, object_fields_sorting_key=signature_page_settins_object_fields_sorting_key)
 
 # ----------------------------------------------------------------------
 
@@ -172,7 +176,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
     _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings, vaccine_settings=vaccine_settings)
     _signature_page_add_antigen_sample(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
 
-    write_json(settings_file, settings)
+    write_json(settings_file, settings, object_fields_sorting_key=signature_page_settins_object_fields_sorting_key)
 
 # ----------------------------------------------------------------------
 
@@ -270,6 +274,18 @@ def _remove_mod_entries(settings, key):
 def subprocess_check_call(command):
     module_logger.info(command)
     subprocess.check_call(command, shell=True)
+
+# ----------------------------------------------------------------------
+
+sFieldSortingPrefix = {
+    "signature_page": "001",
+    "label_offset": "011",
+    "label": "012",
+    "first_leaf_seq_id": "013",
+    }
+
+def signature_page_settins_object_fields_sorting_key(key):
+    return sFieldSortingPrefix.get(key, "") + key
 
 # ----------------------------------------------------------------------
 
