@@ -14,6 +14,14 @@ sVirusTypeConvert = {
     'BVICTORIA': 'b-vic',
     }
 
+sVirusTypeConvert_ssm_report = {
+    'A(H1N1)': None,
+    'A(H1N1)2009PDM': 'h1',
+    'A(H3N2)': 'h3',
+    'BYAMAGATA': 'by',
+    'BVICTORIA': 'bv',
+    }
+
 sAssayConvert = {
     "HI": "hi",
     "FOCUS REDUCTION": "neut",
@@ -23,7 +31,7 @@ sAssayConvert = {
 
 # ----------------------------------------------------------------------
 
-def get_recent_merges(target_dir :Path, session=None, force=False):
+def get_recent_merges(target_dir :Path, session=None, force=False, rename="ssm-report"):
     done_path = Path(target_dir, "getting-recent-merges-done")
     if not done_path.exists() or force:
         merge_data_path = Path(target_dir, "megres.json")
@@ -44,7 +52,12 @@ def get_recent_merges(target_dir :Path, session=None, force=False):
 
         for entry in response:
             if entry["lab"] != "CNIC" and not (entry["lab"] == "NIID" and entry["virus_type"] == "A(H3N2)" and entry["assay"] == "HI"):
-                basename = "{lab}-{vt}-{assay}".format(lab=entry["lab"], vt=sVirusTypeConvert[entry["virus_type"]], assay=sAssayConvert[entry["assay"]]).lower()
+                if rename == "ssm-report":
+                    basename = "{lab}-{vt}-{assay}".format(lab=entry["lab"], vt=sVirusTypeConvert[entry["virus_type"]], assay=sAssayConvert[entry["assay"]]).lower()
+                elif rename == "signature-pages":
+                    basename = "{lab}-{vt}-{assay}".format(lab=entry["lab"], vt=sVirusTypeConvert_ssm_report[entry["virus_type"]], assay=sAssayConvert[entry["assay"]]).lower()
+                else:
+                    raise RuntimeError(f"Unrecognized rename arg: {rename!r}")
                 targets = {f: target_dir.joinpath(basename + "." + f) for f in formats}
                 if merge_data.get(basename) != entry["chart_id"] or not targets[formats[0]].exists():
                     merge_data[basename] = entry["chart_id"]
