@@ -31,7 +31,7 @@ sAssayConvert = {
 
 # ----------------------------------------------------------------------
 
-def get_recent_merges(target_dir :Path, session=None, force=False, rename="ssm-report"):
+def get_recent_merges(target_dir :Path, session=None, lab=None, force=False, rename="ssm-report"):
     done_path = Path(target_dir, "getting-recent-merges-done")
     if not done_path.exists() or force:
         merge_data_path = Path(target_dir, "megres.json")
@@ -40,7 +40,8 @@ def get_recent_merges(target_dir :Path, session=None, force=False, rename="ssm-r
         except:
             merge_data = {}
 
-        response = api(session=session).command(C="ad_whocc_recent_merges", log=False, labs=None, virus_types=None)
+        labs = [lab] if lab else None
+        response = api(session=session).command(C="ad_whocc_recent_merges", log=False, labs=labs, virus_types=None)
         if "data" not in response:
             module_logger.error("No \"data\" in response of ad_whocc_recent_merges api command:\n{}".format(pprint.pformat(response)))
             raise RuntimeError("Unexpected result of ad_whocc_recent_merges c2 api command")
