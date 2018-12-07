@@ -1,26 +1,16 @@
 # -*- Makefile -*-
-# Eugene Skepner 2017
 # ----------------------------------------------------------------------
 
-MAKEFLAGS = -w
+all: install
 
-# ----------------------------------------------------------------------
+include $(ACMACSD_ROOT)/share/Makefile.config
 
-include $(ACMACSD_ROOT)/share/makefiles/Makefile.dist-build.vars
-
-all: check-acmacsd-root install
-
-install: check-acmacsd-root
-	ln -sf $(abspath py)/ssm_report $(AD_PY)
-	ln -sf $(abspath bin)/* $(AD_BIN)
+install:
+	$(call symbolic_link,$(abspath py)/ssm_report,$(AD_PY))
+	$(call symbolic_link_wildcard,$(abspath bin)/*,$(AD_BIN))
 
 test: install
 	echo "WARNING: ssm-report test not implemented yet" >&2
-
-# ----------------------------------------------------------------------
-
--include $(BUILD)/*.d
-include $(ACMACSD_ROOT)/share/makefiles/Makefile.dist-build.rules
 
 # ----------------------------------------------------------------------
 
