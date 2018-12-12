@@ -11,6 +11,7 @@ install:
 
 test: install
 	echo "WARNING: ssm-report test not implemented yet" >&2
+.PHONY: test
 
 # ----------------------------------------------------------------------
 
