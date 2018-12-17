@@ -80,18 +80,24 @@ def get_recent_merges(target_dir :Path, session=None, lab=None, force=False, ren
 # ----------------------------------------------------------------------
 
 def make_h1pdm_overlay(recent_merges_dir, log_dir, force=False):
-    target = recent_merges_dir.joinpath("all-h1pdm-hi.ace")
+    if recent_merges_dir.joinpath("cdc-h1pdm-hi.ace").exists():
+        infix = "h1pdm"
+    elif recent_merges_dir.joinpath("cdc-h1-hi.ace").exists():
+        infix = "h1"
+    else:
+        raise RuntimeError("Neither {} nor {} found".format(recent_merges_dir.joinpath("cdc-h1pdm-hi.ace"), recent_merges_dir.joinpath("cdc-h1-hi.ace")))
+    target = recent_merges_dir.joinpath(f"all-{infix}-hi.ace")
     if not target.exists() or force:
         module_logger.info('Making H1pdm overlay merge')
-        charts = [recent_merges_dir.joinpath("cdc-h1pdm-hi.ace"), recent_merges_dir.joinpath("nimr-h1pdm-hi.ace"), recent_merges_dir.joinpath("niid-h1pdm-hi.ace"), recent_merges_dir.joinpath("melb-h1pdm-hi.ace")]
-        # merge = recent_merges_dir.joinpath("all-h1pdm-hi.merge.acd2.xz")
-        merge = recent_merges_dir.joinpath("all-h1pdm-hi.merge.ace")
+        charts = [recent_merges_dir.joinpath(f"cdc-{infix}-hi.ace"), recent_merges_dir.joinpath(f"nimr-{infix}-hi.ace"), recent_merges_dir.joinpath(f"niid-{infix}-hi.ace"), recent_merges_dir.joinpath(f"melb-{infix}-hi.ace")]
+        # merge = recent_merges_dir.joinpath(f"all-{infix}-hi.merge.acd2.xz")
+        merge = recent_merges_dir.joinpath(f"all-{infix}-hi.merge.ace")
         subprocess.check_call("c2 merge.py -r --overlay -o '{}' '{}' >'{}' 2>&1".format(merge, "' '".join(str(c) for c in charts), log_dir.joinpath("h1pdm-merge.log")), shell=True)
         module_logger.info('Relaxing H1pdm overlay merge')
         # subprocess.check_call("c2 relax-existing.py --disconnect-having-few-titers --disconnect-having-nan '{}' '{}' >'{}' 2>&1".format(merge, target, log_dir.joinpath("h1pdm-relax.log")), shell=True)
         subprocess.check_call("ad chart-relax-existing '{}' '{}' >'{}' 2>&1".format(merge, target, log_dir.joinpath("h1pdm-relax.log")), shell=True)
         # module_logger.info('Making ace for H1pdm overlay merge')
-        # subprocess.check_call("c2 convert.py '{}' '{}' >'{}' 2>&1".format(target, recent_merges_dir.joinpath("all-h1pdm-hi.ace"), log_dir.joinpath("h1pdm-sdb.log")), shell=True)
+        # subprocess.check_call("c2 convert.py '{}' '{}' >'{}' 2>&1".format(target, recent_merges_dir.joinpath(f"all-{infix}-hi.ace"), log_dir.joinpath("h1pdm-sdb.log")), shell=True)
 
 # ----------------------------------------------------------------------
 
