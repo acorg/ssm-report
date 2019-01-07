@@ -281,9 +281,10 @@ class Processor:
         acmacs.get_recent_merges(target_dir, force=True)
 
     def h1_overlay(self):
+        module_logger.info("Making h1 overlay")
         merges_dir = self._merges_dir()
         from acmacs_whocc.h1_overlay import h1_overlay_relax
-        h1_overlay_relax(sorted(merges_dir.glob("[cmn]*-h1-hi.ace")), merges_dir.joinpath("all-h1-hi.ace"), log_file=log_dir.joinpath("h1-overlay.log"))
+        h1_overlay_relax(sorted(merges_dir.glob("[cmn]*-h1-hi.ace")), merges_dir.joinpath("all-h1-hi.ace"), log_file=self._log_dir().joinpath("h1-overlay.log"))
 
     def update_hidb(self):
         self._get_hidb()
@@ -635,7 +636,7 @@ class Processor:
         module_logger.info("Updating merges in " + repr(str(target_dir)))
         from acmacs_whocc import acmacs
         acmacs.get_recent_merges(target_dir)
-        acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir())
+        self.h1_overlay()
 
     @classmethod
     def _use_dir(cls, name, mkdir=True):
