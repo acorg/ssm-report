@@ -1,3 +1,5 @@
+raise RuntimeError("OBSOLETE, use acmacs_whocc.acmacs")
+
 import sys, subprocess, pprint
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
