@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import re, subprocess, pprint
+import re, subprocess, shutil, pprint
 
 from .map import make_map, make_map_for_lab, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
 from .stat import make_stat
@@ -277,13 +277,13 @@ class Processor:
     def update_merges(self):
         target_dir = self._merges_dir()
         module_logger.info("Updating merges in " + repr(str(target_dir)))
-        from . import acmacs
+        from acmacs_whocc import acmacs
         acmacs.get_recent_merges(target_dir, force=True)
 
     def h1_overlay(self):
-        target_dir = self._merges_dir()
-        from . import acmacs
-        acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir(), force=True)
+        merges_dir = self._merges_dir()
+        from acmacs_whocc.h1_overlay import h1_overlay_relax
+        h1_overlay_relax(sorted(merges_dir.glob("[cmn]*-h1-hi.ace")), merges_dir.joinpath("all-h1-hi.ace"), log_file=log_dir.joinpath("h1-overlay.log"))
 
     def update_hidb(self):
         self._get_hidb()
@@ -612,16 +612,20 @@ class Processor:
 
     def _get_seqdb(self):
         seqdb_filename = self._seqdb_file()
-        module_logger.info("Updating seqdb in " + repr(str(seqdb_filename)))
-        fasta_files = sorted(Path("~/ac/tables-store/sequences").expanduser().resolve().glob("*.fas.*"))
-        seqdb_mtime = seqdb_filename.exists() and seqdb_filename.stat().st_mtime
-        if not seqdb_mtime or any(ff.stat().st_mtime >= seqdb_mtime for ff in fasta_files):
-            module_logger.info("Creating seqdb from " + str(len(fasta_files)) + " fasta files")
-            subprocess.check_call("ad seqdb-create --db '{seqdb_filename}' --hidb-dir '{hidb_dir}' --match-hidb --clades --save-not-found-locations '{not_found_locations}' {verbose} '{fasta_files}'".format(
-                seqdb_filename=seqdb_filename, hidb_dir=self._db_dir(), not_found_locations=self._log_dir().joinpath("not-found-locations.txt"), verbose="-v" if self._verbose else "",
-                fasta_files="' '".join(str(f) for f in fasta_files)), shell=True)
-        else:
-            module_logger.info('seqdb is up to date')
+        shutil.copy(Path("~/AD/data/seqdb.json.xz").expanduser().resolve(), seqdb_filename)
+
+    # def _get_seqdb_before_2019(self):
+    #     seqdb_filename = self._seqdb_file()
+    #     module_logger.info("Updating seqdb in " + repr(str(seqdb_filename)))
+    #     fasta_files = sorted(Path("~/ac/tables-store/sequences").expanduser().resolve().glob("*.fas.*"))
+    #     seqdb_mtime = seqdb_filename.exists() and seqdb_filename.stat().st_mtime
+    #     if not seqdb_mtime or any(ff.stat().st_mtime >= seqdb_mtime for ff in fasta_files):
+    #         module_logger.info("Creating seqdb from " + str(len(fasta_files)) + " fasta files")
+    #         subprocess.check_call("ad seqdb-create --db '{seqdb_filename}' --hidb-dir '{hidb_dir}' --match-hidb --clades --save-not-found-locations '{not_found_locations}' {verbose} '{fasta_files}'".format(
+    #             seqdb_filename=seqdb_filename, hidb_dir=self._db_dir(), not_found_locations=self._log_dir().joinpath("not-found-locations.txt"), verbose="-v" if self._verbose else "",
+    #             fasta_files="' '".join(str(f) for f in fasta_files)), shell=True)
+    #     else:
+    #         module_logger.info('seqdb is up to date')
 
     def _seqdb_file(self):
         return self._db_dir().joinpath("seqdb.json.xz")
@@ -629,7 +633,7 @@ class Processor:
     def _get_merges(self):
         target_dir = self._merges_dir()
         module_logger.info("Updating merges in " + repr(str(target_dir)))
-        from . import acmacs
+        from acmacs_whocc import acmacs
         acmacs.get_recent_merges(target_dir)
         acmacs.make_h1pdm_overlay(target_dir, log_dir=self._log_dir())
 
