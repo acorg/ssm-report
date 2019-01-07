@@ -50,11 +50,17 @@ https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BV.s
 https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BY.safari.html
 
 get trees:
+sp_dir=i19:ac/results/signature-pages/2019-0102
+for v in h1 h3 bv by; do if [ ! -f tree/$v.tree.json.xz ]; then scp ${sp_dir}/$v/tree.json.xz tree/$v.tree.json.xz; scp ${sp_dir}/$v/tree.settings.json tree/$v.tree.settings.json; fi; done
 ln -s BV.tree.json.xz tree/bvic.tree.json.xz; ln -s BY.tree.json.xz tree/byam.tree.json.xz
 rsync -Lv i19:/syn/eu/ac/results/whocc-tree/YYYY-MMDD/\*.tree.json.xz tree
 
 then run:
-  ad ssm-report tree
+ssm-report h1-tree
+ssm-report h3-tree
+ssm-report bv-tree
+ssm-report by-tree
+ssm-report tree
 ** OBSOLETE (before 2018-07-26)
 *** prepare directories
  (on jagd) ./sy
