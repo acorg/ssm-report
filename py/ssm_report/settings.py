@@ -543,7 +543,7 @@ sSerologySettings = {
   "mods": {
     "CDC_serology": [
       {"?N":"antigens", "select": {"full_name": "A(H3N2)/SOUTH AUSTRALIA/135/2016 SIAT2/SIAT1 (2018-07-31)"}, "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": "A/Maryland/53/2017"},                                 "label": {"offset": [ 0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "A/Maryland/53/2017"},                                 "label": {"offset": [ 0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "MELB_serology": [
       ],
@@ -556,7 +556,7 @@ sSerologySettings = {
   "mods": {
     "CDC_serology": [
       {"?N":"antigens", "select": {"full_name": "A(H3N2)/SOUTH AUSTRALIA/135/2016 SIAT2/SIAT1 (2018-07-31)"}, "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": "A/Maryland/53/2017"},                                 "label": {"offset": [ 0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "A/Maryland/53/2017"},                                 "label": {"offset": [ 0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "MELB_serology": [
       ],
@@ -571,7 +571,7 @@ sSerologySettings = {
   "mods": {
     "CDC_serology": [
       {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2"},                "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": "B/HONG KONG/286/2017", "passage": "egg"}, "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "B/HONG KONG/286/2017", "passage": "egg"}, "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "MELB_serology": [
     ],
@@ -586,7 +586,7 @@ sSerologySettings = {
   "mods": {
     "CDC_serology": [
       {"?N":"antigens", "select": {"full_name": "B/GUYANE/5/2018 MDCK2 (2018-05-02)"}, "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": "B/PUERTO RICO/5/2018"},         "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "B/PUERTO RICO/5/2018"},         "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "MELB_serology": [
     ],

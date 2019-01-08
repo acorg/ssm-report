@@ -201,7 +201,11 @@ sDirsForIndex = set()
 
 def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=None, settings_labs_key="labs", open_image=None):
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
-    labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
+    try:
+        labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
+    except json.decoder.JSONDecodeError:
+        module_logger.error(f"cannot import json from {settings_files[0]}")
+        raise
     for lab in labs:
         make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, infix=infix, open_image=open_image)
     sDirsForIndex.add(output_dir)
@@ -287,8 +291,13 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
 # ----------------------------------------------------------------------
 
 def make_periods(start, end, period):
-    data = json.loads(subprocess.check_output("time-series-gen {period}ly {start} {end}".format(period=period, start=start, end=end), shell=True))
-    # pprint.pprint(data)
+    cmd = f"time-series-gen {period}ly {start} {end}"
+    try:
+        data = json.loads(subprocess.check_output(cmd, shell=True))
+        # pprint.pprint(data)
+    except:
+        module_logger.error(f"Command: {cmd} failed")
+        raise
     return data
 
 # def make_periods(start, end, period):
