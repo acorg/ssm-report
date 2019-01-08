@@ -43,6 +43,17 @@ def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings", t
 
 # ----------------------------------------------------------------------
 
+def tree_make_aa_pos(subtype, tree_dir, seqdb, output_dir):
+    tree = tree_dir.joinpath(f"{subtype}.tree.json.xz")
+    pdf = output_dir.joinpath(f"{subtype}.tree-aa-at-pos.pdf")
+    settings = tree_dir.joinpath(f"{subtype}.tree-aa-at-pos.json")
+    if not settings.exists():
+        subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' --show-aa-at-pos --aa-at-pos-hz-section-threshold 100 --not-show-hz-sections '{tree}' '{pdf}'")
+    else:
+        subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}' --open")
+
+# ----------------------------------------------------------------------
+
 def tree_make_information_settings(virus_type, tree_dir):
     info_settings = tree_dir.joinpath("{}.tree.information.json".format(virus_type))
     if not info_settings.exists():
@@ -139,7 +150,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
     tree_settings = sp_source_dir.joinpath(virus_type + ".tree.settings.json")
     # chart = merge_dir.joinpath("{}-{}-{}.sdb.xz".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
-    chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
+    chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, virus_type.replace("b", "b-"), assay))
     pdf = sp_output_dir.joinpath(prefix + ".pdf")
     if not settings.exists():
         subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' --no-draw --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
@@ -165,7 +176,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
             mod["N"] = "?" + mod["N"]
 
     settings["antigenic_maps"]["columns"] = 3
-    if virus_type in ["h3", "byam"]:
+    if virus_type in ["h1", "h3", "byam"]:
         settings["signature_page"]["antigenic_maps_width"] = 431.35
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579

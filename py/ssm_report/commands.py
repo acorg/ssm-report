@@ -5,7 +5,7 @@ import re, subprocess, shutil, pprint
 from .map import make_map, make_map_for_lab, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
 from .stat import make_stat
 from .geographic import make_geographic
-from .signature_page import tree_make, signature_page_make, trees_get_from_albertine
+from .signature_page import tree_make, tree_make_aa_pos, signature_page_make, trees_get_from_albertine
 
 # ======================================================================
 
@@ -165,6 +165,10 @@ class Processor:
         """instructions on making phylogenetic trees"""
         tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
 
+    def h1_tree_aa(self):
+        """instructions on making phylogenetic trees"""
+        tree_make_aa_pos(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
     def h3_tree(self):
         """instructions on making phylogenetic trees"""
         tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
@@ -180,6 +184,22 @@ class Processor:
     def byam_tree(self):
         """instructions on making phylogenetic trees"""
         tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
+    def h1_tree_aa(self):
+        """instructions on making phylogenetic trees"""
+        tree_make_aa_pos(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
+    def h3_tree_aa(self):
+        """instructions on making phylogenetic trees"""
+        tree_make_aa_pos(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
+    def bv_tree_aa(self):
+        """instructions on making phylogenetic trees"""
+        tree_make_aa_pos(subtype="bv", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+
+    def by_tree_aa(self):
+        """instructions on making phylogenetic trees"""
+        tree_make_aa_pos(subtype="by", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
 
     def tree_information(self):
         """Generate tree images for all subtypes."""
