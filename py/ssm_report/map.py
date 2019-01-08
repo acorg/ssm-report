@@ -231,7 +231,7 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     script_filename = output_dir.joinpath(output_prefix + ".sh")
     settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
     output = output_dir.joinpath(output_prefix + ".pdf")
-    script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v {settings_args} '{chart}' '{output}'\n".format(
+    script_filename.open("w").write("#! /bin/bash\nexec map-draw --db-dir {pwd}/db -v {settings_args} '{chart}' '{output}'\n".format(
         settings_args=settings_args, pwd=os.getcwd(), chart=chart, output=output))
     script_filename.chmod(0o700)
     subprocess.check_call(str(script_filename))
@@ -274,7 +274,7 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
             json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + sApplyFor["ts_post"] + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
-            script_filename.open("w").write("#! /bin/bash\nexec ad map-draw --db-dir {pwd}/db -v {settings_args} {previous_chart} '{chart}' '{output}'\n".format(
+            script_filename.open("w").write("#! /bin/bash\nexec map-draw --db-dir {pwd}/db -v {settings_args} {previous_chart} '{chart}' '{output}'\n".format(
                 settings_args=settings_args,
                 chart=get_chart(virus_type=virus_type, assay=assay, lab=lab, infix=infix),
                 previous_chart="--previous '{}'".format(previous_chart) if previous_chart else "",
@@ -287,7 +287,7 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
 # ----------------------------------------------------------------------
 
 def make_periods(start, end, period):
-    data = json.loads(subprocess.check_output("ad time-series-gen {period}ly {start} {end}".format(period=period, start=start, end=end), shell=True))
+    data = json.loads(subprocess.check_output("time-series-gen {period}ly {start} {end}".format(period=period, start=start, end=end), shell=True))
     # pprint.pprint(data)
     return data
 

@@ -4,7 +4,7 @@ ad whocc-update-ace-store && ad whocc-hidb5-update
 * initialize report dirs (run in terminal: asks password!)
 #+BEGIN_SRC bash
 mkdir ~/ac/results/ssm/YYYY-MMDD-tc1 && cd ~/ac/results/ssm/YYYY-MMDD-tc1
-ad ssm-report init
+ssm-report init
 #+END_SRC
 running time: ~ 25 min (asks acmacs-web password in few minutes after start)
 ** The command above performs:
@@ -16,7 +16,7 @@ running time: ~ 25 min (asks acmacs-web password in few minutes after start)
 *** generates settings files
 ** Individual commands:
 *** update hidb on albertine: ad whocc-update-ace-store && ad whocc-hidb5-update
-*** download hidb from albertine: ad hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
+*** download hidb from albertine: hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
 *** just re-make seqdb (in case of downloading new sequences or fixing locations)
   ad ssm-report remake-seqdb
   running time: ~ 8 min
@@ -25,11 +25,11 @@ ad seqdb-create --db /d/seqdb.json.xz --match-hidb --clades --report-not-aligned
 *** copy seqdb to ~/AD/data: cp db/seqdb.json.xz ~/AD/data && rsync -v ~/AD/data/seqdb* albertine:AD/data
 *** sync ~/ac/results/ssm/YYYY-MMDD-* and ~/AD/data/seqdb.json.xz to syn: ./sy && rsync ~/AD/data/seqdb.json.xz albertine:AD/data
 *** update merges (in case new tables arrived and processed) and hidb
-  ad ssm-report update-merges (run in terminal, asks password)
+ssm-report update-merges
   on albertine: ad hidb-update-hidb /syn/eu/log/whocc-hidb5-update.log (~1.5min)
-  rm -f stat/* geo/*; ad ssm-report --force update_hidb stat geo
+rm -f stat/* geo/*; ssm-report --force update_hidb stat geo
 *** re-make H1pdm overlay merge (~18min)
-  ad ssm-report h1-overlay
+ssm-report h1-overlay
 * edit report.json
   "cover"
   "time_series" (at the end)
@@ -37,11 +37,11 @@ ad seqdb-create --db /d/seqdb.json.xz --match-hidb --clades --report-not-aligned
 * edit setting files
 e *.json
 * make stat
-  ad ssm-report --force stat
+ssm-report --force stat
 * make trees on albertine
 ** run make-signature-pages
-  cd /syn/eu/ac/results/whocc-tree
-  ad make-signature-pages -t $(date +%Y-%m%d) --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
+cd /syn/eu/ac/results/whocc-tree
+make-signature-pages -t $(date +%Y-%m%d) --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
 
 it generates trees and various pdfs in /syn/eu/ac/results/whocc-tree/YYYY-MMDD. to view the results visit
 https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H1.safari.html
@@ -67,7 +67,7 @@ ssm-report tree
  (on albertine) ad make-trees-on-albertine --garli 256 --raxml 256 ~/ac/results/ssm/YYYY-MMDD-tc1/db/seqdb.json.xz
  -> tree-maker wait will be running in background and will send email on completion
 *** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
- ad ssm-report get-trees-from-albertine
+ssm-report get-trees-from-albertine
  OR
    for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/YYYY-MMDD-HHMM/$vt/tree.json.xz tree/$vt.tree.json.xz; done
 
@@ -76,24 +76,24 @@ ssm-report tree
    scp albertine:/syn/eu/ac/results/whocc-tree/2018-0206-1320/h1/tree.json.xz tree/h1.tree.json.xz
    scp albertine:/syn/eu/ac/results/whocc-tree/2018-0206-1320/h3/tree.json.xz tree/h3.tree.json.xz
 *** preview trees
- for vt in bvic byam h1 h3; do ad sigp --db-dir db tree/$vt.tree.json.xz $T/$vt.pdf --open; done
+ for vt in bvic byam h1 h3; do sigp --db-dir db tree/$vt.tree.json.xz $T/$vt.pdf --open; done
 *** OLD prepare directories (before 2017-12-15)
  (on jagd) ./syput
  RD=/syn/eu/ac/results/ssm/YYYY-MMDD-???/db; D=$(date +%Y-%m%d-%H%M) && for V in bvic byam h1 h3; do mkdir /syn/eu/ac/results/whocc-tree/$V/$D; cp $RD/seqdb.json.xz /syn/eu/ac/results/whocc-tree/$V/$D; done
 **** in each directory export sequences to fasta
- unset v_base && declare -A v_base && v_base=([h3]="HAWAII/22/2012 MDCK" [h1]="SWITZERLAND/9772556/2013 SIAT2" [bvic]="VICTORIA/830/2013 MDCK2" [byam]="B/CHRISTCHURCH/503/2013 MDCK1") && for v in "${!v_base[@]}"; do ( cd /syn/eu/ac/results/whocc-tree/$v/$D && ad seqdb-export --db ./seqdb.json.xz --flu $v --recent 4000 --hamming-distance-threshold 160 --tree-maker --base-seq "${v_base[$v]}" source.fas ); done
+ unset v_base && declare -A v_base && v_base=([h3]="HAWAII/22/2012 MDCK" [h1]="SWITZERLAND/9772556/2013 SIAT2" [bvic]="VICTORIA/830/2013 MDCK2" [byam]="B/CHRISTCHURCH/503/2013 MDCK1") && for v in "${!v_base[@]}"; do ( cd /syn/eu/ac/results/whocc-tree/$v/$D && seqdb-export --db ./seqdb.json.xz --flu $v --recent 4000 --hamming-distance-threshold 160 --tree-maker --base-seq "${v_base[$v]}" source.fas ); done
 **** in each directory initialize the tree maker
- for V in bvic byam h1 h3; do ( cd /syn/eu/ac/results/whocc-tree/$V/$D && ad tree-maker init ); done
+ for V in bvic byam h1 h3; do ( cd /syn/eu/ac/results/whocc-tree/$V/$D && tree-maker init ); done
 **** in each directory edit tree-maker.config:
  for V in bvic byam h1 h3; do ea /syn/eu/ac/results/whocc-tree/$V/$D/tree-maker.config; done
 ***** modify "machines", "garli_num_runs", "raxml_num_runs"
 **** in each directory submit maker (in a separate tmux window) and wait for completion
- T=$(tmux new-window -n TREE -P "sleep 3; /home/eu/bin/iterm-badge bvic; cd /syn/eu/ac/results/whocc-tree/bvic/$D; pwd; ad tree-maker wait; bash"); tmux split-window -t "$T" "sleep 3; iterm-badge byam; cd /syn/eu/ac/results/whocc-tree/byam/$D; pwd; ad tree-maker wait; bash"; tmux split-window -h -t "$T" "sleep 3; iterm-badge h1; cd /syn/eu/ac/results/whocc-tree/h1/$D; pwd; ad tree-maker wait; bash"; tmux split-window -h -t "$T" "sleep 3; iterm-badge h3; cd /syn/eu/ac/results/whocc-tree/h3/$D; pwd; ad tree-maker wait; bash"
- # ad tree-maker wait
+ T=$(tmux new-window -n TREE -P "sleep 3; /home/eu/bin/iterm-badge bvic; cd /syn/eu/ac/results/whocc-tree/bvic/$D; pwd; tree-maker wait; bash"); tmux split-window -t "$T" "sleep 3; iterm-badge byam; cd /syn/eu/ac/results/whocc-tree/byam/$D; pwd; tree-maker wait; bash"; tmux split-window -h -t "$T" "sleep 3; iterm-badge h1; cd /syn/eu/ac/results/whocc-tree/h1/$D; pwd; tree-maker wait; bash"; tmux split-window -h -t "$T" "sleep 3; iterm-badge h3; cd /syn/eu/ac/results/whocc-tree/h3/$D; pwd; tree-maker wait; bash"
+ # tree-maker wait
 **** upon tree building completion download tree files (tree.json.xz) from /syn/eu/ac/results/whocc-tree/ to ~/ac/results/ssm/YYYY-MMDD-*/tree/
  for vt in bvic byam h1 h3; do scp albertine:/syn/eu/ac/results/whocc-tree/$vt/YYYY-MMDD-HHMM/tree.json.xz tree/$vt.tree.json.xz; done
 * make maps
-ad ssm-report geo
+ssm-report geo
 
   args: stat geo
         h1-clade h1-ts h1-serology
@@ -105,39 +105,39 @@ ad ssm-report geo
         h1-overlay (~17min)
 
 ** make lispmds save colored by clade
-ad acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
+acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
 * serum coverage maps
 ** init
-ad ssm-report serumcoverage-init
+ssm-report serumcoverage-init
    if (serumcoverage/<lab>-h3-<assay>.json absent)
-     $ ad chart-serum-circles <merge.ace> --json serumcoverage/<lab>-h3-<assay>.json
+     $ chart-serum-circles <merge.ace> --json serumcoverage/<lab>-h3-<assay>.json
 ** report circle radii
-ad ssm-report serumcircle-report-cdc-h3-hi
-ad ssm-report serumcircle-report-cdc-h3-neut
-ad ssm-report serumcircle-report-melb-h3-hi
-ad ssm-report serumcircle-report-melb-h3-neut
-ad ssm-report serumcircle-report-niid-h3-neut
-ad ssm-report serumcircle-report-nimr-h3-hi
-ad ssm-report serumcircle-report-nimr-h3-neut
+ssm-report serumcircle-report-cdc-h3-hi
+ssm-report serumcircle-report-cdc-h3-neut
+ssm-report serumcircle-report-melb-h3-hi
+ssm-report serumcircle-report-melb-h3-neut
+ssm-report serumcircle-report-niid-h3-neut
+ssm-report serumcircle-report-nimr-h3-hi
+ssm-report serumcircle-report-nimr-h3-neut
 ** make plots
 index-serumcoverage-<lab>-<assay>.html are generated by the commands
 below.  Reviewer should select sr-ag rows in those pages, click export
 button at the top, send generated serumcoverage-reviewed-<lab>-h3-<assay>.DATE.json
 file to me.
 
-ad ssm-report h3-cov       ~4 hours!
-ad ssm-report h3neut-cov   ~40 min
+ssm-report h3-cov       ~4 hours!
+ssm-report h3neut-cov   ~40 min
 
-ad ssm-report serumcoverage-h3-hi
-ad ssm-report serumcoverage-h3-neut
+ssm-report serumcoverage-h3-hi
+ssm-report serumcoverage-h3-neut
 
-ad ssm-report serumcoverage-cdc-h3-hi
-ad ssm-report serumcoverage-cdc-h3-neut
-ad ssm-report serumcoverage-melb-h3-hi
-ad ssm-report serumcoverage-melb-h3-neut
-ad ssm-report serumcoverage-niid-h3-neut
-ad ssm-report serumcoverage-nimr-h3-hi
-ad ssm-report serumcoverage-nimr-h3-neut
+ssm-report serumcoverage-cdc-h3-hi
+ssm-report serumcoverage-cdc-h3-neut
+ssm-report serumcoverage-melb-h3-hi
+ssm-report serumcoverage-melb-h3-neut
+ssm-report serumcoverage-niid-h3-neut
+ssm-report serumcoverage-nimr-h3-hi
+ssm-report serumcoverage-nimr-h3-neut
 ** make report
 serumcoverage-reviewed-<lab>-h3-<assay>.DATE.json files generated by a
 reviewer and sent by email are placed in the root dir of the ssm-report
@@ -145,37 +145,37 @@ tree.
 
 Report is generated from report-serumcoverage.json and serumcoverage-reviewed-<lab>-h3-<assay>.DATE.json files
 
-$ ad ssm-report report-serumcoverage
+$ ssm-report report-serumcoverage
 
 * make trees
 
-  ad ssm-report tree
+  ssm-report tree
 
   Upon making initial trees, edit settings in tree/
 
   If not all trees are ready, it's possible to make individual trees
 
-  ad ssm-report h1-tree
-  ad ssm-report h3-tree
-  ad ssm-report byam-tree
-  ad ssm-report bvic-tree
+  ssm-report h1-tree
+  ssm-report h3-tree
+  ssm-report byam-tree
+  ssm-report bvic-tree
 
 * make report
-ad ssm-report report
+ssm-report report
 upload report to https://worldhealthorg-my.sharepoint.com/:f:/r/personal/lievrem_who_int/Documents/Shared/InfluenzaVCM?csf=1&e=Oz64DA
 * make signature pages
 
-  ad ssm-report sp
-  ad ssm-report sp-h3-cdc
-  ad ssm-report sp-h3neut-cdc
+  ssm-report sp
+  ssm-report sp-h3-cdc
+  ssm-report sp-h3neut-cdc
 
 * make addendum with the signature pages
 
-  ad ssm-report addendum
+  ssm-report addendum
 * information meeting tree
 commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
 
-ad ssm-report h1-tree-information
-ad ssm-report h3-tree-information
-ad ssm-report bvic-tree-information
-ad ssm-report byam-tree-information
+ssm-report h1-tree-information
+ssm-report h3-tree-information
+ssm-report bvic-tree-information
+ssm-report byam-tree-information

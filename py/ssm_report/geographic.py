@@ -14,7 +14,7 @@ def make_geographic(geo_dir, db_dir, force=False):
             output_prefix = virus_type + "-geographic"
             output = geo_dir.joinpath(output_prefix + "-")
             script_filename = geo_dir.joinpath(output_prefix + ".sh")
-            script_filename.open("w").write("#! /bin/bash\nexec ad geographic-draw --db-dir {pwd}/db -v -s '{s1}' --time-series '{period}' '{virus_type}' '{output}'\n".format(
+            script_filename.open("w").write("#! /bin/bash\nexec geographic-draw --db-dir {pwd}/db -v -s '{s1}' --time-series '{period}' '{virus_type}' '{output}'\n".format(
                 s1=str(Path(virus_type.lower() + "-geographic.json")),
                 virus_type=virus_type,
                 pwd=os.getcwd(),
