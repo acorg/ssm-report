@@ -200,11 +200,14 @@ sTitleFor = {
 sDirsForIndex = set()
 
 def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=None, settings_labs_key="labs", open_image=None):
-    settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
+    settings_files = sorted(Path(".").glob(f"*{virus_type}-{assay}.json"))
     try:
         labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
     except json.decoder.JSONDecodeError:
         module_logger.error(f"cannot import json from {settings_files[0]}")
+        raise
+    except:
+        module_logger.error(f"problems reading {settings_files[0]}")
         raise
     for lab in labs:
         make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, infix=infix, open_image=open_image)
