@@ -177,13 +177,15 @@ class Processor:
         """instructions on making phylogenetic trees"""
         tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), tree_infix=".142")
 
-    def bvic_tree(self):
+    def bv_tree(self):
         """instructions on making phylogenetic trees"""
-        tree_make(subtype="bvic", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make(subtype="bv", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+    bvic_tree = bv_tree
 
-    def byam_tree(self):
+    def by_tree(self):
         """instructions on making phylogenetic trees"""
-        tree_make(subtype="byam", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make(subtype="by", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+    byam_tree = by_tree
 
     def h1_tree_aa(self):
         """instructions on making phylogenetic trees"""
@@ -196,10 +198,12 @@ class Processor:
     def bv_tree_aa(self):
         """instructions on making phylogenetic trees"""
         tree_make_aa_pos(subtype="bv", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+    bvic_tree_aa = bv_tree_aa
 
     def by_tree_aa(self):
         """instructions on making phylogenetic trees"""
         tree_make_aa_pos(subtype="by", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+    byam_tree_aa = by_tree_aa
 
     def tree_information(self):
         """Generate tree images for all subtypes."""
