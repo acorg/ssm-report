@@ -48,7 +48,7 @@ def tree_make_aa_pos(subtype, tree_dir, seqdb, output_dir):
     pdf = output_dir.joinpath(f"{subtype}.tree-aa-at-pos.pdf")
     settings = tree_dir.joinpath(f"{subtype}.tree-aa-at-pos.json")
     if not settings.exists():
-        subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' --show-aa-at-pos --aa-at-pos-hz-section-threshold 100 --not-show-hz-sections '{tree}' '{pdf}'")
+        subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' --show-aa-at-pos --aa-at-pos-hz-section-threshold 100 --not-show-hz-sections '{tree}' '{pdf}' --open")
     else:
         subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}' --open")
 
