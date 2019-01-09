@@ -68,8 +68,8 @@ ssm-report geo
         h1-clade h1-ts h1-serology
         h3-ts h3-clade h3-geo h3-serology
         h3neut-ts h3neut-clade h3neut-geo h3neut-serology
-        bvic-ts bvic-clade bvic-serology
-        byam-ts byam-clade byam-serology
+        bv-ts bv-clade bv-serology
+        by-ts by-clade by-serology
         update-merges
         h1-overlay (~17min)
 
@@ -126,8 +126,8 @@ $ ssm-report report-serumcoverage
 
   ssm-report h1-tree
   ssm-report h3-tree
-  ssm-report byam-tree
-  ssm-report bvic-tree
+  ssm-report by-tree
+  ssm-report bv-tree
 
 * make report
 ssm-report report
@@ -146,5 +146,5 @@ commands below make changes to tree/*.tree.settings.json and save them as tree/*
 
 ssm-report h1-tree-information
 ssm-report h3-tree-information
-ssm-report bvic-tree-information
-ssm-report byam-tree-information
+ssm-report bv-tree-information
+ssm-report by-tree-information

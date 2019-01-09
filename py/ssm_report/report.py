@@ -85,7 +85,7 @@ class LatexReport:
             self.compile(update_toc=update_toc)
         finally:
             self.view()
-            
+
     def make(self):
         self.data.extend([latex.T_Head, latex.T_ColorsBW, latex.T_Setup, latex.T_Begin])
         if not self.settings.get("page_numbering", True):
@@ -134,7 +134,7 @@ class LatexReport:
 
     def pdf_file(self):
         return self.latex_source.parent.joinpath(self.latex_source.stem + '.pdf')
-    
+
     # ----------------------------------------------------------------------
 
     def make_cover(self, page):
@@ -459,7 +459,7 @@ class LatexSerumCoverageAddendum (LatexReport):
 
 class StatisticsTableMaker:
 
-    sSubtypeForStatistics = {'h3': 'A(H3N2)', 'h1': 'A(H1N1)', 'bvic': "BVICTORIA", 'byam': "BYAMAGATA"}
+    sSubtypeForStatistics = {'h3': 'A(H3N2)', 'h1': 'A(H1N1)', 'bvic': "BVICTORIA", 'bv': "BVICTORIA", 'byam': "BYAMAGATA", 'by': "BYAMAGATA"}
     sFluTypePrevious = {'h3': 'H3', 'h1': 'H1PDM', 'bvic': "BVICTORIA", 'byam': "BYAMAGATA"}
     sContinents = ['ASIA', 'AUSTRALIA-OCEANIA', 'NORTH-AMERICA', 'EUROPE', 'RUSSIA', 'AFRICA', 'MIDDLE-EAST', 'SOUTH-AMERICA', 'CENTRAL-AMERICA', 'all', 'sera', 'sera_unique']
 

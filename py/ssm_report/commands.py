@@ -262,6 +262,7 @@ class Processor:
         self.serology(virus_type="bvic", assay="hi")()
         #self.bvic_serum_sectors()
         self.bvic_ts()
+    bv = bvic
 
     def byam(self):
         self.byam_clade()
@@ -269,6 +270,7 @@ class Processor:
         self.serology(virus_type="byam", assay="hi")()
         #self.byam_serum_sectors()
         self.byam_ts()
+    by = byam
 
     def report(self):
         from .report import make_report
@@ -416,20 +418,26 @@ class Processor:
         self._clade(virus_type="bvic", assay="hi")
         self._clade_6m(virus_type="bvic", assay="hi")
         self._clade_12m(virus_type="bvic", assay="hi")
+    bv_clade = bvic_clade
+    bv_clades = bvic_clade
     bvic_clades = bvic_clade
 
     def bvic_geography(self):
         self._geography(virus_type="bvic", assay="hi")
+    bv_geo = bvic_geography
     bvic_geo = bvic_geography
 
     def bvic_ts(self, lab=None):
         make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=self.r_dir("bvic-hi"), force=self._force)
+    bv_ts = bvic_ts
 
     def bvic_serology(self):
         self.serology(virus_type="bvic", assay="hi")
+    bv_serology = bvic_serology
 
     def bvic_information(self):
         make_map_information(virus_type="bvic", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+    bv_information = bvic_information
 
     # ----------------------------------------------------------------------
     # BYAM HI
@@ -439,19 +447,25 @@ class Processor:
         self._clade_6m(virus_type="byam", assay="hi")
         self._clade_12m(virus_type="byam", assay="hi")
     byam_clades = byam_clade
+    by_clades = byam_clade
+    by_clade = byam_clade
 
     def byam_geography(self):
         self._geography(virus_type="byam", assay="hi")
     byam_geo = byam_geography
+    by_geo = byam_geography
 
     def byam_ts(self, lab=None):
         make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=self.r_dir("byam-hi"), force=self._force)
+    by_ts = byam_ts
 
     def byam_serology(self):
         self.serology(virus_type="byam", assay="hi")
+    by_serology = byam_serology
 
     def byam_information(self):
         make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+    by_information = byam_information
 
     # ----------------------------------------------------------------------
     # Signature pages
@@ -590,31 +604,33 @@ class Processor:
 
     # ----------------------------------------------------------------------
 
+    sVirusTypeOutputDir = {"h1": "h1", "h3": "h3", "bvic": "bv", "bv": "bv", "byam": "by", "by": "by"}
+    
     def clade(self, virus_type, assay, lab=None):
-        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     _clade = clade
 
     def _clade_6m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     clade6m = _clade_6m
 
     def _clade_12m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     clade12m = _clade_12m
 
     def _aa_at(self, virus_type, assay, positions):
         mod = "aa_at_" + "_".join(str(pos) for pos in positions)
-        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
     def _geography(self, virus_type, assay):
-        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
     def serology(self, virus_type, assay, lab=None):
-        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     _serology = serology
 
     def _serum_sectors(self, virus_type, assay):
-        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(virus_type + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
     # ----------------------------------------------------------------------
 
