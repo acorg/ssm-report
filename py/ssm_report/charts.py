@@ -6,8 +6,8 @@ from pathlib import Path
 def get_chart(virus_type, assay, lab, infix="", chart_dir=Path("merges")):
     if virus_type in ["bvic", "byam"]:
         vt = virus_type[0] + "-" + virus_type[1:]
-    elif virus_type in ["h1"]:
-        vt = "h1pdm"
+    # elif virus_type in ["h1"]:
+    #     vt = "h1pdm"
     else:
         vt = virus_type
     chart_filename = chart_dir.joinpath(f"{lab.lower()}-{vt}-{assay.lower()}{infix}.ace")

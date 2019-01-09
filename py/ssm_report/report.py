@@ -18,27 +18,21 @@ def make_report(source_dir, source_dir_2, output_dir, report_settings_file="repo
         report = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, output_name=output_name, settings=report_settings)
     else:
         raise RuntimeError("Unrecognized report type: {!r}".format(report_type))
-    report.make()
-    report.compile(update_toc=True)
-    report.view()
+    report.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
 
 def make_report_abbreviated(source_dir, source_dir_2, output_dir):
     report_settings = read_json("report-abbreviated.json")
     report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-abbreviated.tex", settings=report_settings)
-    report.make()
-    report.compile(update_toc=True)
-    report.view()
+    report.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
 
 def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
     report_settings = read_json("report-serumcoverage.json")
     report = LatexSerumCoverageAddendum(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-serumcoverage.tex", settings=report_settings)
-    report.make()
-    report.compile(update_toc=True)
-    report.view()
+    report.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
 
@@ -46,9 +40,7 @@ def make_signature_page_addendum(source_dir, output_dir):
     report_settings = read_json("report.json")
     report_settings["cover"]["teleconference"] = "Addendum 1 (signature pages)"
     addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings)
-    addendum.make()
-    addendum.compile(update_toc=True)
-    addendum.view()
+    addendum.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
 
@@ -87,6 +79,13 @@ class LatexReport:
             self.substitute["time_series_end"] = (self.end - datetime.timedelta(days=1)).strftime("%B %Y")
             self._make_ts_dates()
 
+    def make_compile_view(self, update_toc):
+        self.make()
+        try:
+            self.compile(update_toc=update_toc)
+        finally:
+            self.view()
+            
     def make(self):
         self.data.extend([latex.T_Head, latex.T_ColorsBW, latex.T_Setup, latex.T_Begin])
         if not self.settings.get("page_numbering", True):
@@ -110,19 +109,32 @@ class LatexReport:
         self.write()
 
     def compile(self, update_toc=True):
+        pf = self.pdf_file()
+        if pf.exists():
+            pf.chmod(0o644)
         cmd = self.sLatexCommand.format(run_dir=self.latex_source.parent, latex_source=str(self.latex_source))
         for i in range(2):
             module_logger.info('Executing {}'.format(cmd))
-            stdout = self.latex_source.parent.joinpath("latex.log").open("w")
-            if subprocess.run(cmd, shell=True, stdout=stdout, stderr=stdout).returncode:
-                raise LatexReportError('Compilation failed')
+            log_file = self.latex_source.parent.joinpath("latex.log")
+            stdout = log_file.open("w")
+            try:
+                if subprocess.run(cmd, shell=True, stdout=stdout, stderr=stdout).returncode:
+                    # stdout.close()
+                    # subprocess.run(f"fo {log_file}", shell=True)
+                    raise LatexReportError('Compilation failed')
+            finally:
+                if pf.exists():
+                    pf.chmod(0o444)
 
     def view(self):
-        cmd = self.sViewCommand.format(output=str(self.latex_source.parent.joinpath(self.latex_source.stem + '.pdf')))
+        cmd = self.sViewCommand.format(output=str(self.pdf_file()))
         module_logger.info('Executing {}'.format(cmd))
         if subprocess.run(cmd, shell=True).returncode:
             raise LatexReportError('Viewer failed')
 
+    def pdf_file(self):
+        return self.latex_source.parent.joinpath(self.latex_source.stem + '.pdf')
+    
     # ----------------------------------------------------------------------
 
     def make_cover(self, page):
@@ -482,7 +494,7 @@ class StatisticsTableMaker:
         module_logger.info('Statistics table for {} {}'.format(self.lab, self.subtype))
         flu_type = self.sSubtypeForStatistics[self.subtype]
         lab = self.lab if self.lab == 'all' else self.lab.upper()
-        data_antigens = self.data['antigens'][flu_type][lab]
+        data_antigens = self.data['antigens'][flu_type].get(lab, {})
         data_sera_unique = self.data['sera_unique'].get(flu_type, {}).get(lab, {})
         data_sera = self.data['sera'].get(flu_type, {}).get(lab, {})
         if self.previous_data:
