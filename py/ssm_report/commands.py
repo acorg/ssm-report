@@ -428,7 +428,7 @@ class Processor:
     bvic_geo = bvic_geography
 
     def bvic_ts(self, lab=None):
-        make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=self.r_dir("bvic-hi"), force=self._force)
+        make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=self.r_dir("bv-hi"), force=self._force)
     bv_ts = bvic_ts
 
     def bvic_serology(self):
@@ -456,7 +456,7 @@ class Processor:
     by_geo = byam_geography
 
     def byam_ts(self, lab=None):
-        make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=self.r_dir("byam-hi"), force=self._force)
+        make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=self.r_dir("by-hi"), force=self._force)
     by_ts = byam_ts
 
     def byam_serology(self):
@@ -743,7 +743,7 @@ class Processor:
 
         # local
         if not Path(".gitignore").exists():
-            open(".gitignore", "w").write("bvic-hi\nbyam-hi\ndb\ngeo\nh1-hi\nh3-hi\nh3-neut\nlog\nmerges\nreport\nstat\n.backup\n*.pdf\n*.ace\n*.acd1.xz\n*.acd1.bz2\n*.save\n*.save.xz\n.#*\n")
+            open(".gitignore", "w").write("bvic-hi\nbyam-hi\nbv-hi\nby-hi\ndb\ngeo\nh1-hi\nh3-hi\nh3-neut\nlog\nmerges\nreport\nstat\n.backup\n*.pdf\n*.ace\n*.acd1.xz\n*.acd1.bz2\n*.save\n*.save.xz\n.#*\n")
         if not Path("rename-report-on-server").exists():
             open("rename-report-on-server", "w").write("#! /bin/bash\ncd $(dirname $0) &&\nssh i19 \"cd $(pwd); if [[ -d report && -f report/report.pdf ]]; then mv report/report.pdf report/report.\$(stat -c %y report/report.pdf | sed 's/\..*//g; s/-//g; s/://g; s/ /-/g').pdf; else echo no report dir; fi\"\n")
             Path("rename-report-on-server").chmod(0o700)
@@ -751,7 +751,7 @@ class Processor:
             open("rr", "w").write("#! /bin/bash\ncd $(dirname $0) &&\n$ACMACSD_ROOT/bin/ssm-report --working-dir . report &&\n./rename-report-on-server &&\n./sy\n")
             Path("rr").chmod(0o700)
         if not Path("sy").exists():
-            # open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\" &&\nsyput /r/ssm-report/\"$(basename ${PWD})\" \"${PWD#$HOME/}\"")
+            # open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude bv-hi --exclude by-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\" &&\nsyput /r/ssm-report/\"$(basename ${PWD})\" \"${PWD#$HOME/}\"")
             open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput")
             Path("sy").chmod(0o700)
         index_html = self.r_dir("").joinpath("index.html")
@@ -808,8 +808,8 @@ sRootIndexHtml = """
       <li><a href="h1-hi/index.html">H1</a> (<a href="h1-hi/index.safari.html">Safari</a>)</li>
       <li><a href="h3-hi/index.html">H3 HI</a> (<a href="h3-hi/index.safari.html">Safari</a>)</li>
       <li><a href="h3-neut/index.html">H3 Neut</a> (<a href="h3-neut/index.safari.html">Safari</a>)</li>
-      <li><a href="bvic-hi/index.html">B/Vic</a> (<a href="bvic-hi/index.safari.html">Safari</a>)</li>
-      <li><a href="byam-hi/index.html">B/Yam</a> (<a href="byam-hi/index.safari.html">Safari</a>)</li>
+      <li><a href="bv-hi/index.html">B/Vic</a> (<a href="bv-hi/index.safari.html">Safari</a>)</li>
+      <li><a href="by-hi/index.html">B/Yam</a> (<a href="by-hi/index.safari.html">Safari</a>)</li>
     </ul>
     <h2>Geographic maps</h2>
     <ul>
