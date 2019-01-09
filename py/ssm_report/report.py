@@ -113,18 +113,16 @@ class LatexReport:
         if pf.exists():
             pf.chmod(0o644)
         cmd = self.sLatexCommand.format(run_dir=self.latex_source.parent, latex_source=str(self.latex_source))
-        for i in range(2):
-            module_logger.info('Executing {}'.format(cmd))
-            log_file = self.latex_source.parent.joinpath("latex.log")
-            stdout = log_file.open("w")
-            try:
+        try:
+            for i in range(2):
+                module_logger.info('Executing {}'.format(cmd))
+                log_file = self.latex_source.parent.joinpath("latex.log")
+                stdout = log_file.open("w")
                 if subprocess.run(cmd, shell=True, stdout=stdout, stderr=stdout).returncode:
-                    # stdout.close()
-                    # subprocess.run(f"fo {log_file}", shell=True)
                     raise LatexReportError('Compilation failed')
-            finally:
-                if pf.exists():
-                    pf.chmod(0o444)
+        finally:
+            if pf.exists():
+                pf.chmod(0o444)
 
     def view(self):
         cmd = self.sViewCommand.format(output=str(self.pdf_file()))
