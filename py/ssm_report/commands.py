@@ -501,23 +501,25 @@ class Processor:
         self.sp_h3neut_nimr()
 
     def sp_bvic(self):
-        self.sp_bvic_cdc()
-        self.sp_bvic_melb()
-        self.sp_bvic_niid()
-        self.sp_bvic_nimr()
+        self.sp_bv_cdc()
+        self.sp_bv_melb()
+        self.sp_bv_niid()
+        self.sp_bv_nimr()
+    sp_bv = sp_bvic
 
     def sp_byam(self):
-        self.sp_byam_cdc()
-        self.sp_byam_melb()
-        self.sp_byam_niid()
-        self.sp_byam_nimr()
+        self.sp_by_cdc()
+        self.sp_by_melb()
+        self.sp_by_niid()
+        self.sp_by_nimr()
+    sp_by = sp_byam
 
     def _make_sp_makers(self):
         def mf(virus_type, assay, lab):
             return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._sp_source_dir(), sp_output_dir=self._sp_output_dir(),
                                                    tree_dir=self._use_dir("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file())
         for lab in ["cdc", "melb", "niid", "nimr"]:
-            for virus_type, assay in [["h3", "hi"], ["h3", "neut"], ["h1", "hi"], ["bvic", "hi"], ["byam", "hi"]]:
+            for virus_type, assay in [["h3", "hi"], ["h3", "neut"], ["h1", "hi"], ["bv", "hi"], ["by", "hi"]]:
                 setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), mf(virus_type=virus_type, assay=assay, lab=lab))
         for virus_type, assay, lab in [["h1", "hi", "all"]]:
             setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), mf(virus_type=virus_type, assay=assay, lab=lab))
@@ -605,7 +607,7 @@ class Processor:
     # ----------------------------------------------------------------------
 
     sVirusTypeOutputDir = {"h1": "h1", "h3": "h3", "bvic": "bv", "bv": "bv", "byam": "by", "by": "by"}
-    
+
     def clade(self, virus_type, assay, lab=None):
         make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     _clade = clade

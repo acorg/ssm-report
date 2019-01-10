@@ -5,8 +5,8 @@ import subprocess, datetime, copy, pprint
 from acmacs_base.json import read_json, write_json
 from .map import sLabDisplayName
 
-sVirusTypeShort = {"A(H1N1)": "H1", "A(H3N2)": "H3", "BVIC": "B/Vic", "BYAM": "B/Yam", "h1": "H1", "h3": "H3", "bvic": "B/Vic", "byam": "B/Yam"}
-sVirusTypes = ["h1", "h3", "bvic", "byam"]
+sVirusTypeShort = {"A(H1N1)": "H1", "A(H3N2)": "H3", "BVIC": "B/Vic", "BYAM": "B/Yam", "h1": "H1", "h3": "H3", "bvic": "B/Vic", "byam": "B/Yam", "bv": "B/Vic", "by": "B/Yam"}
+sVirusTypes = ["h1", "h3", "bv", "by"]
 
 # ======================================================================
 
@@ -150,7 +150,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
     tree_settings = sp_source_dir.joinpath(virus_type + ".tree.settings.json")
     # chart = merge_dir.joinpath("{}-{}-{}.sdb.xz".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
-    chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, virus_type.replace("b", "b-"), assay))
+    chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, virus_type, assay))
     pdf = sp_output_dir.joinpath(prefix + ".pdf")
     if not settings.exists():
         subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' --no-draw --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
@@ -181,8 +181,9 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
 
-    map_settings = read_json(f"{virus_type}-{assay}.json")
-    vaccine_settings = read_json(f"vaccines.{virus_type}-{assay}.json")
+    virus_type_long = virus_type.replace("v", "vic").replace("y", "yam")
+    map_settings = read_json(f"{virus_type_long}-{assay}.json")
+    vaccine_settings = read_json(f"vaccines.{virus_type_long}-{assay}.json")
     # update viewport from ssm settings
     _signature_page_update_viewport_rotate_flip(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     # update vaccine drawing from ssm settings
