@@ -15,7 +15,7 @@ running time: ~ 25 min (asks acmacs-web password in few minutes after start)
 *** makes h1pdm overlay merge
 *** generates settings files
 ** Individual commands:
-*** update hidb on albertine: ad whocc-update-ace-store && ad whocc-hidb5-update
+*** update hidb on albertine: whocc-update-ace-store && whocc-hidb5-update
 *** download hidb from albertine: hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
 *** just re-make seqdb (in case of downloading new sequences or fixing locations)
   ad ssm-report remake-seqdb
@@ -148,3 +148,6 @@ ssm-report h1-tree-information
 ssm-report h3-tree-information
 ssm-report bv-tree-information
 ssm-report by-tree-information
+* COMMANDS
+** update hidb on albertine: whocc-update-ace-store && whocc-hidb5-update
+** download hidb from albertine, update stat and geo: hidb-get-from-albertine && cp ~/AD/data/hidb5.* db && rm -f stat/* geo/* && ssm-report --force stat geo
