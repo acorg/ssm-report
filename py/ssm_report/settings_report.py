@@ -184,7 +184,7 @@ sReport = {
             "h3-hi/serology-cdc.pdf", "h3-neut/serology-cdc.pdf",
             "h3-hi/serology-nimr.pdf", "h3-neut/serology-nimr.pdf",
             "", "h3-neut/serology-niid.pdf",
-            "h3-hi/serology-melb.pdf", "h3-neut/serology-melb.pdf",
+            "h3-hi/serology-melb.pdf", "h3-neut/serology-melb.pdf"
             ]},
         "new_page",
         {"type": "?************************* B *****************************"},

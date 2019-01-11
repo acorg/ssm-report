@@ -533,6 +533,16 @@ sSerologySettings = {
     "h1-hi": """{ "_":"-*- js-indent-level: 2 -*-",
   "mods": {
     "ALL_serology": [
+      {"?": "CDC report --------------------------------------------------"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+
+      {"?": "NIID report --------------------------------------------------"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+
       {"?N":"antigens", "select": {"full_name": "A(H1N1)/MICHIGAN/272/2017 MDCK2 (2017-12-18)"},  "label": {"offset": [2, 0.6], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       {"?N":"antigens", "select": {"name": "SWITZERLAND/2656/2017", "passage": "cell"}, "label": {"offset": [1, 0.5], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ]
@@ -542,12 +552,22 @@ sSerologySettings = {
     "h3-hi": """{ "_":"-*- js-indent-level: 2 -*-",
   "mods": {
     "CDC_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+
       {"?N":"antigens", "select": {"full_name": "A(H3N2)/SOUTH AUSTRALIA/135/2016 SIAT2/SIAT1 (2018-07-31)"}, "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       {"?N":"antigens", "select": {"name": "A/Maryland/53/2017"},                                 "label": {"offset": [ 0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "MELB_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "NIMR_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ]
   }
 }
@@ -555,14 +575,27 @@ sSerologySettings = {
     "h3-neut": """{ "_":"-*- js-indent-level: 2 -*-",
   "mods": {
     "CDC_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+
       {"?N":"antigens", "select": {"full_name": "A(H3N2)/SOUTH AUSTRALIA/135/2016 SIAT2/SIAT1 (2018-07-31)"}, "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       {"?N":"antigens", "select": {"name": "A/Maryland/53/2017"},                                 "label": {"offset": [ 0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "MELB_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "NIID_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "NIMR_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ]
   }
 }
@@ -570,14 +603,27 @@ sSerologySettings = {
     "bvic-hi": """{ "_":"-*- js-indent-level: 2 -*-",
   "mods": {
     "CDC_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+
       {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2"},                "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       {"?N":"antigens", "select": {"name": "B/HONG KONG/286/2017", "passage": "egg"}, "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "MELB_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "NIID_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "NIMR_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ]
   }
 }
@@ -585,14 +631,27 @@ sSerologySettings = {
     "byam-hi": """{ "_":"-*- js-indent-level: 2 -*-",
   "mods": {
     "CDC_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+
       {"?N":"antigens", "select": {"full_name": "B/GUYANE/5/2018 MDCK2 (2018-05-02)"}, "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       {"?N":"antigens", "select": {"name": "B/PUERTO RICO/5/2018"},         "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "MELB_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "NIID_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "NIMR_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ]
   }
 }
