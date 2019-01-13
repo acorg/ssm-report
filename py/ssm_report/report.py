@@ -403,7 +403,7 @@ class LatexSignaturePageAddendum (LatexReport):
             for lab in sLabOrder:
                 self.add_pdf(subtype="h3", assay="hi", lab=lab.lower())
                 self.add_pdf(subtype="h3", assay="neut", lab=lab.lower())
-            for subtype in ["bvic", "byam"]:
+            for subtype in ["bv", "by"]:
                 for lab in sLabOrder:
                     # if not (subtype == "byam" and lab == "NIMR"):
                     self.add_pdf(subtype=subtype, assay="hi", lab=lab.lower())
