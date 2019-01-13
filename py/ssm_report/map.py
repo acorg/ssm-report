@@ -330,7 +330,7 @@ def make_pre_post(virus_type, assay, mod, lab, infix=None, period_name=None):
             title_format = sTitleFor["serum_coverage"][virus_type][assay]
         else:
             title_format = sTitleFor[mod][virus_type][assay]
-        if infix == "-oseltamivir":
+        if lab == "NIID" and virus_type == "h3" and assay == "neut": # infix == "-oseltamivir":
             infix = " with oseltamivir"
         else:
             infix = ""
