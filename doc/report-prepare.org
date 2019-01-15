@@ -21,7 +21,7 @@ running time: ~ 25 min (asks acmacs-web password in few minutes after start)
   ad ssm-report remake-seqdb
   running time: ~ 8 min
 
-ad seqdb-create --db /d/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /d/not-found.txt ~/ac/tables-store/sequences/*.fas.*
+seqdb-create --db /d/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /d/not-found.txt ~/ac/tables-store/sequences/*.fas.*
 *** copy seqdb to ~/AD/data: cp db/seqdb.json.xz ~/AD/data && rsync -v ~/AD/data/seqdb* albertine:AD/data
 *** sync ~/ac/results/ssm/YYYY-MMDD-* and ~/AD/data/seqdb.json.xz to syn: ./sy && rsync ~/AD/data/seqdb.json.xz albertine:AD/data
 *** update merges (in case new tables arrived and processed) and hidb
