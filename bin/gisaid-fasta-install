@@ -29,7 +29,7 @@ main()
     echo
     echo "   rm $SRC"
     echo
-    ssax
+    ssa
 }
 
 clear_resource_fork()
