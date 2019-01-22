@@ -1,6 +1,6 @@
 #+STARTUP: x-showall
 #+STARTUP: x-indent
-# Time-stamp: <2019-01-17 17:21:23 eu>
+# Time-stamp: <2019-01-21 10:45:14 eu>
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 * update hidb on albertine ~1.5min
 whocc-update-ace-store && whocc-hidb5-update
@@ -43,20 +43,23 @@ e *.json
 ssm-report --force stat
 * make trees on albertine
 ** run make-signature-pages
-cd /syn/eu/ac/results/whocc-tree
-make-signature-pages -t $(date +%Y-%m%d) --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
+cd /syn/eu/ac/results/signature-pages
+make-signature-pages -t $(date +%Y-%m%d) --flu h3 --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
+make-signature-pages -t $(date +%Y-%m%d) --flu h1 --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
+make-signature-pages -t $(date +%Y-%m%d) --flu bv --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
+make-signature-pages -t $(date +%Y-%m%d) --flu by --seqdb ~/AD/data/seqdb.json.xz --tree-maker-speed week
 
-it generates trees and various pdfs in /syn/eu/ac/results/whocc-tree/YYYY-MMDD. to view the results visit
-https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H1.safari.html
-https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H3.safari.html
-https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BV.safari.html
-https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BY.safari.html
-
-get trees:
-sp_dir=i19:ac/results/signature-pages/2019-0102
-for v in h1 h3 bv by; do if [ ! -f tree/$v.tree.json.xz ]; then scp ${sp_dir}/$v/tree.json.xz tree/$v.tree.json.xz; scp ${sp_dir}/$v/tree.settings.json tree/$v.tree.settings.json; fi; done
-ln -s BV.tree.json.xz tree/bvic.tree.json.xz; ln -s BY.tree.json.xz tree/byam.tree.json.xz
-rsync -Lv i19:/syn/eu/ac/results/whocc-tree/YYYY-MMDD/\*.tree.json.xz tree
+? it generates trees and various pdfs in /syn/eu/ac/results/whocc-tree/YYYY-MMDD. to view the results visit
+? https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H1.safari.html
+? https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/H3.safari.html
+? https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BV.safari.html
+? https://notebooks.antigenic-cartography.org/eu/results/whocc-tree/YYYY-MMDD/BY.safari.html
+? 
+? get trees:
+? sp_dir=i19:ac/results/signature-pages/2019-0102
+? for v in h1 h3 bv by; do if [ ! -f tree/$v.tree.json.xz ]; then scp ${sp_dir}/$v/tree.json.xz tree/$v.tree.json.xz; scp ${sp_dir}/$v/tree.settings.json tree/$v.tree.settings.json; fi; done
+? ln -s BV.tree.json.xz tree/bvic.tree.json.xz; ln -s BY.tree.json.xz tree/byam.tree.json.xz
+? rsync -Lv i19:/syn/eu/ac/results/whocc-tree/YYYY-MMDD/\*.tree.json.xz tree
 
 then run:
 ssm-report h1-tree
