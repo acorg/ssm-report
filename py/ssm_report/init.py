@@ -31,7 +31,7 @@ def init_git():
 # ----------------------------------------------------------------------
 
 def init_dirs():
-    for dir in ["tree", "sp"]:
+    for dir in ["tree", "sp", "merges", "log"]:
         Path(dir).mkdir(parents=True, exist_ok=True)
 
 # ----------------------------------------------------------------------

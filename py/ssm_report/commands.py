@@ -299,7 +299,7 @@ class Processor:
         target_dir = self._merges_dir()
         module_logger.info("Updating merges in " + repr(str(target_dir)))
         from acmacs_whocc import acmacs
-        acmacs.get_recent_merges(target_dir, force=True)
+        acmacs.get_recent_merges(target_dir)
 
     def h1_overlay(self):
         module_logger.info("Making h1 overlay")
@@ -666,15 +666,15 @@ class Processor:
 
     @classmethod
     def _db_dir(cls):
-        return cls._use_dir("db")
+        return Path("db").resolve()
 
     @classmethod
     def _merges_dir(cls):
-        return cls._use_dir("merges")
+        return Path("merges").resolve()
 
     @classmethod
     def _log_dir(cls):
-        return cls.r_dir("log")
+        return Path("log").resolve()
 
     @classmethod
     def _sp_output_dir(cls):
