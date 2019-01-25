@@ -1,3 +1,5 @@
+error OBSOLETE
+
 import sys, os, copy, datetime
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path

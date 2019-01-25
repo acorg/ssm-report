@@ -1,0 +1,132 @@
+{ "_":"-*- js-indent-level: 2 -*-",
+  "labs": ["CDC", "MELB", "NIID", "NIMR"],
+  "information_labs": ["CDC", "MELB", "NIID", "NIMR"],
+  "mods": {
+
+    "set_scale": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
+    ],
+    "set_legend": [
+      {"N": "legend", "label_size": 14, "point_size": 10}
+    ],
+    "no_legend": [
+      {"N": "legend", "show": false}
+    ],
+    "information": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
+      {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"clade": "DEL2017"}, "fill": "#DE8244", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017"}, "fill": "#BF3EFF", "outline": "black", "raise_": true}
+    ],
+    "information_clades": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "clades_last_12_months", "size": 15},
+      "no_legend"
+    ],
+
+    "clades": [
+      {"N": "antigens", "select": {"clade": "1", "subtype": "BVIC"}, "outline": "black", "fill": "blue", "legend": {"label": "1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "1A", "subtype": "BVIC"}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "1A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "subtype": "BVIC"}, "outline": "black", "fill": "red", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "subtype": "BVIC"}, "outline": "black", "fill": "#DE8244", "legend": {"label": "Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "subtype": "BVIC"}, "outline": "black", "fill": "#BF3EFF", "legend": {"label": "Triple del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_last_6_months": [
+      {"N": "antigens", "select": {"clade": "1", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "blue", "legend": {"label": "1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "1A", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "1A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "red", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "#DE8244", "legend": {"label": "Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "#BF3EFF", "legend": {"label": "Triple del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_last_12_months": [
+      {"N": "antigens", "select": {"clade": "1", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "blue", "legend": {"label": "1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "1A", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "1A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "red", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "#DE8244", "legend": {"label": "Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "#BF3EFF", "legend": {"label": "Triple del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_light": [
+      {"N": "antigens", "select": {"clade": "1", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#BFBFFF", "legend": {"label": "1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "1A", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#8F9DBF", "legend": {"label": "1A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#FFBFBF", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#DE8244", "legend": {"label": "Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#BF3EFF", "legend": {"label": "Triple del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+
+    "?": "===================== CDC  BVIC  HI =================================================",
+
+    "CDC_flip": [
+      {"?N": "flip", "direction": "ew"}
+    ],
+    "CDC_rotate": [
+      {"N": "rotate", "degrees": 0}
+    ],
+    "CDC_viewport": [
+      {"N": "viewport", "rel": [2, 2, -4]}
+    ],
+    "CDC_pre": [
+    ],
+    "CDC_mid": [
+    ],
+    "CDC_post": [
+    ],
+
+    "?": "===================== MELB  BVIC  HI =================================================",
+
+    "MELB_flip": [
+      {"?N": "flip", "direction": "ew"}
+    ],
+    "MELB_rotate": [
+      {"N": "rotate", "degrees": 0}
+    ],
+    "MELB_viewport": [
+      {"N": "viewport", "rel": [4, 6.5, -7]}
+    ],
+    "MELB_pre": [
+    ],
+    "MELB_mid": [
+    ],
+    "MELB_post": [
+    ],
+
+    "?": "===================== NIID  BVIC  HI =================================================",
+
+    "NIID_flip": [
+      {"N": "flip", "direction": "ew"}
+    ],
+    "NIID_rotate": [
+      {"N": "rotate", "degrees": 90}
+    ],
+    "NIID_viewport": [
+      {"N": "viewport", "rel": [1.6, 1.2, -3]}
+    ],
+    "NIID_pre": [
+    ],
+    "NIID_mid": [
+    ],
+    "NIID_post": [
+    ],
+
+    "?": "===================== NIMR  BVIC  HI =================================================",
+
+    "NIMR_flip": [
+      {"N": "flip", "direction": "ew"}
+    ],
+    "NIMR_rotate": [
+      {"N": "rotate", "degrees": 130}
+    ],
+    "NIMR_viewport": [
+      {"N": "viewport", "rel": [2.5, 2.5, -4]}
+    ],
+    "NIMR_pre": [
+    ],
+    "NIMR_mid": [
+    ],
+    "NIMR_post": [
+    ]
+  }
+}

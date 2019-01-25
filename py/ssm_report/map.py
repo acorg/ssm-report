@@ -402,21 +402,21 @@ def make_index_html():
                         f.write("</tr></tbody></table>\n")
                     f.write("</body></html>\n")
 
-def make_index_clade_html(output_dir):
-    for safari in [False, True]:
-        index_filename = Path(output_dir, "index-clade{}.html".format(".safari" if safari else ""))
-        module_logger.info('making html clade index: {}'.format(index_filename))
-        with index_filename.open("w") as f:
-            f.write(sHead % {"title": "By Clade", "width": 800, "height": 815})
-            # img {border: 1px solid black;}
-            for filename in sorted(Path(".").glob("*/clade-[acmn]*.pdf")):
-                f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
-                if safari:
-                    f.write('<img src="{}" />\n'.format(filename))
-                else:
-                    f.write('<table><tbody><tr>\n<td><object data="{}#toolbar=0"></object></td>\n'.format(filename)) # toolbar=0 is for chrome
-                f.write("</tr></tbody></table>\n")
-            f.write("</body></html>\n")
+# def make_index_clade_html(output_dir):
+#     for safari in [False, True]:
+#         index_filename = Path(output_dir, "index-clade{}.html".format(".safari" if safari else ""))
+#         module_logger.info('making html clade index: {}'.format(index_filename))
+#         with index_filename.open("w") as f:
+#             f.write(sHead % {"title": "By Clade", "width": 800, "height": 815})
+#             # img {border: 1px solid black;}
+#             for filename in sorted(Path(".").glob("*/clade-[acmn]*.pdf")):
+#                 f.write("<h3>{} {}</h3>\n".format(filename.parent.name.upper(), filename.stem))
+#                 if safari:
+#                     f.write('<img src="{}" />\n'.format(filename))
+#                 else:
+#                     f.write('<table><tbody><tr>\n<td><object data="{}#toolbar=0"></object></td>\n'.format(filename)) # toolbar=0 is for chrome
+#                 f.write("</tr></tbody></table>\n")
+#             f.write("</body></html>\n")
 
 # ======================================================================
 ### Local Variables:

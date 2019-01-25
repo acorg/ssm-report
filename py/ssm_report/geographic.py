@@ -63,7 +63,7 @@ sColoringByVirusType = {"b": "lineage-deletion-mutants", "h1": "continent", "h3"
 
 # ======================================================================
 
-def make_geographic_settings(force):
+def make_geographic_settings(force=False):
     report_settings = read_json("report.json")
     for virus_type in ["b", "h1", "h3"]:
         filename = Path(virus_type + "-geographic.json")

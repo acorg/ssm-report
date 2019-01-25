@@ -2,10 +2,11 @@ import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import re, subprocess, shutil, pprint
 
-from .map import make_map, make_map_for_lab, make_ts, make_map_information, make_index_html as maps_make_index_html, make_index_clade_html
+from .map import make_map, make_map_for_lab, make_ts, make_map_information, make_index_html as maps_make_index_html
 from .stat import make_stat
 from .geographic import make_geographic
 from .signature_page import tree_make, tree_make_aa_pos, signature_page_make, trees_get_from_albertine
+from .init import init_git, get_dbs, init_dirs, init_settings
 
 # ======================================================================
 
@@ -69,20 +70,14 @@ class Processor:
                 else:
                     getattr(self, command)()
             maps_make_index_html()
-            make_index_clade_html(self.r_dir(""))
 
     def init(self):
         """initialize ssm report data directory structure"""
-        self._init_git()
-        self._get_dbs()
-        self._get_merges()
-        self._use_dir("tree")
-        self.r_dir("sp")
-        from .settings import make_settings
-        make_settings(force=self._force)
-
-    def init_git(self):
-        self._init_git()
+        init_git()
+        get_dbs()
+        init_dirs()
+        init_settings()
+        # self._get_merges()
 
     def list(self):
         """list available commands"""
@@ -93,14 +88,14 @@ class Processor:
                 if ismethod(cmd):
                     print(cmdname, "-", cmd.__doc__)
 
-    def remake_seqdb(self):
-        """Re-generate seqdb from from fasta files"""
-        seqdb_filename = self._seqdb_file()
-        if seqdb_filename.exists():
-            from acmacs_base.files import backup_file
-            backup_file(seqdb_filename)
-            seqdb_filename.unlink()
-        self._get_seqdb()
+    # def remake_seqdb(self):
+    #     """Re-generate seqdb from from fasta files"""
+    #     seqdb_filename = self._seqdb_file()
+    #     if seqdb_filename.exists():
+    #         from acmacs_base.files import backup_file
+    #         backup_file(seqdb_filename)
+    #         seqdb_filename.unlink()
+    #     get_dbs()
 
     def all(self):
         "Generate stat, geographic maps and antigenic maps for all subtypes"
@@ -122,32 +117,32 @@ class Processor:
 
         # ----------------------------------------------------------------------
 
-    def map_settings(self):
-        self.h1_map_settings()
-        self.h3_map_settings()
-        self.h3neut_map_settings()
-        self.bvic_map_settings()
-        self.byam_map_settings()
+    # def map_settings(self):
+    #     self.h1_map_settings()
+    #     self.h3_map_settings()
+    #     self.h3neut_map_settings()
+    #     self.bvic_map_settings()
+    #     self.byam_map_settings()
 
-    def h1_map_settings(self):
-        from .settings import make_map_settings
-        make_map_settings(virus_type='h1', assay='hi', force=self._force)
+    # def h1_map_settings(self):
+    #     from .settings import make_map_settings
+    #     make_map_settings(virus_type='h1', assay='hi', force=self._force)
 
-    def h3_map_settings(self):
-        from .settings import make_map_settings
-        make_map_settings(virus_type='h3', assay='hi', force=self._force)
+    # def h3_map_settings(self):
+    #     from .settings import make_map_settings
+    #     make_map_settings(virus_type='h3', assay='hi', force=self._force)
 
-    def h3neut_map_settings(self):
-        from .settings import make_map_settings
-        make_map_settings(virus_type='h3', assay='neut', force=self._force)
+    # def h3neut_map_settings(self):
+    #     from .settings import make_map_settings
+    #     make_map_settings(virus_type='h3', assay='neut', force=self._force)
 
-    def bvic_map_settings(self):
-        from .settings import make_map_settings
-        make_map_settings(virus_type='bvic', assay='hi', force=self._force)
+    # def bvic_map_settings(self):
+    #     from .settings import make_map_settings
+    #     make_map_settings(virus_type='bvic', assay='hi', force=self._force)
 
-    def byam_map_settings(self):
-        from .settings import make_map_settings
-        make_map_settings(virus_type='byam', assay='hi', force=self._force)
+    # def byam_map_settings(self):
+    #     from .settings import make_map_settings
+    #     make_map_settings(virus_type='byam', assay='hi', force=self._force)
 
         # ----------------------------------------------------------------------
 
@@ -636,40 +631,6 @@ class Processor:
 
     # ----------------------------------------------------------------------
 
-    def _get_dbs(self):
-        self._get_locdb()
-        self._get_hidb()
-        self._get_seqdb()
-
-    def _get_hidb(self):
-        target_dir = self._db_dir()
-        module_logger.info("Updating hidb in " + repr(str(target_dir)))
-        subprocess.check_call("rsync -av 'albertine:AD/data/hidb5.*.{{json.xz,hidb5b}}' '{}'".format(target_dir), shell=True)
-
-    def _get_locdb(self):
-        target_dir = self._db_dir()
-        module_logger.info("Updating locdb in " + repr(str(target_dir)))
-        locdb_file = target_dir.joinpath("locationdb.json.xz")
-        if not locdb_file.exists():
-            locdb_file.symlink_to(Path("~/AD/data/locationdb.json.xz").expanduser().resolve())
-
-    def _get_seqdb(self):
-        seqdb_filename = self._seqdb_file()
-        shutil.copy(Path("~/AD/data/seqdb.json.xz").expanduser().resolve(), seqdb_filename)
-
-    # def _get_seqdb_before_2019(self):
-    #     seqdb_filename = self._seqdb_file()
-    #     module_logger.info("Updating seqdb in " + repr(str(seqdb_filename)))
-    #     fasta_files = sorted(Path("~/ac/tables-store/sequences").expanduser().resolve().glob("*.fas.*"))
-    #     seqdb_mtime = seqdb_filename.exists() and seqdb_filename.stat().st_mtime
-    #     if not seqdb_mtime or any(ff.stat().st_mtime >= seqdb_mtime for ff in fasta_files):
-    #         module_logger.info("Creating seqdb from " + str(len(fasta_files)) + " fasta files")
-    #         subprocess.check_call("seqdb-create --db '{seqdb_filename}' --hidb-dir '{hidb_dir}' --match-hidb --clades --save-not-found-locations '{not_found_locations}' {verbose} '{fasta_files}'".format(
-    #             seqdb_filename=seqdb_filename, hidb_dir=self._db_dir(), not_found_locations=self._log_dir().joinpath("not-found-locations.txt"), verbose="-v" if self._verbose else "",
-    #             fasta_files="' '".join(str(f) for f in fasta_files)), shell=True)
-    #     else:
-    #         module_logger.info('seqdb is up to date')
-
     def _seqdb_file(self):
         return self._db_dir().joinpath("seqdb.json.xz")
 
@@ -680,12 +641,12 @@ class Processor:
         acmacs.get_recent_merges(target_dir)
         self.h1_overlay()
 
-    @classmethod
-    def _use_dir(cls, name, mkdir=True):
-        target_dir = Path(name).resolve(strict=False)
-        if name and mkdir:
-            target_dir.mkdir(parents=True, exist_ok=True)
-        return target_dir
+    # @classmethod
+    # def _use_dir(cls, name, mkdir=True):
+    #     target_dir = Path(name).resolve(strict=False)
+    #     if name and mkdir:
+    #         target_dir.mkdir(parents=True, exist_ok=True)
+    #     return target_dir
 
     @classmethod
     def r_dir(cls, name, mkdir=True, link_dir=None):
@@ -730,42 +691,6 @@ class Processor:
         from .signature_page import signature_page_source_dir_init
         signature_page_source_dir_init(sp_dir)
         return sp_dir
-
-    def _init_git(self):
-        project_git_dir = Path(".").resolve().name + ".git"
-        module_logger.info("init_git {}".format(project_git_dir))
-        # remote
-        if not subprocess.call("ssh albertine '[[ -f who-reports/{p}/HEAD ]]'".format(p=project_git_dir), shell=True):
-            module_logger.info("Remote git repo exists")
-        elif not subprocess.call("ssh albertine '[[ -e who-reports/{p} ]]'".format(p=project_git_dir), shell=True):
-            raise RuntimeError("albertine:who-reports/{p} present but it is not a git repository".format(p=project_git_dir))
-        else:
-            module_logger.info("Creating remote git repo")
-            subprocess.check_call("ssh albertine 'mkdir who-reports/{p} && cd who-reports/{p} && git init --bare'".format(p=project_git_dir), shell=True)
-
-        # local
-        if not Path(".gitignore").exists():
-            open(".gitignore", "w").write("bvic-hi\nbyam-hi\nbv-hi\nby-hi\ndb\ngeo\nh1-hi\nh3-hi\nh3-neut\nlog\nmerges\nreport\nstat\n.backup\n*.pdf\n*.ace\n*.acd1.xz\n*.acd1.bz2\n*.save\n*.save.xz\n.#*\n")
-        if not Path("rename-report-on-server").exists():
-            open("rename-report-on-server", "w").write("#! /bin/bash\ncd $(dirname $0) &&\nssh i19 \"cd $(pwd); if [[ -d report && -f report/report.pdf ]]; then mv report/report.pdf report/report.\$(stat -c %y report/report.pdf | sed 's/\..*//g; s/-//g; s/://g; s/ /-/g').pdf; else echo no report dir; fi\"\n")
-            Path("rename-report-on-server").chmod(0o700)
-        if not Path("rr").exists():
-            open("rr", "w").write("#! /bin/bash\ncd $(dirname $0) &&\n$ACMACSD_ROOT/bin/ssm-report --working-dir . report &&\n./rename-report-on-server &&\n./sy\n")
-            Path("rr").chmod(0o700)
-        if not Path("sy").exists():
-            # open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput -f \"--exclude bvic-hi --exclude byam-hi --exclude bv-hi --exclude by-hi --exclude geo --exclude h1-hi --exclude h3-hi --exclude h3-neut --exclude log --exclude report --exclude sp --exclude stat --exclude .backup\" &&\nsyput /r/ssm-report/\"$(basename ${PWD})\" \"${PWD#$HOME/}\"")
-            open("sy", "w").write("#! /bin/bash\ncd $(dirname $0) &&\ngit add --all &&\nif git commit --dry-run; then git commit -m 'sy'; fi &&\ngit fetch &&\n( git merge --no-commit --no-ff || ( echo && echo Use '\"git merge\"' to merge, then edit merged file && echo && false ) ) &&\ngit push &&\nsyput")
-            Path("sy").chmod(0o700)
-        index_html = self.r_dir("").joinpath("index.html")
-        if not index_html.exists():
-            index_html.open("w").write(sRootIndexHtml)
-
-        if Path(".git").is_dir():
-            module_logger.info("local repository present")
-        elif Path(".git").exists():
-            raise RuntimeError(".git exists and it is not a directory")
-        else:
-            subprocess.check_call("git init && git add rr .gitignore && git commit -m 'ssm-report init_git' && git remote add origin ssh://albertine/home/eu/who-reports/{p} && git push --set-upstream origin master".format(p=project_git_dir), shell=True)
 
 # ----------------------------------------------------------------------
 

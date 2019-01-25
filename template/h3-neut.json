@@ -1,0 +1,161 @@
+{ "_":"-*- js-indent-level: 2 -*-",
+  "labs": ["CDC", "MELB", "NIID", "NIMR"],
+  "information_labs": ["CDC", "MELB", "NIID", "NIMR"],
+  "mods": {
+
+    "set_scale": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
+    ],
+    "set_legend": [
+      {"N": "legend", "label_size": 14, "point_size": 10}
+    ],
+    "no_legend": [
+      {"N": "legend", "show": false}
+    ],
+    "information": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "antigens", "select": {"older_than_days": 730}, "fill": "grey80", "outline": "grey80", "order": "lower"},
+      {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
+      {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
+    ],
+    "information_clades": [
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
+      {"N": "antigens", "select": "all", "size": 15},
+      {"N": "clades_last_12_months", "size": 15},
+      "no_legend"
+    ],
+
+    "? Derek 2019-01-13": "for tc1, let's just change the label of what maroon means on the last 6 month clade colored maps.  change 2a1 to 2a1b.  we only get one strain wrongly labeled.",
+    "clades": [
+      {"N": "antigens", "select": {"clade": "3C.3"},   "outline": "black", "fill": "cornflowerblue", "legend": {"label": "3C.3", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3A"},  "outline": "black", "fill": "green", "legend": {"label": "3C.3a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3B"},  "outline": "black", "fill": "blue", "legend": {"label": "3C.3b", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.2A"},  "outline": "black", "fill": "red", "legend": {"label": "3C.2a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A1"}, "outline": "black", "fill": "darkred", "legend": {"label": "3C.2a1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A2"}, "outline": "black", "fill": "#EEB422", "legend": {"label": "3C.2a2", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_last_6_months": [
+      {"N": "antigens", "select": {"clade": "3C.3", "younger_than_days": 183},   "outline": "black", "fill": "cornflowerblue", "legend": {"label": "3C.3", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3A", "younger_than_days": 183},  "outline": "black", "fill": "green", "legend": {"label": "3C.3a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3B", "younger_than_days": 183},  "outline": "black", "fill": "blue", "legend": {"label": "3C.3b", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.2A", "younger_than_days": 183},  "outline": "black", "fill": "red", "legend": {"label": "3C.2a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A1", "younger_than_days": 183}, "outline": "black", "fill": "darkred", "legend": {"label": "3C.2a1b", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A2", "younger_than_days": 183}, "outline": "black", "fill": "#EEB422", "legend": {"label": "3C.2a2", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_last_12_months": [
+      {"N": "antigens", "select": {"clade": "3C.3", "younger_than_days": 365},   "outline": "black", "fill": "cornflowerblue", "legend": {"label": "3C.3", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3A", "younger_than_days": 365},  "outline": "black", "fill": "green", "legend": {"label": "3C.3a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3B", "younger_than_days": 365},  "outline": "black", "fill": "blue", "legend": {"label": "3C.3b", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.2A", "younger_than_days": 365},  "outline": "black", "fill": "red", "legend": {"label": "3C.2a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A1", "younger_than_days": 365}, "outline": "black", "fill": "darkred", "legend": {"label": "3C.2a1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A2", "younger_than_days": 365}, "outline": "black", "fill": "#EEB422", "legend": {"label": "3C.2a2", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_light": [
+      {"N": "antigens", "select": {"clade": "3C.3"},   "outline": "#BFBFBF", "fill": "#8F9DBF", "legend": {"label": "3C.3", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3A"},  "outline": "#BFBFBF", "fill": "#BFFFBF", "legend": {"label": "3C.3a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.3B"},  "outline": "#BFBFBF", "fill": "#BFBFFF", "legend": {"label": "3C.3b", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "3C.2A"},  "outline": "#BFBFBF", "fill": "#FFBFBF", "legend": {"label": "3C.2a", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A1"},    "outline": "#BFBFBF", "fill": "#AF8585", "legend": {"label": "3C.2a1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "2A2"},    "outline": "#BFBFBF", "fill": "#EED69A", "legend": {"label": "3C.2a2", "count": true}, "order": "raise", "report": true}
+    ],
+
+    "?": "===================== CDC  H3  NEUT =================================================",
+
+    "CDC_flip": [
+      {"?N": "flip", "direction": "ew"}
+    ],
+    "CDC_rotate": [
+      {"N": "rotate", "degrees": 0}
+    ],
+    "CDC_viewport": [
+      {"N": "viewport", "rel": [1, 1, -2]}
+    ],
+    "CDC_pre": [
+    ],
+    "CDC_mid": [
+    ],
+    "CDC_post": [
+    ],
+
+    "?": "===================== MELB  H3  NEUT =================================================",
+
+    "? Derek 2019-03-11 14:38": "do we have any extra reason to trust the melb hi and neut than we did before?  if not, then we should add the transparent stuff we did before.  did they add the new sera that they expected to differentiate?",
+    "MELB_clades": [
+      {"N": "antigens", "select": {"clade": "2A2"}, "outline": "#80000000", "fill": "#80EEB422", "legend": {"label": "2a2", "count": true, "replace": true}, "order": "raise", "report": true},
+
+      {"? Derek 2019-01-11 16:50": "please mark the ags titrated against 2A2 sera separateely so we can see whether they are coordinated consistently with the other labs's data."},
+      {"?N": "antigens", "select": {"indexes": [1130, 1129, 1128, 1127, 1126, 1125, 1124, 1123, 1122, 1121, 1120, 1119, 1118, 1117, 1116, 1115, 1114, 1113, 1112, 1111, 1110, 1109, 1108, 1107, 1106, 1105, 1104, 1103, 1102, 1101, 1100, 1099, 1098, 1097, 1096, 1095, 1094, 1093, 1092, 1090, 1089, 1088, 1087, 1083, 1082, 1081, 1079, 1078, 1077, 1075, 1072, 1071, 1070, 1069, 1068, 1067, 1066, 1065, 1064, 1062, 1061, 1058, 1057, 1055, 1052, 1050, 1049, 1048, 1047, 1046, 1045, 1043, 1042, 1041, 1040, 1039, 1038, 1037, 1036, 1035, 1034, 1033, 1032, 1031, 1030, 1029, 1028, 1027, 1026, 1025, 1024, 1023, 1022, 1021, 1020, 1019, 1018, 1017, 1016, 1015, 1014, 1013, 1012, 1011, 1010, 1009, 1008, 1007, 1006, 1005, 1004, 1003, 1002, 1001, 1000, 999, 998, 997, 996, 995, 994, 993, 992, 991, 990, 989, 988, 987, 986, 985, 984, 983, 982, 980, 979, 978, 977, 976, 975, 974, 973, 972, 971, 970, 969, 968, 967, 966, 965, 964, 963, 962, 961, 960, 959, 958, 957, 956, 955, 954, 953, 952, 951, 950, 949, 948, 947, 946, 945, 944, 943, 942, 941, 940, 939, 938, 937, 936, 935, 934, 933, 932, 931, 930, 929, 928, 927, 926, 925, 924, 923, 922, 921, 920, 919, 918, 917, 916, 915, 914, 913, 912, 911, 910, 909, 908, 907, 906, 905, 904, 903, 902, 901, 900, 899, 898, 897, 896, 895, 894, 893, 892, 891, 890, 889, 888, 887, 886, 885, 884, 883, 882, 881, 880, 879, 878, 877, 876, 875, 874, 873, 872, 871, 870, 869, 868, 867, 866, 865, 864, 863, 862, 861, 860, 859, 858, 857, 856, 855, 854, 853, 852, 851, 850, 849, 848, 847, 846, 845, 843, 842, 841, 840, 839, 838, 837, 836, 835, 834, 833, 831, 830, 829, 828, 827, 826, 825, 824, 823, 822, 821, 818, 817, 816, 815, 814, 813, 812, 811, 810, 809, 808, 807, 806, 805, 804, 803, 802, 801, 800, 799, 798, 797, 796, 795, 794, 793, 792, 791, 790, 789, 788, 787, 786, 785, 784, 783, 781, 780, 779, 778, 777, 776, 775, 774, 773, 772, 771, 770, 769, 768, 767, 766, 765, 764, 763, 762, 761, 760, 759, 758, 757, 756, 755, 754, 753, 752, 751, 750, 749, 747, 746, 745, 744, 743, 742, 741, 740, 739, 738, 737, 736, 735, 734, 733, 732, 731, 730, 729, 728, 727, 726, 725, 724, 723, 722, 721, 720, 719, 718, 717, 716, 715, 714, 713, 712, 711, 710, 709, 708, 707, 706, 705, 704, 703, 702, 701, 700, 699, 698, 696, 695, 694, 693, 692, 691, 690, 689, 688, 687, 686, 685, 684, 683, 682, 681, 680, 679, 678, 677, 676, 675, 674, 673, 672, 671, 670, 669, 668, 667, 666, 665, 664, 663, 662, 661, 660, 659, 658, 657, 656, 655, 654, 653, 652, 651, 650, 649, 648, 647, 646, 645, 644, 643, 642, 639, 638, 637, 635, 634, 633, 632, 631, 630, 629, 628, 627, 626, 625, 624, 623, 622, 621, 620, 619, 618, 617, 616, 615, 614, 613, 612, 611, 610, 609, 608, 607, 606, 605, 604, 603, 602, 601, 562, 561, 497, 323, 322, 309, 265, 242, 167]},
+       "outline": "cyan", "?order": "raise", "report": false}
+    ],
+    "MELB_clades_last_6_months": [
+      {"N": "antigens", "select": {"clade": "2A2", "younger_than_days": 183}, "outline": "#80000000", "fill": "#80EEB422", "legend": {"label": "2a2", "count": true, "replace": true}, "order": "raise", "report": true},
+
+      {"? Derek 2019-01-11 16:50": "please mark the ags titrated against 2A2 sera separateely so we can see whether they are coordinated consistently with the other labs's data."},
+      {"?N": "antigens", "select": {"indexes": [1130, 1129, 1128, 1127, 1126, 1125, 1124, 1123, 1122, 1121, 1120, 1119, 1118, 1117, 1116, 1115, 1114, 1113, 1112, 1111, 1110, 1109, 1108, 1107, 1106, 1105, 1104, 1103, 1102, 1101, 1100, 1099, 1098, 1097, 1096, 1095, 1094, 1093, 1092, 1090, 1089, 1088, 1087, 1083, 1082, 1081, 1079, 1078, 1077, 1075, 1072, 1071, 1070, 1069, 1068, 1067, 1066, 1065, 1064, 1062, 1061, 1058, 1057, 1055, 1052, 1050, 1049, 1048, 1047, 1046, 1045, 1043, 1042, 1041, 1040, 1039, 1038, 1037, 1036, 1035, 1034, 1033, 1032, 1031, 1030, 1029, 1028, 1027, 1026, 1025, 1024, 1023, 1022, 1021, 1020, 1019, 1018, 1017, 1016, 1015, 1014, 1013, 1012, 1011, 1010, 1009, 1008, 1007, 1006, 1005, 1004, 1003, 1002, 1001, 1000, 999, 998, 997, 996, 995, 994, 993, 992, 991, 990, 989, 988, 987, 986, 985, 984, 983, 982, 980, 979, 978, 977, 976, 975, 974, 973, 972, 971, 970, 969, 968, 967, 966, 965, 964, 963, 962, 961, 960, 959, 958, 957, 956, 955, 954, 953, 952, 951, 950, 949, 948, 947, 946, 945, 944, 943, 942, 941, 940, 939, 938, 937, 936, 935, 934, 933, 932, 931, 930, 929, 928, 927, 926, 925, 924, 923, 922, 921, 920, 919, 918, 917, 916, 915, 914, 913, 912, 911, 910, 909, 908, 907, 906, 905, 904, 903, 902, 901, 900, 899, 898, 897, 896, 895, 894, 893, 892, 891, 890, 889, 888, 887, 886, 885, 884, 883, 882, 881, 880, 879, 878, 877, 876, 875, 874, 873, 872, 871, 870, 869, 868, 867, 866, 865, 864, 863, 862, 861, 860, 859, 858, 857, 856, 855, 854, 853, 852, 851, 850, 849, 848, 847, 846, 845, 843, 842, 841, 840, 839, 838, 837, 836, 835, 834, 833, 831, 830, 829, 828, 827, 826, 825, 824, 823, 822, 821, 818, 817, 816, 815, 814, 813, 812, 811, 810, 809, 808, 807, 806, 805, 804, 803, 802, 801, 800, 799, 798, 797, 796, 795, 794, 793, 792, 791, 790, 789, 788, 787, 786, 785, 784, 783, 781, 780, 779, 778, 777, 776, 775, 774, 773, 772, 771, 770, 769, 768, 767, 766, 765, 764, 763, 762, 761, 760, 759, 758, 757, 756, 755, 754, 753, 752, 751, 750, 749, 747, 746, 745, 744, 743, 742, 741, 740, 739, 738, 737, 736, 735, 734, 733, 732, 731, 730, 729, 728, 727, 726, 725, 724, 723, 722, 721, 720, 719, 718, 717, 716, 715, 714, 713, 712, 711, 710, 709, 708, 707, 706, 705, 704, 703, 702, 701, 700, 699, 698, 696, 695, 694, 693, 692, 691, 690, 689, 688, 687, 686, 685, 684, 683, 682, 681, 680, 679, 678, 677, 676, 675, 674, 673, 672, 671, 670, 669, 668, 667, 666, 665, 664, 663, 662, 661, 660, 659, 658, 657, 656, 655, 654, 653, 652, 651, 650, 649, 648, 647, 646, 645, 644, 643, 642, 639, 638, 637, 635, 634, 633, 632, 631, 630, 629, 628, 627, 626, 625, 624, 623, 622, 621, 620, 619, 618, 617, 616, 615, 614, 613, 612, 611, 610, 609, 608, 607, 606, 605, 604, 603, 602, 601, 562, 561, 497, 323, 322, 309, 265, 242, 167]},
+       "outline": "cyan", "?order": "raise", "report": false}
+    ],
+    "MELB_clades_last_12_months": [
+      {"N": "antigens", "select": {"clade": "2A2", "younger_than_days": 365}, "outline": "#80000000", "fill": "#80EEB422", "legend": {"label": "2a2", "count": true, "replace": true}, "order": "raise", "report": true},
+
+      {"? Derek 2019-01-11 16:50": "please mark the ags titrated against 2A2 sera separateely so we can see whether they are coordinated consistently with the other labs's data."},
+      {"?N": "antigens", "select": {"indexes": [1130, 1129, 1128, 1127, 1126, 1125, 1124, 1123, 1122, 1121, 1120, 1119, 1118, 1117, 1116, 1115, 1114, 1113, 1112, 1111, 1110, 1109, 1108, 1107, 1106, 1105, 1104, 1103, 1102, 1101, 1100, 1099, 1098, 1097, 1096, 1095, 1094, 1093, 1092, 1090, 1089, 1088, 1087, 1083, 1082, 1081, 1079, 1078, 1077, 1075, 1072, 1071, 1070, 1069, 1068, 1067, 1066, 1065, 1064, 1062, 1061, 1058, 1057, 1055, 1052, 1050, 1049, 1048, 1047, 1046, 1045, 1043, 1042, 1041, 1040, 1039, 1038, 1037, 1036, 1035, 1034, 1033, 1032, 1031, 1030, 1029, 1028, 1027, 1026, 1025, 1024, 1023, 1022, 1021, 1020, 1019, 1018, 1017, 1016, 1015, 1014, 1013, 1012, 1011, 1010, 1009, 1008, 1007, 1006, 1005, 1004, 1003, 1002, 1001, 1000, 999, 998, 997, 996, 995, 994, 993, 992, 991, 990, 989, 988, 987, 986, 985, 984, 983, 982, 980, 979, 978, 977, 976, 975, 974, 973, 972, 971, 970, 969, 968, 967, 966, 965, 964, 963, 962, 961, 960, 959, 958, 957, 956, 955, 954, 953, 952, 951, 950, 949, 948, 947, 946, 945, 944, 943, 942, 941, 940, 939, 938, 937, 936, 935, 934, 933, 932, 931, 930, 929, 928, 927, 926, 925, 924, 923, 922, 921, 920, 919, 918, 917, 916, 915, 914, 913, 912, 911, 910, 909, 908, 907, 906, 905, 904, 903, 902, 901, 900, 899, 898, 897, 896, 895, 894, 893, 892, 891, 890, 889, 888, 887, 886, 885, 884, 883, 882, 881, 880, 879, 878, 877, 876, 875, 874, 873, 872, 871, 870, 869, 868, 867, 866, 865, 864, 863, 862, 861, 860, 859, 858, 857, 856, 855, 854, 853, 852, 851, 850, 849, 848, 847, 846, 845, 843, 842, 841, 840, 839, 838, 837, 836, 835, 834, 833, 831, 830, 829, 828, 827, 826, 825, 824, 823, 822, 821, 818, 817, 816, 815, 814, 813, 812, 811, 810, 809, 808, 807, 806, 805, 804, 803, 802, 801, 800, 799, 798, 797, 796, 795, 794, 793, 792, 791, 790, 789, 788, 787, 786, 785, 784, 783, 781, 780, 779, 778, 777, 776, 775, 774, 773, 772, 771, 770, 769, 768, 767, 766, 765, 764, 763, 762, 761, 760, 759, 758, 757, 756, 755, 754, 753, 752, 751, 750, 749, 747, 746, 745, 744, 743, 742, 741, 740, 739, 738, 737, 736, 735, 734, 733, 732, 731, 730, 729, 728, 727, 726, 725, 724, 723, 722, 721, 720, 719, 718, 717, 716, 715, 714, 713, 712, 711, 710, 709, 708, 707, 706, 705, 704, 703, 702, 701, 700, 699, 698, 696, 695, 694, 693, 692, 691, 690, 689, 688, 687, 686, 685, 684, 683, 682, 681, 680, 679, 678, 677, 676, 675, 674, 673, 672, 671, 670, 669, 668, 667, 666, 665, 664, 663, 662, 661, 660, 659, 658, 657, 656, 655, 654, 653, 652, 651, 650, 649, 648, 647, 646, 645, 644, 643, 642, 639, 638, 637, 635, 634, 633, 632, 631, 630, 629, 628, 627, 626, 625, 624, 623, 622, 621, 620, 619, 618, 617, 616, 615, 614, 613, 612, 611, 610, 609, 608, 607, 606, 605, 604, 603, 602, 601, 562, 561, 497, 323, 322, 309, 265, 242, 167]},
+       "outline": "cyan", "?order": "raise", "report": false}
+    ],
+    "MELB_aa_at_142": [
+      {"N": "amino-acids", "pos": [142], "colors": {"G": "#049457", "K": "#80F76A05", "R": "#A020F0", "N": "#93EDC3", "E": "#ED93BD", "I": "#742f32", "X": "#666666"}, "outline": "black", "legend": {"count": true, "replace": true}, "order": "raise"}
+    ],
+
+    "MELB_flip": [
+      {"?N": "flip", "direction": "ew"}
+    ],
+    "MELB_rotate": [
+      {"N": "rotate", "degrees": 30}
+    ],
+    "MELB_viewport": [
+      {"N": "viewport", "rel": [4, 3, -7], "?rel": [1, 1.5, -3]}
+    ],
+    "MELB_pre": [
+    ],
+    "MELB_mid": [
+    ],
+    "MELB_post": [
+    ],
+
+    "?": "===================== NIID  H3  NEUT =================================================",
+
+    "NIID_flip": [
+      {"?N": "flip", "direction": "ew"}
+    ],
+    "NIID_rotate": [
+      {"N": "rotate", "degrees": -160}
+    ],
+    "NIID_viewport": [
+      {"N": "viewport", "rel": [0, 0, 0]}
+    ],
+    "NIID_pre": [
+    ],
+    "NIID_mid": [
+    ],
+    "NIID_post": [
+    ],
+
+    "?": "===================== NIMR  H3  NEUT =================================================",
+
+    "NIMR_flip": [
+      {"N": "flip", "direction": "ew"}
+    ],
+    "NIMR_rotate": [
+      {"N": "rotate", "degrees": 123}
+    ],
+    "NIMR_viewport": [
+      {"N": "viewport", "rel": [6, 3.5, -7]}
+    ],
+    "NIMR_pre": [
+    ],
+    "NIMR_mid": [
+    ],
+    "NIMR_post": [
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+#! /bin/bash
+cd $(dirname $0) &&
+ssm-report report &&
+./rename-report-on-server &&
+./sy

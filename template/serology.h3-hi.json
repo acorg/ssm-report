@@ -1,0 +1,20 @@
+{ "_":"-*- js-indent-level: 2 -*-",
+  "mods": {
+    "CDC_serology": [
+      {"?N":"antigens", "select": {"full_name": "A(H3N2)/SWITZERLAND/8060/2017 CDCLV-21A E5/E2SPF8"},  "label": {"offset": [-0.3, 1], "display_name": "Sw/8060/17-egg", "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
+      ],
+    "MELB_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
+      ],
+    "NIMR_serology": [
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
+      ]
+  }
+}
