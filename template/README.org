@@ -1,0 +1,49 @@
+#+STARTUP: showall
+#+STARTUP: indent
+# Time-stamp: <2019-01-25 12:05:04 eu>
+* Upon init
+ssm-report update-merges
+ssm-report h1-overlay
+ssm-report stat geo
+* Make maps
+  stat geo
+  h1-clade h1-ts h1-serology
+  h3-ts h3-clade h3-geo h3-serology
+  h3neut-ts h3neut-clade h3neut-geo h3neut-serology
+  bv-ts bv-clade bv-serology
+  by-ts by-clade by-serology
+  h1-tree h3-tree by-tree bv-tree
+  report
+  sp sp-h3-cdc sp-h3neut-cdc addendum
+* Information meeting tree
+commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
+
+ssm-report h1-tree-information
+ssm-report h3-tree-information
+ssm-report bv-tree-information
+ssm-report by-tree-information
+* Commands
+** update hidb on albertine ~1.5min
+whocc-update-ace-store && whocc-hidb5-update
+hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
+rm -f stat/* geo/*; ssm-report --force update_hidb stat geo
+** re-make seqdb 
+seqdb-create --db db/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /d/not-found.txt ~/ac/tables-store/sequences/*.fas.*
+cp db/seqdb.json.xz ~/AD/data && rsync -v ~/AD/data/seqdb* albertine:AD/data
+** make lispmds save colored by clade
+acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
+** serum coverage
+ssm-report serumcoverage-init
+ssm-report serumcircle-report-cdc-h3-hi
+ssm-report h3-cov       ~4 hours!
+ssm-report h3neut-cov   ~40 min
+ssm-report serumcoverage-h3-hi
+ssm-report serumcoverage-h3-neut
+ssm-report serumcoverage-cdc-h3-hi
+ssm-report report-serumcoverage
+* [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
+* COMMENT local vars ======================================================================
+# Local Variables:
+# eval: (auto-fill-mode 0)
+# eval: (add-hook 'before-save-hook 'time-stamp)
+# End:

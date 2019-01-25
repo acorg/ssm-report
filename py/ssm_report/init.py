@@ -17,7 +17,7 @@ def init_git():
         subprocess.check_call("ssh albertine 'mkdir who-reports/{p} && cd who-reports/{p} && git init --bare'".format(p=project_git_dir), shell=True)
 
     template_dir = _template_dir()
-    for src, dest in [["root-gitignore", ".gitignore"], ["rename-report-on-server", "rename-report-on-server"], ["rr", "rr"], ["sy", "sy"], ["index.html", "index.html"]]:
+    for src, dest in [["root-gitignore", ".gitignore"], ["rename-report-on-server", "rename-report-on-server"], ["rr", "rr"], ["sy", "sy"], ["index.html", "index.html"], ["README.org", "README.org"]]:
         if not Path(dest).exists():
             shutil.copy(template_dir.joinpath(src).resolve(), Path(dest))
 

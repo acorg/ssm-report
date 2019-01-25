@@ -1,6 +1,6 @@
 #+STARTUP: x-showall
 #+STARTUP: x-indent
-# Time-stamp: <2019-01-21 10:45:14 eu>
+# Time-stamp: <2019-01-25 12:05:04 eu>
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 * update hidb on albertine ~1.5min
 whocc-update-ace-store && whocc-hidb5-update
@@ -157,10 +157,6 @@ ssm-report by-tree-information
 * COMMANDS
 ** update hidb on albertine: whocc-update-ace-store && whocc-hidb5-update
 ** download hidb from albertine, update stat and geo: hidb-get-from-albertine && cp ~/AD/data/hidb5.* db && rm -f stat/* geo/* && ssm-report --force stat geo
-* Request
-* Data
-* Result
-* Process
 * COMMENT ---- local vars
 # ======================================================================
 # Local Variables:
