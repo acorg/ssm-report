@@ -1,10 +1,19 @@
 #+STARTUP: showall
 #+STARTUP: indent
-# Time-stamp: <2019-01-25 12:05:04 eu>
+# Time-stamp: <2019-01-25 12:32:05 eu>
 * Upon init
-ssm-report update-merges
+ssm-report update-merges :: 7m
 ssm-report h1-overlay
 ssm-report stat geo
+* Make trees
+** copy trees
+d=2019-0121
+for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signature-pages/$d/$f/tree.json.xz tree/$f.tree.json.xz; done
+** make trees
+ssm-report h1-tree
+ssm-report h3-tree
+ssm-report by-tree
+ssm-report bv-tree
 * Make maps
   stat geo
   h1-clade h1-ts h1-serology
@@ -12,7 +21,6 @@ ssm-report stat geo
   h3neut-ts h3neut-clade h3neut-geo h3neut-serology
   bv-ts bv-clade bv-serology
   by-ts by-clade by-serology
-  h1-tree h3-tree by-tree bv-tree
   report
   sp sp-h3-cdc sp-h3neut-cdc addendum
 * Information meeting tree
@@ -27,7 +35,7 @@ ssm-report by-tree-information
 whocc-update-ace-store && whocc-hidb5-update
 hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
 rm -f stat/* geo/*; ssm-report --force update_hidb stat geo
-** re-make seqdb 
+** re-make seqdb
 seqdb-create --db db/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /d/not-found.txt ~/ac/tables-store/sequences/*.fas.*
 cp db/seqdb.json.xz ~/AD/data && rsync -v ~/AD/data/seqdb* albertine:AD/data
 ** make lispmds save colored by clade

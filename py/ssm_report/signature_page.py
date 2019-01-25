@@ -32,9 +32,9 @@ def trees_get_from_albertine(tree_dir):
 
 # ======================================================================
 
-def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings", tree_infix=""):
+def tree_make(subtype, tree_dir, seqdb, settings_infix="settings", tree_infix=""):
     tree = tree_dir.joinpath(f"{subtype}.tree.json.xz")
-    pdf = output_dir.joinpath(f"{subtype}.tree{tree_infix}.pdf")
+    pdf = tree_dir.joinpath(f"{subtype}.tree{tree_infix}.pdf")
     settings = tree_dir.joinpath(f"{subtype}.tree{tree_infix}.{settings_infix}.json")
     if not settings.exists():
         subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'")
@@ -43,9 +43,9 @@ def tree_make(subtype, tree_dir, seqdb, output_dir, settings_infix="settings", t
 
 # ----------------------------------------------------------------------
 
-def tree_make_aa_pos(subtype, tree_dir, seqdb, output_dir):
+def tree_make_aa_pos(subtype, tree_dir, seqdb):
     tree = tree_dir.joinpath(f"{subtype}.tree.json.xz")
-    pdf = output_dir.joinpath(f"{subtype}.tree-aa-at-pos.pdf")
+    pdf = tree_dir.joinpath(f"{subtype}.tree-aa-at-pos.pdf")
     settings = tree_dir.joinpath(f"{subtype}.tree-aa-at-pos.json")
     if not settings.exists():
         subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' --show-aa-at-pos --aa-at-pos-hz-section-threshold 100 --not-show-hz-sections '{tree}' '{pdf}' --open")

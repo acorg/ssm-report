@@ -147,7 +147,7 @@ class Processor:
         # ----------------------------------------------------------------------
 
     def get_trees_from_albertine(self):
-        trees_get_from_albertine(tree_dir=self._use_dir("tree"))
+        trees_get_from_albertine(tree_dir=Path("tree"))
 
     def tree(self):
         """Generate tree images for all subtypes."""
@@ -158,46 +158,46 @@ class Processor:
 
     def h1_tree(self):
         """instructions on making phylogenetic trees"""
-        tree_make(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
     def h1_tree_aa(self):
         """instructions on making phylogenetic trees"""
-        tree_make_aa_pos(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make_aa_pos(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
     def h3_tree(self):
         """instructions on making phylogenetic trees"""
-        tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
     def h3_tree_142(self):
         """instructions on making phylogenetic trees"""
-        tree_make(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"), tree_infix=".142")
+        tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file(), tree_infix=".142")
 
     def bv_tree(self):
         """instructions on making phylogenetic trees"""
-        tree_make(subtype="bv", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     bvic_tree = bv_tree
 
     def by_tree(self):
         """instructions on making phylogenetic trees"""
-        tree_make(subtype="by", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     byam_tree = by_tree
 
     def h1_tree_aa(self):
         """instructions on making phylogenetic trees"""
-        tree_make_aa_pos(subtype="h1", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make_aa_pos(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
     def h3_tree_aa(self):
         """instructions on making phylogenetic trees"""
-        tree_make_aa_pos(subtype="h3", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make_aa_pos(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
     def bv_tree_aa(self):
         """instructions on making phylogenetic trees"""
-        tree_make_aa_pos(subtype="bv", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make_aa_pos(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     bvic_tree_aa = bv_tree_aa
 
     def by_tree_aa(self):
         """instructions on making phylogenetic trees"""
-        tree_make_aa_pos(subtype="by", tree_dir=self._use_dir("tree"), seqdb=self._seqdb_file(), output_dir=self.r_dir("tree", link_dir="t"))
+        tree_make_aa_pos(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     byam_tree_aa = by_tree_aa
 
     def tree_information(self):
@@ -221,7 +221,7 @@ class Processor:
 
     def _tree_information(self, virus_type):
 
-        tree_dir = self._use_dir("tree")
+        tree_dir = Path("tree")
         from .signature_page import tree_make_information_settings
         tree_make_information_settings(virus_type=virus_type, tree_dir=tree_dir)
         tree_make(subtype=virus_type, tree_dir=tree_dir, seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
@@ -512,7 +512,7 @@ class Processor:
     def _make_sp_makers(self):
         def mf(virus_type, assay, lab):
             return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._sp_source_dir(), sp_output_dir=self._sp_output_dir(),
-                                                   tree_dir=self._use_dir("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file())
+                                                   tree_dir=Path("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file())
         for lab in ["cdc", "melb", "niid", "nimr"]:
             for virus_type, assay in [["h3", "hi"], ["h3", "neut"], ["h1", "hi"], ["bv", "hi"], ["by", "hi"]]:
                 setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), mf(virus_type=virus_type, assay=assay, lab=lab))
@@ -523,7 +523,7 @@ class Processor:
     # Serum coverage
 
     def serumcoverage_init(self):
-        output_dir = self._use_dir("serumcoverage")
+        output_dir = Path("serumcoverage")
         for assay in ["hi", "neut"]:
             for merge in self._merges_dir().glob("*-h3-" + assay + ".ace"):
                 output_file = output_dir.joinpath(merge.stem + ".json")
@@ -590,7 +590,7 @@ class Processor:
     # ----------------------------------------------------------------------
 
     # def _make_tree(self, virus_type):
-    #     tree_dir = self._use_dir("tree")
+    #     tree_dir = Path("tree")
     #     tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
     #     pdf = tree_dir.joinpath(virus_type + ".tree.pdf")
     #     settings = tree_dir.joinpath(virus_type + ".tree.settings.json")
@@ -648,21 +648,21 @@ class Processor:
     #         target_dir.mkdir(parents=True, exist_ok=True)
     #     return target_dir
 
-    @classmethod
-    def r_dir(cls, name, mkdir=True, link_dir=None):
-        if Path("/r/ramdisk-id").exists():
-            target_dir = Path("/r/ssm-report", Path(".").resolve().name, name)
-            if mkdir:
-                target_dir.mkdir(parents=True, exist_ok=True)
-            if name:
-                if link_dir is None:
-                    link_dir = name
-                if not Path(link_dir).exists():
-                    print(target_dir, link_dir)
-                    Path(link_dir).symlink_to(target_dir)
-        else:
-            target_dir = cls._use_dir(name, mkdir=mkdir)
-        return target_dir
+    # @classmethod
+    # def r_dir(cls, name, mkdir=True, link_dir=None):
+    #     if Path("/r/ramdisk-id").exists():
+    #         target_dir = Path("/r/ssm-report", Path(".").resolve().name, name)
+    #         if mkdir:
+    #             target_dir.mkdir(parents=True, exist_ok=True)
+    #         if name:
+    #             if link_dir is None:
+    #                 link_dir = name
+    #             if not Path(link_dir).exists():
+    #                 print(target_dir, link_dir)
+    #                 Path(link_dir).symlink_to(target_dir)
+    #     else:
+    #         target_dir = cls._use_dir(name, mkdir=mkdir)
+    #     return target_dir
 
     @classmethod
     def _db_dir(cls):

@@ -1,11 +1,12 @@
 #+STARTUP: showall
 #+STARTUP: indent
-# Time-stamp: <2019-01-25 10:13:36 eu>
+# Time-stamp: <2019-01-25 12:24:08 eu>
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 * start new report preparation
 mkdir ~/ac/results/ssm/YYYY-MMDD
 cd ~/ac/results/ssm/YYYY-MMDD
 ssm-report init
+see README.org in the report dir for further instructions
 * COMMENT local vars ======================================================================
 # Local Variables:
 # eval: (auto-fill-mode 0)
