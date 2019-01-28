@@ -110,11 +110,11 @@ class Processor:
 
     def stat(self):
         """make statistics for antigens and sera found in WHO CC HI tables"""
-        make_stat(stat_dir=self.r_dir("stat"), hidb_dir=self._db_dir(), force=self._force)
+        make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=self._force)
 
     def geo(self):
         """make geographic time series"""
-        make_geographic(geo_dir=self.r_dir("geo"), db_dir=self._db_dir(), force=self._force)
+        make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), force=self._force)
 
         # ----------------------------------------------------------------------
 
@@ -225,7 +225,7 @@ class Processor:
         tree_dir = Path("tree")
         from .signature_page import tree_make_information_settings
         tree_make_information_settings(virus_type=virus_type, tree_dir=tree_dir)
-        tree_make(subtype=virus_type, tree_dir=tree_dir, seqdb=self._seqdb_file(), output_dir=self.r_dir("information", link_dir="i"), settings_infix="information")
+        tree_make(subtype=virus_type, tree_dir=tree_dir, seqdb=self._seqdb_file(), output_dir=Path("information"), settings_infix="information")
 
         # ----------------------------------------------------------------------
 
@@ -270,31 +270,31 @@ class Processor:
 
     def report(self):
         from .report import make_report
-        make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"))
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
 
     def report_abbreviated(self):
         from .report import make_report_abbreviated
-        make_report_abbreviated(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"))
+        make_report_abbreviated(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
 
     def report_serumcoverage(self):
         from .report import make_report_serumcoverage
-        make_report_serumcoverage(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"))
+        make_report_serumcoverage(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
 
     def addendum(self):
         from .report import make_signature_page_addendum
-        make_signature_page_addendum(source_dir=self.r_dir("sp"), output_dir=self.r_dir("report"))
+        make_signature_page_addendum(source_dir=Path("sp"), output_dir=Path("report"))
 
     def report_3(self):
         from .report import make_report
-        make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), report_settings_file="report-addendum-3.json")
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_settings_file="report-addendum-3.json")
 
     def report_4(self):
         from .report import make_report
-        make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), report_settings_file="report-addendum-4.json")
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_settings_file="report-addendum-4.json")
 
     def report_5(self):
         from .report import make_report
-        make_report(source_dir=Path(".").resolve(), source_dir_2=self.r_dir(""), output_dir=self.r_dir("report"), report_settings_file="report-addendum-5.json")
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_settings_file="report-addendum-5.json")
 
     def update_merges(self):
         target_dir = self._merges_dir()
@@ -326,10 +326,10 @@ class Processor:
     h1_geo = h1_geography
 
     def h1_ts(self, lab=None):
-        make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=self.r_dir("h1-hi"), force=self._force)
+        make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=Path("h1-hi"), force=self._force)
 
     def h1_information(self):
-        make_map_information(virus_type="h1", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+        make_map_information(virus_type="h1", assay="hi", output_dir=Path("information"), force=self._force)
 
     # ----------------------------------------------------------------------
     # H3 HI
@@ -348,7 +348,7 @@ class Processor:
     h3_geo = h3_geography
 
     def h3_ts(self, lab=None):
-        make_ts(virus_type="h3", assay="hi", lab=lab, output_dir=self.r_dir("h3-hi"), force=self._force)
+        make_ts(virus_type="h3", assay="hi", lab=lab, output_dir=Path("h3-hi"), force=self._force)
 
     def h3_serology(self):
         self.serology(virus_type="h3", assay="hi")
@@ -357,7 +357,7 @@ class Processor:
         self._serum_sectors(virus_type="h3", assay="hi")
 
     def h3_information(self):
-        make_map_information(virus_type="h3", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+        make_map_information(virus_type="h3", assay="hi", output_dir=Path("information"), force=self._force)
 
     # ----------------------------------------------------------------------
     # H3 Neut
@@ -380,7 +380,7 @@ class Processor:
     h3n_geo = h3neut_geography
 
     def h3neut_ts(self, lab=None):
-        make_ts(virus_type="h3", assay="neut", lab=lab, output_dir=self.r_dir("h3-neut"), force=self._force)
+        make_ts(virus_type="h3", assay="neut", lab=lab, output_dir=Path("h3-neut"), force=self._force)
     h3n_ts = h3neut_ts
 
     def h3neut_serology(self):
@@ -393,7 +393,7 @@ class Processor:
         lab = "niid"
         infix = "-oseltamivir"
         settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
-        output_dir = self.r_dir(virus_type + "-" + assay)
+        output_dir = Path(virus_type + "-" + assay)
         for mod in ["clade", "clade_6m", "clade_12m", "aa_at_142", "geography", "serology"]:
             make_map_for_lab(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, lab=lab, infix=infix, mod=mod, output_dir=output_dir, settings_files=settings_files, open_image=self._open_image)
         make_ts(virus_type=virus_type, assay=assay, lab=lab, output_dir=output_dir, infix=infix, force=self._force)
@@ -405,7 +405,7 @@ class Processor:
         self._serum_sectors(virus_type="h3", assay="neut")
 
     def h3neut_information(self):
-        make_map_information(virus_type="h3", assay="neut", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+        make_map_information(virus_type="h3", assay="neut", output_dir=Path("information"), force=self._force)
 
     # ----------------------------------------------------------------------
     # BVIC HI
@@ -424,7 +424,7 @@ class Processor:
     bvic_geo = bvic_geography
 
     def bvic_ts(self, lab=None):
-        make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=self.r_dir("bv-hi"), force=self._force)
+        make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=Path("bv-hi"), force=self._force)
     bv_ts = bvic_ts
 
     def bvic_serology(self):
@@ -432,7 +432,7 @@ class Processor:
     bv_serology = bvic_serology
 
     def bvic_information(self):
-        make_map_information(virus_type="bvic", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+        make_map_information(virus_type="bvic", assay="hi", output_dir=Path("information"), force=self._force)
     bv_information = bvic_information
 
     # ----------------------------------------------------------------------
@@ -452,7 +452,7 @@ class Processor:
     by_geo = byam_geography
 
     def byam_ts(self, lab=None):
-        make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=self.r_dir("by-hi"), force=self._force)
+        make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=Path("by-hi"), force=self._force)
     by_ts = byam_ts
 
     def byam_serology(self):
@@ -460,7 +460,7 @@ class Processor:
     by_serology = byam_serology
 
     def byam_information(self):
-        make_map_information(virus_type="byam", assay="hi", output_dir=self.r_dir("information", link_dir="i"), force=self._force)
+        make_map_information(virus_type="byam", assay="hi", output_dir=Path("information"), force=self._force)
     by_information = byam_information
 
     # ----------------------------------------------------------------------
@@ -549,9 +549,9 @@ class Processor:
     def _serumcoverage(self, lab, virus_type, assay):
         from .serum_coverage import make_serum_coverage_maps, make_serum_coverage_index
         try:
-            make_serum_coverage_maps(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(virus_type + "-" + assay))
+            make_serum_coverage_maps(virus_type=virus_type, assay=assay, lab=lab, output_dir=Path(virus_type + "-" + assay))
         finally:
-            make_serum_coverage_index(virus_type=virus_type, assay=assay, lab=lab, output_dir=self.r_dir(""), pdf_dir=self.r_dir(virus_type + "-" + assay))
+            make_serum_coverage_index(virus_type=virus_type, assay=assay, lab=lab, output_dir=Path(""), pdf_dir=Path(virus_type + "-" + assay))
 
     def serumcoverage_cdc_h3_hi(self): self._serumcoverage(lab="cdc", virus_type="h3", assay="hi")
     def serumcoverage_cdc_h3_neut(self): self._serumcoverage(lab="cdc", virus_type="h3", assay="neut")
@@ -605,30 +605,30 @@ class Processor:
     sVirusTypeOutputDir = {"h1": "h1", "h3": "h3", "bvic": "bv", "bv": "bv", "byam": "by", "by": "by"}
 
     def clade(self, virus_type, assay, lab=None):
-        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     _clade = clade
 
     def _clade_6m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     clade6m = _clade_6m
 
     def _clade_12m(self, virus_type, assay, lab=None):
-        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     clade12m = _clade_12m
 
     def _aa_at(self, virus_type, assay, positions):
         mod = "aa_at_" + "_".join(str(pos) for pos in positions)
-        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, mod=mod, output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
     def _geography(self, virus_type, assay):
-        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="geography", virus_type=virus_type, assay=assay, mod="geography", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
     def serology(self, virus_type, assay, lab=None):
-        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="serology", virus_type=virus_type, assay=assay, lab=lab, mod="serology", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
     _serology = serology
 
     def _serum_sectors(self, virus_type, assay):
-        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=self.r_dir(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
+        make_map(prefix="serumsectors", virus_type=virus_type, assay=assay, mod="serum_sectors", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
     # ----------------------------------------------------------------------
 
@@ -696,7 +696,7 @@ class Processor:
     def merges_make_index_html(self):
         filename = self._merges_dir().joinpath("index.html")
         recent_ace_mtime = max((pn.stat() for pn in self._merges_dir().glob("*.ace")), key=lambda st: st.st_mtime).st_mtime
-        if not filename.exists() or filename.str().st_mtime < recent_ace_mtime:
+        if not filename.exists() or filename.stat().st_mtime < recent_ace_mtime:
             from .init import _template_dir
             substs = {
                 "title": "Merges",

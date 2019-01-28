@@ -1,6 +1,6 @@
 #+STARTUP: showall
 #+STARTUP: indent
-# Time-stamp: <2019-01-25 12:32:05 eu>
+# Time-stamp: <2019-01-28 11:17:17 eu>
 * Upon init
 ssm-report update-merges :: 7m
 ssm-report h1-overlay
@@ -35,6 +35,7 @@ ssm-report by-tree-information
 whocc-update-ace-store && whocc-hidb5-update
 hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
 rm -f stat/* geo/*; ssm-report --force update_hidb stat geo
+ssm-report update-merges
 ** re-make seqdb
 seqdb-create --db db/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /d/not-found.txt ~/ac/tables-store/sequences/*.fas.*
 cp db/seqdb.json.xz ~/AD/data && rsync -v ~/AD/data/seqdb* albertine:AD/data

@@ -209,6 +209,7 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=No
     except:
         module_logger.error(f"problems reading {settings_files[0]}")
         raise
+    output_dir.mkdir(parents=True, exist_ok=True)
     for lab in labs:
         make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, infix=infix, open_image=open_image)
     sDirsForIndex.add(output_dir)
