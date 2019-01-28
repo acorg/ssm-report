@@ -70,6 +70,7 @@ class Processor:
                 else:
                     getattr(self, command)()
             maps_make_index_html()
+            self.merges_make_index_html()
 
     def init(self):
         """initialize ssm report data directory structure"""
@@ -692,13 +693,24 @@ class Processor:
         signature_page_source_dir_init(sp_dir)
         return sp_dir
 
+    def merges_make_index_html(self):
+        filename = self._merges_dir().joinpath("index.html")
+        recent_ace_mtime = max((pn.stat() for pn in self._merges_dir().glob("*.ace")), key=lambda st: st.st_mtime).st_mtime
+        if not filename.exists() or filename.str().st_mtime < recent_ace_mtime:
+            from .init import _template_dir
+            substs = {
+                "title": "Merges",
+                "entries": "\n".join(f"<li><a href='{name}?acv=html'>{name}</a></li>" for name in sorted(pn.name for pn in self._merges_dir().glob("*.ace")))
+            }
+            filename.open("w").write(_template_dir().joinpath("merges-index.html").open().read() % substs)
+
 # ----------------------------------------------------------------------
 
 sRootIndexHtml = """
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-    <title>WHO VCM 2018 Southern Northern Hemisphere</title>
+    <title>WHO VCM 2019 Southern Northern Hemisphere</title>
     <style>
       h1 { color: #0000A0; }
       ol { list-style-type: hebrew; }
@@ -711,7 +723,7 @@ sRootIndexHtml = """
     </style>
   </head>
   <body>
-    <h1>TC1 , WHO VCM 2018 Southern Northern Hemisphere</h1>
+    <h1>TC1 , WHO VCM 2019 Southern Northern Hemisphere</h1>
     <h2>Report</h2>
     <ul>
       <li><a href="report/report.pdf">Report</a></li>
