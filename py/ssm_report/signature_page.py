@@ -90,7 +90,7 @@ def _tree_update_settings(subtype, settings):
 
 # ----------------------------------------------------------------------
 
-def _tree_update_settings_bvic(data, settings):
+def _tree_update_settings_bv(data, settings):
     report_settings = read_json("report.json")
     # data["signature_page"].update({"left": 50, "right": 0, "clades_width": 50})
     data["time_series"]["begin"] = (datetime.datetime.strptime(report_settings["time_series"]["date"]["end"], "%Y-%m-%d") - datetime.timedelta(days=25*30)).strftime("%Y-%m-01")
@@ -109,7 +109,7 @@ def _tree_update_settings_bvic(data, settings):
         elif clade_data["name"] == "1":
             clade_data["show"] = False
 
-def _tree_update_settings_byam(data, settings):
+def _tree_update_settings_by(data, settings):
     report_settings = read_json("report.json")
     # data["signature_page"].update({"left": 70, "right": 0, "clades_width": 50})
     data["time_series"]["begin"] = (datetime.datetime.strptime(report_settings["time_series"]["date"]["end"], "%Y-%m-%d") - datetime.timedelta(days=25*30)).strftime("%Y-%m-01")
@@ -176,7 +176,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
             mod["N"] = "?" + mod["N"]
 
     settings["antigenic_maps"]["columns"] = 3
-    if virus_type in ["h1", "h3", "byam"]:
+    if virus_type in ["h1", "h3", "by"]:
         settings["signature_page"]["antigenic_maps_width"] = 431.35
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
@@ -336,14 +336,14 @@ sIndex = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http
       <li>H1 Crick<br><object data="h1-nimr-hi.pdf#toolbar=0"></object></li>
       <li>H1 NIID<br><object data="h1-niid-hi.pdf#toolbar=0"></object></li>
       <li>H1 VIDRL<br><object data="h1-melb-hi.pdf#toolbar=0"></object></li>
-      <li>B/Vic CDC<br><object data="bvic-cdc-hi.pdf#toolbar=0"></object></li>
-      <li>B/Vic Crick<br><object data="bvic-nimr-hi.pdf#toolbar=0"></object></li>
-      <li>B/Vic NIID<br><object data="bvic-niid-hi.pdf#toolbar=0"></object></li>
-      <li>B/Vic VIDRL<br><object data="bvic-melb-hi.pdf#toolbar=0"></object></li>
-      <li>B/Yam CDC<br><object data="byam-cdc-hi.pdf#toolbar=0"></object></li>
-      <li>B/Yam Crick<br><object data="byam-nimr-hi.pdf#toolbar=0"></object></li>
-      <li>B/Yam NIID<br><object data="byam-niid-hi.pdf#toolbar=0"></object></li>
-      <li>B/Yam VIDRL<br><object data="byam-melb-hi.pdf#toolbar=0"></object></li>
+      <li>B/Vic CDC<br><object data="bv-cdc-hi.pdf#toolbar=0"></object></li>
+      <li>B/Vic Crick<br><object data="bv-nimr-hi.pdf#toolbar=0"></object></li>
+      <li>B/Vic NIID<br><object data="bv-niid-hi.pdf#toolbar=0"></object></li>
+      <li>B/Vic VIDRL<br><object data="bv-melb-hi.pdf#toolbar=0"></object></li>
+      <li>B/Yam CDC<br><object data="by-cdc-hi.pdf#toolbar=0"></object></li>
+      <li>B/Yam Crick<br><object data="by-nimr-hi.pdf#toolbar=0"></object></li>
+      <li>B/Yam NIID<br><object data="by-niid-hi.pdf#toolbar=0"></object></li>
+      <li>B/Yam VIDRL<br><object data="by-melb-hi.pdf#toolbar=0"></object></li>
     </ul>
   </body>
 </html>
