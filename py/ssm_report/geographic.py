@@ -9,6 +9,7 @@ from acmacs_base.json import read_json, write_json
 
 def make_geographic(geo_dir, db_dir, force=False):
     if force or not geo_dir.joinpath("index.html").exists():
+        geo_dir.mkdir(exist_ok=True)
         prefixes = {}
         for virus_type in ["B", "H1", "H3"]:
             output_prefix = virus_type + "-geographic"

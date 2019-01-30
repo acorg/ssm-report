@@ -60,6 +60,7 @@ def _make_stat(output_dir, hidb_dir, start, end, previous_stat_dir, make_all_nam
 # ----------------------------------------------------------------------
 
 def _compute_stat(output_dir, hidb_dir, start, end):
+    output_dir.mkdir(exist_ok=True)
     output = output_dir.joinpath("stat.json.xz")
     subprocess.check_call("hidb5-stat --start '{start}' --end '{end}' --db-dir '{db_dir}' '{output}'".format(start=start, end=end, db_dir=hidb_dir, output=output), shell=True)
     return read_json(output)
