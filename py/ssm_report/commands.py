@@ -215,10 +215,10 @@ class Processor:
         self._tree_information("h3")
 
     def bvic_tree_information(self):
-        self._tree_information("bvic")
+        self._tree_information("bv")
 
     def byam_tree_information(self):
-        self._tree_information("byam")
+        self._tree_information("by")
 
     def _tree_information(self, virus_type):
 
@@ -255,7 +255,7 @@ class Processor:
     def bvic(self):
         self.bvic_clade()
         self.bvic_geography()
-        self.serology(virus_type="bvic", assay="hi")()
+        self.serology(virus_type="bv", assay="hi")()
         #self.bvic_serum_sectors()
         self.bvic_ts()
     bv = bvic
@@ -263,7 +263,7 @@ class Processor:
     def byam(self):
         self.byam_clade()
         self.byam_geography()
-        self.serology(virus_type="byam", assay="hi")()
+        self.serology(virus_type="by", assay="hi")()
         #self.byam_serum_sectors()
         self.byam_ts()
     by = byam
@@ -411,56 +411,56 @@ class Processor:
     # BVIC HI
 
     def bvic_clade(self):
-        self._clade(virus_type="bvic", assay="hi")
-        self._clade_6m(virus_type="bvic", assay="hi")
-        self._clade_12m(virus_type="bvic", assay="hi")
+        self._clade(virus_type="bv", assay="hi")
+        self._clade_6m(virus_type="bv", assay="hi")
+        self._clade_12m(virus_type="bv", assay="hi")
     bv_clade = bvic_clade
     bv_clades = bvic_clade
     bvic_clades = bvic_clade
 
     def bvic_geography(self):
-        self._geography(virus_type="bvic", assay="hi")
+        self._geography(virus_type="bv", assay="hi")
     bv_geo = bvic_geography
     bvic_geo = bvic_geography
 
     def bvic_ts(self, lab=None):
-        make_ts(virus_type="bvic", assay="hi", lab=lab, output_dir=Path("bv-hi"), force=self._force)
+        make_ts(virus_type="bv", assay="hi", lab=lab, output_dir=Path("bv-hi"), force=self._force)
     bv_ts = bvic_ts
 
     def bvic_serology(self):
-        self.serology(virus_type="bvic", assay="hi")
+        self.serology(virus_type="bv", assay="hi")
     bv_serology = bvic_serology
 
     def bvic_information(self):
-        make_map_information(virus_type="bvic", assay="hi", output_dir=Path("information"), force=self._force)
+        make_map_information(virus_type="bv", assay="hi", output_dir=Path("information"), force=self._force)
     bv_information = bvic_information
 
     # ----------------------------------------------------------------------
     # BYAM HI
 
     def byam_clade(self):
-        self._clade(virus_type="byam", assay="hi")
-        self._clade_6m(virus_type="byam", assay="hi")
-        self._clade_12m(virus_type="byam", assay="hi")
+        self._clade(virus_type="by", assay="hi")
+        self._clade_6m(virus_type="by", assay="hi")
+        self._clade_12m(virus_type="by", assay="hi")
     byam_clades = byam_clade
     by_clades = byam_clade
     by_clade = byam_clade
 
     def byam_geography(self):
-        self._geography(virus_type="byam", assay="hi")
+        self._geography(virus_type="by", assay="hi")
     byam_geo = byam_geography
     by_geo = byam_geography
 
     def byam_ts(self, lab=None):
-        make_ts(virus_type="byam", assay="hi", lab=lab, output_dir=Path("by-hi"), force=self._force)
+        make_ts(virus_type="by", assay="hi", lab=lab, output_dir=Path("by-hi"), force=self._force)
     by_ts = byam_ts
 
     def byam_serology(self):
-        self.serology(virus_type="byam", assay="hi")
+        self.serology(virus_type="by", assay="hi")
     by_serology = byam_serology
 
     def byam_information(self):
-        make_map_information(virus_type="byam", assay="hi", output_dir=Path("information"), force=self._force)
+        make_map_information(virus_type="by", assay="hi", output_dir=Path("information"), force=self._force)
     by_information = byam_information
 
     # ----------------------------------------------------------------------

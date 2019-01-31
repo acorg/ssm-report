@@ -88,10 +88,10 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} by clade",
         },
-        "bvic": {
+        "bv": {
             "hi":   "{lab} {virus_type} by clade",
         },
-        "byam": {
+        "by": {
             "hi":   "{lab} {virus_type} by clade",
         },
     },
@@ -103,10 +103,10 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} by clade",
         },
-        "bvic": {
+        "bv": {
             "hi":   "{lab} {virus_type} by clade",
         },
-        "byam": {
+        "by": {
             "hi":   "{lab} {virus_type} by clade",
         },
     },
@@ -118,10 +118,10 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} by clade",
         },
-        "bvic": {
+        "bv": {
             "hi":   "{lab} {virus_type} by clade",
         },
-        "byam": {
+        "by": {
             "hi":   "{lab} {virus_type} by clade",
         },
     },
@@ -139,10 +139,10 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} by geography",
         },
-        "bvic": {
+        "bv": {
             "hi":   "{lab} {virus_type} by geography",
         },
-        "byam": {
+        "by": {
             "hi":   "{lab} {virus_type} by geography",
         },
     },
@@ -154,10 +154,10 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} with serology antigens",
         },
-        "bvic": {
+        "bv": {
             "hi":   "{lab} {virus_type} with serology antigens",
         },
-        "byam": {
+        "by": {
             "hi":   "{lab} {virus_type} with serology antigens",
         },
     },
@@ -187,10 +187,10 @@ sTitleFor = {
         "h1": {
             "hi":   "{lab} {virus_type} {period_name}",
         },
-        "bvic": {
+        "bv": {
             "hi":   "{lab} {virus_type} {period_name}",
         },
-        "byam": {
+        "by": {
             "hi":   "{lab} {virus_type} {period_name}",
         },
     },
@@ -202,13 +202,15 @@ sDirsForIndex = set()
 
 def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=None, settings_labs_key="labs", open_image=None):
     settings_files = sorted(Path(".").glob(f"*{virus_type}-{assay}.json"))
+    if not settings_files:
+        module_logger.error(f"problems finding *{virus_type}-{assay}.json")
     try:
         labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
     except json.decoder.JSONDecodeError:
         module_logger.error(f"cannot import json from {settings_files[0]}")
         raise
     except:
-        module_logger.error(f"problems reading {settings_files[0]}")
+        module_logger.error(f"problems reading {settings_files[0]} for {virus_type}-{assay}")
         raise
     output_dir.mkdir(parents=True, exist_ok=True)
     for lab in labs:
