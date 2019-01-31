@@ -9,6 +9,7 @@ from .map import sLabDisplayName
 # ======================================================================
 
 def make_report(source_dir, source_dir_2, output_dir, report_settings_file="report.json"):
+    output_dir.mkdir(exist_ok=True)
     report_settings = read_json(report_settings_file)
     output_name = report_settings.get("output_name", "report.tex")
     report_type = report_settings.get("type", "report")
@@ -23,6 +24,7 @@ def make_report(source_dir, source_dir_2, output_dir, report_settings_file="repo
 # ----------------------------------------------------------------------
 
 def make_report_abbreviated(source_dir, source_dir_2, output_dir):
+    output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report-abbreviated.json")
     report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-abbreviated.tex", settings=report_settings)
     report.make_compile_view(update_toc=True)
@@ -30,6 +32,7 @@ def make_report_abbreviated(source_dir, source_dir_2, output_dir):
 # ----------------------------------------------------------------------
 
 def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
+    output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report-serumcoverage.json")
     report = LatexSerumCoverageAddendum(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-serumcoverage.tex", settings=report_settings)
     report.make_compile_view(update_toc=True)
@@ -37,6 +40,7 @@ def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
 # ----------------------------------------------------------------------
 
 def make_signature_page_addendum(source_dir, output_dir):
+    output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report.json")
     report_settings["cover"]["teleconference"] = "Addendum 1 (signature pages)"
     addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings)
@@ -112,7 +116,7 @@ class LatexReport:
         pf = self.pdf_file()
         if pf.exists():
             pf.chmod(0o644)
-        cmd = self.sLatexCommand.format(run_dir=self.latex_source.parent, latex_source=str(self.latex_source))
+        cmd = self.sLatexCommand.format(run_dir=self.latex_source.parent, latex_source=str(self.latex_source.name))
         try:
             for i in range(2):
                 module_logger.info('Executing {}'.format(cmd))
@@ -500,7 +504,7 @@ class StatisticsTableMaker:
                 flu_type_previous = self.sFluTypePrevious[self.subtype]
             else:
                 flu_type_previous  = flu_type
-            previous_data_antigens = self.previous_data['antigens'][flu_type_previous][lab]
+            previous_data_antigens = self.previous_data['antigens'].get(flu_type_previous, {}).get(lab, {})
             previous_data_sera_unique = self.previous_data['sera_unique'].get(flu_type_previous, {}).get(lab, {})
             previous_data_sera = self.previous_data['sera'].get(flu_type_previous, {}).get(lab, {})
             previous_sum = collections.defaultdict(int)

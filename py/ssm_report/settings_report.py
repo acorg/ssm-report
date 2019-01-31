@@ -173,14 +173,16 @@ sReport = {
             "h3-hi/clade-6m-melb.pdf", "h3-neut/clade-6m-melb.pdf",
             ]},
         "new_page",
-        {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by amino-acids at 142"},
-        {"type": "maps", "images": [
+
+        {"?type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by amino-acids at 142"},
+        {"?type": "maps", "images": [
             "h3-hi/aa-at-142-cdc.pdf", "h3-neut/aa-at-142-cdc.pdf",
             "h3-hi/aa-at-142-nimr.pdf", "h3-neut/aa-at-142-nimr.pdf",
             "", "h3-neut/aa-at-142-niid.pdf",
             "h3-hi/aa-at-142-melb.pdf", "h3-neut/aa-at-142-melb.pdf"
         ]},
-        "new_page",
+        "?new_page",
+
         {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps with serology antigens"},
         {"type": "maps", "images": [
             "h3-hi/serology-cdc.pdf", "h3-neut/serology-cdc.pdf",
