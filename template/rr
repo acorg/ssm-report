@@ -2,4 +2,5 @@
 cd $(dirname $0) &&
 ssm-report report &&
 ./rename-report-on-server &&
-./sy
+./sy &&
+ssh i19 "cd $(pwd); chmod 0644 report/report.pdf"
