@@ -244,6 +244,12 @@ class LatexReport:
                 self.make_new_page()
             self._antigenic_map_table(images_on_page)
 
+    def make_pdf(self, page):
+        image = Path(page.get("image", ""))
+        module_logger.info("PDF {}".format(image))
+        if image.exists():
+            self.data.append(latex.T_PhylogeneticTree.format(image=image.resolve()))
+
     def make_phylogenetic_description(self, page):
         self.data.append(latex.T_PhylogeneticTreeDescription)
 
