@@ -14,6 +14,7 @@ sLabDisplayName = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "NIID": "NIID"
 
 sApplyFor = {
     "pre": [
+        "size_reset",
         "{lab}_pre",
         "{lab}_flip",
         "{lab}_rotate",
@@ -34,25 +35,25 @@ sApplyFor = {
         "{lab}_post",
         ],
     "clade": [
-        {"N": "clades", "size": 8},
+        "clades",
         "*{lab}_clades",
         "set_legend"
         ],
     "clade_6m": [
-        {"N": "clades_last_6_months", "size": 8},
+        "clades_last_6_months",
         "*{lab}_clades_last_6_months",
         "set_legend"
         ],
     "clade_12m": [
-        {"N": "clades_last_12_months", "size": 8},
+        "clades_last_12_months",
         "*{lab}_clades_last_12_months",
         "set_legend"
         ],
     "geography": [
-        {"N": "continents", "size": 8}
+        "continents",
         ],
     "serology": [
-        {"N": "clades_light", "size": 8},
+        "clades_light",
         "*{lab}_clades_light",
         "*serology",
         "set_legend"
@@ -62,11 +63,11 @@ sApplyFor = {
         {"N": "legend", "show": False}
         ],
     "serum_sectors": [
-        {"N": "clades", "size": 8},
+        "clades",
         "serum_sectors",
         ],
     "serum_coverage_circle": [
-        {"N": "clades_light", "size": 8},
+        "clades_light",
         ],
     "ts_pre": [
         {"N": "continents"},
