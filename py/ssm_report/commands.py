@@ -694,15 +694,18 @@ class Processor:
         return sp_dir
 
     def merges_make_index_html(self):
-        filename = self._merges_dir().joinpath("index.html")
-        recent_ace_mtime = max((pn.stat() for pn in self._merges_dir().glob("*.ace")), key=lambda st: st.st_mtime).st_mtime
-        if not filename.exists() or filename.stat().st_mtime < recent_ace_mtime:
-            from .init import _template_dir
-            substs = {
-                "title": "Merges",
-                "entries": "\n".join(f"<li><a href='{name}?acv=html'>{name}</a></li>" for name in sorted(pn.name for pn in self._merges_dir().glob("*.ace")))
-            }
-            filename.open("w").write(_template_dir().joinpath("merges-index.html").open().read() % substs)
+        if self._merges_dir().exists():
+            ace_files = list(self._merges_dir().glob("*.ace"))
+            if ace_files:
+                filename = self._merges_dir().joinpath("index.html")
+                recent_ace_mtime = max((pn.stat() for pn in ace_files), key=lambda st: st.st_mtime).st_mtime
+                if not filename.exists() or filename.stat().st_mtime < recent_ace_mtime:
+                    from .init import _template_dir
+                    substs = {
+                        "title": "Merges",
+                        "entries": "\n".join(f"<li><a href='{name}?acv=html'>{name}</a></li>" for name in sorted(pn.name for pn in self._merges_dir().glob("*.ace")))
+                    }
+                    filename.open("w").write(_template_dir().joinpath("merges-index.html").open().read() % substs)
 
 # ----------------------------------------------------------------------
 
