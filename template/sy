@@ -5,4 +5,5 @@ if git commit --dry-run; then git commit -m 'sy'; fi &&
 git fetch &&
 ( git merge --no-commit --no-ff || ( echo && echo Use '"git merge"' to merge, then edit merged file && echo && false ) ) &&
 git push &&
-syput
+syput &&
+ssh i19 "cd $(pwd); if [ -f report/report.pdf ]; then chmod 0644 report/report.pdf; fi"
