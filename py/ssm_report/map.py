@@ -15,24 +15,24 @@ sLabDisplayName = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "NIID": "NIID"
 sApplyFor = {
     "pre": [
         "size_reset",
-        "{lab}_pre",
-        "{lab}_flip",
-        "{lab}_rotate",
-        "{lab}_viewport",
+        "*{lab}_pre",
+        "*{lab}_flip",
+        "*{lab}_rotate",
+        "*{lab}_viewport",
         "all_grey",
         "egg",
         "lower_reference",
         ],
     "post": [
-        "{lab}_mid",
-        "{lab}_vaccines",
+        "*{lab}_mid",
+        "*{lab}_vaccines",
         "set_scale",
-        "{lab}_post",
+        "*{lab}_post",
         ],
     "post_information": [
-        "{lab}_mid",
+        "*{lab}_mid",
         "*{lab}_vaccines_information",
-        "{lab}_post",
+        "*{lab}_post",
         ],
     "clade": [
         "clades",
@@ -206,7 +206,12 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=No
     if not settings_files:
         module_logger.error(f"problems finding *{virus_type}-{assay}.json")
     try:
-        labs = [lab] if lab else json.load(settings_files[0].open())[settings_labs_key]
+        if isinstance(lab, str) and lab:
+            labs = [lab]
+        elif isinstance(lab, list) and lab:
+            labs = lab
+        else:
+            labs = json.load(settings_files[0].open())[settings_labs_key]
     except json.decoder.JSONDecodeError:
         module_logger.error(f"cannot import json from {settings_files[0]}")
         raise
@@ -264,7 +269,12 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
-    labs = [lab] if lab else json.load(Path("{}-{}.json".format(virus_type, assay)).resolve().open())["labs"]
+    if isinstance(lab, str) and lab:
+        labs = [lab]
+    elif isinstance(lab, list) and lab:
+        labs = lab
+    else:
+        labs = json.load(Path("{}-{}.json".format(virus_type, assay)).resolve().open())["labs"]
     for lab in labs:
         compare_with_previous = sCompareWithPrevious[False]
         previous_chart = None

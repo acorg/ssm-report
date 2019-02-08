@@ -315,11 +315,17 @@ class Processor:
     # H1 HI
 
     def h1_clade(self):
-        self._clade(virus_type="h1", assay="hi")
+        self.clade(virus_type="h1", assay="hi")
     h1_clades = h1_clade
+
+    def h1_clade_labs(self):
+        self.clade(virus_type="h1", assay="hi", lab=["cdc", "melb", "niid", "nimr"])
 
     def h1_serology(self):
         self.serology(virus_type="h1", assay="hi")
+
+    def h1_serology_labs(self):
+        self.serology(virus_type="h1", assay="hi", lab=["cdc", "melb", "niid", "nimr"])
 
     def h1_geography(self):
         self._geography(virus_type="h1", assay="hi")
@@ -328,6 +334,9 @@ class Processor:
     def h1_ts(self, lab=None):
         make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=Path("h1-hi"), force=self._force)
 
+    def h1_ts_labs(self, lab=None):
+        make_ts(virus_type="h1", assay="hi", lab=lab or ["cdc", "melb", "niid", "nimr"], output_dir=Path("h1-hi"), force=self._force)
+
     def h1_information(self):
         make_map_information(virus_type="h1", assay="hi", output_dir=Path("information"), force=self._force)
 
@@ -335,9 +344,9 @@ class Processor:
     # H3 HI
 
     def h3_clade(self):
-        self._clade(virus_type="h3", assay="hi")
-        self._clade_6m(virus_type="h3", assay="hi")
-        self._clade_12m(virus_type="h3", assay="hi")
+        self.clade(virus_type="h3", assay="hi")
+        self.clade_6m(virus_type="h3", assay="hi")
+        self.clade_12m(virus_type="h3", assay="hi")
     h3_clades = h3_clade
 
     def h3_aa_at_142(self):
@@ -363,9 +372,9 @@ class Processor:
     # H3 Neut
 
     def h3neut_clade(self):
-        self._clade(virus_type="h3", assay="neut")
-        self._clade_6m(virus_type="h3", assay="neut")
-        self._clade_12m(virus_type="h3", assay="neut")
+        self.clade(virus_type="h3", assay="neut")
+        self.clade_6m(virus_type="h3", assay="neut")
+        self.clade_12m(virus_type="h3", assay="neut")
     h3neut_clades = h3neut_clade
     h3n_clades = h3neut_clade
     h3n_clade = h3neut_clade
@@ -411,9 +420,9 @@ class Processor:
     # BVIC HI
 
     def bvic_clade(self):
-        self._clade(virus_type="bv", assay="hi")
-        self._clade_6m(virus_type="bv", assay="hi")
-        self._clade_12m(virus_type="bv", assay="hi")
+        self.clade(virus_type="bv", assay="hi")
+        self.clade_6m(virus_type="bv", assay="hi")
+        self.clade_12m(virus_type="bv", assay="hi")
     bv_clade = bvic_clade
     bv_clades = bvic_clade
     bvic_clades = bvic_clade
@@ -439,9 +448,9 @@ class Processor:
     # BYAM HI
 
     def byam_clade(self):
-        self._clade(virus_type="by", assay="hi")
-        self._clade_6m(virus_type="by", assay="hi")
-        self._clade_12m(virus_type="by", assay="hi")
+        self.clade(virus_type="by", assay="hi")
+        self.clade_6m(virus_type="by", assay="hi")
+        self.clade_12m(virus_type="by", assay="hi")
     byam_clades = byam_clade
     by_clades = byam_clade
     by_clade = byam_clade
@@ -606,15 +615,12 @@ class Processor:
 
     def clade(self, virus_type, assay, lab=None):
         make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
-    _clade = clade
 
-    def _clade_6m(self, virus_type, assay, lab=None):
+    def clade_6m(self, virus_type, assay, lab=None):
         make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
-    clade6m = _clade_6m
 
-    def _clade_12m(self, virus_type, assay, lab=None):
+    def clade_12m(self, virus_type, assay, lab=None):
         make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
-    clade12m = _clade_12m
 
     def _aa_at(self, virus_type, assay, positions):
         mod = "aa_at_" + "_".join(str(pos) for pos in positions)
