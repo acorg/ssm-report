@@ -1,6 +1,6 @@
 #+STARTUP: showall
 #+STARTUP: indent
-# Time-stamp: <2019-02-06 08:52:48 eu>
+# Time-stamp: <2019-02-08 14:26:54 eu>
 * Upon init
 ssm-report update-merges :: 7m
 ssm-report h1-overlay
@@ -37,7 +37,7 @@ ssm-report bv-tree-information
 ssm-report by-tree-information
 * Commands
 ** update hidb on albertine ~1.5min
-whocc-update-ace-store && whocc-hidb5-update
+sh i19 "whocc-update-ace-store && whocc-hidb5-update"
 hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
 rm -f stat/* geo/*; ssm-report --force update_hidb stat geo
 ssm-report update-merges
