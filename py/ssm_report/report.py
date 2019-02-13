@@ -59,7 +59,7 @@ class LatexReport:
     sViewCommand = "open '{output}'"
 
     def __init__(self, source_dir, source_dir_2, output_dir, output_name, settings):
-        self.source_dir = source_dir
+        self.source_dir = source_dir.resolve()
         self.source_dir_2 = source_dir_2
         self.latex_source = output_dir.joinpath(output_name)
         self.settings = settings
@@ -369,9 +369,9 @@ class LatexReport:
 
 class LatexSignaturePageAddendum (LatexReport):
 
-    def __init__(self, source_dir, output_dir, output_name="addendum.tex", settings=None):
+    def __init__(self, source_dir, output_dir, output_name="sp-addendum.tex", settings=None):
         super().__init__(source_dir, None, output_dir, output_name, settings)
-        # self.latex_source = output_dir.joinpath("addendum.tex")
+        # self.latex_source = output_dir.joinpath("sp-addendum.tex")
         self.substitute.update({
             "documentclass": "\documentclass[a4paper,landscape,12pt]{article}",
             "cover_top_space": "40pt",

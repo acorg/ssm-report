@@ -1,6 +1,6 @@
 #+STARTUP: showall
 #+STARTUP: indent
-# Time-stamp: <2019-02-08 14:26:54 eu>
+# Time-stamp: <2019-02-13 18:08:39 eu>
 * Upon init
 ssm-report update-merges :: 7m
 ssm-report h1-overlay
@@ -27,7 +27,7 @@ eo ssm-report bv-tree-aa
   bv-ts bv-clade bv-serology
   by-ts by-clade by-serology
   report
-  sp sp-h3-cdc sp-h3neut-cdc addendum
+  sp sp-h3-cdc sp-h3neut-cdc sp-addendum
 * Information meeting tree
 commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
 
@@ -35,6 +35,7 @@ ssm-report h1-tree-information
 ssm-report h3-tree-information
 ssm-report bv-tree-information
 ssm-report by-tree-information
+ssm-report h1-information
 * Commands
 ** update hidb on albertine ~1.5min
 sh i19 "whocc-update-ace-store && whocc-hidb5-update"

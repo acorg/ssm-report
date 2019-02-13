@@ -279,7 +279,7 @@ class Processor:
         from .report import make_report_serumcoverage
         make_report_serumcoverage(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
 
-    def addendum(self):
+    def sp_addendum(self):
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=Path("sp"), output_dir=Path("report"))
 
