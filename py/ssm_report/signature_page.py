@@ -187,9 +187,9 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
 
-    virus_type_long = virus_type.replace("v", "vic").replace("y", "yam")
-    map_settings = read_json(f"{virus_type_long}-{assay}.json")
-    vaccine_settings = read_json(f"vaccines.{virus_type_long}-{assay}.json")
+    # virus_type_long = virus_type.replace("v", "vic").replace("y", "yam")
+    map_settings = read_json(f"{virus_type}-{assay}.json")
+    vaccine_settings = read_json(f"vaccines.{virus_type}-{assay}.json")
     # update viewport from ssm settings
     _signature_page_update_viewport_rotate_flip(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
     # update vaccine drawing from ssm settings
