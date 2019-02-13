@@ -686,14 +686,14 @@ class Processor:
     @classmethod
     def _sp_output_dir(cls):
         cls._sp_source_dir()
-        sp_dir = cls.r_dir("sp")
+        sp_dir = Path("sp")
         from .signature_page import signature_page_output_dir_init
         signature_page_output_dir_init(sp_dir)
         return sp_dir
 
     @classmethod
     def _sp_source_dir(cls):
-        sp_dir = cls._use_dir("sp")
+        sp_dir = Path("sp")
         # module_logger.warning("sp_source_dir {}".format(sp_dir))
         from .signature_page import signature_page_source_dir_init
         signature_page_source_dir_init(sp_dir)
