@@ -32,10 +32,14 @@ def trees_get_from_albertine(tree_dir):
 
 # ======================================================================
 
-def tree_make(subtype, tree_dir, seqdb, settings_infix="settings", tree_infix=""):
+def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="settings", tree_infix=""):
+    if output_dir is None:
+        output_dir = tree_dir
+    else:
+        output_dir.mkdir(exist_ok=True)
     tree = tree_dir.joinpath(f"{subtype}.tree.json.xz")
-    pdf = tree_dir.joinpath(f"{subtype}.tree{tree_infix}.pdf")
-    settings = tree_dir.joinpath(f"{subtype}.tree{tree_infix}.{settings_infix}.json")
+    pdf = output_dir.joinpath(f"{subtype}.tree{tree_infix}.pdf")
+    settings = output_dir.joinpath(f"{subtype}.tree{tree_infix}.{settings_infix}.json")
     if not settings.exists():
         subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'")
         _tree_update_settings(subtype=subtype, settings=settings)
@@ -54,14 +58,16 @@ def tree_make_aa_pos(subtype, tree_dir, seqdb):
 
 # ----------------------------------------------------------------------
 
-def tree_make_information_settings(virus_type, tree_dir):
-    info_settings = tree_dir.joinpath("{}.tree.information.json".format(virus_type))
+def tree_make_information_settings(virus_type, tree_dir, output_dir):
+    output_dir.mkdir(exist_ok=True)
+    info_settings = output_dir.joinpath("{}.tree.information.json".format(virus_type))
     if not info_settings.exists():
         settings = read_json(tree_dir.joinpath("{}.tree.settings.json".format(virus_type)))
         for clade_data in settings["clades"]["clades"]:
             clade_data["show"] = False
         settings["title"]["title"] = ""
         settings["tree"]["aa_transition"]["per_branch"]["show"] = False
+        settings["tree"]["aa_transition"]["show"] = False
         settings["tree"].update({
             "color_nodes": "continent",
             "force_line_width": True,

@@ -221,10 +221,9 @@ class Processor:
         self._tree_information("by")
 
     def _tree_information(self, virus_type):
-
         tree_dir = Path("tree")
         from .signature_page import tree_make_information_settings
-        tree_make_information_settings(virus_type=virus_type, tree_dir=tree_dir)
+        tree_make_information_settings(virus_type=virus_type, tree_dir=tree_dir, output_dir=Path("information"))
         tree_make(subtype=virus_type, tree_dir=tree_dir, seqdb=self._seqdb_file(), output_dir=Path("information"), settings_infix="information")
 
         # ----------------------------------------------------------------------
