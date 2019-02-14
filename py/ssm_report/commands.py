@@ -283,17 +283,17 @@ class Processor:
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=Path("sp"), output_dir=Path("report"))
 
-    def report_3(self):
+    def addendum_3(self):
         from .report import make_report
-        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_settings_file="report-addendum-3.json")
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-3", report_settings_file="report-addendum-3.json")
 
-    def report_4(self):
+    def addendum_4(self):
         from .report import make_report
-        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_settings_file="report-addendum-4.json")
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-4", report_settings_file="report-addendum-4.json")
 
-    def report_5(self):
+    def addendum_5(self):
         from .report import make_report
-        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_settings_file="report-addendum-5.json")
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-5", report_settings_file="report-addendum-5.json")
 
     def update_merges(self):
         target_dir = self._merges_dir()

@@ -8,10 +8,10 @@ from .map import sLabDisplayName
 
 # ======================================================================
 
-def make_report(source_dir, source_dir_2, output_dir, report_settings_file="report.json"):
+def make_report(source_dir, source_dir_2, output_dir, report_name="report", report_settings_file="report.json"):
     output_dir.mkdir(exist_ok=True)
     report_settings = read_json(report_settings_file)
-    output_name = report_settings.get("output_name", "report.tex")
+    output_name = report_settings.get("output_name", report_name + ".tex")
     report_type = report_settings.get("type", "report")
     if report_type == "report":
         report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name=output_name, settings=report_settings)

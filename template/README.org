@@ -1,6 +1,6 @@
 #+STARTUP: showall
 #+STARTUP: indent
-# Time-stamp: <2019-02-13 18:08:39 eu>
+# Time-stamp: <2019-02-14 08:42:02 eu>
 * Upon init
 ssm-report update-merges :: 7m
 ssm-report h1-overlay
@@ -28,6 +28,7 @@ eo ssm-report bv-tree-aa
   by-ts by-clade by-serology
   report
   sp sp-h3-cdc sp-h3neut-cdc sp-addendum
+  addendum-3 addendum-4 addendum-5
 * Information meeting tree
 commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
 
