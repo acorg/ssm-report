@@ -17,6 +17,7 @@ def signature_page_output_dir_init(sp_dir):
             f.write(sIndex)
 
 def signature_page_source_dir_init(sp_dir):
+    sp_dir.mkdir(exist_ok=True)
     for subtype in sVirusTypes:
         for suff in [".tree.json.xz", ".tree.settings.json"]:
             sl = sp_dir.joinpath(subtype + suff)
@@ -149,7 +150,7 @@ def _tree_update_settings_h3(data, settings):
 
 # ======================================================================
 
-def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb):
+def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False):
     # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
     prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
@@ -160,12 +161,12 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     pdf = sp_output_dir.joinpath(prefix + ".pdf")
     if not settings.exists():
         subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' --no-draw --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
-        _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings)
+        _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles)
     subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' -s '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_settings(virus_type, assay, lab, settings_file):
+def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum_circles):
     # module_logger.warning("_signature_page_update_settings {} {} {}".format(virus_type, assay, lab))
     settings = read_json(settings_file)
     if virus_type == "h3":
@@ -178,12 +179,19 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file):
 
     # disable tracked serum
     for mod in settings["antigenic_maps"]["mods"]:
-        if isinstance(mod, dict) and mod.get("N") in ["tracked_sera", "tracked_serum_circles"]:
-            mod["N"] = "?" + mod["N"]
+        if serum_circles:
+            if isinstance(mod, dict) and mod.get("N") in ["?tracked_sera", "?tracked_serum_circles"]:
+                mod["N"] = mod["N"][1:]
+        else:
+            if isinstance(mod, dict) and mod.get("N") in ["tracked_sera", "tracked_serum_circles"]:
+                mod["N"] = "?" + mod["N"]
 
-    settings["antigenic_maps"]["columns"] = 3
-    if virus_type in ["h1", "h3", "by"]:
-        settings["signature_page"]["antigenic_maps_width"] = 431.35
+    if virus_type in ["by"]:
+        settings["antigenic_maps"]["columns"] = 2
+    else:
+        settings["antigenic_maps"]["columns"] = 3
+    if virus_type in ["h3"]:
+        settings["signature_page"]["antigenic_maps_width"] = 432
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
 
