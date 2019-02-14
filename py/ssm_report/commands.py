@@ -281,7 +281,11 @@ class Processor:
 
     def sp_addendum(self):
         from .report import make_signature_page_addendum
-        make_signature_page_addendum(source_dir=Path("sp"), output_dir=Path("report"))
+        make_signature_page_addendum(source_dir=Path("sp"), output_dir=Path("report"), title="Addendum 1 (signature pages)", output_name="sp-addendum")
+
+    def spsc_addendum(self):
+        from .report import make_signature_page_addendum
+        make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (signature pages with serum circles)", output_name="spsc-addendum")
 
     def addendum_3(self):
         from .report import make_report
@@ -479,8 +483,8 @@ class Processor:
         self.sp_h1()
         self.sp_h3()
         self.sp_h3neut()
-        self.sp_bvic()
-        self.sp_byam()
+        self.sp_bv()
+        self.sp_by()
 
     sp = signature_page
     sigp = signature_page
@@ -504,27 +508,25 @@ class Processor:
         self.sp_h3neut_niid()
         self.sp_h3neut_nimr()
 
-    def sp_bvic(self):
+    def sp_bv(self):
         self.sp_bv_cdc()
         self.sp_bv_melb()
         self.sp_bv_niid()
         self.sp_bv_nimr()
-    sp_bv = sp_bvic
 
-    def sp_byam(self):
+    def sp_by(self):
         self.sp_by_cdc()
         self.sp_by_melb()
         self.sp_by_niid()
         self.sp_by_nimr()
-    sp_by = sp_byam
 
     def spsc(self):
         """Generate all signature pages with serum circles"""
         self.spsc_h1()
         self.spsc_h3()
         self.spsc_h3neut()
-        self.spsc_bvic()
-        self.spsc_byam()
+        self.spsc_bv()
+        self.spsc_by()
 
     def spsc_h1(self):
         self.spsc_h1_all()

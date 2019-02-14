@@ -11,7 +11,7 @@ from .map import sLabDisplayName
 def make_report(source_dir, source_dir_2, output_dir, report_name="report", report_settings_file="report.json"):
     output_dir.mkdir(exist_ok=True)
     report_settings = read_json(report_settings_file)
-    output_name = report_settings.get("output_name", report_name + ".tex")
+    output_name = report_settings.get("output_name", report_name)
     report_type = report_settings.get("type", "report")
     if report_type == "report":
         report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name=output_name, settings=report_settings)
@@ -26,7 +26,7 @@ def make_report(source_dir, source_dir_2, output_dir, report_name="report", repo
 def make_report_abbreviated(source_dir, source_dir_2, output_dir):
     output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report-abbreviated.json")
-    report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-abbreviated.tex", settings=report_settings)
+    report = LatexReport(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-abbreviated", settings=report_settings)
     report.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
@@ -34,16 +34,16 @@ def make_report_abbreviated(source_dir, source_dir_2, output_dir):
 def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
     output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report-serumcoverage.json")
-    report = LatexSerumCoverageAddendum(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-serumcoverage.tex", settings=report_settings)
+    report = LatexSerumCoverageAddendum(source_dir=source_dir, source_dir_2=source_dir_2, output_dir=output_dir, output_name="report-serumcoverage", settings=report_settings)
     report.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
 
-def make_signature_page_addendum(source_dir, output_dir):
+def make_signature_page_addendum(source_dir, output_dir, title="Addendum 1 (signature pages)", output_name="sp-addendum"):
     output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report.json")
-    report_settings["cover"]["teleconference"] = "Addendum 1 (signature pages)"
-    addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings)
+    report_settings["cover"]["teleconference"] = title
+    addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings, output_name=output_name)
     addendum.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
@@ -61,7 +61,7 @@ class LatexReport:
     def __init__(self, source_dir, source_dir_2, output_dir, output_name, settings):
         self.source_dir = source_dir.resolve()
         self.source_dir_2 = source_dir_2
-        self.latex_source = output_dir.joinpath(output_name)
+        self.latex_source = output_dir.joinpath(output_name + ".tex")
         self.settings = settings
         self.data = []
         LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
