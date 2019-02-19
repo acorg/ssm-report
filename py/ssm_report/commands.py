@@ -214,10 +214,10 @@ class Processor:
     def h3_tree_information(self):
         self._tree_information("h3")
 
-    def bvic_tree_information(self):
+    def bv_tree_information(self):
         self._tree_information("bv")
 
-    def byam_tree_information(self):
+    def by_tree_information(self):
         self._tree_information("by")
 
     def _tree_information(self, virus_type):
