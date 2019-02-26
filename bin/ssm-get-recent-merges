@@ -11,33 +11,32 @@ from pathlib import Path
 sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
 import logging; module_logger = logging.getLogger(__name__)
 
-from acmacs_base import timeit
-from ssm_report import acmacs
+from acmacs_whocc import acmacs
 
 # ----------------------------------------------------------------------
 
 def main(args):
     os.makedirs(args.target_dir[0], exist_ok=True)
-    acmacs.get_recent_merges(Path(args.target_dir[0]), lab=args.lab, rename="signature-pages")
+    acmacs.get_recent_merges(Path(args.target_dir[0]), subtype=args.flu)
 
 # ----------------------------------------------------------------------
 
-with timeit(sys.argv[0]):
-    try:
-        import argparse
-        parser = argparse.ArgumentParser(description=__doc__)
-        parser.add_argument('--lab', action='store', dest='lab', default=None)
-        parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
-        parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False)
+try:
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    # parser.add_argument('--lab', action='store', dest='lab', default=None)
+    parser.add_argument('--flu', action='store', dest='flu', default=None)
+    parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
+    # parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False)
 
-        parser.add_argument('target_dir', nargs=1, action='store')
+    parser.add_argument('target_dir', nargs=1, action='store')
 
-        args = parser.parse_args()
-        logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
-        exit_code = main(args)
-    except Exception as err:
-        logging.error('{}\n{}'.format(err, traceback.format_exc()))
-        exit_code = 1
+    args = parser.parse_args()
+    logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
+    exit_code = main(args)
+except Exception as err:
+    logging.error('{}\n{}'.format(err, traceback.format_exc()))
+    exit_code = 1
 exit(exit_code)
 
 # ======================================================================

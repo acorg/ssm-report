@@ -31,9 +31,16 @@ sAssayConvert = {
     "MN": "neut",
     }
 
+sFluToVirusType = {
+    "H1": "A(H1N1)",
+    "H3": "A(H3N2)",
+    "BV": "BVic",
+    "BY": "BYam",
+    }
+
 # ----------------------------------------------------------------------
 
-def get_recent_merges(target_dir :Path, session=None, lab=None, force=False, rename="ssm-report"):
+def get_recent_merges(target_dir :Path, session=None, lab=None, flu=None, force=False, rename="ssm-report"):
     done_path = Path(target_dir, "getting-recent-merges-done")
     if not done_path.exists() or force:
         merge_data_path = Path(target_dir, "megres.json")
@@ -42,8 +49,7 @@ def get_recent_merges(target_dir :Path, session=None, lab=None, force=False, ren
         except:
             merge_data = {}
 
-        labs = [lab] if lab else None
-        response = api(session=session).command(C="ad_whocc_recent_merges", log=False, labs=labs, virus_types=None)
+        response = api(session=session).command(C="ad_whocc_recent_merges", log=False, labs=[lab] if lab else None, virus_types=[sFluToVirusType.get(flu, flu)] if flu else None)
         if "data" not in response:
             module_logger.error("No \"data\" in response of ad_whocc_recent_merges api command:\n{}".format(pprint.pformat(response)))
             raise RuntimeError("Unexpected result of ad_whocc_recent_merges c2 api command")
