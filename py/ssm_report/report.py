@@ -272,7 +272,10 @@ class LatexReport:
         self.data.append(page["text"])
 
     def make_map(self, page):
-        image = self.source_dir.joinpath("{}-{}".format(page["subtype"].lower(), page["assay"].lower()), "{}-{}.pdf".format(page["map_type"], page["lab"].lower()))
+        if page.get("image"):
+            image = Path(page["image"]).resolve()
+        else:
+            image = self.source_dir.joinpath("{}-{}".format(page["subtype"].lower(), page["assay"].lower()), "{}-{}.pdf".format(page["map_type"], page["lab"].lower()))
         if image and image.exists():
             self.data.append(latex.T_OverviewMap.format(image=image))
 
