@@ -50,7 +50,17 @@ def main(args):
             for name, seq_src in all_seqs.items():
                 if tuple(seq_src["src"]) == key:
                     module_logger.info(f"      {name}")
-    keys_sorted = sorted(all_seqs.keys(), key=lambda k: k.split(" | ")[1])
+    try:
+        def key_key(key):
+            if " | " in key:
+                return key.split(" | ")[1]
+            else:
+                print("????", key)
+                raise IndexError()
+        keys_sorted = sorted(all_seqs.keys(), key=key_key) # lambda k: k.split(" | ")[1])
+    except IndexError:
+        # print("\n".join(sorted(all_seqs.keys())))
+        raise
     for key in keys_sorted:
         for seq in all_seqs[key]["seq"]:
             print(">" + key)
