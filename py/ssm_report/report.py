@@ -347,9 +347,9 @@ class LatexReport:
             if images[no] and images[no + 1]:
                 self.data.append("\\AntigenicMap{%s} & \\AntigenicMap{%s} \\\\" % (images[no], images[no + 1]))
             elif images[no]:
-                self.data.append("\\AntigenicMap{%s} & \\\\" % (images[no], ))
+                self.data.append("\\AntigenicMap{%s} & \\hspace{18em} \\\\" % (images[no], ))
             elif images[no+1]:
-                self.data.append("& \\AntigenicMap{%s} \\\\" % (images[no + 1], ))
+                self.data.append("\\hspace{18em} & \\AntigenicMap{%s} \\\\" % (images[no + 1], ))
         if image_scale is not None:
             self.data.append("\\end{AntigenicMapTableWithSep}")
         else:
