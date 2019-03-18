@@ -303,6 +303,10 @@ class Processor:
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-6", report_settings_file="report-addendum-6.json")
 
+    def addendum_7(self):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-7", report_settings_file="report-addendum-7.json")
+
     def update_merges(self):
         target_dir = self._merges_dir()
         module_logger.info("Updating merges in " + repr(str(target_dir)))
