@@ -17,14 +17,14 @@ from acmacs_whocc import acmacs
 
 def main(args):
     os.makedirs(args.target_dir[0], exist_ok=True)
-    acmacs.get_recent_merges(Path(args.target_dir[0]), subtype=args.flu)
+    acmacs.get_recent_merges(Path(args.target_dir[0]), subtype=args.flu, lab=args.lab)
 
 # ----------------------------------------------------------------------
 
 try:
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
-    # parser.add_argument('--lab', action='store', dest='lab', default=None)
+    parser.add_argument('--lab', action='store', dest='lab', default=None)
     parser.add_argument('--flu', action='store', dest='flu', default=None)
     parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
     # parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False)
