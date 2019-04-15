@@ -12,12 +12,13 @@ sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
 import logging; module_logger = logging.getLogger(__name__)
 
 from acmacs_base import timeit
-from ssm_report import acmacs
+from acmacs_whocc.h1_overlay import h1_overlay_relax
 
 # ----------------------------------------------------------------------
 
 def main(args):
-    acmacs.make_h1pdm_overlay(Path(args.target_dir[0]), Path(args.target_dir[0]), force=True)
+    sources = list(pa for pa in Path(args.target_dir[0]).glob("*-h1-hi.ace") if pa.name.split('-')[0] in ["cdc", "melb", "niid", "nimr"])
+    h1_overlay_relax(sources=sources, target=Path(args.target_dir[0]))
 
 # ----------------------------------------------------------------------
 
@@ -25,7 +26,6 @@ with timeit(sys.argv[0]):
     try:
         import argparse
         parser = argparse.ArgumentParser(description=__doc__)
-        parser.add_argument('--lab', action='store', dest='lab', default=None)
         parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
         parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False)
 
