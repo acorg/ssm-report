@@ -18,7 +18,7 @@ from acmacs_whocc.h1_overlay import h1_overlay_relax
 
 def main(args):
     sources = list(pa for pa in Path(args.target_dir[0]).glob("*-h1-hi.ace") if pa.name.split('-')[0] in ["cdc", "melb", "niid", "nimr"])
-    h1_overlay_relax(sources=sources, target=Path(args.target_dir[0]))
+    h1_overlay_relax(sources=sources, target=Path(args.target_dir[0]).joinpath("all-h1-hi.ace"))
 
 # ----------------------------------------------------------------------
 
