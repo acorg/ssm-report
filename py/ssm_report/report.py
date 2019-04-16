@@ -140,14 +140,21 @@ class LatexReport:
     # ----------------------------------------------------------------------
 
     def make_cover(self, page):
-        self.data.append(latex.T_Cover)
-        self.substitute.update({
-            "report_hemisphere": self.settings["cover"]["hemisphere"],
-            "report_year": self.settings["cover"]["year"],
-            "teleconference": self.settings["cover"]["teleconference"],
-            "addendum": self.settings["cover"].get("addendum", ""),
-            "meeting_date": self.settings["cover"]["meeting_date"],
-            })
+        if self.settings["cover"].get("hemisphere"):
+            self.data.append(latex.T_Cover)
+            self.substitute.update({
+                "report_hemisphere": self.settings["cover"]["hemisphere"],
+                "report_year": self.settings["cover"]["year"],
+                "teleconference": self.settings["cover"]["teleconference"],
+                "addendum": self.settings["cover"].get("addendum", ""),
+                "meeting_date": self.settings["cover"]["meeting_date"],
+                })
+        else:
+            self.data.append(latex.T_CoverSimple)
+            self.substitute.update({
+                "title": self.settings["cover"]["title"],
+                "date": self.settings["cover"]["date"],
+                })
 
     def make_toc(self, page):
         self.data.append(latex.T_TOC)

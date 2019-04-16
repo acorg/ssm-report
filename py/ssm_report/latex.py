@@ -354,6 +354,58 @@ University of Cambridge, United Kingdom
 }
 """
 
+T_CoverSimple = r"""%no-eol%
+% ----------------------------------------------------------------------
+% Cover
+% ----------------------------------------------------------------------
+
+\thispagestyle{empty}
+
+{%cover_quotation%
+\vspace*{%cover_top_space%}
+{
+\fontsize{22}{26} \selectfont
+\noindent
+\textbf{%title%}
+\par
+}
+
+\vspace{90pt}
+{
+\fontsize{19}{24} \selectfont
+\noindent
+
+\vspace{10pt}
+\noindent
+
+
+\vspace{50pt}
+\noindent
+%date%
+\par
+}
+
+\vspace{%cover_after_meeting_date_space%}
+{
+\large
+\noindent
+Center for Pathogen Evolution
+
+% \vspace{10pt}
+% \noindent
+% WHO Collaborating Center for Modeling, Evolution, and Control of Emerging Infectious Diseases
+
+\vspace{10pt}
+\noindent
+University of Cambridge, United Kingdom
+% do not remove two empty lines below
+
+
+% do not remove two empty lines above!
+}
+}
+"""
+
 # ----------------------------------------------------------------------
 
 T_TOC = r"""%no-eol%
