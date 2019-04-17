@@ -213,6 +213,12 @@ class LatexReport:
 
     # ----------------------------------------------------------------------
 
+    def make_raw(self, page):
+        data = page["raw"]
+        if isinstance(data, list):
+            data = "\n".join(data)
+        self.data.append(data)
+
     def make_antigenic_ts_description(self, page):
         self.data.append(latex.T_AntigenicTsDescription)
         self.data.append(latex.T_AntigenicGridDescription)
