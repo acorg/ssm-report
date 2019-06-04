@@ -1,10 +1,18 @@
 #! /bin/bash
 
-SRC="$HOME/Downloads/gisaid_epiflu_sequence.fasta"
-if [[ ! -f "$SRC" ]]; then
-    SRC="/r/gisaid_epiflu_sequence.fasta"
+if [[ -n "$1" ]]; then
+    SRC="$1"
+    if [[ ! -f "${SRC}" ]]; then
+        echo "${SRC} not found" >&2
+        exit 2
+    fi
+else
+    SRC="$HOME/Downloads/gisaid_epiflu_sequence.fasta"
+    if [[ ! -f "$SRC" ]]; then
+        SRC="/r/gisaid_epiflu_sequence.fasta"
+    fi
 fi
-TARGET_DIR="$HOME/ac/tables-store/sequences"
+TARGET_DIR="$HOME/ac/sequences-2019"
 
 main()
 {
@@ -19,8 +27,11 @@ main()
     END_DATE=$(normalize_date $(last_line "$DATES"))
     echo "START_DATE: $START_DATE"
     echo "END_DATE:   $END_DATE"
-    NEW_NAME="$TARGET_DIR"/gisaid-all-"$(date +%Y%m%d)"-"$START_DATE"-"$END_DATE".fas.xz
+    NEW_BASENAME="gisaid-all-$(date +%Y%m%d)-${START_DATE}-${END_DATE}"
+    echo "${NEW_BASENAME}"
+    NEW_NAME="${TARGET_DIR}/${NEW_BASENAME}.fas.xz"
     echo "${NEW_NAME}"
+    exit 1
     if [ -f "$NEW_NAME" ]; then
         echo "ERROR: $NEW_NAME already exists!" >&2
         exit 1
