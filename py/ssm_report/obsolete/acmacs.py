@@ -71,6 +71,9 @@ def get_recent_merges(target_dir :Path, session=None, lab=None, flu=None, force=
                 if merge_data.get(basename) != entry["chart_id"] or not targets[formats[0]].exists():
                     merge_data[basename] = entry["chart_id"]
                     for fmt, filename in targets.items():
+                        module_logger.info(f"downloading {entry['chart_id']} to {filename}")
+                        continue
+
                         chart = api(session=session).command(C="chart_export", log=False, id=entry["chart_id"], format=fmt, part="chart")["chart"]
                         if isinstance(chart, dict) and "##bin" in chart:
                             import base64

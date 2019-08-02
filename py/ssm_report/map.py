@@ -245,12 +245,14 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     for_mod = [e.format(virus_type=virus_type, assay=assay.upper(), mod=mod, lab=lab.upper()) if isinstance(e, str) else e for e in sApplyFor.get(mod, [mod])]
     json.dump({"apply": pre + for_mod + inside + post}, s2_filename.open("w"), indent=2)
 
-    script_filename = output_dir.joinpath(output_prefix + ".sh")
+    script_filename = output_dir.joinpath(f"{output_prefix}.sh")
+    script_i_filename = output_dir.joinpath(f"{output_prefix}-i.sh")
     settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
     output = output_dir.joinpath(output_prefix + ".pdf")
-    script_filename.open("w").write("#! /bin/bash\nexec map-draw --db-dir {pwd}/db -v {settings_args} '{chart}' '{output}'\n".format(
-        settings_args=settings_args, pwd=os.getcwd(), chart=chart, output=output))
+    script_filename.open("w").write(f"#! /bin/bash\nexec map-draw --db-dir {os.getcwd()}/db -v {settings_args} '{chart}' '{output}'\n")
     script_filename.chmod(0o700)
+    script_i_filename.open("w").write(f"#! /bin/bash\nexec map-draw-interactive --db-dir {os.getcwd()}/db {settings_args} '{chart}' '{output}'\n")
+    script_i_filename.chmod(0o700)
     subprocess.check_call(str(script_filename))
     if open_image == "quicklook":
         subprocess.Popen(["/usr/bin/qlmanage", "-p", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

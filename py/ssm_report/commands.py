@@ -307,11 +307,23 @@ class Processor:
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-7", report_settings_file="report-addendum-7.json")
 
-    def update_merges(self):
+    def update_merges(self, lab=None, subtype=None):
         target_dir = self._merges_dir()
-        module_logger.info("Updating merges in " + repr(str(target_dir)))
+        module_logger.info("Updating merges{}{} in {}".format(f" for {lab}" if lab else "", f" for {subtype}" if subtype else "", repr(str(target_dir))))
         from acmacs_whocc import acmacs
-        acmacs.get_recent_merges(target_dir)
+        acmacs.get_recent_merges(target_dir, lab=lab, subtype=subtype)
+
+    def update_merges_h1(self):
+        self.update_merges(subtype="H1")
+
+    def update_merges_h3(self):
+        self.update_merges(subtype="H3")
+
+    def update_merges_bv(self):
+        self.update_merges(subtype="BV")
+
+    def update_merges_by(self):
+        self.update_merges(subtype="BY")
 
     def h1_overlay(self):
         module_logger.info("Making h1 overlay")
