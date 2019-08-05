@@ -13,7 +13,7 @@ def get_chart(virus_type, assay, lab, infix="", chart_dir=Path("merges")):
     chart_filename = chart_dir.joinpath(f"{lab.lower()}-{vt}-{assay.lower()}{infix}.ace")
     if not chart_filename.exists():
         raise RuntimeError(f"{chart_filename} not found")
-    return chart_filename.resolve()
+    return chart_filename # do not .resolve(), better to use symlink to avoid regenerating .sh scripts when changing charts
 
 # ======================================================================
 ### Local Variables:
