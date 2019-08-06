@@ -73,10 +73,10 @@
       {"?N": "flip", "direction": "ew"}
     ],
     "CDC_rotate": [
-      {"N": "rotate", "degrees": 0}
+      {"?N": "rotate", "degrees": 0}
     ],
     "CDC_viewport": [
-      {"N": "viewport", "rel": [1, 1, -2]}
+      {"?N": "viewport", "rel": [1, 1, -2]}
     ],
     "CDC_pre": [
     ],
@@ -91,10 +91,10 @@
       {"?N": "flip", "direction": "ew"}
     ],
     "MELB_rotate": [
-      {"N": "rotate", "degrees": 30}
+      {"?N": "rotate", "degrees": 30}
     ],
     "MELB_viewport": [
-      {"N": "viewport", "rel": [4, 3, -7], "?rel": [1, 1.5, -3]}
+      {"?N": "viewport", "rel": [4, 3, -7]}
     ],
     "MELB_pre": [
     ],
@@ -109,7 +109,7 @@
       {"?N": "flip", "direction": "ew"}
     ],
     "NIID_rotate": [
-      {"N": "rotate", "degrees": -160}
+      {"?N": "rotate", "degrees": -160}
     ],
     "NIID_viewport": [
       {"N": "viewport", "rel": [0, 0, 0]}
@@ -124,13 +124,13 @@
     "?": "===================== NIMR  H3  NEUT =================================================",
 
     "NIMR_flip": [
-      {"N": "flip", "direction": "ew"}
+      {"?N": "flip", "direction": "ew"}
     ],
     "NIMR_rotate": [
-      {"N": "rotate", "degrees": 123}
+      {"?N": "rotate", "degrees": 123}
     ],
     "NIMR_viewport": [
-      {"N": "viewport", "rel": [6, 3.5, -7]}
+      {"?N": "viewport", "rel": [6, 3.5, -7]}
     ],
     "NIMR_pre": [
     ],
