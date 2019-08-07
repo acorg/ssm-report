@@ -1,4 +1,4 @@
-# Time-stamp: <2019-08-01 15:44:21 eu>
+# Time-stamp: <2019-08-07 10:37:26 eu>
 * Upon init
 ssm-report update-merges :: 7m
 ssm-report h1-overlay
@@ -56,6 +56,118 @@ ssm-report serumcoverage-h3-hi
 ssm-report serumcoverage-h3-neut
 ssm-report serumcoverage-cdc-h3-hi
 ssm-report report-serumcoverage
+* TODO
+- [ ] All [0/2]
+  - [ ] geographical
+  - [ ] stat
+- [ ] H1 [0/5]
+  - [ ] tree
+  - [ ] sig pages [0/5]
+    - [ ] ALL
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/5]
+    - [ ] ALL
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts
+  - [ ] serology
+- [ ] H3 HI [0/6]
+  - [ ] tree
+  - [ ] sig pages [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] clades [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] ts [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] geography [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] serology [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+- [ ] H3 Neut [0/5]
+  - [ ] sig pages [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] geography [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] serology [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+- [ ] BVic [0/5]
+  - [ ] tree
+  - [ ] sig pages [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] serology [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+- [ ] BYam [0/5]
+  - [ ] tree
+  - [ ] sig pages [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] serology [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
 * [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
 * COMMENT ====== local vars
 :PROPERTIES:
