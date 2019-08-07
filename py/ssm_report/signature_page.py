@@ -33,7 +33,7 @@ def trees_get_from_albertine(tree_dir):
 
 # ======================================================================
 
-def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="settings", tree_infix=""):
+def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="settings", tree_infix="", interactive=False):
     if output_dir is None:
         output_dir = tree_dir
     else:
@@ -44,7 +44,11 @@ def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="setting
     if not settings.exists():
         subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'")
         _tree_update_settings(subtype=subtype, settings=settings)
-    subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}' --open")
+    sigp_cmd = f"~/AD/bin/sigp --seqdb '{seqdb}' -s '{settings}' '{tree}' '{pdf}' --open"
+    if interactive:
+        subprocess_check_call(f"""fswatch --latency=0.1 '{settings}' | xargs -L 1 -I % -R 0 /bin/bash -c 'printf "\n\n> ====================================================================================================\n\n"; ~/AD/bin/sigp --seqdb "/Users/eu/ac/results/ssm/2019-0814-tc1/db/seqdb.json.xz" -s "tree/h3.tree.settings.json" "tree/h3.tree.json.xz" "tree/h3.tree.pdf" --open; /usr/local/bin/emacsclient -n "tree/h3.tree.settings.json"'""")
+    else:
+        subprocess_check_call(sigp_cmd)
 
 # ----------------------------------------------------------------------
 

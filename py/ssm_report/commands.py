@@ -158,46 +158,52 @@ class Processor:
         self.byam_tree()
 
     def h1_tree(self):
-        """instructions on making phylogenetic trees"""
         tree_make(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
+    def h1_tree_interactive(self):
+        tree_make(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
+    h1_tree_i = h1_tree_interactive
+
     def h1_tree_aa(self):
-        """instructions on making phylogenetic trees"""
         tree_make_aa_pos(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
     def h3_tree(self):
-        """instructions on making phylogenetic trees"""
         tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
+    def h3_tree_interactive(self):
+        tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
+    h3_tree_i = h3_tree_interactive
+
     def h3_tree_142(self):
-        """instructions on making phylogenetic trees"""
         tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file(), tree_infix=".142")
 
+    def h3_tree_aa(self):
+        tree_make_aa_pos(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file())
+
     def bv_tree(self):
-        """instructions on making phylogenetic trees"""
         tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     bvic_tree = bv_tree
 
+    def bv_tree_interactive(self):
+        tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
+    bv_tree_i = bv_tree_interactive
+
     def by_tree(self):
-        """instructions on making phylogenetic trees"""
         tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     byam_tree = by_tree
 
+    def by_tree_interactive(self):
+        tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
+    by_tree_i = by_tree_interactive
+
     def h1_tree_aa(self):
-        """instructions on making phylogenetic trees"""
         tree_make_aa_pos(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
-    def h3_tree_aa(self):
-        """instructions on making phylogenetic trees"""
-        tree_make_aa_pos(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file())
-
     def bv_tree_aa(self):
-        """instructions on making phylogenetic trees"""
         tree_make_aa_pos(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     bvic_tree_aa = bv_tree_aa
 
     def by_tree_aa(self):
-        """instructions on making phylogenetic trees"""
         tree_make_aa_pos(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     byam_tree_aa = by_tree_aa
 
