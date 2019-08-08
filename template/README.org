@@ -1,4 +1,4 @@
-# Time-stamp: <2019-08-07 10:37:26 eu>
+# Time-stamp: <2019-08-08 10:52:35 eu>
 * Upon init
 ssm-report update-merges :: 7m
 ssm-report h1-overlay
@@ -8,10 +8,10 @@ ssm-report stat geo
 d=2019-0121
 for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signature-pages/$d/$f/tree.json.xz tree/$f.tree.json.xz; done
 ** make trees
-ssm-report h1-tree
-ssm-report h3-tree
-ssm-report by-tree
-ssm-report bv-tree
+ssm-report h1-tree-i
+ssm-report h3-tree-i
+ssm-report by-tree-i
+ssm-report bv-tree-i
 
 eo ssm-report h1-tree-aa
 eo ssm-report h3-tree-aa
