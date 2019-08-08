@@ -493,6 +493,8 @@ class StatisticsTableMaker:
 
     sReYearMonth = {'month': re.compile(r'^\d{6}$', re.I), 'year': re.compile(r'^\d{4}$', re.I)}
 
+    sLabsForGetStat = {"CDC": ["CDC"], "NIMR": ["Crick", "CRICK", "NIMR"], "CRICK": ["Crick", "CRICK", "NIMR"], "MELB": ["VIDRL", "MELB"], "VIDRL": ["VIDRL", "MELB"]}
+
     def __init__(self, subtype, lab, source, previous_source=None, start=None, end=None, period='month'):
         self.subtype = subtype.lower()
         self.lab = lab
@@ -518,17 +520,18 @@ class StatisticsTableMaker:
         module_logger.info('Statistics table for {} {}'.format(self.lab, self.subtype))
         flu_type = self.sSubtypeForStatistics[self.subtype]
         lab = self.lab if self.lab == 'all' else self.lab.upper()
-        data_antigens = self.data['antigens'][flu_type].get(lab, {})
-        data_sera_unique = self.data['sera_unique'].get(flu_type, {}).get(lab, {})
-        data_sera = self.data['sera'].get(flu_type, {}).get(lab, {})
+        data_antigens = self._get_for_lab(self.data['antigens'][flu_type], lab)
+        # module_logger.debug(f"stat table for antigens {flu_type} {lab}:\n{pprint.pformat(self.data['antigens'][flu_type])}")
+        data_sera_unique = self._get_for_lab(self.data['sera_unique'].get(flu_type, {}), lab)
+        data_sera = self._get_for_lab(self.data['sera'].get(flu_type, {}), lab)
         if self.previous_data:
             if flu_type not in self.previous_data['antigens']:
                 flu_type_previous = self.sFluTypePrevious[self.subtype]
             else:
                 flu_type_previous  = flu_type
-            previous_data_antigens = self.previous_data['antigens'].get(flu_type_previous, {}).get(lab, {})
-            previous_data_sera_unique = self.previous_data['sera_unique'].get(flu_type_previous, {}).get(lab, {})
-            previous_data_sera = self.previous_data['sera'].get(flu_type_previous, {}).get(lab, {})
+            previous_data_antigens = self._get_for_lab(self.previous_data['antigens'].get(flu_type_previous, {}), lab)
+            previous_data_sera_unique = self._get_for_lab(self.previous_data['sera_unique'].get(flu_type_previous, {}), lab)
+            previous_data_sera = self._get_for_lab(self.previous_data['sera'].get(flu_type_previous, {}), lab)
             previous_sum = collections.defaultdict(int)
         else:
             previous_data_antigens, previous_data_sera_unique, previous_data_sera = {}, {}, {}
@@ -548,6 +551,13 @@ class StatisticsTableMaker:
             self.make_footer()
             ])
         return '\n'.join(r)
+
+    def _get_for_lab(self, source, lab):
+        for try_lab in self.sLabsForGetStat.get(lab, [lab]):
+            r = source.get(try_lab)
+            if r is not None:
+                return r
+        return {}
 
     def make_header(self):
         r = ''.join(('\\vspace{3em}\\begin{WhoccStatisticsTable}\n  \\hline\n  ',
