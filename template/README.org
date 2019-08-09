@@ -1,4 +1,8 @@
-# Time-stamp: <2019-08-08 10:52:35 eu>
+# Time-stamp: <2019-08-09 12:52:27 eu>
+* Sync
+[[elisp:(eu-process%20"ssm-report%20./sy"%20"./sy"%20t)][./sy]]
+[[elisp:(eu-process%20"ssm-report%20./rr"%20"./rr"%20t)][./rr]]
+
 * Upon init
 ssm-report update-merges :: 7m
 ssm-report h1-overlay
@@ -18,16 +22,16 @@ eo ssm-report h3-tree-aa
 eo ssm-report by-tree-aa
 eo ssm-report bv-tree-aa
 * Make maps
-  stat geo
-  h1-clade h1-ts h1-serology
-  h3-ts h3-clade h3-geo h3-serology
-  h3neut-ts h3neut-clade h3neut-geo h3neut-serology
-  bv-ts bv-clade bv-serology
-  by-ts by-clade by-serology
-  report
-  sp sp-h3-cdc sp-h3neut-cdc sp-addendum
-  spsc spsc-h3-cdc spsc-h3neut-cdc spsc-addendum
-  addendum-3 addendum-4 addendum-5
+stat geo
+[[elisp:(eu-process "ssm-report h1-ts" "gtime ssm-report h1-ts")][h1-ts]]  [[elisp:(eu-process "ssm-report h1-clade" "gtime ssm-report h1-clade")][h1-clade]]  [[elisp:(eu-process "ssm-report h1-geo" "gtime ssm-report h1-geo")][h1-geo]]  [[elisp:(eu-process "ssm-report h1-serology" "gtime ssm-report h1-serology")][h1-serology]]
+[[elisp:(eu-process "ssm-report h3-ts" "gtime ssm-report h3-ts")][h3-ts]]  [[elisp:(eu-process "ssm-report h3-clade" "gtime ssm-report h3-clade")][h3-clade]]  [[elisp:(eu-process "ssm-report h3-geo" "gtime ssm-report h3-geo")][h3-geo]]  [[elisp:(eu-process "ssm-report h3-serology" "gtime ssm-report h3-serology")][h3-serology]]
+[[elisp:(eu-process "ssm-report h3neut-ts" "gtime ssm-report h3neut-ts")][h3neut-ts]]  [[elisp:(eu-process "ssm-report h3neut-clade" "gtime ssm-report h3neut-clade")][h3neut-clade]]  [[elisp:(eu-process "ssm-report h3neut-geo" "gtime ssm-report h3neut-geo")][h3neut-geo]]  [[elisp:(eu-process "ssm-report h3neut-serology" "gtime ssm-report h3neut-serology")][h3neut-serology]]
+[[elisp:(eu-process "ssm-report bv-ts" "gtime ssm-report bv-ts")][bv-ts]]  [[elisp:(eu-process "ssm-report bv-clade" "gtime ssm-report bv-clade")][bv-clade]]  [[elisp:(eu-process "ssm-report bv-geo" "gtime ssm-report bv-geo")][bv-geo]]  [[elisp:(eu-process "ssm-report bv-serology" "gtime ssm-report bv-serology")][bv-serology]]
+[[elisp:(eu-process "ssm-report by-ts" "gtime ssm-report by-ts")][by-ts]]  [[elisp:(eu-process "ssm-report by-clade" "gtime ssm-report by-clade")][by-clade]]  [[elisp:(eu-process "ssm-report by-geo" "gtime ssm-report by-geo")][by-geo]]  [[elisp:(eu-process "ssm-report by-serology" "gtime ssm-report by-serology")][by-serology]]
+report
+sp sp-h3-cdc sp-h3neut-cdc sp-addendum
+spsc spsc-h3-cdc spsc-h3neut-cdc spsc-addendum
+addendum-3 addendum-4 addendum-5
 * Information meeting tree
 commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
 
