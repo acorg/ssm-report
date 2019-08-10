@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import re, subprocess, shutil, pprint
+import os, re, subprocess, shutil, pprint
 
 from .map import make_map, make_map_for_lab, make_ts, make_map_information, make_index_html as maps_make_index_html
 from .stat import make_stat
@@ -56,6 +56,10 @@ class Processor:
         self._force = force
         self._open_image = open_image
         self._make_sp_makers()
+        # dot size in ts
+        self.dot_size = None    # default is None, see map.py:make_ts()
+        if os.path.basename(os.getcwd()) in ["2019-0814-tc1"]: # exceptions forced by Derek
+            self.dot_size = "small"
 
     def _process(self, commands):
         if not commands:
@@ -361,10 +365,10 @@ class Processor:
     h1_geo = h1_geography
 
     def h1_ts(self, lab=None):
-        make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=Path("h1-hi"), force=self._force)
+        make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=Path("h1-hi"), force=self._force, dot_size=self.dot_size)
 
     def h1_ts_labs(self, lab=None):
-        make_ts(virus_type="h1", assay="hi", lab=lab or ["cdc", "melb", "niid", "nimr"], output_dir=Path("h1-hi"), force=self._force)
+        make_ts(virus_type="h1", assay="hi", lab=lab or ["cdc", "melb", "niid", "nimr"], output_dir=Path("h1-hi"), force=self._force, dot_size=self.dot_size)
 
     def h1_information(self):
         make_map_information(virus_type="h1", assay="hi", output_dir=Path("information"), force=self._force)
@@ -386,7 +390,7 @@ class Processor:
     h3_geo = h3_geography
 
     def h3_ts(self, lab=None):
-        make_ts(virus_type="h3", assay="hi", lab=lab, output_dir=Path("h3-hi"), force=self._force)
+        make_ts(virus_type="h3", assay="hi", lab=lab, output_dir=Path("h3-hi"), force=self._force, dot_size=self.dot_size)
 
     def h3_serology(self):
         self.serology(virus_type="h3", assay="hi")
@@ -418,7 +422,7 @@ class Processor:
     h3n_geo = h3neut_geography
 
     def h3neut_ts(self, lab=None):
-        make_ts(virus_type="h3", assay="neut", lab=lab, output_dir=Path("h3-neut"), force=self._force)
+        make_ts(virus_type="h3", assay="neut", lab=lab, output_dir=Path("h3-neut"), force=self._force, dot_size=self.dot_size)
     h3n_ts = h3neut_ts
 
     def h3neut_serology(self):
@@ -434,7 +438,7 @@ class Processor:
         output_dir = Path(virus_type + "-" + assay)
         for mod in ["clade", "clade_6m", "clade_12m", "aa_at_142", "geography", "serology"]:
             make_map_for_lab(prefix=mod.replace("_", "-"), virus_type=virus_type, assay=assay, lab=lab, infix=infix, mod=mod, output_dir=output_dir, settings_files=settings_files, open_image=self._open_image)
-        make_ts(virus_type=virus_type, assay=assay, lab=lab, output_dir=output_dir, infix=infix, force=self._force)
+        make_ts(virus_type=virus_type, assay=assay, lab=lab, output_dir=output_dir, infix=infix, force=self._force, dot_size=self.dot_size)
         from . import map as map_m
         map_m.sDirsForIndex.add(output_dir)
     h3n_niid_oseltamivir = h3neut_niid_oseltamivir
@@ -462,7 +466,7 @@ class Processor:
     bvic_geo = bvic_geography
 
     def bvic_ts(self, lab=None):
-        make_ts(virus_type="bv", assay="hi", lab=lab, output_dir=Path("bv-hi"), force=self._force)
+        make_ts(virus_type="bv", assay="hi", lab=lab, output_dir=Path("bv-hi"), force=self._force, dot_size=self.dot_size)
     bv_ts = bvic_ts
 
     def bvic_serology(self):
@@ -490,7 +494,7 @@ class Processor:
     by_geo = byam_geography
 
     def byam_ts(self, lab=None):
-        make_ts(virus_type="by", assay="hi", lab=lab, output_dir=Path("by-hi"), force=self._force)
+        make_ts(virus_type="by", assay="hi", lab=lab, output_dir=Path("by-hi"), force=self._force, dot_size=self.dot_size)
     by_ts = byam_ts
 
     def byam_serology(self):

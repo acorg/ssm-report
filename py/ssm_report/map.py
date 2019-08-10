@@ -261,13 +261,20 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
 
 # ----------------------------------------------------------------------
 
-sCompareWithPrevious = {
-    True: [{"N": "antigens", "select": {"test": True}, "size": 5, "order": "raise"},
-           {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": 8, "order": "raise"}],
-    False: [{"N": "antigens", "select": {"test": True}, "size": 8, "order": "raise"}]
+sDotSizeSize = {"big": 8, "small": 5}
+
+sDotSize = {
+    "compare_with_previous": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["small"], "order": "raise"},
+           {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": sDotSizeSize["big"], "order": "raise"}],
+    "big": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["big"], "order": "raise"}],
+    "small": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["small"], "order": "raise"}]
     }
 
-def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
+# Dot size:
+# "big" for VCM
+# "compare_with_previous" for TC and in case previous_chart present
+# forced by passing via dot_size
+def make_ts(output_dir, virus_type, assay, lab, infix="", dot_size=None, force=None):
     report_settings = json.load(Path("report.json").open())
     periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
@@ -278,12 +285,12 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
     else:
         labs = json.load(Path("{}-{}.json".format(virus_type, assay)).resolve().open())["labs"]
     for lab in labs:
-        compare_with_previous = sCompareWithPrevious[False]
+        dot_size_type = dot_size or "big"
         previous_chart = None
-        if report_settings["cover"]["teleconference"]:
+        if report_settings["cover"]["teleconference"] and dot_size is None:
             try:
                 previous_chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, chart_dir=Path(report_settings["previous"], "merges"))
-                compare_with_previous = sCompareWithPrevious[True]
+                dot_size_type = "compare_with_previous"
             except:
                 module_logger.warning("No previous chart found for {} {} {} in {}".format(virus_type, assay, lab, Path(report_settings["previous"], "merges")))
 
@@ -295,7 +302,7 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", force=None):
             settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
             pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab.upper(), period_name=period["text_name"], infix=infix)
             ts = [{"N": "antigens", "select": {"test": True, "date_range": [period["first_date"], period["after_last_date"]]}, "show": True}]
-            json.dump({"apply": pre + sApplyFor["ts_pre"] + compare_with_previous + ts + sApplyFor["ts_post"] + post}, s2_filename.open("w"), indent=2)
+            json.dump({"apply": pre + sApplyFor["ts_pre"] + sDotSize[dot_size_type] + ts + sApplyFor["ts_post"] + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
             script_filename.open("w").write("#! /bin/bash\nexec map-draw --db-dir {pwd}/db -v {settings_args} {previous_chart} '{chart}' '{output}'\n".format(
