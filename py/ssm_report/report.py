@@ -188,6 +188,8 @@ class LatexReport:
     def make_geographic_data_description(self, page):
         if page["coloring"] == "h3_clade":
             self.data.append(latex.T_GeographicDataH3ColoredByCladeDescription)
+        elif page["coloring"] == "h1_clade":
+            self.data.append(latex.T_GeographicDataH1ColoredByCladeDescription)
         elif page["coloring"] == "b_lineage":
             self.data.append(latex.T_GeographicVicYamDataDescription)
         elif page["coloring"] == "b_lineage_vic_deletion_mutants":

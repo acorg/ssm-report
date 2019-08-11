@@ -1,27 +1,28 @@
-# Time-stamp: <2019-08-09 12:52:27 eu>
+# Time-stamp: <2019-08-11 09:51:25 eu>
 * Sync
 [[elisp:(eu-process "ssm-report ./sy" "./sy" t)][./sy]]
 [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][./rr]]
 
 * Upon init
-ssm-report update-merges :: 7m
-ssm-report h1-overlay
-ssm-report stat geo
+[[elisp:(eu-ssm-report "update-merges")][update-merges: 7m]]
+[[elisp:(eu-ssm-report "h1-overlay")][h1-overlay]]
+[[elisp:(eu-ssm-report "stat geo")][stat geo]]
 
 * Make trees
 ** copy trees
 d=2019-0121
 for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signature-pages/$d/$f/tree.json.xz tree/$f.tree.json.xz; done
-** make trees
-[[elisp:(eu-process "ssm-report h1-tree-i" "ssm-report h1-tree-i")][h1-tree-i]]
-[[elisp:(eu-process "ssm-report h3-tree-i" "ssm-report h3-tree-i")][h3-tree-i]]
-[[elisp:(eu-process "ssm-report bv-tree-i" "ssm-report bv-tree-i")][bvic-tree-i]]
-[[elisp:(eu-process "ssm-report by-tree-i" "ssm-report by-tree-i")][byam-tree-i]]
 
-eo ssm-report h1-tree-aa
-eo ssm-report h3-tree-aa
-eo ssm-report by-tree-aa
-eo ssm-report bv-tree-aa
+** make trees
+[[elisp:(eu-ssm-report "h1-tree-i")][h1-tree-i]]
+[[elisp:(eu-ssm-report "h3-tree-i")][h3-tree-i]]
+[[elisp:(eu-ssm-report "bv-tree-i")][bvic-tree-i]]
+[[elisp:(eu-ssm-report "by-tree-i")][byam-tree-i]]
+
+[[elisp:(eu-ssm-report "h1-tree-aa")][h1-tree-aa]]
+[[elisp:(eu-ssm-report "h3-tree-aa")][h3-tree-aa]]
+[[elisp:(eu-ssm-report "bv-tree-aa")][bvic-tree-aa]]
+[[elisp:(eu-ssm-report "by-tree-aa")][byam-tree-aa]]
 
 * Settings
 [[file:h1-geographic.json][h1-geographic.json]] [[file:h1-hi.json][h1-hi.json]] [[file:serology.h1-hi.json][serology.h1-hi.json]] [[file:vaccines.h1-hi.json][vaccines.h1-hi.json]]
@@ -33,19 +34,28 @@ eo ssm-report bv-tree-aa
 [[file:report.json][report.json]] [[file:report-serumcoverage.json][report-serumcoverage.json]]
 
 * Make maps
-[[elisp:(eu-process "ssm-report stat" "ssm-report stat")][stat]] [[elisp:(eu-process "ssm-report geo" "ssm-report geo")][geo]]
-[[elisp:(eu-process "ssm-report h1-ts" "ssm-report h1-ts")][h1-ts]]  [[elisp:(eu-process "ssm-report h1-clade" "ssm-report h1-clade")][h1-clade]]  [[elisp:(eu-process "ssm-report h1-geo" "ssm-report h1-geo")][h1-geo]]  [[elisp:(eu-process "ssm-report h1-serology" "ssm-report h1-serology")][h1-serology]]
-[[elisp:(eu-process "ssm-report h3-ts" "ssm-report h3-ts")][h3-ts]]  [[elisp:(eu-process "ssm-report h3-clade" "ssm-report h3-clade")][h3-clade]]  [[elisp:(eu-process "ssm-report h3-geo" "ssm-report h3-geo")][h3-geo]]  [[elisp:(eu-process "ssm-report h3-serology" "ssm-report h3-serology")][h3-serology]]
-[[elisp:(eu-process "ssm-report h3neut-ts" "ssm-report h3neut-ts")][h3neut-ts]]  [[elisp:(eu-process "ssm-report h3neut-clade" "ssm-report h3neut-clade")][h3neut-clade]]  [[elisp:(eu-process "ssm-report h3neut-geo" "ssm-report h3neut-geo")][h3neut-geo]]  [[elisp:(eu-process "ssm-report h3neut-serology" "ssm-report h3neut-serology")][h3neut-serology]]
-[[elisp:(eu-process "ssm-report bv-ts" "ssm-report bv-ts")][bv-ts]]  [[elisp:(eu-process "ssm-report bv-clade" "ssm-report bv-clade")][bv-clade]]  [[elisp:(eu-process "ssm-report bv-geo" "ssm-report bv-geo")][bv-geo]]  [[elisp:(eu-process "ssm-report bv-serology" "ssm-report bv-serology")][bv-serology]]
-[[elisp:(eu-process "ssm-report by-ts" "ssm-report by-ts")][by-ts]]  [[elisp:(eu-process "ssm-report by-clade" "ssm-report by-clade")][by-clade]]  [[elisp:(eu-process "ssm-report by-geo" "ssm-report by-geo")][by-geo]]  [[elisp:(eu-process "ssm-report by-serology" "ssm-report by-serology")][by-serology]]
+[[elisp:(eu-ssm-report "stat")][stat]] [[elisp:(eu-ssm-report "geo")][geo]]
+[[elisp:(eu-ssm-report "h1-ts")][h1-ts]]  [[elisp:(eu-ssm-report "h1-clade")][h1-clade]]  [[elisp:(eu-ssm-report "h1-geo")][h1-geo]]  [[elisp:(eu-ssm-report "h1-serology")][h1-serology]]
+[[elisp:(eu-ssm-report "h3-ts")][h3-ts]]  [[elisp:(eu-ssm-report "h3-clade")][h3-clade]]  [[elisp:(eu-ssm-report "h3-geo")][h3-geo]]  [[elisp:(eu-ssm-report "h3-serology")][h3-serology]]
+[[elisp:(eu-ssm-report "h3neut-ts")][h3neut-ts]]  [[elisp:(eu-ssm-report "h3neut-clade")][h3neut-clade]]  [[elisp:(eu-ssm-report "h3neut-geo")][h3neut-geo]]  [[elisp:(eu-ssm-report "h3neut-serology")][h3neut-serology]]
+[[elisp:(eu-ssm-report "bv-ts")][bv-ts]]  [[elisp:(eu-ssm-report "bv-clade")][bv-clade]]  [[elisp:(eu-ssm-report "bv-geo")][bv-geo]]  [[elisp:(eu-ssm-report "bv-serology")][bv-serology]]
+[[elisp:(eu-ssm-report "by-ts")][by-ts]]  [[elisp:(eu-ssm-report "by-clade")][by-clade]]  [[elisp:(eu-ssm-report "by-geo")][by-geo]]  [[elisp:(eu-ssm-report "by-serology")][by-serology]]
 
-report
-sp sp-h3-cdc sp-h3neut-cdc sp-addendum
+[[elisp:(eu-ssm-report "report")][report]]
+
+[[elisp:(eu-ssm-report "sp")][sp]]
+[[elisp:(eu-ssm-report "sp-h1")][sp-h1]]  [[elisp:(eu-ssm-report "sp-h1-all")][sp-h1-all]]  [[elisp:(eu-ssm-report "sp-h1-cdc")][sp-h1-cdc]]  [[elisp:(eu-ssm-report "sp-h1-melb")][sp-h1-melb]]  [[elisp:(eu-ssm-report "sp-h1-niid")][sp-h1-niid]]  [[elisp:(eu-ssm-report "sp-h1-nimr")][sp-h1-nimr]]
+[[elisp:(eu-ssm-report "sp-h3")][sp-h3]]  [[elisp:(eu-ssm-report "sp-h3-cdc")][sp-h3-cdc]]  [[elisp:(eu-ssm-report "sp-h3-melb")][sp-h3-melb]]  [[elisp:(eu-ssm-report "sp-h3-nimr")][sp-h3-nimr]]
+[[elisp:(eu-ssm-report "sp-h3neut")][sp-h3neut]]  [[elisp:(eu-ssm-report "sp-h3neut-cdc")][sp-h3neut-cdc]]  [[elisp:(eu-ssm-report "sp-h3neut-melb")][sp-h3neut-melb]]  [[elisp:(eu-ssm-report "sp-h3neut-niid")][sp-h3neut-niid]]  [[elisp:(eu-ssm-report "sp-h3neut-nimr")][sp-h3neut-nimr]]
+[[elisp:(eu-ssm-report "sp-bv")][sp-bvic]]  [[elisp:(eu-ssm-report "sp-bv-cdc")][sp-bvic-cdc]]  [[elisp:(eu-ssm-report "sp-bv-melb")][sp-bvic-melb]]  [[elisp:(eu-ssm-report "sp-bv-niid")][sp-bvic-niid]]  [[elisp:(eu-ssm-report "sp-bv-nimr")][sp-bvic-nimr]]
+[[elisp:(eu-ssm-report "sp-by")][sp-byam]]  [[elisp:(eu-ssm-report "sp-by-cdc")][sp-byam-cdc]]  [[elisp:(eu-ssm-report "sp-by-melb")][sp-byam-melb]]  [[elisp:(eu-ssm-report "sp-by-niid")][sp-byam-niid]]  [[elisp:(eu-ssm-report "sp-by-nimr")][sp-byam-nimr]]
+[[elisp:(eu-ssm-report "sp-addendum")][sp-addendum]]
+
 spsc spsc-h3-cdc spsc-h3neut-cdc spsc-addendum
 addendum-3 addendum-4 addendum-5
 
-[[elisp:(eu-process "ssm-report sp-bv-cdc" "ssm-report sp-bv-cdc")][sp-bv-cdc]]
+[[elisp:(eu-ssm-report "zzz")][zzz]]
+
 
 * Information meeting tree
 commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
@@ -76,6 +86,9 @@ ssm-report serumcoverage-h3-neut
 ssm-report serumcoverage-cdc-h3-hi
 ssm-report report-serumcoverage
 * TODO
+** requests
+- [ ] 
+** report
 - [ ] All [0/2]
   - [ ] geographical
   - [ ] stat
