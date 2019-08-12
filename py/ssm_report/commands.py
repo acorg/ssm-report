@@ -117,8 +117,16 @@ class Processor:
         make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=self._force)
 
     def geo(self):
-        """make geographic time series"""
         make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), force=self._force)
+
+    def h1_geographic_ts(self):
+        make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), virus_types=["H1"], force=self._force)
+
+    def h3_geographic_ts(self):
+        make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), virus_types=["H3"], force=self._force)
+
+    def b_geographic_ts(self):
+        make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), virus_types=["B"], force=self._force)
 
         # ----------------------------------------------------------------------
 
