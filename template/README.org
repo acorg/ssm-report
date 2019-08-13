@@ -1,4 +1,4 @@
-# Time-stamp: <2019-08-11 09:51:25 eu>
+# Time-stamp: <2019-08-13 14:52:44 eu>
 * Sync
 [[elisp:(eu-process "ssm-report ./sy" "./sy" t)][./sy]]
 [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][./rr]]
@@ -55,7 +55,6 @@ spsc spsc-h3-cdc spsc-h3neut-cdc spsc-addendum
 addendum-3 addendum-4 addendum-5
 
 [[elisp:(eu-ssm-report "zzz")][zzz]]
-
 
 * Information meeting tree
 commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json

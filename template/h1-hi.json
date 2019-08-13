@@ -4,7 +4,7 @@
   "mods": {
 
     "set_scale": [
-      {"N": "point_scale", "scale": 4, "outline_scale": 1}
+      {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
     ],
     "set_legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
