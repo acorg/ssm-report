@@ -33,7 +33,7 @@ def trees_get_from_albertine(tree_dir):
 
 # ======================================================================
 
-def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="settings", tree_infix="", interactive=False):
+def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="settings", tree_infix="", interactive=False, report_cumulative=False):
     if output_dir is None:
         output_dir = tree_dir
     else:
@@ -45,8 +45,10 @@ def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="setting
         subprocess_check_call(f"~/AD/bin/sigp --seqdb '{seqdb}' --init-settings '{settings}' '{tree}' '{pdf}'")
         _tree_update_settings(subtype=subtype, settings=settings)
     sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" -s "{settings}" "{tree}" "{pdf}" --open"""
+    if report_cumulative:
+        sigp_cmd += " --report-cumulative -"
     edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"'
-    open_pdf = f'open -n "{pdf}"'
+    open_pdf = f'open "{pdf}"'
     if interactive:
         subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' | xargs -L 1 -I % -R 0 /bin/bash -c 'printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd}; {edit_settings}'""")
     else:

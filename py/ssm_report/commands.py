@@ -172,6 +172,9 @@ class Processor:
     def h1_tree(self):
         tree_make(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
+    def h1_tree_cumul(self):
+        tree_make(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file(), report_cumulative=True)
+
     def h1_tree_interactive(self):
         tree_make(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
     h1_tree_i = h1_tree_interactive
@@ -181,6 +184,9 @@ class Processor:
 
     def h3_tree(self):
         tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file())
+
+    def h3_tree_cumul(self):
+        tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file(), report_cumulative=True)
 
     def h3_tree_interactive(self):
         tree_make(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
@@ -196,6 +202,9 @@ class Processor:
         tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     bvic_tree = bv_tree
 
+    def bv_tree_cumul(self):
+        tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file(), report_cumulative=True)
+
     def bv_tree_interactive(self):
         tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
     bv_tree_i = bv_tree_interactive
@@ -203,6 +212,9 @@ class Processor:
     def by_tree(self):
         tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file())
     byam_tree = by_tree
+
+    def by_tree_cumul(self):
+        tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file(), report_cumulative=True)
 
     def by_tree_interactive(self):
         tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
