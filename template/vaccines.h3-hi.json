@@ -5,9 +5,9 @@
        "size": 16, "fill": "cyan", "outline": "black", "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type", "size": 32},
        "raise_": true, "raise_if_not_found": false},
 
-      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell", "name": "TEXAS"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise",
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell", "name": "TEXAS"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": false, "order": "raise",
        "label": {"offset": [-1, 0.5], "name_type": "abbreviated_with_passage_type", "size": 32}},
-      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell", "name": "SWITZERLAND"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise",
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell", "name": "SWITZERLAND"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": false, "order": "raise",
        "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type", "size": 32, "display_name": "Sw/13-cell"}},
 
       {"N": "antigens", "select": {"vaccine": {"type": "previous",  "passage": "cell", "name": "SINGAPORE"}}, "fill": "blue",   "report": true, "outline": "black", "size": 16, "show": true, "order": "raise",
@@ -41,7 +41,7 @@
 
     "MELB_vaccines": [
       {"N": "antigens", "show": false, "select": {"vaccine": {"type": "previous", "passage": "cell", "name": "TEXAS"}}, "label": {"offset": [0.5, -1], "display_name": "TX/50/12-cell"}},
-      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell", "name": "SWITZERLAND"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise",
+      {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell", "name": "SWITZERLAND"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": false, "order": "raise",
        "label": {"offset": [0.82, -0.9], "display_name": "Sw/13-cell", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg"       }}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise",
        "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type", "size": 32}},

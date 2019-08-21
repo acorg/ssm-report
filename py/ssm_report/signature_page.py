@@ -222,6 +222,7 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
     for index in sorted((no for no, mod in enumerate(settings["antigenic_maps"]["mods"]) if mod.get("N", mod.get("?N")) in ["antigens", "?antigens", "antigens?"] and mod.get("select", {}).get("vaccine")), reverse=True):
         del settings["antigenic_maps"]["mods"][index]
 
+    # pprint.pprint(vaccine_settings)
     if vaccine_settings:
         vaccines = vaccine_settings["mods"].get(lab.upper() + "_vaccines")
         if vaccines is None:
