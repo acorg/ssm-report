@@ -305,6 +305,14 @@ class Processor:
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (signature pages with serum circles)", output_name="spsc-addendum")
 
+    def addendum_1(self):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-1", report_settings_file="report-addendum-1.json")
+
+    def addendum_2(self):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-2", report_settings_file="report-addendum-2.json")
+
     def addendum_3(self):
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-3", report_settings_file="report-addendum-3.json")
