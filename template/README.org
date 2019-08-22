@@ -1,4 +1,4 @@
-# Time-stamp: <2019-08-21 11:50:46 eu>
+# Time-stamp: <2019-08-22 08:22:35 eu>
 * Sync
 [[elisp:(eu-process "ssm-report ./sy" "./sy" t)][./sy]]
 [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][./rr]]
@@ -14,10 +14,10 @@ d=2019-0121
 for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signature-pages/$d/$f/tree.json.xz tree/$f.tree.json.xz; done
 
 ** make trees
-[[elisp:(eu-ssm-report "h1-tree-i")][h1-tree-i]]    [[elisp:(eu-ssm-report "h1-tree-cumul")][h1-tree-cumul]]
-[[elisp:(eu-ssm-report "h3-tree-i")][h3-tree-i]]    [[elisp:(eu-ssm-report "h3-tree-cumul")][h3-tree-cumul]]
-[[elisp:(eu-ssm-report "bv-tree-i")][bvic-tree-i]]  [[elisp:(eu-ssm-report "bv-tree-cumul")][bvic-tree-cumul]]
-[[elisp:(eu-ssm-report "by-tree-i")][byam-tree-i]]  [[elisp:(eu-ssm-report "by-tree-cumul")][byam-tree-cumul]]
+[[elisp:(eu-ssm-report "h1-tree-i")][h1-tree-i]]   [[elisp:(eu-ssm-report "h1-tree")][h1-tree]]   [[elisp:(eu-ssm-report "h1-tree-cumul")][h1-tree-cumul]]
+[[elisp:(eu-ssm-report "h3-tree-i")][h3-tree-i]]   [[elisp:(eu-ssm-report "h3-tree")][h3-tree]]   [[elisp:(eu-ssm-report "h3-tree-cumul")][h3-tree-cumul]]
+[[elisp:(eu-ssm-report "bv-tree-i")][bvic-tree-i]] [[elisp:(eu-ssm-report "bv-tree")][bvic-tree]] [[elisp:(eu-ssm-report "bv-tree-cumul")][bvic-tree-cumul]]
+[[elisp:(eu-ssm-report "by-tree-i")][byam-tree-i]] [[elisp:(eu-ssm-report "by-tree")][byam-tree]] [[elisp:(eu-ssm-report "by-tree-cumul")][byam-tree-cumul]]
 
 [[elisp:(eu-ssm-report "h1-tree-aa")][h1-tree-aa]]
 [[elisp:(eu-ssm-report "h3-tree-aa")][h3-tree-aa]]
