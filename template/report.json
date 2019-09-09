@@ -90,7 +90,7 @@
     {"type": "phylogenetic_description"},
     "new_page",
     {"type": "phylogenetic_tree", "subtype": "H3"},
-    "?new_page", "---- H3 maps colored by geo disabled on Derek request 2019-08-12 13:41",
+    "?new_page", "?---- H3 maps colored by geo disabled on Derek request 2019-08-12 13:41",
     {"?type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by geography"},
     {"?type": "maps", "images": [
       "h3-hi/geography-cdc.pdf", "h3-neut/geography-cdc.pdf",
