@@ -1,24 +1,20 @@
 { "_":"-*- js-indent-level: 2 -*-",
   "mods": {
+    "serology": [
+      # {"N":"antigens", "select": {"name": "Hong Kong/45/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      # {"N":"antigens", "select": {"name": "Iowa/60/2018"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      # {"N":"antigens", "select": {"name": "Hawaii/42/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      # {"N":"antigens", "select": {"name": "Montana/18/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      # {"N":"antigens", "select": {"name": "Kanagawa/ZC1805/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
+    ],
     "CDC_serology": [
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "MELB_serology": [
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "NIID_serology": [
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
+      {"N":"antigens", "select": {"name": "Kanagawa/ZC1805/2019"},  "label": {"offset": [0, -1], "name_type": "abbreviated_with_passage_type"}}
       ],
     "NIMR_serology": [
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"?N":"antigens", "select": {"name": ""},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ]
   }
 }

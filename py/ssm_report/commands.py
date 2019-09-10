@@ -370,7 +370,7 @@ class Processor:
         h1_overlay_relax(sorted(merges_dir.glob("[cmn]*-h1-hi.ace")), merges_dir.joinpath("all-h1-hi.ace"), log_file=self._log_dir().joinpath("h1-overlay.log"))
 
     def update_hidb(self):
-        self._get_hidb()
+        subprocess.check_call("rsync -av 'albertine:AD/data/hidb5.*.{{json.xz,hidb5b}}' '{}'".format(self._db_dir()), shell=True)
 
     # ----------------------------------------------------------------------
     # H1 HI
