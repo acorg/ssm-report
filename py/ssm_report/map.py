@@ -261,13 +261,13 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
 
 # ----------------------------------------------------------------------
 
-sDotSizeSize = {"big": 8, "small": 5}
+sDotSizeSize = {"big": 8 * 0.8, "small": 5, "big_outline_width": 1.2, "small_outline_width": 1.2} # big:*0.8 outline_width:1.2 - Derek's request of 2019-09-10 Subject: Report visual edits and map queries
 
 sDotSize = {
-    "compare_with_previous": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["small"], "order": "raise"},
-           {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": sDotSizeSize["big"], "order": "raise"}],
-    "big": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["big"], "order": "raise"}],
-    "small": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["small"], "order": "raise"}]
+    "compare_with_previous": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["small"], "outline_width": sDotSizeSize["small_outline_width"], "order": "raise"},
+           {"N": "antigens", "select": {"test": True, "not_found_in_previous": True}, "size": sDotSizeSize["big"], "outline_width": sDotSizeSize["big_outline_width"], "order": "raise"}],
+    "big": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["big"], "outline_width": sDotSizeSize["big_outline_width"], "order": "raise"}],
+    "small": [{"N": "antigens", "select": {"test": True}, "size": sDotSizeSize["small"], "outline_width": sDotSizeSize["small_outline_width"], "order": "raise"}]
     }
 
 # Dot size:
