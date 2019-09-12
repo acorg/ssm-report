@@ -158,7 +158,7 @@ def _tree_update_settings_h3(data, settings):
 
 # ======================================================================
 
-def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False):
+def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False, interactive=False):
     # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
     prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
@@ -168,9 +168,17 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     chart = merge_dir.joinpath("{}-{}-{}.ace".format(lab, virus_type, assay))
     pdf = sp_output_dir.joinpath(prefix + ".pdf")
     if not settings.exists():
-        subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' --no-draw --init-settings '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
+        no_draw = "--no-draw" if not interactive else ""
+        subprocess_check_call(f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" {no_draw} --init-settings "{settings}" "{tree}" "{pdf}" """)
         _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles)
-    subprocess_check_call("~/AD/bin/sigp --seqdb '{seqdb}' --chart '{chart}' -s '{tree_settings}' -s '{settings}' '{tree}' '{pdf}'".format(seqdb=seqdb, chart=chart, settings=settings, tree_settings=tree_settings, tree=tree, pdf=pdf))
+    subprocess_check_call(f'/usr/local/bin/emacsclient -n "{tree_settings}"')
+    sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" -s "{settings}" "{tree}" "{pdf}" --open"""
+    edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"'
+    open_pdf = f'open "{pdf.resolve()}"'
+    if interactive:
+        subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' "{tree_settings}" | xargs -L 1 -I % -R 0 /bin/bash -c 'aiff-play /System/Library/Sounds/Tink.aiff; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; {edit_settings}'""")
+    else:
+        subprocess_check_call(sigp_cmd)
 
 # ----------------------------------------------------------------------
 
