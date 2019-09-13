@@ -1,4 +1,4 @@
-# Time-stamp: <2019-09-12 10:06:32 eu>
+# Time-stamp: <2019-09-13 07:51:33 eu>
 * Sync
 [[elisp:(eu-process "ssm-report ./sy" "./sy" t)][./sy]]
 [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][./rr]]
@@ -280,5 +280,5 @@ ssm-report report-serumcoverage
 Local Variables:
 eval: (auto-fill-mode 0)
 eval: (add-hook 'before-save-hook 'time-stamp)
-eval: (progn (make-local-variable org-confirm-elisp-link-function) (setq org-confirm-elisp-link-function nil))
+eval: (set (make-local-variable org-confirm-elisp-link-function) nil)
 End:
