@@ -50,7 +50,7 @@ def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="setting
     edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"'
     open_pdf = f'open "{pdf}"'
     if interactive:
-        subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' | xargs -L 1 -I % -R 0 /bin/bash -c 'printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd}; {edit_settings}'""")
+        subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' | xargs -L 1 -I % -R 0 /bin/bash -c 'tink; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; tink; {edit_settings}'""")
     else:
         subprocess_check_call(sigp_cmd)
 
@@ -176,7 +176,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"'
     open_pdf = f'open "{pdf.resolve()}"'
     if interactive:
-        subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' "{tree_settings}" | xargs -L 1 -I % -R 0 /bin/bash -c 'aiff-play /System/Library/Sounds/Tink.aiff; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; {edit_settings}'""")
+        subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' "{tree_settings}" | xargs -L 1 -I % -R 0 /bin/bash -c 'tink; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; tink; {edit_settings}'""")
     else:
         subprocess_check_call(sigp_cmd)
 

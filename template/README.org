@@ -1,9 +1,10 @@
-# Time-stamp: <2019-09-13 07:51:33 eu>
+# Time-stamp: <2019-09-13 08:37:03 eu>
 * Sync
 [[elisp:(eu-process "ssm-report ./sy" "./sy" t)][./sy]]
 [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][./rr]]
 
 * Upon init
+[[elisp:(eu-process "update and get hidb" "ssh i19 'whocc-update-ace-store && whocc-hidb5-update'; hidb-get-from-albertine && cp ~/AD/data/hidb5.* db")][update and get hidb]]
 [[elisp:(eu-ssm-report "update-merges")][update-merges: 7m]]
 [[elisp:(eu-ssm-report "h1-overlay")][h1-overlay]]
 [[elisp:(eu-ssm-report "stat geo")][stat geo]]

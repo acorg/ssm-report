@@ -14,8 +14,7 @@ stat
 .backup
 *.pdf
 *.ace
-*.acd1.xz
-*.acd1.bz2
 *.save
-*.save.xz
+*.xz
+*.bz2
 .#*
