@@ -84,7 +84,8 @@ T_Setup = r"""%no-eol%
 \newcommand{\ColorCodedByLineageVicDelMut}{%
 {\color{Yamagata}Red = Yamagata},
 {\color{Victoria}Blue = Victoria},
-{\color{Victoria}Cyan = Victoria deletion mutants}.
+{\color{Victoria}Cyan = Victoria 2-del mutants},
+{\color{Victoria}Green = Victoria 3-del mutants}.
 }
 
 \newcommand{\ColorCodedByYear}{%

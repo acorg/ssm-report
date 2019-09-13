@@ -1,4 +1,4 @@
-# Time-stamp: <2019-09-13 08:37:03 eu>
+# Time-stamp: <2019-09-13 18:00:11 eu>
 * Sync
 [[elisp:(eu-process "ssm-report ./sy" "./sy" t)][./sy]]
 [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][./rr]]
@@ -34,47 +34,47 @@ d=YYYY-MMMM; for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signatu
 [[file:report.json][report.json]] [[file:report-serumcoverage.json][report-serumcoverage.json]]
 
 * Make maps
-[[elisp:(eu-ssm-report "stat")][stat]] [[elisp:(eu-ssm-report "geo")][geo]]
+[[elisp:(eu-ssm-report "--force stat")][stat]] [[elisp:(eu-ssm-report "--force geo")][geo]]
 
 -- H1
 [[elisp:(eu-ssm-report "h1-ts")][h1-ts]]
 [[elisp:(eu-ssm-report "h1-clade")][h1-clade]]         [[elisp:(e-run "h1-hi/clade-cdc-i.sh")][h1-cdc-clade-i]]      [[elisp:(e-run "h1-hi/clade-melb-i.sh")][h1-melb-clade-i]]        [[elisp:(e-run "h1-hi/clade-nimr-i.sh")][h1-nimr-clade-i]]
 [[elisp:(eu-ssm-report "h1-serology")][h1-serology]]      [[elisp:(e-run "h1-hi/serology-cdc-i.sh")][h1-cdc-serology-i]]   [[elisp:(e-run "h1-hi/serology-melb-i.sh")][h1-melb-serology-i  ]]   [[elisp:(e-run "h1-hi/serology-nimr-i.sh")][h1-nimr-serology-i]]
 [[elisp:(eu-ssm-report "h1-geo")][h1-geo]]
-[[elisp:(eu-ssm-report "h1-ts h1-clade h1-serology")][h1 ts clade serology]]
-[[elisp:(eu-ssm-report "h1-ts h1-clade")][h1 ts clade]]
+[[elisp:(eu-ssm-report "h1-clade h1-serology h1-ts")][h1 ts clade serology]]
+[[elisp:(eu-ssm-report "h1-clade h1-ts")][h1 ts clade]]
 
 -- H3 HI
 [[elisp:(eu-ssm-report "h3-ts")][h3-ts]]
 [[elisp:(eu-ssm-report "h3-clade")][h3-clade]]        [[elisp:(e-run "h3-hi/clade-cdc-i.sh")][h3-cdc-clade-i]]      [[elisp:(e-run "h3-hi/clade-melb-i.sh")][h3-melb-clade-i]]        [[elisp:(e-run "h3-hi/clade-nimr-i.sh")][h3-nimr-clade-i]]
 [[elisp:(eu-ssm-report "h3-serology")][h3-serology]]     [[elisp:(e-run "h3-hi/serology-cdc-i.sh")][h3-cdc-serology-i]]   [[elisp:(e-run "h3-hi/serology-melb-i.sh")][h3-melb-serology-i  ]]   [[elisp:(e-run "h3-hi/serology-nimr-i.sh")][h3-nimr-serology-i]]
 [[elisp:(eu-ssm-report "h3-geo")][h3-geo]]
-[[elisp:(eu-ssm-report "h3-ts h3-clade h3-serology")][h3 ts clade serology]]
-[[elisp:(eu-ssm-report "h3-ts h3-clade")][h3 ts clade]]
+[[elisp:(eu-ssm-report "h3-clade h3-serology h3-ts")][h3 ts clade serology]]
+[[elisp:(eu-ssm-report "h3-clade h3-ts")][h3 ts clade]]
 
 -- H3 Neut
 [[elisp:(eu-ssm-report "h3neut-ts")][h3neut-ts]]
 [[elisp:(eu-ssm-report "h3neut-clade")][h3neut-clade]]        [[elisp:(e-run "h3-neut/clade-cdc-i.sh")][h3neut-cdc-clade-i]]      [[elisp:(e-run "h3-neut/clade-melb-i.sh")][h3neut-melb-clade-i]]      [[elisp:(e-run "h3-neut/clade-niid-i.sh")][h3neut-niid-clade-i]]      [[elisp:(e-run "h3-neut/clade-nimr-i.sh")][h3neut-nimr-clade-i]]
 [[elisp:(eu-ssm-report "h3neut-serology")][h3neut-serology]]     [[elisp:(e-run "h3-neut/serology-cdc-i.sh")][h3neut-cdc-serology-i]]   [[elisp:(e-run "h3-neut/serology-melb-i.sh")][h3neut-melb-serology-i  ]] [[elisp:(e-run "h3-neut/serology-niid-i.sh")][h3neut-niid-serology-i]]   [[elisp:(e-run "h3-neut/serology-nimr-i.sh")][h3neut-nimr-serology-i]]
 [[elisp:(eu-ssm-report "h3neut-geo")][h3neut-geo]]
-[[elisp:(eu-ssm-report "h3neut-ts h3neut-clade h3neut-serology")][h3neut ts clade serology]]
-[[elisp:(eu-ssm-report "h3neut-ts h3neut-clade")][h3neut ts clade]]
+[[elisp:(eu-ssm-report "h3neut-clade h3neut-serology h3neut-ts")][h3neut ts clade serology]]
+[[elisp:(eu-ssm-report "h3neut-clade h3neut-ts")][h3neut ts clade]]
 
 -- B/Vic
 [[elisp:(eu-ssm-report "bv-ts")][BVic-ts]]
 [[elisp:(eu-ssm-report "bv-clade")][BVic-clade]]     [[elisp:(e-run "bv-hi/clade-cdc-i.sh")][BVic-cdc-clade-i]]       [[elisp:(e-run "bv-hi/clade-melb-i.sh")][BVic-melb-clade-i]]       [[elisp:(e-run "bv-hi/clade-niid-i.sh")][BVic-niid-clade-i]]      [[elisp:(e-run "bv-hi/clade-nimr-i.sh")][BVic-nimr-clade-i]]
 [[elisp:(eu-ssm-report "bv-serology")][BVic-serology]]  [[elisp:(e-run "bv-hi/serology-cdc-i.sh")][BVic-cdc-serology-i]]    [[elisp:(e-run "bv-hi/serology-melb-i.sh")][BVic-melb-serology-i]]    [[elisp:(e-run "bv-hi/serology-niid-i.sh")][BVic-niid-serology-i]]   [[elisp:(e-run "bv-hi/serology-nimr-i.sh")][BVic-nimr-serology-i]]
-[[elisp:(eu-ssm-report "bv-geo")][BVic-geo]] 
-[[elisp:(eu-ssm-report "bv-ts bv-clade bv-serology")][BVic ts clade serology]]
-[[elisp:(eu-ssm-report "bv-ts bv-clade")][BVic ts clade]]
+[[elisp:(eu-ssm-report "bv-geo")][BVic-geo]]
+[[elisp:(eu-ssm-report "bv-clade bv-serology bv-ts")][BVic ts clade serology]]
+[[elisp:(eu-ssm-report "bv-clade bv-ts")][BVic ts clade]]
 
 -- B/Yam
 [[elisp:(eu-ssm-report "by-ts")][BYam-ts]]
 [[elisp:(eu-ssm-report "by-clade")][BYam-clade]]     [[elisp:(e-run "by-hi/clade-cdc-i.sh")][BYam-cdc-clade-i]]       [[elisp:(e-run "by-hi/clade-melb-i.sh")][BYam-melb-clade-i]]       [[elisp:(e-run "by-hi/clade-niid-i.sh")][BYam-niid-clade-i]]      [[elisp:(e-run "by-hi/clade-nimr-i.sh")][BYam-nimr-clade-i]]
 [[elisp:(eu-ssm-report "by-serology")][BYam-serology]]  [[elisp:(e-run "by-hi/serology-cdc-i.sh")][BYam-cdc-serology-i]]    [[elisp:(e-run "by-hi/serology-melb-i.sh")][BYam-melb-serology-i]]    [[elisp:(e-run "by-hi/serology-niid-i.sh")][BYam-niid-serology-i]]   [[elisp:(e-run "by-hi/serology-nimr-i.sh")][BYam-nimr-serology-i]]
-[[elisp:(eu-ssm-report "by-geo")][BYam-geo]] 
-[[elisp:(eu-ssm-report "by-ts by-clade by-serology")][BYam ts clade serology]]
-[[elisp:(eu-ssm-report "by-ts by-clade")][BYam ts clade]]
+[[elisp:(eu-ssm-report "by-geo")][BYam-geo]]
+[[elisp:(eu-ssm-report "by-clade by-serology by-ts")][BYam ts clade serology]]
+[[elisp:(eu-ssm-report "by-clade by-ts")][BYam ts clade]]
 
 [[elisp:(eu-ssm-report "report")][REPORT]]  [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][RR]]
 
