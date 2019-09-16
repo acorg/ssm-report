@@ -171,9 +171,9 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
         no_draw = "--no-draw" if not interactive else ""
         subprocess_check_call(f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" {no_draw} --init-settings "{settings}" "{tree}" "{pdf}" """)
         _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles)
-    subprocess_check_call(f'/usr/local/bin/emacsclient -n "{tree_settings}"')
+    edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"; /usr/local/bin/emacsclient -n "{tree_settings}"'
+    subprocess_check_call(edit_settings)
     sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" -s "{settings}" "{tree}" "{pdf}" --open"""
-    edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"'
     open_pdf = f'open "{pdf.resolve()}"'
     if interactive:
         subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' "{tree_settings}" | xargs -L 1 -I % -R 0 /bin/bash -c 'tink; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; tink; {edit_settings}'""")
@@ -237,7 +237,7 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
             vaccines = vaccine_settings["mods"]["ALL_vaccines"]
     else:
         vaccines = map_settings["mods"][lab.upper() + "_vaccines"]
-    # pprint.pprint(vaccines)
+    pprint.pprint(vaccines)
     for entry in vaccines:
         vaccine_data = copy.deepcopy(entry)
         if vaccine_data.get("label"):
@@ -246,6 +246,7 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
         vaccine_data["outline"] = "white"
         vaccine_data["report"] = True
         vaccine_data["size"] = 15
+        print(vaccine_data)
         settings["antigenic_maps"]["mods"].append(vaccine_data)
 
 # def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):

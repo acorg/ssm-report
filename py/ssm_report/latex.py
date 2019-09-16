@@ -634,6 +634,23 @@ Month-by-month geographic time series from %time_series_start% to %time_series_e
 
 \vspace{1em}
 \noindent
+Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey
+
+\vspace{1em}
+\noindent
+Each dot indicates the isolation location for a strain that has been measured in
+an HI table. Thus these figures can be interpreted as a virologically-confirmed
+epidemiological spatial timeseries (modulo the usual caveats about surveillance
+biases).
+"""
+
+T_GeographicDataH1ColoredByCladeDescription_old = r"""%no-eol%
+\vspace{3em}
+\noindent
+Month-by-month geographic time series from %time_series_start% to %time_series_end%.
+
+\vspace{1em}
+\noindent
 Strains colored by clade: 6B1=Blue, unsequenced=Grey
 
 \vspace{1em}
