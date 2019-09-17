@@ -85,7 +85,7 @@ T_Setup = r"""%no-eol%
 {\color{Yamagata}Red = Yamagata},
 {\color{Victoria}Blue = Victoria},
 {\color{Victoria}Cyan = Victoria 2-del mutants},
-{\color{Victoria}Green = Victoria 3-del mutants}.
+{\color{Victoria}Purple = Victoria 3-del mutants}.
 }
 
 \newcommand{\ColorCodedByYear}{%

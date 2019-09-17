@@ -29,6 +29,37 @@
     ],
 
     "clades": [
+      {"N": "antigens", "select": {"clade": "V1", "subtype": "BVIC"}, "outline": "black", "fill": "blue", "legend": {"label": "V1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "V1A", "subtype": "BVIC"}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "V1.A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "subtype": "BVIC"}, "outline": "black", "fill": "red", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "subtype": "BVIC"}, "outline": "black", "fill": "#DE8244", "legend": {"label": "2-Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "subtype": "BVIC"}, "outline": "black", "fill": "#BF3EFF", "legend": {"label": "3-Del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_last_6_months": [
+      {"N": "antigens", "select": {"clade": "V1", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "blue", "legend": {"label": "1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "V1A", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "1A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "red", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "#DE8244", "legend": {"label": "2-Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "younger_than_days": 183, "subtype": "BVIC"}, "outline": "black", "fill": "#BF3EFF", "legend": {"label": "3-Del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_last_12_months": [
+      {"N": "antigens", "select": {"clade": "V1", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "blue", "legend": {"label": "1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "V1A", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "1A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "red", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "#DE8244", "legend": {"label": "2-Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "younger_than_days": 365, "subtype": "BVIC"}, "outline": "black", "fill": "#BF3EFF", "legend": {"label": "3-Del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades_light": [
+      {"N": "antigens", "select": {"clade": "V1", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#BFBFFF", "legend": {"label": "1", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "V1A", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#8F9DBF", "legend": {"label": "1A", "count": true}, "order": "raise", "report": true},
+      {"?N": "antigens", "select": {"clade": "1B", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#FFBFBF", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "DEL2017", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#DE8244", "legend": {"label": "2-Del mutants", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#BF3EFF", "legend": {"label": "3-Del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+
+    "?": "===================== Addendum =================================================",
+
+    "?clades": [
       {"N": "antigens", "select": {"clade": "V1B"},                                   "fill": "red", "legend": {"label": "V1.B", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1"},                                    "fill": "blue", "legend": {"label": "V1", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1A"},                                   "fill": "cornflowerblue", "legend": {"label": "V1.A", "count": true}, "outline": "black", "order": "raise", "report": true},
@@ -38,7 +69,7 @@
       {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["133R"]}, "fill": "#70ff70", "legend": {"label": "3-Del mutants 133R", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["133E"]}, "fill": "#ff80ff", "legend": {"label": "3-Del mutants 133E", "count": true}, "outline": "black", "order": "raise", "report": true}
     ],
-    "clades_last_6_months": [
+    "?clades_last_6_months": [
       {"N": "antigens", "select": {"clade": "V1B", "younger_than_days": 183},                                   "fill": "red", "legend": {"label": "V1.B", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1", "younger_than_days": 183},                                    "fill": "blue", "legend": {"label": "V1", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1A", "younger_than_days": 183},                                   "fill": "cornflowerblue", "legend": {"label": "V1.A", "count": true}, "outline": "black", "order": "raise", "report": true},
@@ -48,7 +79,7 @@
       {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["133R"], "younger_than_days": 183}, "fill": "#70ff70", "legend": {"label": "3-Del mutants 133R", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["133E"], "younger_than_days": 183}, "fill": "#ff80ff", "legend": {"label": "3-Del mutants 133E", "count": true}, "outline": "black", "order": "raise", "report": true}
     ],
-    "clades_last_12_months": [
+    "?clades_last_12_months": [
       {"N": "antigens", "select": {"clade": "V1B", "younger_than_days": 365},                                   "fill": "red",            "legend": {"label": "V1.B", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1", "younger_than_days": 365},                                    "fill": "blue",           "legend": {"label": "V1", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1A", "younger_than_days": 365},                                   "fill": "cornflowerblue", "legend": {"label": "V1.A", "count": true}, "outline": "black", "order": "raise", "report": true},
@@ -58,7 +89,7 @@
       {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["133R"], "younger_than_days": 365}, "fill": "#70ff70",        "legend": {"label": "3-Del mutants 133R", "count": true}, "outline": "black", "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["133E"], "younger_than_days": 365}, "fill": "#ff80ff",        "legend": {"label": "3-Del mutants 133E", "count": true}, "outline": "black", "order": "raise", "report": true}
     ],
-    "clades_light": [
+    "?clades_light": [
       {"N": "antigens", "select": {"clade": "V1B"},                                   "fill": "#FFBFBF", "outline": "#BFBFBF", "legend": {"label": "V1.B", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1"},                                    "fill": "#BFBFFF", "outline": "#BFBFBF", "legend": {"label": "V1", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "V1A"},                                   "fill": "#c2d2ed", "outline": "#BFBFBF", "legend": {"label": "V1.A", "count": true}, "order": "raise", "report": true},
