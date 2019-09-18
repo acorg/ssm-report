@@ -162,7 +162,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
     prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
-    if orig_sp_source_dir:
+    if orig_sp_source_dir and not settings.exists():
         orig_settings = orig_sp_source_dir.joinpath(prefix + ".sigp.settings.json")
         if orig_settings.exists():
             shutil.copy(orig_settings, settings)
@@ -242,7 +242,7 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
             vaccines = vaccine_settings["mods"]["ALL_vaccines"]
     else:
         vaccines = map_settings["mods"][lab.upper() + "_vaccines"]
-    pprint.pprint(vaccines)
+    # pprint.pprint(vaccines)
     for entry in vaccines:
         vaccine_data = copy.deepcopy(entry)
         if vaccine_data.get("label"):
@@ -251,7 +251,7 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
         vaccine_data["outline"] = "white"
         vaccine_data["report"] = True
         vaccine_data["size"] = 15
-        print(vaccine_data)
+        # print(vaccine_data)
         settings["antigenic_maps"]["mods"].append(vaccine_data)
 
 # def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settings):
