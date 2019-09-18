@@ -1,6 +1,6 @@
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
-import subprocess, datetime, copy, pprint
+import subprocess, datetime, copy, pprint, shutil
 
 from acmacs_base.json import read_json, write_json
 from .map import sLabDisplayName
@@ -158,10 +158,15 @@ def _tree_update_settings_h3(data, settings):
 
 # ======================================================================
 
-def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False, interactive=False):
+def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False, orig_sp_source_dir=None, interactive=False):
     # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
     prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
+    if orig_sp_source_dir:
+        orig_settings = orig_sp_source_dir.joinpath(prefix + ".sigp.settings.json")
+        if orig_settings.exists():
+            shutil.copy(orig_settings, settings)
+            _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles)
     tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
     tree_settings = sp_source_dir.joinpath(virus_type + ".tree.settings.json")
     # chart = merge_dir.joinpath("{}-{}-{}.sdb.xz".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
@@ -207,7 +212,7 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum
     else:
         settings["antigenic_maps"]["columns"] = 3
     if virus_type in ["h3"]:
-        settings["signature_page"]["antigenic_maps_width"] = 432
+        settings["signature_page"]["antigenic_maps_width"] = 579
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
 

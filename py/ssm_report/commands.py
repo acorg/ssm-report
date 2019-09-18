@@ -587,10 +587,10 @@ class Processor:
         self.spsc_by()
 
     def spsc_h1(self):
-        self.spsc_h1_all()
-        # self.spsc_h1_cdc()
-        # self.spsc_h1_melb()
-        # self.spsc_h1_niid()
+        # self.spsc_h1_all()
+        self.spsc_h1_cdc()
+        self.spsc_h1_melb()
+        self.spsc_h1_niid()
         # self.spsc_h1_nimr()
 
     def spsc_h3(self):
@@ -625,15 +625,21 @@ class Processor:
                                                    tree_dir=Path("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), interactive=True)
         def spsc_mf(virus_type, assay, lab):
             return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._spsc_source_dir(), sp_output_dir=self._spsc_output_dir(),
-                                                   tree_dir=Path("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), serum_circles=True)
+                                               tree_dir=Path("tree"), orig_sp_source_dir=self._sp_source_dir(), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), serum_circles=True, interactive=False)
+        def spsc_mf_i(virus_type, assay, lab):
+            return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._spsc_source_dir(), sp_output_dir=self._spsc_output_dir(),
+                                               tree_dir=Path("tree"), orig_sp_source_dir=self._sp_source_dir(), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), serum_circles=True, interactive=True)
         for lab in ["cdc", "melb", "niid", "nimr"]:
             for virus_type, assay in [["h3", "hi"], ["h3", "neut"], ["h1", "hi"], ["bv", "hi"], ["by", "hi"]]:
                 setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), sp_mf(virus_type=virus_type, assay=assay, lab=lab))
                 setattr(self, "sp_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), sp_mf_i(virus_type=virus_type, assay=assay, lab=lab))
                 setattr(self, "spsc_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf(virus_type=virus_type, assay=assay, lab=lab))
+                setattr(self, "spsc_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf_i(virus_type=virus_type, assay=assay, lab=lab))
         for virus_type, assay, lab in [["h1", "hi", "all"]]:
             setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), sp_mf(virus_type=virus_type, assay=assay, lab=lab))
+            setattr(self, "sp_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), sp_mf_i(virus_type=virus_type, assay=assay, lab=lab))
             setattr(self, "spsc_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf(virus_type=virus_type, assay=assay, lab=lab))
+            setattr(self, "spsc_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf_i(virus_type=virus_type, assay=assay, lab=lab))
 
     # ----------------------------------------------------------------------
     # Serum coverage
