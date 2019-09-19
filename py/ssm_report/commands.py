@@ -311,11 +311,11 @@ class Processor:
 
     def sp_addendum(self):
         from .report import make_signature_page_addendum
-        make_signature_page_addendum(source_dir=Path("sp"), output_dir=Path("report"), title="Addendum 1 (signature pages)", output_name="sp-addendum")
+        make_signature_page_addendum(source_dir=Path("sp"), output_dir=Path("report"), title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-addendum")
 
     def spsc_addendum(self):
         from .report import make_signature_page_addendum
-        make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (signature pages with serum circles)", output_name="spsc-addendum")
+        make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (integrated genetic-antigenic analyses with serum circles)", output_name="spsc-addendum")
 
     def addendum_1(self):
         from .report import make_report
