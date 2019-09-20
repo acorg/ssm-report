@@ -39,11 +39,11 @@ def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
 
 # ----------------------------------------------------------------------
 
-def make_signature_page_addendum(source_dir, output_dir, title="Addendum 1 (signature pages)", output_name="sp-addendum"):
+def make_signature_page_addendum(source_dir, output_dir, title="Addendum 1 (signature pages)", output_name="sp-addendum", T_SerumCirclesDescriptionEggCell=False):
     output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report.json")
     report_settings["cover"]["teleconference"] = title
-    addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings, output_name=output_name)
+    addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings, output_name=output_name, T_SerumCirclesDescriptionEggCell=T_SerumCirclesDescriptionEggCell)
     addendum.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
@@ -387,8 +387,9 @@ class LatexReport:
 
 class LatexSignaturePageAddendum (LatexReport):
 
-    def __init__(self, source_dir, output_dir, output_name="sp-addendum.tex", settings=None):
+    def __init__(self, source_dir, output_dir, output_name="sp-addendum.tex", settings=None, T_SerumCirclesDescriptionEggCell=False):
         super().__init__(source_dir, None, output_dir, output_name, settings)
+        self.T_SerumCirclesDescriptionEggCell = T_SerumCirclesDescriptionEggCell
         # self.latex_source = output_dir.joinpath("sp-addendum.tex")
         self.substitute.update({
             "documentclass": "\documentclass[a4paper,landscape,12pt]{article}",
@@ -402,7 +403,10 @@ class LatexSignaturePageAddendum (LatexReport):
     def make(self):
         self.data.extend([latex.T_Head, latex.T_Setup, latex.T_Begin])
         self.make_cover()
-        self.make_blank_page()
+        if self.T_SerumCirclesDescriptionEggCell:
+            self.data.append(latex.T_SerumCirclesDescriptionEggCell)
+        else:
+            self.make_blank_page()
         self.add_pdfs()
         self.data.append(latex.T_Tail)
         self.write()

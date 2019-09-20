@@ -315,7 +315,7 @@ class Processor:
 
     def spsc_addendum(self):
         from .report import make_signature_page_addendum
-        make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (integrated genetic-antigenic analyses with serum circles)", output_name="spsc-addendum")
+        make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (integrated genetic-antigenic analyses with serum circles)", output_name="spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
 
     def addendum_1(self):
         from .report import make_report
@@ -549,10 +549,10 @@ class Processor:
     signature_pages = signature_page
 
     def sp_h1(self):
-        self.sp_h1_all()
-        # self.sp_h1_cdc()
-        # self.sp_h1_melb()
-        # self.sp_h1_niid()
+        # self.sp_h1_all()
+        self.sp_h1_cdc()
+        self.sp_h1_melb()
+        self.sp_h1_niid()
         # self.sp_h1_nimr()
 
     def sp_h3(self):
