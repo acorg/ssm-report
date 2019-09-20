@@ -158,7 +158,7 @@ def _tree_update_settings_h3(data, settings):
 
 # ======================================================================
 
-def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False, orig_sp_source_dir=None, interactive=False):
+def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False, orig_sp_source_dir=None, colored_by_date=False, interactive=False):
     # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
     prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
@@ -166,7 +166,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
         orig_settings = orig_sp_source_dir.joinpath(prefix + ".sigp.settings.json")
         if orig_settings.exists():
             shutil.copy(orig_settings, settings)
-            _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles)
+            _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles, colored_by_date=colored_by_date)
     tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
     tree_settings = sp_source_dir.joinpath(virus_type + ".tree.settings.json")
     # chart = merge_dir.joinpath("{}-{}-{}.sdb.xz".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
@@ -175,7 +175,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     if not settings.exists():
         no_draw = "--no-draw" if not interactive else ""
         subprocess_check_call(f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" {no_draw} --init-settings "{settings}" "{tree}" "{pdf}" """)
-        _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles)
+        _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles, colored_by_date=colored_by_date)
     edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"; /usr/local/bin/emacsclient -n "{tree_settings}"'
     subprocess_check_call(edit_settings)
     sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" -s "{settings}" "{tree}" "{pdf}" --open"""
@@ -187,7 +187,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum_circles):
+def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum_circles, colored_by_date):
     # module_logger.warning("_signature_page_update_settings {} {} {}".format(virus_type, assay, lab))
     settings = read_json(settings_file)
     if virus_type == "h3":
@@ -198,7 +198,8 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum
     settings.pop("hz_sections", None)
     settings.pop("time_series", None)
 
-    # disable tracked serum
+    # enable/disable tracked serum
+    # tracked_antigens fill: by_date
     for mod in settings["antigenic_maps"]["mods"]:
         if serum_circles:
             if isinstance(mod, dict) and mod.get("N") in ["?tracked_sera", "?tracked_serum_circles"]:
@@ -206,6 +207,8 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum
         else:
             if isinstance(mod, dict) and mod.get("N") in ["tracked_sera", "tracked_serum_circles"]:
                 mod["N"] = "?" + mod["N"]
+        if isinstance(mod, dict) and mod.get("N") in ["tracked_antigens"] and colored_by_date:
+            mod["fill"] = "by_date"
 
     if virus_type in ["by"]:
         settings["antigenic_maps"]["columns"] = 2

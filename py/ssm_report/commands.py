@@ -317,6 +317,10 @@ class Processor:
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (integrated genetic-antigenic analyses with serum circles)", output_name="spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
 
+    def spc_addendum(self):
+        from .report import make_signature_page_addendum
+        make_signature_page_addendum(source_dir=Path("spc"), output_dir=Path("report"), title="Addendum 3 (integrated genetic-antigenic analyses with antigens colored by date)", output_name="spc-addendum")
+
     def addendum_1(self):
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-1", report_settings_file="report-addendum-1.json")
@@ -534,112 +538,59 @@ class Processor:
     by_information = byam_information
 
     # ----------------------------------------------------------------------
-    # Signature pages
+    # integrated genetic-antigenic analyses (signature pages)
 
-    def signature_page(self):
-        """Generate all signature pages"""
-        self.sp_h1()
-        self.sp_h3()
-        self.sp_h3neut()
-        self.sp_bv()
-        self.sp_by()
+    sSpLabs = {
+        # "h1": ["all", "cdc", "melb", "niid", "nimr"],
+        "h1": ["cdc", "melb", "niid"],
+        "h3": ["cdc", "melb", "nimr"],
+        "h3neut": ["cdc", "melb", "niid", "nimr"],
+        "bv": ["cdc", "melb", "niid", "nimr"],
+        "by": ["cdc", "melb", "niid", "nimr"]
+        }
 
-    sp = signature_page
-    sigp = signature_page
-    signature_pages = signature_page
-
-    def sp_h1(self):
-        # self.sp_h1_all()
-        self.sp_h1_cdc()
-        self.sp_h1_melb()
-        self.sp_h1_niid()
-        # self.sp_h1_nimr()
-
-    def sp_h3(self):
-        self.sp_h3_cdc()
-        self.sp_h3_melb()
-        self.sp_h3_nimr()
-
-    def sp_h3neut(self):
-        self.sp_h3neut_cdc()
-        self.sp_h3neut_melb()
-        self.sp_h3neut_niid()
-        self.sp_h3neut_nimr()
-
-    def sp_bv(self):
-        self.sp_bv_cdc()
-        self.sp_bv_melb()
-        self.sp_bv_niid()
-        self.sp_bv_nimr()
-
-    def sp_by(self):
-        self.sp_by_cdc()
-        self.sp_by_melb()
-        self.sp_by_niid()
-        self.sp_by_nimr()
+    def sp(self):
+        for virus_type in self.sSpLabs:
+            getattr(self, f"sp_{virus_type}")()
 
     def spsc(self):
-        """Generate all signature pages with serum circles"""
-        self.spsc_h1()
-        self.spsc_h3()
-        self.spsc_h3neut()
-        self.spsc_bv()
-        self.spsc_by()
+        for virus_type in self.sSpLabs:
+            getattr(self, f"spsc_{virus_type}")()
 
-    def spsc_h1(self):
-        # self.spsc_h1_all()
-        self.spsc_h1_cdc()
-        self.spsc_h1_melb()
-        self.spsc_h1_niid()
-        # self.spsc_h1_nimr()
-
-    def spsc_h3(self):
-        self.spsc_h3_cdc()
-        self.spsc_h3_melb()
-        self.spsc_h3_nimr()
-
-    def spsc_h3neut(self):
-        self.spsc_h3neut_cdc()
-        self.spsc_h3neut_melb()
-        self.spsc_h3neut_niid()
-        self.spsc_h3neut_nimr()
-
-    def spsc_bv(self):
-        self.spsc_bv_cdc()
-        self.spsc_bv_melb()
-        self.spsc_bv_niid()
-        self.spsc_bv_nimr()
-
-    def spsc_by(self):
-        self.spsc_by_cdc()
-        self.spsc_by_melb()
-        self.spsc_by_niid()
-        self.spsc_by_nimr()
+    def spc(self):
+        for virus_type in self.sSpLabs:
+            getattr(self, f"spc_{virus_type}")()
 
     def _make_sp_makers(self):
+
         def sp_mf(virus_type, assay, lab):
             return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._sp_source_dir(), sp_output_dir=self._sp_output_dir(),
-                                                   tree_dir=Path("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), interactive=False)
+                                               tree_dir=Path("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file())
         def sp_mf_i(virus_type, assay, lab):
             return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._sp_source_dir(), sp_output_dir=self._sp_output_dir(),
-                                                   tree_dir=Path("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), interactive=True)
+                                               tree_dir=Path("tree"), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), interactive=True)
         def spsc_mf(virus_type, assay, lab):
             return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._spsc_source_dir(), sp_output_dir=self._spsc_output_dir(),
-                                               tree_dir=Path("tree"), orig_sp_source_dir=self._sp_source_dir(), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), serum_circles=True, interactive=False)
+                                               tree_dir=Path("tree"), orig_sp_source_dir=self._sp_source_dir(), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), serum_circles=True)
         def spsc_mf_i(virus_type, assay, lab):
             return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._spsc_source_dir(), sp_output_dir=self._spsc_output_dir(),
                                                tree_dir=Path("tree"), orig_sp_source_dir=self._sp_source_dir(), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), serum_circles=True, interactive=True)
-        for lab in ["cdc", "melb", "niid", "nimr"]:
-            for virus_type, assay in [["h3", "hi"], ["h3", "neut"], ["h1", "hi"], ["bv", "hi"], ["by", "hi"]]:
-                setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), sp_mf(virus_type=virus_type, assay=assay, lab=lab))
-                setattr(self, "sp_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), sp_mf_i(virus_type=virus_type, assay=assay, lab=lab))
-                setattr(self, "spsc_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf(virus_type=virus_type, assay=assay, lab=lab))
-                setattr(self, "spsc_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf_i(virus_type=virus_type, assay=assay, lab=lab))
-        for virus_type, assay, lab in [["h1", "hi", "all"]]:
-            setattr(self, "sp_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), sp_mf(virus_type=virus_type, assay=assay, lab=lab))
-            setattr(self, "sp_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), sp_mf_i(virus_type=virus_type, assay=assay, lab=lab))
-            setattr(self, "spsc_{}{}_{}".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf(virus_type=virus_type, assay=assay, lab=lab))
-            setattr(self, "spsc_{}{}_{}_i".format(virus_type, assay if assay != "hi" else "", lab), spsc_mf_i(virus_type=virus_type, assay=assay, lab=lab))
+        def spc_mf(virus_type, assay, lab):
+            return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._spc_source_dir(), sp_output_dir=self._spc_output_dir(),
+                                               tree_dir=Path("tree"), orig_sp_source_dir=self._sp_source_dir(), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), colored_by_date=True)
+        def spc_mf_i(virus_type, assay, lab):
+            return lambda: signature_page_make(virus_type=virus_type, assay=assay, lab=lab, sp_source_dir=self._spc_source_dir(), sp_output_dir=self._spc_output_dir(),
+                                               tree_dir=Path("tree"), orig_sp_source_dir=self._sp_source_dir(), merge_dir=self._merges_dir(), seqdb=self._seqdb_file(), colored_by_date=True, interactive=True)
+
+        for virus_type, labs in self.sSpLabs.items():
+            for lab in labs:
+                assay = "neut" if "neut" in virus_type else "hi"
+                setattr(self, f"sp_{virus_type}_{lab}", sp_mf(virus_type=virus_type.replace("neut", ""), assay=assay, lab=lab))
+                setattr(self, f"sp_{virus_type}_{lab}_i", sp_mf_i(virus_type=virus_type.replace("neut", ""), assay=assay, lab=lab))
+                setattr(self, f"spsc_{virus_type}_{lab}", spsc_mf(virus_type=virus_type.replace("neut", ""), assay=assay, lab=lab))
+                setattr(self, f"spsc_{virus_type}_{lab}_i", spsc_mf_i(virus_type=virus_type.replace("neut", ""), assay=assay, lab=lab))
+                setattr(self, f"spc_{virus_type}_{lab}", spc_mf(virus_type=virus_type.replace("neut", ""), assay=assay, lab=lab))
+                setattr(self, f"spc_{virus_type}_{lab}_i", spc_mf_i(virus_type=virus_type.replace("neut", ""), assay=assay, lab=lab))
 
     # ----------------------------------------------------------------------
     # Serum coverage
@@ -826,6 +777,22 @@ class Processor:
         from .signature_page import signature_page_source_dir_init
         signature_page_source_dir_init(spsc_dir)
         return spsc_dir
+
+    @classmethod
+    def _spc_output_dir(cls):
+        cls._spc_source_dir()
+        spc_dir = Path("spc")
+        from .signature_page import signature_page_output_dir_init
+        signature_page_output_dir_init(spc_dir)
+        return spc_dir
+
+    @classmethod
+    def _spc_source_dir(cls):
+        spc_dir = Path("spc")
+        # module_logger.warning("spc_source_dir {}".format(spc_dir))
+        from .signature_page import signature_page_source_dir_init
+        signature_page_source_dir_init(spc_dir)
+        return spc_dir
 
     def merges_make_index_html(self):
         if self._merges_dir().exists():
