@@ -166,7 +166,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
         orig_settings = orig_sp_source_dir.joinpath(prefix + ".sigp.settings.json")
         if orig_settings.exists():
             shutil.copy(orig_settings, settings)
-            _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles, colored_by_date=colored_by_date)
+            _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles, colored_by_date=colored_by_date, update_vaccines=False)
     tree = tree_dir.joinpath(virus_type + ".tree.json.xz")
     tree_settings = sp_source_dir.joinpath(virus_type + ".tree.settings.json")
     # chart = merge_dir.joinpath("{}-{}-{}.sdb.xz".format(lab, virus_type.replace("b", "b-").replace("h1", "h1pdm"), assay))
@@ -187,7 +187,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
 
 # ----------------------------------------------------------------------
 
-def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum_circles, colored_by_date):
+def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum_circles, colored_by_date, update_vaccines=True):
     # module_logger.warning("_signature_page_update_settings {} {} {}".format(virus_type, assay, lab))
     settings = read_json(settings_file)
     if virus_type == "h3":
@@ -219,14 +219,15 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum
     else:
         settings["signature_page"]["antigenic_maps_width"] = 579
 
-    # virus_type_long = virus_type.replace("v", "vic").replace("y", "yam")
-    map_settings = read_json(f"{virus_type}-{assay}.json")
-    vaccine_settings = read_json(f"vaccines.{virus_type}-{assay}.json")
-    # update viewport from ssm settings
-    _signature_page_update_viewport_rotate_flip(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
-    # update vaccine drawing from ssm settings
-    _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings, vaccine_settings=vaccine_settings)
-    _signature_page_add_antigen_sample(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
+    if update_vaccines:
+        # virus_type_long = virus_type.replace("v", "vic").replace("y", "yam")
+        map_settings = read_json(f"{virus_type}-{assay}.json")
+        vaccine_settings = read_json(f"vaccines.{virus_type}-{assay}.json")
+        # update viewport from ssm settings
+        _signature_page_update_viewport_rotate_flip(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
+        # update vaccine drawing from ssm settings
+        _signature_page_update_vaccines(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings, vaccine_settings=vaccine_settings)
+        _signature_page_add_antigen_sample(virus_type=virus_type, assay=assay, lab=lab, settings=settings, map_settings=map_settings)
 
     write_json(settings_file, settings, object_fields_sorting_key=signature_page_settins_object_fields_sorting_key)
 
