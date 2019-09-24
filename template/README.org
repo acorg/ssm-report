@@ -1,4 +1,4 @@
-# Time-stamp: <2019-09-20 13:06:58 eu>
+# Time-stamp: <2019-09-24 10:53:10 eu>
 
 * Merges
 - [ ] H1 [0/4]
@@ -170,6 +170,8 @@ d=2019-0912; for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signatu
 
 [[elisp:(eu-ssm-report "spsc-addendum")][SPSC-ADDENDUM]]
 
+[[elisp:(eu-ssm-report "sp-spsc-addendum")][SP SPSC ADDENDUM (interleave pages)]]
+
 ** Signature pages with antigens colored by date
 
 | [[elisp:(eu-ssm-report "spc")][spc]]      |             |              |              |              |        |
@@ -192,20 +194,21 @@ d=2019-0912; for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signatu
 
 [[elisp:(eu-ssm-report "spc-addendum")][SPC-ADDENDUM]]
 
-addendum-3 addendum-4 addendum-5
+[[elisp:(eu-ssm-report "addendum-3")][ADDENDUM-3]]  [[elisp:(eu-ssm-report "addendum-4")][ADDENDUM-4]]  [[elisp:(eu-ssm-report "addendum-5")][ADDENDUM-5]]
 
 
 * ======================================================================
 
 
-* Information meeting tree
+* Information meeting
+** Tree
 commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
 
-ssm-report h1-tree-information
-ssm-report h3-tree-information
-ssm-report bv-tree-information
-ssm-report by-tree-information
-ssm-report h1-information
+[[elisp:(eu-ssm-report "h1-tree-information")][H1 Tree Info]]  [[elisp:(eu-ssm-report "h3-tree-information")][H3 Tree Info]]  [[elisp:(eu-ssm-report "bv-tree-information")][BVic Tree Info]]  [[elisp:(eu-ssm-report "by-tree-information")][BYam Tree Info]]
+
+** Maps
+[[elisp:(eu-ssm-report "h1-information")][H1 Info]]  [[elisp:(eu-ssm-report "h3-information")][H3 HI Info]]  [[elisp:(eu-ssm-report "h3n-information")][H3 Neut Info]] [[elisp:(eu-ssm-report "bv-information")][BVic Info]]  [[elisp:(eu-ssm-report "by-information")][BYam Info]]
+
 * Commands
 ** update hidb on albertine ~1.5min
 ssh i19 "whocc-update-ace-store && whocc-hidb5-update"
