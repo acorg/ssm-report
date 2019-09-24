@@ -39,11 +39,20 @@ def make_report_serumcoverage(source_dir, source_dir_2, output_dir):
 
 # ----------------------------------------------------------------------
 
-def make_signature_page_addendum(source_dir, output_dir, title="Addendum 1 (signature pages)", output_name="sp-addendum", T_SerumCirclesDescriptionEggCell=False):
+def make_signature_page_addendum(source_dir, output_dir, title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-addendum", T_SerumCirclesDescriptionEggCell=False):
     output_dir.mkdir(exist_ok=True)
     report_settings = read_json("report.json")
     report_settings["cover"]["teleconference"] = title
     addendum = LatexSignaturePageAddendum(source_dir=source_dir, output_dir=output_dir, settings=report_settings, output_name=output_name, T_SerumCirclesDescriptionEggCell=T_SerumCirclesDescriptionEggCell)
+    addendum.make_compile_view(update_toc=True)
+
+# ----------------------------------------------------------------------
+
+def make_signature_page_addendum_interleave(source_dirs, output_dir, title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-addendum", T_SerumCirclesDescriptionEggCell=True):
+    output_dir.mkdir(exist_ok=True)
+    report_settings = read_json("report.json")
+    report_settings["cover"]["teleconference"] = title
+    addendum = LatexSignaturePageAddendumInterleave(source_dirs=source_dirs, output_dir=output_dir, settings=report_settings, output_name=output_name, T_SerumCirclesDescriptionEggCell=T_SerumCirclesDescriptionEggCell)
     addendum.make_compile_view(update_toc=True)
 
 # ----------------------------------------------------------------------
@@ -444,6 +453,21 @@ class LatexSignaturePageAddendum (LatexReport):
         filename = self.source_dir.joinpath("{}-{}-{}.pdf".format(subtype, lab, assay))
         if filename.exists():
             self.data.append(latex.T_SignaturePage.format(image=filename))
+
+# ----------------------------------------------------------------------
+
+class LatexSignaturePageAddendumInterleave (LatexSignaturePageAddendum):
+
+    def __init__(self, source_dirs, output_dir, output_name="sp-spsc-addendum.tex", settings=None, T_SerumCirclesDescriptionEggCell=False):
+        super().__init__(source_dirs[0], output_dir, output_name, settings, T_SerumCirclesDescriptionEggCell)
+        self.source_dirs = [sd.resolve() for sd in source_dirs]
+
+
+    def add_pdf(self, subtype, assay, lab):
+        for source_dir in self.source_dirs:
+            filename = source_dir.joinpath("{}-{}-{}.pdf".format(subtype, lab, assay))
+            if filename.exists():
+                self.data.append(latex.T_SignaturePage.format(image=filename))
 
 # ----------------------------------------------------------------------
 

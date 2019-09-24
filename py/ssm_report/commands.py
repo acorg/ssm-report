@@ -317,6 +317,10 @@ class Processor:
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=Path("spsc"), output_dir=Path("report"), title="Addendum 2 (integrated genetic-antigenic analyses with serum circles)", output_name="spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
 
+    def sp_spsc_addendum(self):
+        from .report import make_signature_page_addendum_interleave
+        make_signature_page_addendum_interleave(source_dirs=[Path("sp"), Path("spsc")], output_dir=Path("report"), title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
+
     def spc_addendum(self):
         from .report import make_signature_page_addendum
         make_signature_page_addendum(source_dir=Path("spc"), output_dir=Path("report"), title="Addendum 3 (integrated genetic-antigenic analyses with antigens colored by date)", output_name="spc-addendum")
