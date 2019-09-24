@@ -1,4 +1,4 @@
-# Time-stamp: <2019-09-24 10:53:10 eu>
+# Time-stamp: <2019-09-24 11:12:15 eu>
 
 * Merges
 - [ ] H1 [0/4]
@@ -170,7 +170,7 @@ d=2019-0912; for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signatu
 
 [[elisp:(eu-ssm-report "spsc-addendum")][SPSC-ADDENDUM]]
 
-[[elisp:(eu-ssm-report "sp-spsc-addendum")][SP SPSC ADDENDUM (interleave pages)]]
+[[elisp:(eu-ssm-report "sp-spsc-addendum")][SP SPSC ADDENDUM (interleave pages)]] --> use as the default
 
 ** Signature pages with antigens colored by date
 
