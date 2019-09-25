@@ -84,6 +84,9 @@ def tree_make_information_settings(virus_type, tree_dir, output_dir):
             "line_color": "black",
             "line_width": 1.5,
             })
+        for tree_mod in settings["tree"].get("mods", []):
+            if tree_mod.get("mod") == "mark-with-label":
+                tree_mod["?mod"] = tree_mod.pop("mod")
         write_json(info_settings, settings, object_fields_sorting_key=signature_page_settins_object_fields_sorting_key)
 
 # ----------------------------------------------------------------------
