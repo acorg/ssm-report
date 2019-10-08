@@ -375,7 +375,7 @@ def make_pre_post(virus_type, assay, mod, lab, infix=None, period_name=None):
 
 def make_map_information(output_dir, virus_type, assay, force):
     make_map(output_dir=output_dir, prefix=f"{virus_type}-{assay}", virus_type=virus_type, assay=assay, mod="information", force=force, settings_labs_key="information_labs")
-    make_map(output_dir=output_dir, prefix=f"{virus_type}-{assay}.clades", virus_type=virus_type, assay=assay, mod="information_clades", force=force, settings_labs_key="information_labs")
+    # make_map(output_dir=output_dir, prefix=f"{virus_type}-{assay}.clades", virus_type=virus_type, assay=assay, mod="information_clades", force=force, settings_labs_key="information_labs")
 
 # ----------------------------------------------------------------------
 
