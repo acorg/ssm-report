@@ -1,4 +1,4 @@
-# Time-stamp: <2019-09-24 11:12:15 eu>
+# Time-stamp: <2019-10-29 12:18:29 eu>
 
 * Merges
 - [ ] H1 [0/4]
@@ -216,8 +216,7 @@ hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
 rm -f stat/* geo/*; ssm-report --force update_hidb stat geo
 ssm-report update-merges
 ** re-make seqdb
-seqdb-create --db db/seqdb.json.xz --match-hidb --clades --report-not-aligned-prefixes 32 --save-not-found-locations /d/not-found.txt ~/ac/tables-store/sequences/*.fas.*
-cp db/seqdb.json.xz ~/AD/data && rsync -v ~/AD/data/seqdb* albertine:AD/data
+make-seqdb && cp ~/AD/data/seqdb.json.xz db
 ** make lispmds save colored by clade
 acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
 ** serum coverage
