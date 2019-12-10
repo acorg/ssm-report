@@ -327,20 +327,6 @@ def make_periods(start, end, period):
         raise
     return data
 
-# def make_periods(start, end, period):
-#     if period == "month":
-#         from acmacs_map_draw_backend import MonthlyTimeSeries
-#         ts = MonthlyTimeSeries(start=start, end=end)
-#     elif period == "year":
-#         from acmacs_map_draw_backend import YearlyTimeSeries
-#         ts = YearlyTimeSeries(start=start, end=end)
-#     elif period == "week":
-#         from acmacs_map_draw_backend import WeeklyTimeSeries
-#         ts = WeeklyTimeSeries(start=start, end=end)
-#     else:
-#         raise ValueError("Unsupported period: " + repr(period) + ", expected \"month\", \"year\", \"week\"")
-#     return ts
-
 # ----------------------------------------------------------------------
 
 def make_pre_post(virus_type, assay, mod, lab, infix=None, period_name=None):
