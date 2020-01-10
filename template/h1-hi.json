@@ -1,6 +1,8 @@
 { "_":"-*- js-indent-level: 2 -*-",
-  "labs": ["ALL"],
-  "information_labs": ["ALL"],
+  "labs": ["CDC", "MELB", "NIID", "NIMR"],
+  "?labs": ["ALL"],
+  "information_labs": ["CDC", "MELB", "NIID", "NIMR"],
+  "?information_labs": ["ALL"],
   "mods": {
 
     "set_scale": [
