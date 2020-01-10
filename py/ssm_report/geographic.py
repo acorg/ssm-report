@@ -36,7 +36,7 @@ def make_index_html(output_file, prefixes, safari):
         f.write("<html><head><style>\nimg {border: 1px solid black;}\nul {list-style-type: none;}\nli {margin: 0.5em 0; }\nobject {width: 800px; height: 415px; }\n</style><title>Geographic maps</title></head><body>\n")
         for vt in sorted(prefixes):
             f.write("<h1>{}</h1>\n<ul>".format(vt))
-            for fn in prefixes[vt].parent.glob(prefixes[vt].name + "*.pdf"):
+            for fn in sorted(prefixes[vt].parent.glob(prefixes[vt].name + "*.pdf")):
                 if safari:
                     f.write('<li><img src="{}" /></li>\n'.format(Path(fn).name))
                 else:
@@ -47,7 +47,13 @@ def make_index_html(output_file, prefixes, safari):
 # ----------------------------------------------------------------------
 
 sSettings = {
-  "coloring?": ["continent", "clade", "lineage", "lineage-deletion-mutants"],
+  "coloring?": [
+    {"N": "continent", "?continent_color": {"EUROPE": {"fill": "green", "outline": "black", "outline_width": 0}}},
+    {"N": "clade", "?clade_color": {"SEQUENCED": {"fill": "yellow", "outline": "black", "outline_width": 0}}},
+    {"N": "lineage", "?lineage_color": {"VICTORIA_2DEL": {"fill": "#23a8d1", "outline": "black", "outline_width": 0}, "VICTORIA_3DEL": {"fill": "#80FF00", "outline": "black", "outline_width": 0}}},
+    {"N": "lineage-deletion-mutants", "?lineage_color": {"VICTORIA_2DEL": {"fill": "#23a8d1", "outline": "black", "outline_width": 0}, "VICTORIA_3DEL": {"fill": "#80FF00", "outline": "black", "outline_width": 0}}},
+    {"N": "amino-acid", "apply": [{"sequenced": True, "color": "red"}, {"aa": ["156N" ,"155G"], "color": "blue"}], "report": False}
+  ],
   "point_size_in_pixels": 4.0,
   "point_density": 0.8,
   "continent_outline_color": "grey63",
@@ -60,7 +66,7 @@ sSettings = {
   "priority": ["YAMAGATA", "VICTORIA", "VICTORIA_DEL"]
 }
 
-sColoringByVirusType = {"b": "lineage-deletion-mutants", "h1": "continent", "h3": "clade"}
+sColoringByVirusType = {"b": {"N": "lineage-deletion-mutants"}, "h1": {"N": "continent"}, "h3": {"N": "clade"}}
 
 # ======================================================================
 
