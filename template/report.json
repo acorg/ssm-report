@@ -17,7 +17,7 @@
     {"type": "?************************* H1 *****************************"},
     {"type": "section_begin", "title": "H1N1pdm09", "subtype": "h1"},
     {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 geographic data"},
-    {"type": "geographic_data_description", "coloring": "continents"},
+    {"type": "geographic_data_description", "coloring": "h1_clade"},
     "new_page",
     {"type": "geographic_ts", "subtype": "H1"},
     "new_page",
@@ -32,14 +32,22 @@
     "new_page",
     {"type": "phylogenetic_tree", "subtype": "H1"},
     "new_page",
-    {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map colored by phylogenetic clade"},
-    {"type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map, antigens color-coded by phylogenetic clade."},
-    {"type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "clade"},
-    "new_page",
+    
+    {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map colored by phylogenetic clade"},
+    {"?type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map, antigens color-coded by phylogenetic clade."},
+    {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "clade"},
+    "?new_page",
+
+    {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps colored by amino-acid at 155, 156"},
+    {"type": "maps", "images": [
+      "h1-hi/clade-cdc.pdf", "h1-hi/clade-nimr.pdf",
+      "h1-hi/clade-niid.pdf", "h1-hi/clade-melb.pdf"
+    ]},
     {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map with serology antigens."},
     {"type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
     {"type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "serology"},
     "new_page",
+    
     {"type": "?************************* H3 *****************************"},
     {"type": "section_begin", "title": "H3N2", "subtype": "h3"},
     {"type": "subsection_begin", "subtype": "H1", "title": "H3N2 geographic data"},

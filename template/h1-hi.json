@@ -83,17 +83,17 @@
       {"?N": "rotate", "degrees": 0}
     ],
     "NIID_viewport": [
-      {"N": "viewport", "rel": [-1.5, -1.5, 3]}
+      {"?N": "viewport", "rel": [-1.5, -1.5, 3]}
     ],
 
     "ALL_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
     "ALL_rotate": [
-      {"N": "rotate", "degrees": 0}
+      {"?N": "rotate", "degrees": 0}
     ],
     "ALL_viewport": [
-      {"N": "viewport", "rel": [7.5, 4.5, -9]}
+      {"?N": "viewport", "rel": [7.5, 4.5, -9]}
     ],
     "ALL_pre": [
     ],

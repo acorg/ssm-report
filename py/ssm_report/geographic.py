@@ -47,26 +47,61 @@ def make_index_html(output_file, prefixes, safari):
 # ----------------------------------------------------------------------
 
 sSettings = {
-  "coloring?": [
-    {"N": "continent", "?continent_color": {"EUROPE": {"fill": "green", "outline": "black", "outline_width": 0}}},
-    {"N": "clade", "?clade_color": {"SEQUENCED": {"fill": "yellow", "outline": "black", "outline_width": 0}}},
-    {"N": "lineage", "?lineage_color": {"VICTORIA_2DEL": {"fill": "#23a8d1", "outline": "black", "outline_width": 0}, "VICTORIA_3DEL": {"fill": "#80FF00", "outline": "black", "outline_width": 0}}},
-    {"N": "lineage-deletion-mutants", "?lineage_color": {"VICTORIA_2DEL": {"fill": "#23a8d1", "outline": "black", "outline_width": 0}, "VICTORIA_3DEL": {"fill": "#80FF00", "outline": "black", "outline_width": 0}}},
-    {"N": "amino-acid", "apply": [{"sequenced": True, "color": "red"}, {"aa": ["156N" ,"155G"], "color": "blue"}], "report": False}
-  ],
-  "point_size_in_pixels": 4.0,
-  "point_density": 0.8,
-  "continent_outline_color": "grey63",
-  "continent_outline_width": 0.5,
-  "output_image_width": 800,
+    "coloring?": [
+        {"N": "continent", "?continent_color": {"EUROPE": {"fill": "green", "outline": "black", "outline_width": 0}}},
+        {"N": "clade", "?clade_color": {"SEQUENCED": {"fill": "yellow", "outline": "black", "outline_width": 0}}},
+        {"N": "lineage", "?lineage_color": {"VICTORIA_2DEL": {"fill": "#23a8d1", "outline": "black", "outline_width": 0}, "VICTORIA_3DEL": {"fill": "#80FF00", "outline": "black", "outline_width": 0}}},
+        {"N": "lineage-deletion-mutants", "?lineage_color": {"VICTORIA_2DEL": {"fill": "#23a8d1", "outline": "black", "outline_width": 0}, "VICTORIA_3DEL": {"fill": "#80FF00", "outline": "black", "outline_width": 0}}},
+        {"N": "amino-acid", "apply": [{"sequenced": True, "color": "red"}, {"aa": ["156N" ,"155G"], "color": "blue"}], "report": False},
+        {
+            "ana1":  "#03569b",
+            "ana2":  "#e72f27",
+            "ana3":  "#ffc808",
+            "ana4":  "#a2b324",
+            "ana5":  "#a5b8c7",
+            "ana6":  "#049457",
+            "ana7":  "#f1b066",
+            "ana8":  "#742f32",
+            "ana9":  "#9e806e",
+            "ana10": "#75ada9",
+            "ana11": "#675b2c",
+            "ana12": "#a020f0",
+            "ana13": "#8b8989",
+            "ana14": "#e9a390",
+            "ana15": "#dde8cf",
+            "ana16": "#00939f"
+        }
+    ],
+    "point_size_in_pixels": 4.0,
+    "point_density": 0.8,
+    "continent_outline_color": "grey63",
+    "continent_outline_width": 0.5,
+    "output_image_width": 800,
 
-  "title": {"offset": [0, 0], "text_size": 20, "background": "transparent", "border_color": "black", "border_width": 0, "text_color": "black", "padding": 10.0},
+    "title": {"offset": [0, 0], "text_size": 20, "background": "transparent", "border_color": "black", "border_width": 0, "text_color": "black", "padding": 10.0},
 
-  "priority?": "draw VICTORIA_DEL on top of VICTORIA",
-  "priority": ["YAMAGATA", "VICTORIA", "VICTORIA_DEL"]
+    "priority?": "draw VICTORIA_DEL on top of VICTORIA",
+    "priority": ["YAMAGATA", "VICTORIA", "VICTORIA_DEL"]
 }
 
-sColoringByVirusType = {"b": {"N": "lineage-deletion-mutants"}, "h1": {"N": "continent"}, "h3": {"N": "clade"}}
+sColoringByVirusType = {
+    "b": {"N": "lineage-deletion-mutants"},
+    "h1": {
+        "N": "amino-acid",
+        "apply": [
+            {"sequenced": True, "color": "ana4"},
+            {"aa": ["155E"], "color": "ana3"},
+            {"aa": ["155X"], "color": "ana8"},
+            {"aa": ["156D"], "color": "ana4"},
+            {"aa": ["156S"], "color": "ana6"},
+            {"aa": ["156K"], "color": "ana2"},
+            {"aa": ["156X"], "color": "ana7"},
+            {"aa": ["156N" ,"155G"], "color": "ana1"}
+        ],
+        "report": False
+    },
+    "h3": {"N": "clade"}
+}
 
 # ======================================================================
 
