@@ -546,7 +546,7 @@ class Processor:
 
     sSpLabs = {
         # "h1": ["all", "cdc", "melb", "niid", "nimr"],
-        "h1": ["cdc", "melb", "niid"],
+        "h1": ["cdc", "melb", "niid", "nimr"],
         "h3": ["cdc", "melb", "nimr"],
         "h3neut": ["cdc", "melb", "niid", "nimr"],
         "bv": ["cdc", "melb", "niid", "nimr"],

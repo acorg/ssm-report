@@ -161,7 +161,7 @@ def _tree_update_settings_h3(data, settings):
 
 # ======================================================================
 
-def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False, orig_sp_source_dir=None, colored_by_date=False, interactive=False):
+def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tree_dir, merge_dir, seqdb, serum_circles=False, orig_sp_source_dir=None, colored_by_date=True, interactive=False):
     # module_logger.warning("Source {}  Output {}  Tree {}".format(sp_source_dir, sp_output_dir, tree_dir))
     prefix = "{}-{}-{}".format(virus_type, lab, assay)
     settings = sp_source_dir.joinpath(prefix + ".sigp.settings.json")
@@ -193,25 +193,30 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
 def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum_circles, colored_by_date, update_vaccines=True):
     # module_logger.warning("_signature_page_update_settings {} {} {}".format(virus_type, assay, lab))
     settings = read_json(settings_file)
+    del settings["_"]
     if virus_type == "h3":
         settings["title"]["title"] = "{} {} {}".format(sVirusTypeShort[virus_type], assay.upper(), sLabDisplayName[lab.upper()])
     else:
         settings["title"]["title"] = "{} {}".format(sVirusTypeShort[virus_type], sLabDisplayName[lab.upper()])
     settings.pop("clades", None)
     settings.pop("hz_sections", None)
-    settings.pop("time_series", None)
+    settings["time_series"] = {"month_year_to_timeseries_gap": 8}
 
     # enable/disable tracked serum
     # tracked_antigens fill: by_date
     for mod in settings["antigenic_maps"]["mods"]:
         if serum_circles:
-            if isinstance(mod, dict) and mod.get("N") in ["?tracked_sera", "?tracked_serum_circles"]:
-                mod["N"] = mod["N"][1:]
+            if isinstance(mod, dict):
+                if mod.get("N") in ["?tracked_sera", "?tracked_serum_circles"]:
+                    mod["N"] = mod["N"][1:]
+                if mod.get("N") in ["tracked_serum_circles"]:
+                    mod["outline"] = "passage"
         else:
             if isinstance(mod, dict) and mod.get("N") in ["tracked_sera", "tracked_serum_circles"]:
                 mod["N"] = "?" + mod["N"]
         if isinstance(mod, dict) and mod.get("N") in ["tracked_antigens"] and colored_by_date:
             mod["fill"] = "by_date"
+            mod["outline"] = "black"
 
     if virus_type in ["by"]:
         settings["antigenic_maps"]["columns"] = 2
