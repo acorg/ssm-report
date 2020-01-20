@@ -1,6 +1,6 @@
 { "_":"-*- js-indent-level: 2 -*-",
-  "labs": ["CDC", "MELB", "NIMR"],
-  "information_labs": ["CDC", "MELB", "NIMR"],
+  "labs": ["MELB", "NIMR"],
+  "information_labs": ["MELB", "NIMR"],
   "mods": {
 
     "set_scale": [
@@ -116,6 +116,18 @@
     ],
     "NIMR_viewport": [
       {"N": "viewport", "rel": [1, 1, -2]}
+    ],
+    "NIMR_clades": [
+      {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"]},   "fill": "#C000FF00",          "outline": "black", "legend": {"label": "3a 144N 2015-2017",   "count": true}, "order": "raise", "report": true}
+    ],
+    "NIMR_clades_last_6_months": [
+      {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"], "younger_than_days": 183},   "fill": "#C000FF00",          "outline": "black", "legend": {"label": "3a 144N 2015-2017",   "count": true}, "order": "raise", "report": true}
+    ],
+    "NIMR_clades_last_12_months": [
+      {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"], "younger_than_days": 365},   "fill": "#C000FF00",          "outline": "black", "legend": {"label": "3a 144N 2015-2017",   "count": true}, "order": "raise", "report": true}
+    ],
+    "NIMR_clades_light": [
+      {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"]},   "fill": "#C0BFFFBF",          "outline": "#BFBFBF", "legend": {"label": "3a 144N 2015-2017",   "count": true}, "order": "raise", "report": true}
     ],
     "NIMR_pre": [
     ],
