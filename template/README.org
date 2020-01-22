@@ -1,4 +1,4 @@
-# Time-stamp: <2020-01-10 10:58:29 eu>
+# Time-stamp: <2020-01-22 09:02:11 eu>
 
 * Merges
 - [ ] H1 [0/4]
@@ -85,9 +85,9 @@ d=2019-0912; for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signatu
 [[elisp:(eu-ssm-report "--force stat")][stat]] [[elisp:(eu-ssm-report "--force geo")][geo]]
 
 -- H1
-[[elisp:(eu-ssm-report "h1-ts")][h1-ts]]
-[[elisp:(eu-ssm-report "h1-clade")][h1-clade]]         [[elisp:(eu-run "h1-hi/clade-cdc-i.sh")][h1-cdc-clade-i]]      [[elisp:(eu-run "h1-hi/clade-melb-i.sh")][h1-melb-clade-i]]        [[elisp:(eu-run "h1-hi/clade-niid-i.sh")][h1-niid-clade-i]]      [[elisp:(eu-run "h1-hi/clade-nimr-i.sh")][h1-nimr-clade-i]]
-[[elisp:(eu-ssm-report "h1-serology")][h1-serology]]      [[elisp:(eu-run "h1-hi/serology-cdc-i.sh")][h1-cdc-serology-i]]   [[elisp:(eu-run "h1-hi/serology-melb-i.sh")][h1-melb-serology-i  ]]   [[elisp:(eu-run "h1-hi/serology-niid-i.sh")][h1-niid-serology-i]]   [[elisp:(eu-run "h1-hi/serology-nimr-i.sh")][h1-nimr-serology-i]]
+[[elisp:(eu-ssm-report "h1-ts")][h1-all-ts]]        [[elisp:(eu-ssm-report "h1-ts-labs")][h1-ts-labs]]          [[elisp:(eu-ssm-report "h1-ts-cdc")][h1-ts-cdc]]           [[elisp:(eu-ssm-report "h1-ts-melb")][h1-ts-melb]]             [[elisp:(eu-ssm-report "h1-ts-niid")][h1-ts-niid]]           [[elisp:(eu-ssm-report "h1-ts-nimr")][h1-ts-nimr]]
+[[elisp:(eu-ssm-report "h1-clade")][h1-clade]]                             [[elisp:(eu-run "h1-hi/clade-cdc-i.sh")][h1-cdc-clade-i]]      [[elisp:(eu-run "h1-hi/clade-melb-i.sh")][h1-melb-clade-i]]        [[elisp:(eu-run "h1-hi/clade-niid-i.sh")][h1-niid-clade-i]]      [[elisp:(eu-run "h1-hi/clade-nimr-i.sh")][h1-nimr-clade-i]]
+[[elisp:(eu-ssm-report "h1-serology")][h1-serology]]                          [[elisp:(eu-run "h1-hi/serology-cdc-i.sh")][h1-cdc-serology-i]]   [[elisp:(eu-run "h1-hi/serology-melb-i.sh")][h1-melb-serology-i  ]]   [[elisp:(eu-run "h1-hi/serology-niid-i.sh")][h1-niid-serology-i]]   [[elisp:(eu-run "h1-hi/serology-nimr-i.sh")][h1-nimr-serology-i]]
 [[elisp:(eu-ssm-report "h1-geo")][h1-geo]]
 [[elisp:(eu-ssm-report "h1-clade h1-serology h1-ts")][h1 ts clade serology]]
 [[elisp:(eu-ssm-report "h1-clade h1-ts")][h1 ts clade]]

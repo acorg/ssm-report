@@ -385,6 +385,8 @@ class Processor:
 
     def h1_clade(self):
         self.clade(virus_type="h1", assay="hi")
+        self.clade_6m(virus_type="h1", assay="hi")
+        self.clade_12m(virus_type="h1", assay="hi")
     h1_clades = h1_clade
 
     def h1_clade_labs(self):
@@ -402,6 +404,18 @@ class Processor:
 
     def h1_ts(self, lab=None):
         make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=Path("h1-hi"), force=self._force, dot_size=self.dot_size)
+
+    def h1_ts_cdc(self, lab=None):
+        self.h1_ts(lab="cdc")
+
+    def h1_ts_melb(self, lab=None):
+        self.h1_ts(lab="melb")
+
+    def h1_ts_niid(self, lab=None):
+        self.h1_ts(lab="niid")
+
+    def h1_ts_nimr(self, lab=None):
+        self.h1_ts(lab="nimr")
 
     def h1_ts_labs(self, lab=None):
         make_ts(virus_type="h1", assay="hi", lab=lab or ["cdc", "melb", "niid", "nimr"], output_dir=Path("h1-hi"), force=self._force, dot_size=self.dot_size)
