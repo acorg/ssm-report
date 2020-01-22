@@ -106,6 +106,16 @@
       {"?N": "viewport", "rel": [-1.5, -1.5, 3]}
     ],
 
+    "NIMR_pre": [
+    ],
+    "NIMR_flip": [
+    ],
+    "NIMR_rotate": [
+    ],
+    "NIMR_viewport": [
+      {"N": "viewport", "rel": [0, -2, 0]}
+    ],
+
     "ALL_flip": [
       {"?N": "flip", "direction": "ew"}
     ],
