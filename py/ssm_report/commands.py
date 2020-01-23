@@ -199,38 +199,32 @@ class Processor:
     def h3_tree_aa(self):
         tree_make_aa_pos(subtype="h3", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
-    def bv_tree(self):
+    def bvic_tree(self):
         tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file())
-    bvic_tree = bv_tree
 
-    def bv_tree_cumul(self):
+    def bvic_tree_cumul(self):
         tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file(), report_cumulative=True)
 
-    def bv_tree_interactive(self):
+    def bvic_tree_interactive(self):
         tree_make(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
-    bv_tree_i = bv_tree_interactive
 
-    def by_tree(self):
+    def byam_tree(self):
         tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file())
-    byam_tree = by_tree
 
-    def by_tree_cumul(self):
+    def byam_tree_cumul(self):
         tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file(), report_cumulative=True)
 
-    def by_tree_interactive(self):
+    def byam_tree_interactive(self):
         tree_make(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file(), interactive=True)
-    by_tree_i = by_tree_interactive
 
     def h1_tree_aa(self):
         tree_make_aa_pos(subtype="h1", tree_dir=Path("tree"), seqdb=self._seqdb_file())
 
-    def bv_tree_aa(self):
+    def bvic_tree_aa(self):
         tree_make_aa_pos(subtype="bv", tree_dir=Path("tree"), seqdb=self._seqdb_file())
-    bvic_tree_aa = bv_tree_aa
 
-    def by_tree_aa(self):
+    def byam_tree_aa(self):
         tree_make_aa_pos(subtype="by", tree_dir=Path("tree"), seqdb=self._seqdb_file())
-    byam_tree_aa = by_tree_aa
 
     def tree_information(self):
         """Generate tree images for all subtypes."""
@@ -245,10 +239,10 @@ class Processor:
     def h3_tree_information(self):
         self._tree_information("h3")
 
-    def bv_tree_information(self):
+    def bvic_tree_information(self):
         self._tree_information("bv")
 
-    def by_tree_information(self):
+    def byam_tree_information(self):
         self._tree_information("by")
 
     def _tree_information(self, virus_type):
@@ -288,7 +282,6 @@ class Processor:
         self.serology(virus_type="bv", assay="hi")()
         #self.bvic_serum_sectors()
         self.bvic_ts()
-    bv = bvic
 
     def byam(self):
         self.byam_clade()
@@ -296,7 +289,6 @@ class Processor:
         self.serology(virus_type="by", assay="hi")()
         #self.byam_serum_sectors()
         self.byam_ts()
-    by = byam
 
     def report(self):
         from .report import make_report
@@ -385,13 +377,12 @@ class Processor:
     # H1 HI
 
     def h1_clade(self):
-        self.clade(virus_type="h1", assay="hi")
-        self.clade_6m(virus_type="h1", assay="hi")
-        self.clade_12m(virus_type="h1", assay="hi")
-    h1_clades = h1_clade
+        self._clade(virus_type="h1", assay="hi")
+        self._clade_6m(virus_type="h1", assay="hi")
+        self._clade_12m(virus_type="h1", assay="hi")
 
     def h1_clade_labs(self):
-        self.clade(virus_type="h1", assay="hi", lab=["cdc", "melb", "niid", "nimr"])
+        self._clade(virus_type="h1", assay="hi", lab=["cdc", "melb", "niid", "nimr"])
 
     def h1_serology(self):
         self.serology(virus_type="h1", assay="hi")
@@ -401,7 +392,6 @@ class Processor:
 
     def h1_geography(self):
         self._geography(virus_type="h1", assay="hi")
-    h1_geo = h1_geography
 
     def h1_ts(self, lab=None):
         make_ts(virus_type="h1", assay="hi", lab=lab, output_dir=Path("h1-hi"), force=self._force, dot_size=self.dot_size)
@@ -428,17 +418,15 @@ class Processor:
     # H3 HI
 
     def h3_clade(self):
-        self.clade(virus_type="h3", assay="hi")
-        self.clade_6m(virus_type="h3", assay="hi")
-        self.clade_12m(virus_type="h3", assay="hi")
-    h3_clades = h3_clade
+        self._clade(virus_type="h3", assay="hi")
+        self._clade_6m(virus_type="h3", assay="hi")
+        self._clade_12m(virus_type="h3", assay="hi")
 
     def h3_aa_at_142(self):
         self._aa_at(virus_type="h3", assay="hi", positions=[142])
 
     def h3_geography(self):
         self._geography(virus_type="h3", assay="hi")
-    h3_geo = h3_geography
 
     def h3_ts(self, lab=None):
         make_ts(virus_type="h3", assay="hi", lab=lab, output_dir=Path("h3-hi"), force=self._force, dot_size=self.dot_size)
@@ -456,12 +444,9 @@ class Processor:
     # H3 Neut
 
     def h3neut_clade(self):
-        self.clade(virus_type="h3", assay="neut")
-        self.clade_6m(virus_type="h3", assay="neut")
-        self.clade_12m(virus_type="h3", assay="neut")
-    h3neut_clades = h3neut_clade
-    h3n_clades = h3neut_clade
-    h3n_clade = h3neut_clade
+        self._clade(virus_type="h3", assay="neut")
+        self._clade_6m(virus_type="h3", assay="neut")
+        self._clade_12m(virus_type="h3", assay="neut")
 
     def h3neut_aa_at_142(self):
         self._aa_at(virus_type="h3", assay="neut", positions=[142])
@@ -504,57 +489,41 @@ class Processor:
     # BVIC HI
 
     def bvic_clade(self):
-        self.clade(virus_type="bv", assay="hi")
-        self.clade_6m(virus_type="bv", assay="hi")
-        self.clade_12m(virus_type="bv", assay="hi")
-    bv_clade = bvic_clade
-    bv_clades = bvic_clade
-    bvic_clades = bvic_clade
+        self._clade(virus_type="bv", assay="hi")
+        self._clade_6m(virus_type="bv", assay="hi")
+        self._clade_12m(virus_type="bv", assay="hi")
 
     def bvic_geography(self):
         self._geography(virus_type="bv", assay="hi")
-    bv_geo = bvic_geography
-    bvic_geo = bvic_geography
 
     def bvic_ts(self, lab=None):
         make_ts(virus_type="bv", assay="hi", lab=lab, output_dir=Path("bv-hi"), force=self._force, dot_size=self.dot_size)
-    bv_ts = bvic_ts
 
     def bvic_serology(self):
         self.serology(virus_type="bv", assay="hi")
-    bv_serology = bvic_serology
 
     def bvic_information(self):
         make_map_information(virus_type="bv", assay="hi", output_dir=Path("information"), force=self._force)
-    bv_information = bvic_information
 
     # ----------------------------------------------------------------------
     # BYAM HI
 
     def byam_clade(self):
-        self.clade(virus_type="by", assay="hi")
-        self.clade_6m(virus_type="by", assay="hi")
-        self.clade_12m(virus_type="by", assay="hi")
-    byam_clades = byam_clade
-    by_clades = byam_clade
-    by_clade = byam_clade
+        self._clade(virus_type="by", assay="hi")
+        self._clade_6m(virus_type="by", assay="hi")
+        self._clade_12m(virus_type="by", assay="hi")
 
     def byam_geography(self):
         self._geography(virus_type="by", assay="hi")
-    byam_geo = byam_geography
-    by_geo = byam_geography
 
     def byam_ts(self, lab=None):
         make_ts(virus_type="by", assay="hi", lab=lab, output_dir=Path("by-hi"), force=self._force, dot_size=self.dot_size)
-    by_ts = byam_ts
 
     def byam_serology(self):
         self.serology(virus_type="by", assay="hi")
-    by_serology = byam_serology
 
     def byam_information(self):
         make_map_information(virus_type="by", assay="hi", output_dir=Path("information"), force=self._force)
-    by_information = byam_information
 
     # ----------------------------------------------------------------------
     # integrated genetic-antigenic analyses (signature pages)
@@ -699,13 +668,13 @@ class Processor:
 
     sVirusTypeOutputDir = {"h1": "h1", "h3": "h3", "bvic": "bv", "bv": "bv", "byam": "by", "by": "by"}
 
-    def clade(self, virus_type, assay, lab=None):
+    def _clade(self, virus_type, assay, lab=None):
         make_map(prefix="clade", virus_type=virus_type, assay=assay, lab=lab, mod="clade", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
-    def clade_6m(self, virus_type, assay, lab=None):
+    def _clade_6m(self, virus_type, assay, lab=None):
         make_map(prefix="clade-6m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_6m", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
-    def clade_12m(self, virus_type, assay, lab=None):
+    def _clade_12m(self, virus_type, assay, lab=None):
         make_map(prefix="clade-12m", virus_type=virus_type, assay=assay, lab=lab, mod="clade_12m", output_dir=Path(self.sVirusTypeOutputDir[virus_type] + "-" + assay), force=self._force, open_image=self._open_image)
 
     def _aa_at(self, virus_type, assay, positions):
