@@ -84,14 +84,15 @@ class Processor:
         init_settings()
         # self._get_merges()
 
-    def list(self):
+    def list(self, with_doc=False):
         """list available commands"""
         from inspect import ismethod
-        for cmdname in dir(self):
-            if cmdname[0] != "_" and cmdname[-1] != "_":
-                cmd = getattr(self, cmdname)
-                if ismethod(cmd):
-                    print(cmdname, "-", cmd.__doc__)
+        cmds = (cmdname for cmdname in dir(self) if cmdname[0] != "_" and cmdname[-1] != "_" and ismethod(getattr(self, cmdname)))
+        if with_doc:
+            for cmdname in cmds:
+                print(cmdname, "-", getattr(self, cmdname).__doc__)
+        else:
+            print("\n".join(sorted(cmd.replace("_", "-") for cmd in cmds)))
 
     # def remake_seqdb(self):
     #     """Re-generate seqdb from from fasta files"""
