@@ -93,7 +93,7 @@ class Commands:
             mod = f"aa-156-{months}m"
         else:
             mod = f"aa-156"
-        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=self._get_lab(subtype=subtype, assay=assay, lab=lab), mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), open_image=True, force=True)
+        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=self._get_lab(subtype=subtype, assay=assay, lab=lab), mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), interactive=interactive, open_image=True, force=True)
 
     def report(self, **args):
         from .report import make_report

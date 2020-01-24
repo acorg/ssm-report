@@ -237,7 +237,7 @@ sTitleFor = {
 
 sDirsForIndex = set()
 
-def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=None, settings_labs_key="labs", open_image=None):
+def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=None, settings_labs_key="labs", open_image=None, interactive=False):
     settings_files = sorted(Path(".").glob(f"*{virus_type}-{assay}.json"))
     if not settings_files:
         module_logger.error(f"problems finding *{virus_type}-{assay}.json")
@@ -256,12 +256,12 @@ def make_map(output_dir, prefix, virus_type, assay, mod, force, infix="", lab=No
         raise
     output_dir.mkdir(parents=True, exist_ok=True)
     for lab in labs:
-        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, infix=infix, open_image=open_image)
+        make_map_for_lab(output_dir=output_dir, prefix=prefix, virus_type=virus_type, assay=assay, lab=lab, mod=mod, settings_files=settings_files, infix=infix, open_image=open_image, interactive=interactive and len(labs) == 1)
     sDirsForIndex.add(output_dir)
 
 # ----------------------------------------------------------------------
 
-def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, infix="", open_image=None):
+def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_files, infix="", open_image=None, interactive=False):
     infix = infix or ""
     chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, infix=infix)
     module_logger.info(f"{sLogDelimiter}\nINFO:{n_spaces(30)} {lab.upper()} {virus_type.upper()} {assay.upper()} {infix} {mod}\nINFO: {n_spaces(93)}")
@@ -289,11 +289,14 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     script_filename.chmod(0o700)
     script_i_filename.open("w").write(f"#! /bin/bash\nexec map-draw-interactive --db-dir {os.getcwd()}/db {settings_args} '{chart}' '{output}'\n")
     script_i_filename.chmod(0o700)
-    subprocess.check_call(str(script_filename))
-    if open_image == "quicklook":
-        subprocess.Popen(["/usr/bin/qlmanage", "-p", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    elif open_image == "open" or open_image is True:
-        subprocess.Popen(["/usr/bin/open", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if interactive:
+        subprocess.check_call(str(script_i_filename))
+    else:
+        subprocess.check_call(str(script_filename))
+        if open_image == "quicklook":
+            subprocess.Popen(["/usr/bin/qlmanage", "-p", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        elif open_image == "open" or open_image is True:
+            subprocess.Popen(f"/usr/bin/open '{output}'; sleep 1; /usr/bin/open /Applications/Emacs.app", start_new_session=True, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 # ----------------------------------------------------------------------
 
