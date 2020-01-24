@@ -27,7 +27,8 @@
         "period": "month"
     },
     "commands": {
-        "rr": "",
+        "sy": "./sy",
+        "rr": "./rr",
         "geo-stat": "",
         "get-recent-merges": ""
     }

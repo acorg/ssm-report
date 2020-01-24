@@ -50,14 +50,9 @@ def copy_templates(maker_version):
         if not Path(dest).exists():
             shutil.copy(template_dir.joinpath(src).resolve(), Path(dest))
 
-    for fn in ["index.html", "README.org", "bv-hi.json", "by-hi.json", "h1-hi.json", "h3-hi.json", "h3-neut.json", "serology.bv-hi.json", "serology.by-hi.json", "serology.h1-hi.json", "serology.h3-hi.json", "serology.h3-neut.json", "vaccines.bv-hi.json", "vaccines.by-hi.json", "vaccines.h1-hi.json", "vaccines.h3-hi.json", "vaccines.h3-neut.json"]:
+    for fn in ["index.html", "README.org", "rr", "sy", "bv-hi.json", "by-hi.json", "h1-hi.json", "h3-hi.json", "h3-neut.json", "serology.bv-hi.json", "serology.by-hi.json", "serology.h1-hi.json", "serology.h3-hi.json", "serology.h3-neut.json", "vaccines.bv-hi.json", "vaccines.by-hi.json", "vaccines.h1-hi.json", "vaccines.h3-hi.json", "vaccines.h3-neut.json"]:
         if not Path(fn).exists():
             shutil.copy(template_dir.joinpath(fn).resolve(), Path(fn))
-
-    if maker_version == "2019":
-        for fn in ["rr", "sy"]:
-            if not Path(fn).exists():
-                shutil.copy(template_dir.joinpath(fn).resolve(), Path(fn))
 
 # ----------------------------------------------------------------------
 

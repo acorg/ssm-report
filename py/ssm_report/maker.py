@@ -1,6 +1,6 @@
 # ssm report 2020-01
 
-import os, json
+import os, json, subprocess
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 
@@ -52,6 +52,8 @@ def init_dir(dir):
 def do(cmd):
     command = parse_cmd(cmd)
     print(command)
+    if command.get("command"):
+        subprocess.check_call(command["command"], shell=True)
 
 # ----------------------------------------------------------------------
 
@@ -59,7 +61,11 @@ def parse_cmd(cmd):
     fields = cmd.split("-")
     subtype = fields[0]
     if len(fields) == 1 or subtype not in sSubtypes:
-        return {"command": cmd}
+        command = sSetup.get("commands", {}).get(cmd)
+        if command:
+            return {"command": command}
+        else:
+            raise RuntimeError(f"Unrecognized command {cmd}")
     labs = sSetup.get(subtype, {}).get("labs")
     if not labs:
         raise RuntimeError(f"Unrecognized command {cmd}: invalid subtype")
