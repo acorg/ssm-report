@@ -87,6 +87,9 @@ class Commands:
     def tree_cumulative(self, **args):
         self.tree(report_cumulative=True, **args)
 
+    def aa_156(self, subtype, lab, interactive, **args):
+        p
+        
     def report(self, **args):
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
