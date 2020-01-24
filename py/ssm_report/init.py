@@ -26,7 +26,7 @@ def init_git():
 # ----------------------------------------------------------------------
 
 def init_dirs():
-    for dir in ["tree", "sp", "spsc", "merges", "log", "serumcoverage"]:
+    for dir in ["tree", "sp", "spc", "merges", "log", "serumcoverage"]:
         Path(dir).mkdir(parents=True, exist_ok=True)
 
 # ----------------------------------------------------------------------

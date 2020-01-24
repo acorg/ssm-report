@@ -27,10 +27,13 @@ def list_commands_for_helm():
     for subtype in sSubtypes:
         for map_type in sSetup[subtype].get("maps", []):
             print(f"{subtype}-{map_type}")
-            for lab in sSetup.get(subtype, {}).get("labs", []):
-                print(f"{subtype}-{map_type}-{lab}")
-                if map_type not in ["ts"]:
-                    print(f"{subtype}-{map_type}-i-{lab}")
+            if map_type in ["tree"]:
+                print(f"{subtype}-{map_type}-i")
+            else:
+                for lab in sSetup.get(subtype, {}).get("labs", []):
+                    print(f"{subtype}-{map_type}-{lab}")
+                    if map_type not in ["ts"]:
+                        print(f"{subtype}-{map_type}-i-{lab}")
 
     for command_name in sSetup.get("commands", {}):
         print(command_name)
@@ -51,9 +54,28 @@ def init_dir(dir):
 
 def do(cmd):
     command = parse_cmd(cmd)
-    print(command)
     if command.get("command"):
         subprocess.check_call(command["command"], shell=True)
+    else:
+        # print(command)
+        commands = Commands()
+        getattr(commands, command["map"].replace("-", "_"))(**command)
+
+# ----------------------------------------------------------------------
+
+class Commands:
+
+    def geo_stat(self, **args):
+        from .stat import make_stat
+        make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=True)
+        from .geographic import make_geographic
+        make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), force=True)
+
+    def tree(self, subtype, interactive, **args):
+        p
+
+    def _db_dir(self):
+        return Path("db").resolve()
 
 # ----------------------------------------------------------------------
 
@@ -64,6 +86,8 @@ def parse_cmd(cmd):
         command = sSetup.get("commands", {}).get(cmd)
         if command:
             return {"command": command}
+        elif cmd in ["geo-stat"]:
+            return {"map": cmd}
         else:
             raise RuntimeError(f"Unrecognized command {cmd}")
     labs = sSetup.get(subtype, {}).get("labs")
@@ -78,8 +102,11 @@ def parse_cmd(cmd):
             map_type = "-".join(fields[1:-1])
     else:
         lab = None
-        interactive = False
-        map_type = "-".join(fields[1:])
+        interactive = fields[-1] == "i"
+        if interactive:
+            map_type = "-".join(fields[1:-1])
+        else:
+            map_type = "-".join(fields[1:])
     return {"subtype": subtype, "map": map_type, "lab": lab, "interactive": interactive}
 
 # ======================================================================
