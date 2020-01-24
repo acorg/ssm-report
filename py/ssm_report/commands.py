@@ -1,4 +1,5 @@
 # ssm report 2019
+error Obsolete
 
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path

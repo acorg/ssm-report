@@ -290,6 +290,7 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     script_i_filename.open("w").write(f"#! /bin/bash\nexec map-draw-interactive --db-dir {os.getcwd()}/db {settings_args} '{chart}' '{output}'\n")
     script_i_filename.chmod(0o700)
     if interactive:
+        subprocess.check_call(";".join(f"emacsclient -n '{filename}'" for filename in settings_files), shell=True)
         subprocess.check_call(str(script_i_filename))
     else:
         subprocess.check_call(str(script_filename))

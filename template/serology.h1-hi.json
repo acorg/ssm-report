@@ -21,13 +21,13 @@
       {"N":"antigens", "select": {"name": "Arizona/24/2019"},  "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type"}},
       {"N":"antigens", "select": {"name": "Wisconsin/505/2018"},  "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type"}},
       {"N":"antigens", "select": {"full_name": "A(H1N1)/IDAHO/7/2018 QMC2 (2018-10-12)"},  "show": false},
-      {"N":"antigens", "select": {"name": "Idaho/7/2018"},  "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type"}},
-      ],
+      {"N":"antigens", "select": {"name": "Idaho/7/2018"},  "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type"}}
+    ],
     "MELB-serology": [
-      ],
+    ],
     "NIID-serology": [
-      ],
+    ],
     "NIMR-serology": [
-      ]
+    ]
   }
 }
