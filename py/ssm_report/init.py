@@ -16,11 +16,6 @@ def init_git():
         module_logger.info("Creating remote git repo")
         subprocess.check_call("ssh albertine 'mkdir who-reports/{p} && cd who-reports/{p} && git init --bare'".format(p=project_git_dir), shell=True)
 
-    template_dir = _template_dir()
-    for src, dest in [["root-gitignore", ".gitignore"], ["rename-report-on-server", "rename-report-on-server"], ["rr", "rr"], ["sy", "sy"], ["index.html", "index.html"], ["README.org", "README.org"]]:
-        if not Path(dest).exists():
-            shutil.copy(template_dir.joinpath(src).resolve(), Path(dest))
-
     if Path(".git").is_dir():
         module_logger.info("local repository present")
     elif Path(".git").exists():
@@ -48,6 +43,24 @@ def get_dbs():
 
 # ----------------------------------------------------------------------
 
+def copy_templates(maker_version):
+    template_dir = _template_dir()
+
+    for src, dest in [["root-gitignore", ".gitignore"], ["rename-report-on-server", "rename-report-on-server"]]:
+        if not Path(dest).exists():
+            shutil.copy(template_dir.joinpath(src).resolve(), Path(dest))
+
+    for fn in ["index.html", "README.org", "bv-hi.json", "by-hi.json", "h1-hi.json", "h3-hi.json", "h3-neut.json", "serology.bv-hi.json", "serology.by-hi.json", "serology.h1-hi.json", "serology.h3-hi.json", "serology.h3-neut.json", "vaccines.bv-hi.json", "vaccines.by-hi.json", "vaccines.h1-hi.json", "vaccines.h3-hi.json", "vaccines.h3-neut.json"]:
+        if not Path(fn).exists():
+            shutil.copy(template_dir.joinpath(fn).resolve(), Path(fn))
+
+    if maker_version == "2019":
+        for fn in ["rr", "sy"]:
+            if not Path(fn).exists():
+                shutil.copy(template_dir.joinpath(fn).resolve(), Path(fn))
+
+# ----------------------------------------------------------------------
+
 def init_settings():
     _make_report_json()
     from .serum_coverage import make_serum_coverage_report_settings
@@ -55,45 +68,55 @@ def init_settings():
     from .geographic import make_geographic_settings
     make_geographic_settings()
 
-    template_dir = _template_dir()
-    for fn in ["bv-hi.json", "by-hi.json", "h1-hi.json", "h3-hi.json", "h3-neut.json", "serology.bv-hi.json", "serology.by-hi.json", "serology.h1-hi.json", "serology.h3-hi.json", "serology.h3-neut.json", "vaccines.bv-hi.json", "vaccines.by-hi.json", "vaccines.h1-hi.json", "vaccines.h3-hi.json", "vaccines.h3-neut.json"]:
-        if not Path(fn).exists():
-            shutil.copy(template_dir.joinpath(fn).resolve(), Path(fn))
-
 # ----------------------------------------------------------------------
 
 def _make_report_json():
-    report_json_file = Path("report.json")
+    module_logger.info(f"making report.json")
+    today = datetime.date.today()
+    if today.month > 2 and today.month < 10:
+        hemisphere = "Southern"
+        year = str(today.year + 1)
+    else:
+        hemisphere = "Northern"
+        if today.month >= 10:
+            year = "{}/{}".format(today.year + 1, today.year + 2)
+        else:
+            year = "{}/{}".format(today.year, today.year + 1)
+
+    m = re.match(r"(\d\d\d\d)-(\d\d)(\d\d)", Path(".").resolve().name)
+    if m:
+        meeting_date = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    else:
+        meeting_date = today + datetime.timedelta(days=7)
+
+    if meeting_date.month != 2 and meeting_date.month != 9:
+        teleconference = "Teleconference 1"
+    elif meeting_date.day < 20:
+        teleconference = "Teleconference 2"
+    else:
+        teleconference = ""
+
+    subst = {
+        "previous_dir": _find_previous_dir(),
+        "hemisphere": hemisphere,
+        "meeting_date": meeting_date.strftime("%d %B %Y"),
+        "year": year,
+        "teleconference": teleconference,
+        "time_series_start": (meeting_date - datetime.timedelta(days=180)).strftime("%Y-%m-01"),
+        "time_series_end": meeting_date.strftime("%Y-%m-01"),
+        "twelve_month_ago": (meeting_date - datetime.timedelta(days=365)).strftime("%B %Y"),
+        "six_month_ago": (meeting_date - datetime.timedelta(days=183)).strftime("%B %Y"),
+    }
+
+    report_json_file_name = "report.json"
+    report_json_file = Path(report_json_file_name)
     if not report_json_file.exists():
-        module_logger.info(f"making report.json")
-        today = datetime.date.today()
-        if today.month > 2 and today.month < 10:
-            hemisphere = "Southern"
-            year = str(today.year + 1)
-        else:
-            hemisphere = "Northern"
-            if today.month >= 10:
-                year = "{}/{}".format(today.year + 1, today.year + 2)
-            else:
-                year = "{}/{}".format(today.year, today.year + 1)
+        report_json_file.open("w").write(_template_dir().joinpath(report_json_file_name).resolve().open().read() % subst)
 
-        m = re.match(r"(\d\d\d\d)-(\d\d)(\d\d)", Path(".").resolve().name)
-        if m:
-            meeting_date = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3))).strftime("%d %B %Y")
-        else:
-            meeting_date = (today + datetime.timedelta(days=7)).strftime("%d %B %Y")
-
-        subst = {
-            "previous_dir": _find_previous_dir(),
-            "hemisphere": hemisphere,
-            "meeting_date": meeting_date,
-            "year": year,
-            "time_series_start": (today - datetime.timedelta(days=180)).strftime("%Y-%m-01"),
-            "time_series_end": today.strftime("%Y-%m-01"),
-            "twelve_month_ago": (today - datetime.timedelta(days=365)).strftime("%B %Y"),
-            "six_month_ago": (today - datetime.timedelta(days=183)).strftime("%B %Y"),
-        }
-        report_json_file.open("w").write(_template_dir().joinpath("report.json").resolve().open().read() % subst)
+    setup_json_file_name = "setup.json"
+    setup_json_file = Path(setup_json_file_name)
+    if not setup_json_file.exists():
+        setup_json_file.open("w").write(_template_dir().joinpath(setup_json_file_name).resolve().open().read() % subst)
 
 # ----------------------------------------------------------------------
 

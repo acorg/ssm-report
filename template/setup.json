@@ -1,0 +1,34 @@
+{
+    "h1": {
+        "labs": ["cdc", "melb", "niid", "nimr"],
+        "?labs": ["all"],
+        "maps": ["aa-156", "aa-156-12m", "aa-156-6m", "ts", "serology"]
+    },
+    "h3": {
+        "labs": ["melb", "nimr"],
+        "maps": ["clade", "clade-12m", "clade-6m", "ts", "serology"],
+        "?maps": ["geo", "aa-142"]
+    },
+    "h3n": {
+        "labs": ["cdc", "melb", "niid", "nimr"],
+        "maps": ["clade", "clade-12m", "clade-6m", "ts", "serology"],
+        "?maps": ["geo", "aa-h3-142"]
+    },
+    "bvic": {
+        "labs": ["cdc", "melb", "niid", "nimr"],
+        "maps": ["clade", "clade-12m", "clade-6m", "ts", "serology"]
+    },
+    "byam": {
+        "labs": ["cdc", "melb", "niid", "nimr"],
+        "maps": ["clade", "clade-12m", "clade-6m", "ts", "serology"]
+    },
+    "time-series": {
+        "date": {"start": "%(time_series_start)s", "end": "%(time_series_end)s"},
+        "period": "month"
+    },
+    "commands": {
+        "rr": "",
+        "geo-stat": "",
+        "get-recent-merges": ""
+    }
+}

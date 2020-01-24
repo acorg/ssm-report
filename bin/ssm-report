@@ -2,7 +2,7 @@
 # -*- Python -*-
 
 """
-ssm report maker.
+ssm report maker 2019
 ssm-report list - to list available commands.
 """
 
@@ -13,7 +13,7 @@ sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
 import logging; module_logger = logging.getLogger(__name__)
 
 from acmacs_base import timeit
-from ssm_report import process_commands
+from ssm_report.commands import process_commands
 
 # ----------------------------------------------------------------------
 

@@ -1,3 +1,5 @@
+# ssm report 2019
+
 import logging; module_logger = logging.getLogger(__name__)
 from pathlib import Path
 import os, re, subprocess, shutil, pprint
@@ -6,7 +8,7 @@ from .map import make_map, make_map_for_lab, make_ts, make_map_information, make
 from .stat import make_stat
 from .geographic import make_geographic
 from .signature_page import tree_make, tree_make_aa_pos, signature_page_make, trees_get_from_albertine
-from .init import init_git, get_dbs, init_dirs, init_settings
+from .init import copy_templates, init_git, get_dbs, init_dirs, init_settings
 
 # ======================================================================
 
@@ -78,6 +80,7 @@ class Processor:
 
     def init(self):
         """initialize ssm report data directory structure"""
+        copy_templates(maker_version="2019")
         init_git()
         get_dbs()
         init_dirs()

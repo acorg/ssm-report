@@ -3,7 +3,7 @@
   "cover": {
     "hemisphere": "%(hemisphere)s",
     "meeting_date": "%(meeting_date)s",
-    "teleconference": "",
+    "teleconference": "%(teleconference)s",
     "year": "%(year)s"
   },
   "time_series": {
@@ -83,10 +83,16 @@
     ]},
     "new_page",
 
-    {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map with serology antigens."},
-    {"type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
-    {"type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "serology"},
-    "new_page",
+    {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps with serology antigens."},
+    {"type": "description", "text": "Antigenic maps with serology antigens in orange, other antigens color-coded by by amino-acid at 155, 156."},
+    {"type": "maps", "images": [
+      "h1-hi/serology-cdc.pdf", "h1-hi/serology-nimr.pdf",
+      "h1-hi/serology-niid.pdf", "h1-hi/serology-melb.pdf"
+    ]},
+    {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map with serology antigens."},
+    {"?type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
+    {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "serology"},
+    "?new_page",
 
     {"type": "?************************* H3 *****************************"},
     {"type": "section_begin", "title": "H3N2", "subtype": "h3"},
