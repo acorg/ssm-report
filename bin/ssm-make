@@ -39,9 +39,12 @@ try:
                 maker.do(cmd)
         else:
             print(os.getcwd())
-except Exception as err:
-    logging.error('{}\n{}'.format(err, traceback.format_exc()))
+except maker.Error as err:
+    logging.error(f"{err}")
     exit(1)
+except Exception as err:
+    logging.error(f"{err}\n{traceback.format_exc()}")
+    exit(2)
 
 # ======================================================================
 ### Local Variables:

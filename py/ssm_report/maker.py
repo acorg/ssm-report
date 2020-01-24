@@ -10,6 +10,8 @@ sSubtypes = ["h1", "h3", "h3n", "bvic", "byam"]
 
 sSetup = None
 
+class Error (RuntimeError): pass
+
 # ----------------------------------------------------------------------
 
 def set_working_dir():
@@ -39,6 +41,9 @@ def list_commands_for_helm():
     for command_name in sSetup.get("commands", {}):
         print(command_name)
 
+    for command_name in ["get-merges", "get-hidb-seqdb", "report", "report-abbreviated", "addendum-1", "addendum-2", "addendum-3", "addendum-4", "addendum-5"]:
+        print(command_name)
+
 # ----------------------------------------------------------------------
 
 def init_dir(dir):
@@ -60,7 +65,10 @@ def do(cmd):
     else:
         # print(command)
         commands = Commands()
-        getattr(commands, command["map"].replace("-", "_"))(**command)
+        try:
+            getattr(commands, command["map"].replace("-", "_"))(**command)
+        except AttributeError:
+            raise Error(f"Unrecognized command: {cmd}")
 
 # ----------------------------------------------------------------------
 
@@ -79,6 +87,18 @@ class Commands:
     def tree_cumulative(self, **args):
         self.tree(report_cumulative=True, **args)
 
+    def report(self, **args):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
+
+    def report_abbreviated(self):
+        from .report import make_report_abbreviated
+        make_report_abbreviated(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
+
+    def addendum_1(self):
+        from .report import make_signature_page_addendum_interleave
+        make_signature_page_addendum_interleave(source_dirs=[Path("sp"), Path("spsc")], output_dir=Path("report"), title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
+
     def _db_dir(self):
         return Path("db").resolve()
 
@@ -91,13 +111,11 @@ def parse_cmd(cmd):
         command = sSetup.get("commands", {}).get(cmd)
         if command:
             return {"command": command}
-        elif cmd in ["geo-stat"]:
+        else: # elif cmd in ["geo-stat"]:
             return {"map": cmd}
-        else:
-            raise RuntimeError(f"Unrecognized command {cmd}")
     labs = sSetup.get(subtype, {}).get("labs")
     if not labs:
-        raise RuntimeError(f"Unrecognized command {cmd}: invalid subtype")
+        raise Error(f"Unrecognized command {cmd}: invalid subtype")
     if fields[-1] in labs:
         lab = fields[-1]
         interactive = len(fields) > 2 and fields[-2] == "i"
