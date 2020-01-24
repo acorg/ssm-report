@@ -2,7 +2,7 @@
     "h1": {
         "labs": ["cdc", "melb", "niid", "nimr"],
         "?labs": ["all"],
-        "maps": ["aa-156", "aa-156-12m", "aa-156-6m", "ts", "serology", "tree", "sp", "spc"]
+        "maps": ["aa-156", "aa-156-12m", "aa-156-6m", "ts", "serology-aa-156", "tree", "sp", "spc"]
     },
     "h3": {
         "labs": ["melb", "nimr"],

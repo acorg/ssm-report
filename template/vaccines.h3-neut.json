@@ -1,6 +1,6 @@
 { "_":"-*- js-indent-level: 2 -*-",
   "mods": {
-    "CDC_vaccines": [
+    "CDC-vaccines": [
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell",        "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],      "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-cell",  "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg",         "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [-1, 0],     "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-egg", "size": 32}},
       {"?N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant", "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],     "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-NIB",  "size": 32}},
@@ -16,7 +16,7 @@
       {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}},                                               "fill": "pink",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],      "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
 
-    "MELB_vaccines": [
+    "MELB-vaccines": [
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell",        "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],     "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-cell", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg",         "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [1, 0],     "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-egg",  "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant", "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [1, 0],     "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-IVR",  "size": 32}},
@@ -32,7 +32,7 @@
       {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}},                          "fill": "pink",  "report": true, "outline": "black",  "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],  "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
 
-    "NIID_vaccines": [
+    "NIID-vaccines": [
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell",        "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],  "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-cell", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg",         "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [1, 0],  "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-egg",  "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant", "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [1, 0],  "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-IVR",  "size": 32}},
@@ -48,7 +48,7 @@
       {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}},                          "fill": "pink",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],   "name_type": "abbreviated_with_passage_type", "size": 32}}
     ],
 
-    "NIMR_vaccines": [
+    "NIMR-vaccines": [
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "cell",        "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],  "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-cell", "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "egg",         "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [0, 1],  "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-egg",  "size": 32}},
       {"N": "antigens", "select": {"vaccine": {"type": "previous", "passage": "reassortant", "name": "SINGAPORE"}}, "fill": "blue",  "report": true, "outline": "black", "size": 16, "show": true, "order": "raise", "label": {"offset": [1, 0],  "name_type": "abbreviated_with_passage_type", "display_name": "Si/16-IVR",  "size": 32}},

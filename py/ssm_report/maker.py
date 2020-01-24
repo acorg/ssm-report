@@ -87,9 +87,14 @@ class Commands:
     def tree_cumulative(self, **args):
         self.tree(report_cumulative=True, **args)
 
-    def aa_156(self, subtype, lab, interactive, **args):
-        p
-        
+    def aa_156(self, subtype, assay, lab, interactive, months, **args):
+        from .map import make_map
+        if months:
+            mod = f"aa-156-{months}m"
+        else:
+            mod = f"aa-156"
+        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=self._get_lab(subtype=subtype, assay=assay, lab=lab), mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), open_image=True, force=True)
+
     def report(self, **args):
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
@@ -105,6 +110,18 @@ class Commands:
     def _db_dir(self):
         return Path("db").resolve()
 
+    def _get_lab(self, subtype, assay, lab, **args):
+        if lab:
+            return lab
+        else:
+            return self._get_setup(subtype=subtype, assay=assay).get("labs")
+
+    def _get_setup(self, subtype, assay):
+        if subtype == "h3" and assay == "neut":
+            return sSetup.get("h3n", {})
+        else:
+            return sSetup.get(subtype, {})
+
 # ----------------------------------------------------------------------
 
 def parse_cmd(cmd):
@@ -119,21 +136,30 @@ def parse_cmd(cmd):
     labs = sSetup.get(subtype, {}).get("labs")
     if not labs:
         raise Error(f"Unrecognized command {cmd}: invalid subtype")
+    map_type_end = len(fields)
     if fields[-1] in labs:
         lab = fields[-1]
+        map_type_end -= 1
         interactive = len(fields) > 2 and fields[-2] == "i"
-        if interactive:
-            map_type = "-".join(fields[1:-2])
-        else:
-            map_type = "-".join(fields[1:-1])
     else:
         lab = None
         interactive = fields[-1] == "i"
-        if interactive:
-            map_type = "-".join(fields[1:-1])
-        else:
-            map_type = "-".join(fields[1:])
-    return {"subtype": subtype, "map": map_type, "lab": lab, "interactive": interactive}
+    if interactive:
+        map_type_end -= 1
+    months = None
+    if fields[map_type_end - 1] == "12m":
+        months = 12
+        map_type_end -= 1
+    elif fields[map_type_end - 1] == "6m":
+        months = 6
+        map_type_end -= 1
+    map_type = "-".join(fields[1:map_type_end])
+    if subtype == "h3n":
+        subtype = "h3"
+        assay = "neut"
+    else:
+        assay = "hi"
+    return {"subtype": subtype, "assay": assay, "map": map_type, "lab": lab, "interactive": interactive, "months": months}
 
 # ======================================================================
 ### Local Variables:

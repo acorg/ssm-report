@@ -7,14 +7,14 @@
       # {"N":"antigens", "select": {"name": "Montana/18/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       # {"N":"antigens", "select": {"name": "Kanagawa/ZC1805/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
-    "CDC_serology": [
+    "CDC-serology": [
       ],
-    "MELB_serology": [
+    "MELB-serology": [
       ],
-    "NIID_serology": [
+    "NIID-serology": [
       {"N":"antigens", "select": {"name": "Kanagawa/ZC1805/2019"},  "label": {"offset": [0, -1], "name_type": "abbreviated_with_passage_type"}}
       ],
-    "NIMR_serology": [
+    "NIMR-serology": [
       ]
   }
 }

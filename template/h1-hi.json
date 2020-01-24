@@ -1,26 +1,24 @@
 { "_":"-*- js-indent-level: 2 -*-",
-  "labs": ["CDC", "MELB", "NIID", "NIMR"],
-  "?labs": ["ALL"],
-  "information_labs": ["CDC", "MELB", "NIID", "NIMR"],
-  "?information_labs": ["ALL"],
   "mods": {
 
-    "set_scale": [
+    "set-scale": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1}
     ],
-    "set_legend": [
+    "set-legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
     ],
-    "no_legend": [
+    "no-legend": [
       {"N": "legend", "show": false}
     ],
 
-    "clades": [
+    "?clades": [
       {"?N": "antigens", "select": {"sequenced": true},   "outline": "black", "legend": {"label": "sequenced", "count": true}, "order": "raise", "report": true},
       {"?N": "antigens", "select": {"clade": "6B"},   "outline": "black", "fill": "cornflowerblue", "legend": {"label": "6B", "count": true}, "order": "raise", "report": true},
       {"?N": "antigens", "select": {"clade": "6B1"},   "outline": "black", "fill": "blue", "legend": {"label": "6B1", "count": true}, "order": "raise", "report": true},
-      {"?N": "antigens", "select": {"clade": "6B2"},   "outline": "black", "fill": "red", "legend": {"label": "6B2", "count": true}, "order": "raise", "report": true, "report_names_threshold": 10},
+      {"?N": "antigens", "select": {"clade": "6B2"},   "outline": "black", "fill": "red", "legend": {"label": "6B2", "count": true}, "order": "raise", "report": true, "report_names_threshold": 10}
+    ],
 
+    "aa-156": [
       {"N": "antigens", "select": {"amino_acid": ["155E"],         "?date_range": ["2019-02", ""]}, "fill": "#ffc808", "legend": {"label": "155E", "count": true},      "outline": "black", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["155X"],         "?date_range": ["2019-02", ""]}, "fill": "#742f32", "legend": {"label": "155X", "count": true},      "outline": "black", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["156D"],         "?date_range": ["2019-02", ""]}, "fill": "#a2b324", "legend": {"label": "156D", "count": true},      "outline": "black", "order": "raise"},
@@ -30,7 +28,7 @@
       {"N": "antigens", "select": {"amino_acid": ["156N" ,"155G"], "?date_range": ["2019-02", ""]}, "fill": "#03569b", "legend": {"label": "156N 155G", "count": true}, "outline": "black", "order": "raise"}
     ],
 
-    "clades_last_6_months": [
+    "aa-156-6m": [
       {"N": "antigens", "select": {"amino_acid": ["155E"],         "younger_than_days": 183}, "fill": "#ffc808", "legend": {"label": "155E", "count": true},      "outline": "black", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["155X"],         "younger_than_days": 183}, "fill": "#742f32", "legend": {"label": "155X", "count": true},      "outline": "black", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["156D"],         "younger_than_days": 183}, "fill": "#a2b324", "legend": {"label": "156D", "count": true},      "outline": "black", "order": "raise"},
@@ -40,7 +38,7 @@
       {"N": "antigens", "select": {"amino_acid": ["156N" ,"155G"], "younger_than_days": 183}, "fill": "#03569b", "legend": {"label": "156N 155G", "count": true}, "outline": "black", "order": "raise"}
     ],
 
-    "clades_last_12_months": [
+    "aa-156-12m": [
       {"N": "antigens", "select": {"amino_acid": ["155E"],         "younger_than_days": 365}, "fill": "#ffc808", "legend": {"label": "155E", "count": true},      "outline": "black", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["155X"],         "younger_than_days": 365}, "fill": "#742f32", "legend": {"label": "155X", "count": true},      "outline": "black", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["156D"],         "younger_than_days": 365}, "fill": "#a2b324", "legend": {"label": "156D", "count": true},      "outline": "black", "order": "raise"},
@@ -50,7 +48,7 @@
       {"N": "antigens", "select": {"amino_acid": ["156N" ,"155G"], "younger_than_days": 365}, "fill": "#03569b", "legend": {"label": "156N 155G", "count": true}, "outline": "black", "order": "raise"}
     ],
 
-    "clades_light": [
+    "aa-156-light": [
       {"N": "antigens", "select": {"amino_acid": ["155E"],         "?date_range": ["2019-02", ""]}, "fill": "#ffe380", "legend": {"label": "155E", "count": true},      "outline": "#BFBFBF", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["155X"],         "?date_range": ["2019-02", ""]}, "fill": "#ff8085", "legend": {"label": "155X", "count": true},      "outline": "#BFBFBF", "order": "raise"},
       {"N": "antigens", "select": {"amino_acid": ["156D"],         "?date_range": ["2019-02", ""]}, "fill": "#f0ff80", "legend": {"label": "156D", "count": true},      "outline": "#BFBFBF", "order": "raise"},
@@ -67,69 +65,69 @@
       {"N": "antigens", "select": {"younger_than_days": 730, "older_than_days": 365}, "fill": "#6F93E6", "outline": "black", "raise_": true},
       {"N": "antigens", "select": {"younger_than_days": 365}, "fill": "#F9DA4A", "outline": "black", "raise_": true}
     ],
-    "information_clades": [
+    "information-clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15},
-      "no_legend"
+      {"N": "clades-12m", "size": 15},
+      "no-legend"
     ],
 
     "?": "===================== ALL  H1  HI =================================================",
 
-    "CDC_flip": [
+    "CDC-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "CDC_rotate": [
+    "CDC-rotate": [
       {"?N": "rotate", "degrees": 0}
     ],
-    "CDC_viewport": [
-      {"N": "viewport", "rel": [-1, -3, 2]}
+    "CDC-viewport": [
+      {"N": "viewport", "rel": [-1, 0, -1]}
     ],
 
-    "MELB_flip": [
+    "MELB-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "MELB_rotate": [
+    "MELB-rotate": [
       {"?N": "rotate", "degrees": 105}
     ],
-    "MELB_viewport": [
+    "MELB-viewport": [
       {"?N": "viewport", "rel": [5, 3, -7]}
     ],
 
-    "NIID_flip": [
+    "NIID-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "NIID_rotate": [
+    "NIID-rotate": [
       {"?N": "rotate", "degrees": 0}
     ],
-    "NIID_viewport": [
+    "NIID-viewport": [
       {"?N": "viewport", "rel": [-1.5, -1.5, 3]}
     ],
 
-    "NIMR_pre": [
+    "NIMR-pre": [
     ],
-    "NIMR_flip": [
+    "NIMR-flip": [
     ],
-    "NIMR_rotate": [
+    "NIMR-rotate": [
     ],
-    "NIMR_viewport": [
+    "NIMR-viewport": [
       {"N": "viewport", "rel": [0, -2, 0]}
     ],
 
-    "ALL_flip": [
+    "ALL-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "ALL_rotate": [
+    "ALL-rotate": [
       {"?N": "rotate", "degrees": 0}
     ],
-    "ALL_viewport": [
+    "ALL-viewport": [
       {"?N": "viewport", "rel": [7.5, 4.5, -9]}
     ],
-    "ALL_pre": [
+    "ALL-pre": [
     ],
-    "ALL_mid": [
+    "ALL-mid": [
     ],
-    "ALL_post": [
+    "ALL-post": [
     ]
   }
 }

@@ -15,67 +15,88 @@ sLabDisplayName = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "NIID": "NIID"
 sApplyFor = {
     "pre": [
         "size_reset",
-        "*{lab}_pre",
-        "*{lab}_flip",
-        "*{lab}_rotate",
-        "*{lab}_viewport",
+        "*{lab}-pre",
+        "*{lab}-flip",
+        "*{lab}-rotate",
+        "*{lab}-viewport",
         "all_grey",
         "egg",
         "lower_reference",
         ],
     "post": [
-        "*{lab}_mid",
-        "*{lab}_vaccines",
-        "set_scale",
-        "*{lab}_post",
+        "*{lab}-mid",
+        "*{lab}-vaccines",
+        "set-scale",
+        "*{lab}-post",
         ],
-    "post_information": [
-        "*{lab}_mid",
-        "*{lab}_vaccines_information",
-        "*{lab}_post",
+    "post-information": [
+        "*{lab}-mid",
+        "*{lab}-vaccines-information",
+        "*{lab}-post",
         ],
     "clade": [
         "clades",
-        "*{lab}_clades",
-        "set_legend"
+        "*{lab}-clades",
+        "set-legend"
         ],
-    "clade_6m": [
-        "clades_last_6_months",
-        "*{lab}_clades_last_6_months",
-        "set_legend"
+    "clade-6m": [
+        "clade-6m",
+        "*{lab}-clades-6m",
+        "set-legend"
         ],
-    "clade_12m": [
-        "clades_last_12_months",
-        "*{lab}_clades_last_12_months",
-        "set_legend"
+    "clade-12m": [
+        "clades-12m",
+        "*{lab}-clades-12m",
+        "set-legend"
+        ],
+    "aa-156": [
+        "aa-156",
+        "*{lab}-aa-156",
+        "set-legend"
+        ],
+    "aa-156-6m": [
+        "aa-156-6m",
+        "*{lab}-aa-156-6m",
+        "set-legend"
+        ],
+    "aa-156-12m": [
+        "aa-156-6m",
+        "*{lab}-aa-156-6m",
+        "set-legend"
         ],
     "geography": [
         "continents",
         ],
     "serology": [
-        "clades_light",
-        "*{lab}_clades_light",
+        "clades-light",
+        "*{lab}-clades-light",
         "*serology",
-        "set_legend"
+        "set-legend"
+        ],
+    "serology-aa-156": [
+        "aa-156-light",
+        "*{lab}-aa-156-light",
+        "*serology",
+        "set-legend"
         ],
     "information": [
         "information",
         {"N": "legend", "show": False}
         ],
-    "serum_sectors": [
+    "serum-sectors": [
         "clades",
-        "serum_sectors",
+        "serum-sectors",
         ],
-    "serum_coverage_circle": [
-        "clades_light",
+    "serum-coverage-circle": [
+        "clades-light",
         ],
-    "ts_pre": [
+    "ts-pre": [
         {"N": "continents"},
         {"N": "antigens", "select": "reference", "outline": "grey80", "fill": "transparent"},
         {"N": "antigens", "select": "test", "show": False},
         ],
-    "ts_post": [
-        "no_legend"
+    "ts-post": [
+        "no-legend"
         ],
     None: []
 }
@@ -96,7 +117,7 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} by clade",
         },
     },
-    "clade_6m": {
+    "clade-6m": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
             "neut": "{lab} {virus_type} {assay}{infix} by clade",
@@ -111,7 +132,7 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} by clade",
         },
     },
-    "clade_12m": {
+    "clade-12m": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by clade",
             "neut": "{lab} {virus_type} {assay}{infix} by clade",
@@ -126,12 +147,27 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} by clade",
         },
     },
-    "aa_at_142": {
-        "h3": {
-            "hi":   "{lab} {virus_type} {assay} by amino-acids at 142",
-            "neut": "{lab} {virus_type} {assay}{infix} by amino-acids at 142",
+    "aa-156": {
+        "h1": {
+            "hi":   "{lab} {virus_type} by amino-acids at 155, 156",
         }
     },
+    "aa-156-12m": {
+        "h1": {
+            "hi":   "{lab} {virus_type} by amino-acids at 155, 156",
+        }
+    },
+    "aa-156-6m": {
+        "h1": {
+            "hi":   "{lab} {virus_type} by amino-acids at 155, 156",
+        }
+    },
+    # "aa_at_142": {
+    #     "h3": {
+    #         "hi":   "{lab} {virus_type} {assay} by amino-acids at 142",
+    #         "neut": "{lab} {virus_type} {assay}{infix} by amino-acids at 142",
+    #     }
+    # },
     "geography": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay} by geography",
@@ -256,7 +292,7 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     subprocess.check_call(str(script_filename))
     if open_image == "quicklook":
         subprocess.Popen(["/usr/bin/qlmanage", "-p", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    elif open_image == "open":
+    elif open_image == "open" or open_image is True:
         subprocess.Popen(["/usr/bin/open", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 # ----------------------------------------------------------------------
@@ -302,7 +338,7 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", dot_size=None, force=N
             settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
             pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod='ts', lab=lab.upper(), period_name=period["text_name"], infix=infix)
             ts = [{"N": "antigens", "select": {"test": True, "date_range": [period["first_date"], period["after_last_date"]]}, "show": True}]
-            json.dump({"apply": pre + sApplyFor["ts_pre"] + sDotSize[dot_size_type] + ts + sApplyFor["ts_post"] + post}, s2_filename.open("w"), indent=2)
+            json.dump({"apply": pre + sApplyFor["ts-pre"] + sDotSize[dot_size_type] + ts + sApplyFor["ts-post"] + post}, s2_filename.open("w"), indent=2)
 
             script_filename = output_dir.joinpath(output_prefix + ".sh")
             script_filename.open("w").write("#! /bin/bash\nexec map-draw --db-dir {pwd}/db -v {settings_args} {previous_chart} '{chart}' '{output}'\n".format(
@@ -333,7 +369,7 @@ def make_pre_post(virus_type, assay, mod, lab, infix=None, period_name=None):
     if mod in ["information", "information_clades"]:
         return (
             [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["pre"]],
-            [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post_information"]],
+            [e.format(virus_type=virus_type, assay=assay, mod=mod, lab=lab, period_name=period_name) for e in sApplyFor["post-information"]],
             )
     else:
         if "serum_coverage_circle" in mod:
