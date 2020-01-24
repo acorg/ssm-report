@@ -52,7 +52,7 @@ def tree_make(subtype, tree_dir, seqdb, output_dir=None, settings_infix="setting
     if interactive:
         subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' | xargs -L 1 -I % -R 0 /bin/bash -c 'tink; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; tink; {edit_settings}'""")
     else:
-        subprocess_check_call(sigp_cmd)
+        subprocess_check_call(f"{sigp_cmd}; sleep 1; {edit_settings}")
 
 # ----------------------------------------------------------------------
 

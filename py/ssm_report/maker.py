@@ -29,6 +29,7 @@ def list_commands_for_helm():
             print(f"{subtype}-{map_type}")
             if map_type in ["tree"]:
                 print(f"{subtype}-{map_type}-i")
+                print(f"{subtype}-{map_type}-cumulative")
             else:
                 for lab in sSetup.get(subtype, {}).get("labs", []):
                     print(f"{subtype}-{map_type}-{lab}")
@@ -71,8 +72,12 @@ class Commands:
         from .geographic import make_geographic
         make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), force=True)
 
-    def tree(self, subtype, interactive, **args):
-        p
+    def tree(self, subtype, interactive, report_cumulative=False, **args):
+        from .signature_page import tree_make
+        tree_make(subtype=subtype, tree_dir=Path("tree"), seqdb=self._db_dir().joinpath("seqdb.json.xz"), interactive=interactive, report_cumulative=report_cumulative)
+
+    def tree_cumulative(self, **args):
+        self.tree(report_cumulative=True, **args)
 
     def _db_dir(self):
         return Path("db").resolve()
