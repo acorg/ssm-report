@@ -27,16 +27,18 @@ def load_setup():
 
 def list_commands_for_helm():
     for subtype in sSubtypes:
-        for map_type in sSetup[subtype].get("maps", []):
-            print(f"{subtype}-{map_type}")
-            if map_type in ["tree"]:
-                print(f"{subtype}-{map_type}-i")
-                print(f"{subtype}-{map_type}-cumulative")
-            else:
-                for lab in sSetup.get(subtype, {}).get("labs", []):
-                    print(f"{subtype}-{map_type}-{lab}")
-                    if map_type not in ["ts"]:
-                        print(f"{subtype}-{map_type}-i-{lab}")
+        if sSetup[subtype].get("maps"):
+            print(f"{subtype}-maps")
+            for map_type in sSetup[subtype]["maps"]:
+                print(f"{subtype}-{map_type}")
+                if map_type in ["tree"]:
+                    print(f"{subtype}-{map_type}-i")
+                    print(f"{subtype}-{map_type}-cumulative")
+                else:
+                    for lab in sSetup.get(subtype, {}).get("labs", []):
+                        print(f"{subtype}-{map_type}-{lab}")
+                        if map_type not in ["ts"]:
+                            print(f"{subtype}-{map_type}-i-{lab}")
 
     for command_name in sSetup.get("commands", {}):
         print(command_name)
@@ -58,21 +60,26 @@ def init_dir(dir):
 
 # ----------------------------------------------------------------------
 
-def do(cmd):
-    command = parse_cmd(cmd)
-    if command.get("command"):
-        subprocess.check_call(command["command"], shell=True)
-    else:
-        # print(command)
-        commands = Commands()
-        try:
-            getattr(commands, command["map"].replace("-", "_"))(**command)
-        except AttributeError:
-            raise Error(f"Unrecognized command: {cmd}")
+def do(command_name):
+    Commands().do(command_name)
 
 # ----------------------------------------------------------------------
 
 class Commands:
+
+    def do(self, command_name):
+        command = self.parse_cmd(command_name)
+        if command.get("command"):
+            subprocess.check_call(command["command"], shell=True)
+        else:
+            Commands().do_parsed(command)
+
+    def do_parsed(self, command):
+        # print(command)
+        try:
+            getattr(self, command["map"].replace("-", "_"))(**command)
+        except AttributeError:
+            raise Error(f"Unrecognized command: {cmd}")
 
     def geo_stat(self, **args):
         from .stat import make_stat
@@ -87,13 +94,26 @@ class Commands:
     def tree_cumulative(self, **args):
         self.tree(report_cumulative=True, **args)
 
-    def aa_156(self, subtype, assay, lab, interactive, months, **args):
+    def maps(self, subtype, assay, **args):
+        sep = "=" * 100
+        for command_name in sSetup[subtype]["maps"]:
+            if not command_name.startswith("tree") and not command_name.startswith("sp"):
+                print(f"{sep}\n{command_name}\n{sep}\n")
+                self.do(f"{subtype}-{command_name}")
+
+    def aa_156(self, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .map import make_map
         if months:
             mod = f"aa-156-{months}m"
         else:
             mod = f"aa-156"
-        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=self._get_lab(subtype=subtype, assay=assay, lab=lab), mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), interactive=interactive, open_image=True, force=True)
+        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+
+    def ts(self, subtype, assay, lab, open_image=False, **args):
+        from .map import make_map
+        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        # make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
 
     def report(self, **args):
         from .report import make_report
@@ -122,44 +142,44 @@ class Commands:
         else:
             return sSetup.get(subtype, {})
 
-# ----------------------------------------------------------------------
-
-def parse_cmd(cmd):
-    fields = cmd.split("-")
-    subtype = fields[0]
-    if len(fields) == 1 or subtype not in sSubtypes:
-        command = sSetup.get("commands", {}).get(cmd)
-        if command:
-            return {"command": command}
-        else: # elif cmd in ["geo-stat"]:
-            return {"map": cmd}
-    labs = sSetup.get(subtype, {}).get("labs")
-    if not labs:
-        raise Error(f"Unrecognized command {cmd}: invalid subtype")
-    map_type_end = len(fields)
-    if fields[-1] in labs:
-        lab = fields[-1]
-        map_type_end -= 1
-        interactive = len(fields) > 2 and fields[-2] == "i"
-    else:
-        lab = None
-        interactive = fields[-1] == "i"
-    if interactive:
-        map_type_end -= 1
-    months = None
-    if fields[map_type_end - 1] == "12m":
-        months = 12
-        map_type_end -= 1
-    elif fields[map_type_end - 1] == "6m":
-        months = 6
-        map_type_end -= 1
-    map_type = "-".join(fields[1:map_type_end])
-    if subtype == "h3n":
-        subtype = "h3"
-        assay = "neut"
-    else:
-        assay = "hi"
-    return {"subtype": subtype, "assay": assay, "map": map_type, "lab": lab, "interactive": interactive, "months": months}
+    @classmethod
+    def parse_cmd(cls, cmd):
+        fields = cmd.split("-")
+        subtype = fields[0]
+        if len(fields) == 1 or subtype not in sSubtypes:
+            command = sSetup.get("commands", {}).get(cmd)
+            if command:
+                return {"command": command}
+            else: # elif cmd in ["geo-stat"]:
+                return {"map": cmd}
+        labs = sSetup.get(subtype, {}).get("labs")
+        if not labs:
+            raise Error(f"Unrecognized command {cmd}: invalid subtype")
+        map_type_end = len(fields)
+        if fields[-1] in labs:
+            lab = fields[-1]
+            map_type_end -= 1
+            interactive = len(fields) > 2 and fields[-2] == "i"
+        else:
+            lab = None
+            interactive = fields[-1] == "i"
+        if interactive:
+            map_type_end -= 1
+        months = None
+        if fields[map_type_end - 1] == "12m":
+            months = 12
+            map_type_end -= 1
+        elif fields[map_type_end - 1] == "6m":
+            months = 6
+            map_type_end -= 1
+        map_type = "-".join(fields[1:map_type_end])
+        if subtype == "h3n":
+            inferred_subtype = "h3"
+            assay = "neut"
+        else:
+            inferred_subtype = subtype
+            assay = "hi"
+        return {"raw_subtype": subtype, "subtype": inferred_subtype, "assay": assay, "map": map_type, "lab": lab, "interactive": interactive, "months": months}
 
 # ======================================================================
 ### Local Variables:
