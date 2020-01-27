@@ -16,7 +16,7 @@
     },
     "bvic": {
         "labs": ["cdc", "melb", "niid", "nimr"],
-        "maps": ["clade", "clade-12m", "clade-6m", "ts", "serology", "tree", "sp", "spc"]
+        "maps": ["clade", "clade-12m", "clade-6m", "N-gly-197", "ts", "serology", "tree", "sp", "spc"]
     },
     "byam": {
         "labs": ["cdc", "melb", "niid", "nimr"],

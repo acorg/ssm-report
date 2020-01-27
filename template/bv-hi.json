@@ -7,7 +7,7 @@
       {"N": "point_scale", "scale": 4, "outline_scale": 1}
     ],
     "set-legend": [
-      {"N": "legend", "label_size": 14, "point_size": 10}
+      {"N": "legend", "label_size": 14, "point_size": 10, "offset": [-10, 10]}
     ],
     "no-legend": [
       {"N": "legend", "show": false}
@@ -55,6 +55,39 @@
       {"?N": "antigens", "select": {"clade": "1B", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#FFBFBF", "legend": {"label": "1B", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "2DEL2017", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#DE8244", "legend": {"label": "2-Del mutants", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3DEL2017", "subtype": "BVIC"}, "outline": "#BFBFBF", "fill": "#BF3EFF", "legend": {"label": "3-Del mutants", "count": true}, "order": "raise", "report": true}
+    ],
+
+    "N-gly-197": [
+      "clades",
+      "*{lab}_clades",
+      {"N": "antigens", "select": {"amino_acid": ["197N", "199T"]}, "?outline": "#0000C0", "outline_width": 3, "legend": {"label": "Potential N-gly (197N 199T)", "count": true}, "size": 5, "order": "raise", "report": false, "report_names_threshold": 100},
+      {"N": "antigens", "select": {"amino_acid": ["197N", "199S"]}, "?outline": "#00C0C0", "outline_width": 3, "legend": {"label": "Potential N-gly (197N 199S)", "count": true}, "size": 5, "order": "raise", "report": false, "report_names_threshold": 100},
+
+      {"N": "antigens", "select": {"amino_acid": ["197N", "!199T"]}, "outline": "#C00000", "outline_width": 3, "legend": {"label": "Loss of gly (197N 199notT)", "count": true}, "size": 5, "order": "raise", "report": false, "report_names_threshold": 100},
+      {"N": "antigens", "select": {"amino_acid": ["!197N"]}, "outline": "#C000C0", "outline_width": 3, "legend": {"label": "Loss of gly (197notN)", "count": true}, "size": 5, "order": "raise", "report": false, "report_names_threshold": 100},
+
+      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["197N", "!199T"]}, "fill": "#C00000FF"},
+      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["!197N"]        }, "fill": "#C00000FF"},
+      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["197X"]         }, "fill": "#C00000FF"},
+      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["199X"]         }, "fill": "#C00000FF"},
+      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["197N", "!199T"]}, "fill": "#C06495ED"},
+      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["!197N"]        }, "fill": "#C06495ED"},
+      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["197X"]         }, "fill": "#C06495ED"},
+      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["199X"]         }, "fill": "#C06495ED"},
+      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["197N", "!199T"]}, "fill": "#C0DE8244"},
+      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["!197N"]        }, "fill": "#C0DE8244"},
+      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["197X"]         }, "fill": "#C0DE8244"},
+      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["199X"]         }, "fill": "#C0DE8244"},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["197N", "!199T"]}, "fill": "#C0BF3EFF"},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["!197N"]        }, "fill": "#C0BF3EFF"},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["197X"]         }, "fill": "#C0BF3EFF"},
+      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["199X"]         }, "fill": "#C0BF3EFF"},
+
+      {"N": "antigens", "select": {"amino_acid": ["197X", "199T"]}, "outline": "#00C000", "outline_width": 3, "legend": {"label": "Unclear N-gly (197[XN] 199[XT])", "count": false}, "size": 5, "order": "lower", "report": false, "report_names_threshold": 100},
+      {"N": "antigens", "select": {"amino_acid": ["197N", "199X"]}, "outline": "#00C000", "outline_width": 3, "size": 5, "order": "lower", "report": false, "report_names_threshold": 100},
+      {"N": "antigens", "select": {"amino_acid": ["197X", "199X"]}, "outline": "#00C000", "outline_width": 3, "size": 5, "order": "lower", "report": false, "report_names_threshold": 100},
+
+      {"?N": "antigens", "select": {"amino_acid": ["197K", "199T"]}, "fill": "#000000", "outline_width": 3, "legend": {"label": "KT", "count": true}, "size": 5, "order": "raise", "report": false, "report_names_threshold": 100}
     ],
 
     "?": "===================== Addendum =================================================",

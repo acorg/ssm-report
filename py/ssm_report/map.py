@@ -64,6 +64,11 @@ sApplyFor = {
         "*{lab}-aa-156-6m",
         "set-legend"
         ],
+    "N-gly-197": {
+        "N-gly-197",
+        "*{lab}-N-gly-197",
+        "set-legend"
+    },
     "geography": [
         "continents",
         ],
@@ -160,6 +165,11 @@ sTitleFor = {
     "aa-156-6m": {
         "h1": {
             "hi":   "{lab} {virus_type} by amino-acids at 155, 156",
+        }
+    },
+    "N-gly-197": {
+        "bv": {
+            "hi":   "{lab} {virus_type} by clade and potential N-gly",
         }
     },
     # "aa_at_142": {

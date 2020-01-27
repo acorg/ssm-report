@@ -126,6 +126,12 @@ class Commands:
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
         make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
 
+    def N_gly_197(self, subtype, assay, lab, interactive, open_image=True, **args):
+        "/syn/eu/ac/results/ssm/2020-0123-tc2/custom/bvic-197/README.org"
+        from .map import make_map
+        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        make_map(prefix="N-gly-197", virus_type=subtype, assay=assay, lab=labs, mod="N-gly-197", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+
     def serology(self, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .map import make_map
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
@@ -224,6 +230,12 @@ class Commands:
         if subtype == "h3n":
             inferred_subtype = "h3"
             assay = "neut"
+        elif subtype == "bvic":
+            inferred_subtype = "bv"
+            assay = "hi"
+        elif subtype == "byam":
+            inferred_subtype = "by"
+            assay = "hi"
         else:
             inferred_subtype = subtype
             assay = "hi"
