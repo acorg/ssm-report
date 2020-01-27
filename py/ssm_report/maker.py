@@ -6,9 +6,12 @@ from pathlib import Path
 
 sRootDir = Path("/syn/eu/ac/results/ssm")
 sSetupFilename = "setup.json"
+sReportFilename = "report.json"
 sSubtypes = ["h1", "h3", "h3n", "bvic", "byam"]
 
 sSetup = None
+
+sDotSize = None # default is None, see map.py:make_ts()
 
 class Error (RuntimeError): pass
 
@@ -22,6 +25,10 @@ def set_working_dir():
 def load_setup():
     global sSetup
     sSetup = json.load(open(sSetupFilename))
+
+def load_report():
+    global sReport
+    sReport = json.load(open(sReportFilename))
 
 # ----------------------------------------------------------------------
 
@@ -108,12 +115,20 @@ class Commands:
         else:
             mod = f"aa-156"
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
-        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
 
-    def ts(self, subtype, assay, lab, open_image=False, **args):
+    def serology_aa_156(self, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .map import make_map
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
-        # make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=Path(f"{subtype[:2]}-{assay}"), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+        make_map(prefix="serology-aa-156", virus_type=subtype, assay=assay, lab=labs, mod="serology-aa-156", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+
+    def ts(self, subtype, assay, lab, open_image=False, **args):
+        from .map import make_ts
+        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        make_ts(virus_type=subtype, assay=assay, lab=labs, output_dir=self._output_path(subtype=subtype, assay=assay), force=True, dot_size=sDotSize, start=sSetup["time-series"]["date"]["start"], end=sSetup["time-series"]["date"]["end"], period=sSetup["time-series"]["period"], teleconference=sReport["cover"]["teleconference"], previous=sReport["previous"])
+
+    def _output_path(self, subtype, assay):
+        return Path(f"{subtype[:2]}-{assay}")
 
     def report(self, **args):
         from .report import make_report

@@ -198,6 +198,11 @@ sTitleFor = {
             "hi":   "{lab} {virus_type} with serology antigens",
         },
     },
+    "serology-aa-156": {
+        "h1": {
+            "hi":   "{lab} {virus_type} with serology antigens",
+        },
+    },
     "serum_sectors": {
         "h3": {
             "hi":   "{lab} {virus_type} {assay}",
@@ -314,9 +319,15 @@ sDotSize = {
 # "big" for VCM
 # "compare_with_previous" for TC and in case previous_chart present
 # forced by passing via dot_size
-def make_ts(output_dir, virus_type, assay, lab, infix="", dot_size=None, force=None):
-    report_settings = json.load(Path("report.json").open())
-    periods = make_periods(start=report_settings["time_series"]["date"]["start"], end=report_settings["time_series"]["date"]["end"], period=report_settings["time_series"]["period"])
+def make_ts(output_dir, virus_type, assay, lab, infix="", start=None, end=None, period=None, teleconference=None, previous=None, dot_size=None, force=None):
+    if start is None and end is None and period is None and teleconference is None:
+        report_settings = json.load(Path("report.json").open())
+        start = report_settings["time_series"]["date"]["start"]
+        end = report_settings["time_series"]["date"]["end"]
+        period = report_settings["time_series"]["period"]
+        teleconference = report_settings["cover"]["teleconference"]
+        previous = report_settings["previous"]
+    periods = make_periods(start=start, end=end, period=period)
     settings_files = list(Path(".").glob(f"*{virus_type}-{assay}.json"))
     if isinstance(lab, str) and lab:
         labs = [lab]
@@ -327,12 +338,12 @@ def make_ts(output_dir, virus_type, assay, lab, infix="", dot_size=None, force=N
     for lab in labs:
         dot_size_type = dot_size or "big"
         previous_chart = None
-        if report_settings["cover"]["teleconference"] and dot_size is None:
+        if teleconference and dot_size is None:
             try:
-                previous_chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, chart_dir=Path(report_settings["previous"], "merges"))
+                previous_chart = get_chart(virus_type=virus_type, assay=assay, lab=lab, chart_dir=Path(previous, "merges"))
                 dot_size_type = "compare_with_previous"
             except:
-                module_logger.warning("No previous chart found for {} {} {} in {}".format(virus_type, assay, lab, Path(report_settings["previous"], "merges")))
+                module_logger.warning("No previous chart found for {} {} {} in {}".format(virus_type, assay, lab, Path(previous, "merges")))
 
         for period in periods:
             module_logger.info("{}\nINFO:{} {} {} {} Time Series {} {}".format("*"* 70, " " * 30, lab, virus_type.upper(), assay.upper(), period["numeric_name"], " "* 93))

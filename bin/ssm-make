@@ -32,6 +32,7 @@ try:
     else:
         maker.set_working_dir()
         maker.load_setup()
+        maker.load_report()
         if args.list_commands_for_helm:
             maker.list_commands_for_helm()
         elif args.commands:

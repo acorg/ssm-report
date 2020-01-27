@@ -8,8 +8,8 @@
       {"N":"antigens", "select": {"name": "Iowa/12/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       {"N":"antigens", "select": {"name": "Arizona/24/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
       {"N":"antigens", "select": {"name": "Arizona/25/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "KANAGAWA/IC1848/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Kanagawa/IC1892/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
+      {"N":"antigens", "select": {"name": "KANAGAWA/IC1848/2019"},  "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Kanagawa/IC1892/2019"},  "label": {"offset": [1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
     ],
     "ALL-serology": [
     ],
