@@ -249,11 +249,11 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
 
     # pprint.pprint(vaccine_settings)
     if vaccine_settings:
-        vaccines = vaccine_settings["mods"].get(lab.upper() + "_vaccines")
+        vaccines = vaccine_settings["mods"].get(lab.upper() + "-vaccines")
         if vaccines is None:
-            vaccines = vaccine_settings["mods"]["ALL_vaccines"]
+            vaccines = vaccine_settings["mods"]["ALL-vaccines"]
     else:
-        vaccines = map_settings["mods"][lab.upper() + "_vaccines"]
+        vaccines = map_settings["mods"][lab.upper() + "-vaccines"]
     # pprint.pprint(vaccines)
     for entry in vaccines:
         vaccine_data = copy.deepcopy(entry)

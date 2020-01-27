@@ -106,7 +106,7 @@ class Commands:
         for command_name in sSetup[subtype]["maps"]:
             if not command_name.startswith("tree") and not command_name.startswith("sp"):
                 print(f"{sep}\n{command_name}\n{sep}\n")
-                self.do(f"{subtype}-{command_name}")
+                self.do(f"{raw_subtype}-{command_name}")
 
     def aa_156(self, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .map import make_map
@@ -127,6 +127,22 @@ class Commands:
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
         make_ts(virus_type=subtype, assay=assay, lab=labs, output_dir=self._output_path(subtype=subtype, assay=assay), force=True, dot_size=sDotSize, start=sSetup["time-series"]["date"]["start"], end=sSetup["time-series"]["date"]["end"], period=sSetup["time-series"]["period"], teleconference=sReport["cover"]["teleconference"], previous=sReport["previous"])
 
+    def sp(self, subtype, assay, lab, interactive, months, open_image=True, **args):
+        from .signature_page import signature_page_make, signature_page_source_dir_init, signature_page_output_dir_init
+        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        sp_dir = Path("sp")
+        signature_page_source_dir_init(sp_dir)
+        signature_page_output_dir_init(sp_dir)
+        signature_page_make(virus_type=subtype, assay=assay, lab=labs, sp_source_dir=sp_dir, sp_output_dir=sp_dir, tree_dir=Path("tree"), merge_dir=Path("merges").resolve(), seqdb=self._seqdb_file(), interactive=interactive)
+
+    def spc(self, subtype, assay, lab, interactive, months, open_image=True, **args):
+        from .signature_page import signature_page_make, signature_page_source_dir_init, signature_page_output_dir_init
+        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        sp_dir = Path("spc")
+        signature_page_source_dir_init(sp_dir)
+        signature_page_output_dir_init(sp_dir)
+        signature_page_make(virus_type=subtype, assay=assay, lab=labs, serum_circles=True, orig_sp_source_dir=Path("sp"), sp_source_dir=sp_dir, sp_output_dir=sp_dir, tree_dir=Path("tree"), merge_dir=Path("merges").resolve(), seqdb=self._seqdb_file(), interactive=interactive)
+
     def _output_path(self, subtype, assay):
         return Path(f"{subtype[:2]}-{assay}")
 
@@ -144,6 +160,9 @@ class Commands:
 
     def _db_dir(self):
         return Path("db").resolve()
+
+    def _seqdb_file(self):
+        return self._db_dir().joinpath("seqdb.json.xz")
 
     def _get_lab(self, subtype, assay, lab, **args):
         if lab:
