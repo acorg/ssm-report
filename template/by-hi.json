@@ -3,13 +3,13 @@
   "information_labs": ["CDC", "MELB", "NIID", "NIMR"],
   "mods": {
 
-    "set_scale": [
+    "set-scale": [
       {"N": "point_scale", "scale": 4, "outline_scale": 1}
     ],
-    "set_legend": [
+    "set-legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
     ],
-    "no_legend": [
+    "no-legend": [
       {"N": "legend", "show": false}
     ],
     "information": [
@@ -22,80 +22,80 @@
     "information_clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15},
-      "no_legend"
+      {"N": "clades-12m", "size": 15},
+      "no-legend"
     ],
 
     "? CDC": "===================== CDC  BYAM  HI =================================================",
 
-    "CDC_flip": [
+    "CDC-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "CDC_rotate": [
+    "CDC-rotate": [
       {"N": "rotate", "degrees": 0}
     ],
-    "CDC_viewport": [
+    "CDC-viewport": [
       {"N": "viewport", "rel": [0, 0, 0]}
     ],
-    "CDC_pre": [
+    "CDC-pre": [
     ],
-    "CDC_mid": [
+    "CDC-mid": [
     ],
-    "CDC_post": [
+    "CDC-post": [
     ],
 
     "? MELB": "===================== MELB  BYAM  HI =================================================",
 
-    "MELB_flip": [
+    "MELB-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "MELB_rotate": [
+    "MELB-rotate": [
       {"?N": "rotate", "degrees": 0}
     ],
-    "MELB_viewport": [
+    "MELB-viewport": [
       {"N": "viewport", "rel": [0.5, 1.0, -2]}
     ],
-    "MELB_pre": [
+    "MELB-pre": [
     ],
-    "MELB_mid": [
+    "MELB-mid": [
     ],
-    "MELB_post": [
+    "MELB-post": [
     ],
 
     "? NIID": "===================== NIID  BYAM  HI =================================================",
 
-    "NIID_flip": [
+    "NIID-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "NIID_rotate": [
+    "NIID-rotate": [
       {"N": "rotate", "degrees": 0}
     ],
-    "NIID_viewport": [
+    "NIID-viewport": [
       {"N": "viewport", "rel": [0, -0.3, -1]}
     ],
-    "NIID_pre": [
+    "NIID-pre": [
     ],
-    "NIID_mid": [
+    "NIID-mid": [
     ],
-    "NIID_post": [
+    "NIID-post": [
     ],
 
     "? NIMR": "===================== NIMR  BYAM  HI =================================================",
 
-    "NIMR_flip": [
+    "NIMR-flip": [
       {"N": "flip", "direction": "ew"}
     ],
-    "NIMR_rotate": [
+    "NIMR-rotate": [
       {"N": "rotate", "degrees": -60}
     ],
-    "NIMR_viewport": [
+    "NIMR-viewport": [
       {"N": "viewport", "rel": [2.0, 1.8, -5]}
     ],
-    "NIMR_pre": [
+    "NIMR-pre": [
     ],
-    "NIMR_mid": [
+    "NIMR-mid": [
     ],
-    "NIMR_post": [
+    "NIMR-post": [
     ]
   }
 }

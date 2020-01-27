@@ -40,7 +40,7 @@ sApplyFor = {
         "set-legend"
         ],
     "clade-6m": [
-        "clade-6m",
+        "clades-6m",
         "*{lab}-clades-6m",
         "set-legend"
         ],

@@ -3,13 +3,13 @@
   "information_labs": ["CDC", "MELB", "NIID", "NIMR"],
   "mods": {
 
-    "set_scale": [
+    "set-scale": [
       {"N": "point_scale", "scale": 4, "outline_scale": 1}
     ],
-    "set_legend": [
+    "set-legend": [
       {"N": "legend", "label_size": 14, "point_size": 10}
     ],
-    "no_legend": [
+    "no-legend": [
       {"N": "legend", "show": false}
     ],
     "information": [
@@ -22,8 +22,8 @@
     "information_clades": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
-      {"N": "clades_last_12_months", "size": 15},
-      "no_legend"
+      {"N": "clades-12m", "size": 15},
+      "no-legend"
     ],
 
     "clades": [
@@ -37,7 +37,7 @@
       {"N": "antigens", "select": {"clade": "3C.2A2"},  "fill": "#EEB422",        "outline": "black", "legend": {"label": "2a2",  "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.2A1B", "amino_acid": ["137F"]}, "fill": "pink",        "outline": "black", "legend": {"label": "2a1b 137F", "count": true}, "order": "raise", "report": true}
     ],
-    "clades_last_6_months": [
+    "clades-6m": [
       {"N": "antigens", "select": {"clade": "3C.3", "younger_than_days": 183}, "fill": "cornflowerblue", "outline": "black", "legend": {"label": "3C.3", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.3A", "younger_than_days": 183},   "fill": "green",          "outline": "black", "legend": {"label": "3a",   "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.3B", "younger_than_days": 183},   "fill": "blue",           "outline": "black", "legend": {"label": "3b",   "count": true}, "order": "raise", "report": true},
@@ -48,7 +48,7 @@
       {"N": "antigens", "select": {"clade": "3C.2A2", "younger_than_days": 183},  "fill": "#EEB422",        "outline": "black", "legend": {"label": "2a2",  "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.2A1B", "amino_acid": ["137F"], "younger_than_days": 183}, "fill": "pink",        "outline": "black", "legend": {"label": "2a1b 137F", "count": true}, "order": "raise", "report": true}
     ],
-    "clades_last_12_months": [
+    "clades-12m": [
       {"N": "antigens", "select": {"clade": "3C.3", "younger_than_days": 365}, "fill": "cornflowerblue", "outline": "black", "legend": {"label": "3C.3", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.3A", "younger_than_days": 365},   "fill": "green",          "outline": "black", "legend": {"label": "3a",   "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.3B", "younger_than_days": 365},   "fill": "blue",           "outline": "black", "legend": {"label": "3b",   "count": true}, "order": "raise", "report": true},
@@ -59,7 +59,7 @@
       {"N": "antigens", "select": {"clade": "3C.2A2", "younger_than_days": 365},  "fill": "#EEB422",        "outline": "black", "legend": {"label": "2a2",  "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.2A1B", "amino_acid": ["137F"], "younger_than_days": 365}, "fill": "pink",        "outline": "black", "legend": {"label": "2a1b 137F", "count": true}, "order": "raise", "report": true}
     ],
-    "clades_light": [
+    "clades-light": [
       {"N": "antigens", "select": {"clade": "3C.3"}, "fill": "#8F9DBF", "outline": "#BFBFBF", "legend": {"label": "3", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.3A"},   "fill": "#BFFFBF", "outline": "#BFBFBF", "legend": {"label": "3a", "count": true}, "order": "raise", "report": true},
       {"N": "antigens", "select": {"clade": "3C.3B"},   "fill": "#BFBFFF", "outline": "#BFBFBF", "legend": {"label": "3b", "count": true}, "order": "raise", "report": true},
@@ -73,74 +73,74 @@
 
     "?": "===================== CDC  H3  NEUT =================================================",
 
-    "CDC_flip": [
+    "CDC-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "CDC_rotate": [
+    "CDC-rotate": [
       {"?N": "rotate", "degrees": 0}
     ],
-    "CDC_viewport": [
+    "CDC-viewport": [
       {"?N": "viewport", "rel": [1, 1, -2]}
     ],
-    "CDC_pre": [
+    "CDC-pre": [
     ],
-    "CDC_mid": [
+    "CDC-mid": [
     ],
-    "CDC_post": [
+    "CDC-post": [
     ],
 
     "?": "===================== MELB  H3  NEUT =================================================",
 
-    "MELB_flip": [
+    "MELB-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "MELB_rotate": [
+    "MELB-rotate": [
       {"?N": "rotate", "degrees": 30}
     ],
-    "MELB_viewport": [
+    "MELB-viewport": [
       {"?N": "viewport", "rel": [4, 3, -7]}
     ],
-    "MELB_pre": [
+    "MELB-pre": [
     ],
-    "MELB_mid": [
+    "MELB-mid": [
     ],
-    "MELB_post": [
+    "MELB-post": [
     ],
 
     "?": "===================== NIID  H3  NEUT =================================================",
 
-    "NIID_flip": [
+    "NIID-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "NIID_rotate": [
+    "NIID-rotate": [
       {"?N": "rotate", "degrees": -160}
     ],
-    "NIID_viewport": [
+    "NIID-viewport": [
       {"N": "viewport", "rel": [0, 0, 0]}
     ],
-    "NIID_pre": [
+    "NIID-pre": [
     ],
-    "NIID_mid": [
+    "NIID-mid": [
     ],
-    "NIID_post": [
+    "NIID-post": [
     ],
 
     "?": "===================== NIMR  H3  NEUT =================================================",
 
-    "NIMR_flip": [
+    "NIMR-flip": [
       {"?N": "flip", "direction": "ew"}
     ],
-    "NIMR_rotate": [
+    "NIMR-rotate": [
       {"?N": "rotate", "degrees": 123}
     ],
-    "NIMR_viewport": [
+    "NIMR-viewport": [
       {"?N": "viewport", "rel": [6, 3.5, -7]}
     ],
-    "NIMR_pre": [
+    "NIMR-pre": [
     ],
-    "NIMR_mid": [
+    "NIMR-mid": [
     ],
-    "NIMR_post": [
+    "NIMR-post": [
     ]
   }
 }
