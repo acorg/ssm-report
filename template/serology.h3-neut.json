@@ -12,7 +12,7 @@
     "MELB-serology": [
       ],
     "NIID-serology": [
-      {"N":"antigens", "select": {"name": "Kanagawa/ZC1805/2019"},  "label": {"offset": [0, -1], "name_type": "abbreviated_with_passage_type"}}
+      {"N":"antigens", "select": {"name": "Kanagawa/ZC1805/2019"},  "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
       ],
     "NIMR-serology": [
       ]

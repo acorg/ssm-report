@@ -275,12 +275,12 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     s2_filename = output_dir.joinpath(output_prefix + ".settings.json")
     pre, post = make_pre_post(virus_type=virus_type, assay=assay, mod=mod, lab=lab.upper(), infix=infix)
     if mod == "serology":
-        inside = [lab.upper() + "_serology"]
+        inside = [lab.upper() + "-serology"]
     elif "serum_coverage_circle" in mod:
         inside = sApplyFor["serum_coverage_circle"] + [mod]
         mod = None
-    elif mod == "aa_at_142":
-        inside = ["*" + lab.upper() + "_aa_at_142"]
+    # elif mod == "aa_at_142":
+    #     inside = ["*" + lab.upper() + "_aa_at_142"]
     else:
         inside = []
     for_mod = [e.format(virus_type=virus_type, assay=assay.upper(), mod=mod, lab=lab.upper()) if isinstance(e, str) else e for e in sApplyFor.get(mod, [mod])]
