@@ -50,7 +50,7 @@ def list_commands_for_helm():
     for command_name in sSetup.get("commands", {}):
         print(command_name)
 
-    for command_name in ["get-merges", "get-hidb-seqdb", "report", "report-abbreviated", "addendum-1", "addendum-2", "addendum-3", "addendum-4", "addendum-5"]:
+    for command_name in ["get-merges", "get-hidb-seqdb", "geo-stat", "geo", "stat", "report", "report-abbreviated", "addendum-1", "addendum-2", "addendum-3", "addendum-4", "addendum-5"]:
         print(command_name)
 
 # ----------------------------------------------------------------------
@@ -91,13 +91,19 @@ class Commands:
             raise Error(f"Unrecognized command: {cmd}")
 
     def get_hidb_seqdb(self, **args):
-        subprocess.check_call('ssh albertine "whocc-update-ace-store && whocc-hidb5-update" && hidb-get-from-albertine && mkdir db && cp ~/AD/data/hidb* ~/AD/data/seqdb.json.xz db', shell=True)
+        subprocess.check_call('ssh albertine "whocc-update-ace-store && whocc-hidb5-update" && hidb-get-from-albertine && mkdir db && cp ~/AD/data/hidb* ~/AD/data/seqdb.json.xz db && ln -sf ~/AD/data/locationdb.json.xz db', shell=True)
 
     def geo_stat(self, **args):
-        from .stat import make_stat
-        make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=True)
+        self.stat(**args)
+        self.geo(**args)
+
+    def geo(self, **args):
         from .geographic import make_geographic
         make_geographic(geo_dir=Path("geo"), db_dir=self._db_dir(), force=True)
+
+    def stat(self, **args):
+        from .stat import make_stat
+        make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=True)
 
     def tree(self, subtype, interactive, report_cumulative=False, **args):
         from .signature_page import tree_make

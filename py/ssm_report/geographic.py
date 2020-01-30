@@ -23,7 +23,7 @@ def make_geographic(geo_dir, db_dir, virus_types=None, force=False):
                 output=output
                 ))
             script_filename.chmod(0o700)
-            subprocess.check_call(str(script_filename))
+            subprocess.check_call(str(script_filename), shell=True)
             prefixes[virus_type] = output
 
         make_index_html(geo_dir.joinpath("index.html"), prefixes, safari=False)

@@ -28,7 +28,6 @@
     },
     "commands": {
         "sy": "./sy",
-        "rr": "./rr",
-        "geo-stat": ""
+        "rr": "./rr"
     }
 }
