@@ -64,6 +64,8 @@ def init_dir(dir):
     # init.get_dbs()
     init.init_dirs()
     init.init_settings()
+    subprocess.check_call(["emacsclient", "-n", "README.org"])
+    subprocess.check_call(["emacsclient", "-n", "setup.json"])
 
 # ----------------------------------------------------------------------
 

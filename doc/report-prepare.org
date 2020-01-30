@@ -1,10 +1,30 @@
+# Time-stamp: <2020-01-30 14:18:28 eu>
+
+* Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
+
+* [before 2020-01-30] start new report preparation
+
+M-x eu-ssm-load
+
+#+BEGIN_SRC bash
+SSM_DATE=2020-0206-tc2; ssm-make --init ~/ac/results/ssm/${SSM_DATE}
+#+END_SRC
+
+* [before 2020-01-30] start new report preparation
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+D=YYYY-MMDD-tc; mkdir ~/ac/results/ssm/${D} && cd ~/ac/results/ssm/${D} && ssm-report init && e README.org
+
+
+* COMMENT local vars ======================================================================
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+
 #+STARTUP: showall
 #+STARTUP: indent
-# Time-stamp: <2019-09-04 11:13:24 eu>
-* Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
-* start new report preparation
-D=YYYY-MMDD-tc; mkdir ~/ac/results/ssm/${D} && cd ~/ac/results/ssm/${D} && ssm-report init && e README.org
-* COMMENT local vars ======================================================================
+
 # Local Variables:
 # eval: (auto-fill-mode 0)
 # eval: (add-hook 'before-save-hook 'time-stamp)

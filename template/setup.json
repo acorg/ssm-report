@@ -29,7 +29,6 @@
     "commands": {
         "sy": "./sy",
         "rr": "./rr",
-        "geo-stat": "",
-        "get-recent-merges": ""
+        "geo-stat": ""
     }
 }

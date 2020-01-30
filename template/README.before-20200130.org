@@ -1,0 +1,380 @@
+# Time-stamp: <2020-01-22 09:02:11 eu>
+
+* Merges
+- [ ] H1 [0/4]
+  - [ ] CDC
+
+  - [ ] Crick
+
+  - [ ] NIID
+
+  - [ ] VIDRL
+
+- [ ] H3 HI [0/3]
+  - [ ] CDC
+
+  - [ ] Crick
+
+  - [ ] VIDRL
+
+- [ ] H3 Neut [0/4]
+  - [ ] CDC
+
+  - [ ] Crick
+
+  - [ ] NIID
+
+  - [ ] VIDRL
+
+- [ ] BVic [0/5]
+
+  - [ ] CDC
+
+  - [ ] Crick
+
+  - [ ] NIID
+
+  - [ ] VIDRL
+
+- [ ] BYam [0/4]
+  - [ ] CDC
+
+  - [ ] Crick
+
+  - [ ] NIID
+
+  - [ ] VIDRL
+
+* TODO
+
+* Buttons
+** Sync
+[[elisp:(eu-process "ssm-report ./sy" "./sy" t)][./sy]]
+[[elisp:(eu-process "ssm-report ./rr" "./rr" t)][./rr]]
+** Upon init
+[[elisp:(eu-process "update and get hidb" "ssh i19 'whocc-update-ace-store && whocc-hidb5-update'; hidb-get-from-albertine && cp ~/AD/data/hidb5.* db")][update and get hidb]]
+[[elisp:(eu-ssm-report "update-merges")][update-merges: 7m]]
+[[elisp:(eu-ssm-report "h1-overlay")][h1-overlay]]
+[[elisp:(eu-ssm-report "--force stat geo")][force stat geo]]
+
+** Make trees
+*** copy trees
+d=2019-0912; for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signature-pages/$d/$f/tree.json.xz tree/$f.tree.json.xz; done
+
+*** make trees
+[[elisp:(eu-ssm-report "h1-tree-i")][h1-tree-i]]   [[elisp:(eu-ssm-report "h1-tree")][h1-tree]]   [[elisp:(eu-ssm-report "h1-tree-cumul")][h1-tree-cumul]]    [[file:tree/h1.tree.settings.json][h1.tree.settings.json]]
+[[elisp:(eu-ssm-report "h3-tree-i")][h3-tree-i]]   [[elisp:(eu-ssm-report "h3-tree")][h3-tree]]   [[elisp:(eu-ssm-report "h3-tree-cumul")][h3-tree-cumul]]    [[file:tree/h3.tree.settings.json][h3.tree.settings.json]]
+[[elisp:(eu-ssm-report "bv-tree-i")][bvic-tree-i]] [[elisp:(eu-ssm-report "bv-tree")][bvic-tree]] [[elisp:(eu-ssm-report "bv-tree-cumul")][bvic-tree-cumul]]  [[file:tree/bv.tree.settings.json][bv.tree.settings.json]]
+[[elisp:(eu-ssm-report "by-tree-i")][byam-tree-i]] [[elisp:(eu-ssm-report "by-tree")][byam-tree]] [[elisp:(eu-ssm-report "by-tree-cumul")][byam-tree-cumul]]  [[file:tree/by.tree.settings.json][by.tree.settings.json]]
+
+[[elisp:(eu-ssm-report "h1-tree-aa")][h1-tree-aa]]
+[[elisp:(eu-ssm-report "h3-tree-aa")][h3-tree-aa]]
+[[elisp:(eu-ssm-report "bv-tree-aa")][bvic-tree-aa]]
+[[elisp:(eu-ssm-report "by-tree-aa")][byam-tree-aa]]
+
+** Settings
+[[file:h1-geographic.json][h1-geographic.json]] [[file:h1-hi.json][h1-hi.json]] [[file:serology.h1-hi.json][serology.h1-hi.json]] [[file:vaccines.h1-hi.json][vaccines.h1-hi.json]]
+[[file:h3-geographic.json][h3-geographic.json]] [[file:h3-hi.json][h3-hi.json]] [[file:serology.h3-hi.json][serology.h3-hi.json]] [[file:vaccines.h3-hi.json][vaccines.h3-hi.json]]
+[[file:h3-neut.json][h3-neut.json]] [[file:serology.h3-neut.json][serology.h3-neut.json]] [[file:vaccines.h3-neut.json][vaccines.h3-neut.json]]
+[[file:b-geographic.json][b-geographic.json]]
+[[file:bv-hi.json][bv-hi.json]] [[file:serology.bv-hi.json][serology.bv-hi.json]] [[file:vaccines.bv-hi.json][vaccines.bv-hi.json]]
+[[file:by-hi.json][by-hi.json]] [[file:serology.by-hi.json][serology.by-hi.json]] [[file:vaccines.by-hi.json][vaccines.by-hi.json]]
+[[file:report.json][report.json]] [[file:report-serumcoverage.json][report-serumcoverage.json]]
+
+** Make maps
+[[elisp:(eu-ssm-report "--force stat")][stat]] [[elisp:(eu-ssm-report "--force geo")][geo]]
+
+-- H1
+[[elisp:(eu-ssm-report "h1-ts")][h1-all-ts]]        [[elisp:(eu-ssm-report "h1-ts-labs")][h1-ts-labs]]          [[elisp:(eu-ssm-report "h1-ts-cdc")][h1-ts-cdc]]           [[elisp:(eu-ssm-report "h1-ts-melb")][h1-ts-melb]]             [[elisp:(eu-ssm-report "h1-ts-niid")][h1-ts-niid]]           [[elisp:(eu-ssm-report "h1-ts-nimr")][h1-ts-nimr]]
+[[elisp:(eu-ssm-report "h1-clade")][h1-clade]]                             [[elisp:(eu-run "h1-hi/clade-cdc-i.sh")][h1-cdc-clade-i]]      [[elisp:(eu-run "h1-hi/clade-melb-i.sh")][h1-melb-clade-i]]        [[elisp:(eu-run "h1-hi/clade-niid-i.sh")][h1-niid-clade-i]]      [[elisp:(eu-run "h1-hi/clade-nimr-i.sh")][h1-nimr-clade-i]]
+[[elisp:(eu-ssm-report "h1-serology")][h1-serology]]                          [[elisp:(eu-run "h1-hi/serology-cdc-i.sh")][h1-cdc-serology-i]]   [[elisp:(eu-run "h1-hi/serology-melb-i.sh")][h1-melb-serology-i  ]]   [[elisp:(eu-run "h1-hi/serology-niid-i.sh")][h1-niid-serology-i]]   [[elisp:(eu-run "h1-hi/serology-nimr-i.sh")][h1-nimr-serology-i]]
+[[elisp:(eu-ssm-report "h1-geo")][h1-geo]]
+[[elisp:(eu-ssm-report "h1-clade h1-serology h1-ts")][h1 ts clade serology]]
+[[elisp:(eu-ssm-report "h1-clade h1-ts")][h1 ts clade]]
+
+-- H3 HI
+[[elisp:(eu-ssm-report "h3-ts")][h3-ts]]
+[[elisp:(eu-ssm-report "h3-clade")][h3-clade]]        [[elisp:(eu-run "h3-hi/clade-cdc-i.sh")][h3-cdc-clade-i]]      [[elisp:(eu-run "h3-hi/clade-melb-i.sh")][h3-melb-clade-i]]        [[elisp:(eu-run "h3-hi/clade-nimr-i.sh")][h3-nimr-clade-i]]
+[[elisp:(eu-ssm-report "h3-serology")][h3-serology]]     [[elisp:(eu-run "h3-hi/serology-cdc-i.sh")][h3-cdc-serology-i]]   [[elisp:(eu-run "h3-hi/serology-melb-i.sh")][h3-melb-serology-i  ]]   [[elisp:(eu-run "h3-hi/serology-nimr-i.sh")][h3-nimr-serology-i]]
+[[elisp:(eu-ssm-report "h3-geo")][h3-geo]]
+[[elisp:(eu-ssm-report "h3-clade h3-serology h3-ts")][h3 ts clade serology]]
+[[elisp:(eu-ssm-report "h3-clade h3-ts")][h3 ts clade]]
+
+-- H3 Neut
+[[elisp:(eu-ssm-report "h3neut-ts")][h3neut-ts]]
+[[elisp:(eu-ssm-report "h3neut-clade")][h3neut-clade]]        [[elisp:(eu-run "h3-neut/clade-cdc-i.sh")][h3neut-cdc-clade-i]]      [[elisp:(eu-run "h3-neut/clade-melb-i.sh")][h3neut-melb-clade-i]]      [[elisp:(eu-run "h3-neut/clade-niid-i.sh")][h3neut-niid-clade-i]]      [[elisp:(eu-run "h3-neut/clade-nimr-i.sh")][h3neut-nimr-clade-i]]
+[[elisp:(eu-ssm-report "h3neut-serology")][h3neut-serology]]     [[elisp:(eu-run "h3-neut/serology-cdc-i.sh")][h3neut-cdc-serology-i]]   [[elisp:(eu-run "h3-neut/serology-melb-i.sh")][h3neut-melb-serology-i  ]] [[elisp:(eu-run "h3-neut/serology-niid-i.sh")][h3neut-niid-serology-i]]   [[elisp:(eu-run "h3-neut/serology-nimr-i.sh")][h3neut-nimr-serology-i]]
+[[elisp:(eu-ssm-report "h3neut-geo")][h3neut-geo]]
+[[elisp:(eu-ssm-report "h3neut-clade h3neut-serology h3neut-ts")][h3neut ts clade serology]]
+[[elisp:(eu-ssm-report "h3neut-clade h3neut-ts")][h3neut ts clade]]
+
+-- B/Vic
+[[elisp:(eu-ssm-report "bv-ts")][BVic-ts]]
+[[elisp:(eu-ssm-report "bv-clade")][BVic-clade]]     [[elisp:(eu-run "bv-hi/clade-cdc-i.sh")][BVic-cdc-clade-i]]       [[elisp:(eu-run "bv-hi/clade-melb-i.sh")][BVic-melb-clade-i]]       [[elisp:(eu-run "bv-hi/clade-niid-i.sh")][BVic-niid-clade-i]]      [[elisp:(eu-run "bv-hi/clade-nimr-i.sh")][BVic-nimr-clade-i]]
+[[elisp:(eu-ssm-report "bv-serology")][BVic-serology]]  [[elisp:(eu-run "bv-hi/serology-cdc-i.sh")][BVic-cdc-serology-i]]    [[elisp:(eu-run "bv-hi/serology-melb-i.sh")][BVic-melb-serology-i]]    [[elisp:(eu-run "bv-hi/serology-niid-i.sh")][BVic-niid-serology-i]]   [[elisp:(eu-run "bv-hi/serology-nimr-i.sh")][BVic-nimr-serology-i]]
+[[elisp:(eu-ssm-report "bv-geo")][BVic-geo]]
+[[elisp:(eu-ssm-report "bv-clade bv-serology bv-ts")][BVic ts clade serology]]
+[[elisp:(eu-ssm-report "bv-clade bv-ts")][BVic ts clade]]
+
+-- B/Yam
+[[elisp:(eu-ssm-report "by-ts")][BYam-ts]]
+[[elisp:(eu-ssm-report "by-clade")][BYam-clade]]     [[elisp:(eu-run "by-hi/clade-cdc-i.sh")][BYam-cdc-clade-i]]       [[elisp:(eu-run "by-hi/clade-melb-i.sh")][BYam-melb-clade-i]]       [[elisp:(eu-run "by-hi/clade-niid-i.sh")][BYam-niid-clade-i]]      [[elisp:(eu-run "by-hi/clade-nimr-i.sh")][BYam-nimr-clade-i]]
+[[elisp:(eu-ssm-report "by-serology")][BYam-serology]]  [[elisp:(eu-run "by-hi/serology-cdc-i.sh")][BYam-cdc-serology-i]]    [[elisp:(eu-run "by-hi/serology-melb-i.sh")][BYam-melb-serology-i]]    [[elisp:(eu-run "by-hi/serology-niid-i.sh")][BYam-niid-serology-i]]   [[elisp:(eu-run "by-hi/serology-nimr-i.sh")][BYam-nimr-serology-i]]
+[[elisp:(eu-ssm-report "by-geo")][BYam-geo]]
+[[elisp:(eu-ssm-report "by-clade by-serology by-ts")][BYam ts clade serology]]
+[[elisp:(eu-ssm-report "by-clade by-ts")][BYam ts clade]]
+
+[[elisp:(eu-ssm-report "report")][REPORT]]  [[elisp:(eu-process "ssm-report ./rr" "./rr" t)][RR]]
+
+** Signature pages
+
+| [[elisp:(eu-ssm-report "sp")][sp]]      |             |              |              |              |        |
+|---------+-------------+--------------+--------------+--------------+--------|
+| [[elisp:(eu-ssm-report "sp-h1")][H1]]      | [[elisp:(eu-ssm-report "sp-h1-cdc")][H1 CDC]]      | [[elisp:(eu-ssm-report "sp-h1-melb")][H1 MELB]]      | [[elisp:(eu-ssm-report "sp-h1-niid")][H1 NIID]]      | [[elisp:(eu-ssm-report "sp-h1-nimr")][H1 NIMR]]      | [[elisp:(eu-ssm-report "sp-h1-all")][H1 ALL]] |
+| [[elisp:(eu-ssm-report "sp-h3")][H3 HI]]   | [[elisp:(eu-ssm-report "sp-h3-cdc")][H3 HI CDC]]   | [[elisp:(eu-ssm-report "sp-h3-melb")][H3 HI MELB]]   |              | [[elisp:(eu-ssm-report "sp-h3-nimr")][H3 HI NIMR]]   |        |
+| [[elisp:(eu-ssm-report "sp-h3neut")][H3 Neut]] | [[elisp:(eu-ssm-report "sp-h3neut-cdc")][H3 Neut CDC]] | [[elisp:(eu-ssm-report "sp-h3neut-melb")][H3 Neut MELB]] | [[elisp:(eu-ssm-report "sp-h3neut-niid")][H3 Neut NIID]] | [[elisp:(eu-ssm-report "sp-h3neut-nimr")][H3 Neut NIMR]] |        |
+| [[elisp:(eu-ssm-report "sp-bv")][BVic]]    | [[elisp:(eu-ssm-report "sp-bv-cdc")][BVic CDC]]    | [[elisp:(eu-ssm-report "sp-bv-melb")][BVic MELB]]    | [[elisp:(eu-ssm-report "sp-bv-niid")][BVic NIID]]    | [[elisp:(eu-ssm-report "sp-bv-nimr")][BVic NIMR]]    |        |
+| [[elisp:(eu-ssm-report "sp-by")][BYam]]    | [[elisp:(eu-ssm-report "sp-by-cdc")][BYam CDC]]    | [[elisp:(eu-ssm-report "sp-by-melb")][BYam MELB]]    | [[elisp:(eu-ssm-report "sp-by-niid")][BYam NIID]]    | [[elisp:(eu-ssm-report "sp-by-nimr")][BYam NIMR]]    |        |
+
+
+| Interactive   |                |                |                |          |
+|---------------+----------------+----------------+----------------+----------|
+| [[elisp:(eu-ssm-report "sp-h1-cdc-i")][H1 CDC I]]      | [[elisp:(eu-ssm-report "sp-h1-melb-i")][H1 MELB I]]      | [[elisp:(eu-ssm-report "sp-h1-niid-i")][H1 NIID I]]      | [[elisp:(eu-ssm-report "sp-h1-nimr-i")][H1 NIMR I]]      | [[elisp:(eu-ssm-report "sp-h1-all-i")][H1 ALL I]] |
+| [[elisp:(eu-ssm-report "sp-h3-cdc-i")][H3 HI CDC I]]   | [[elisp:(eu-ssm-report "sp-h3-melb-i")][H3 HI MELB I]]   |                | [[elisp:(eu-ssm-report "sp-h3-nimr-i")][H3 HI NIMR I]]   |          |
+| [[elisp:(eu-ssm-report "sp-h3neut-cdc-i")][H3 Neut CDC I]] | [[elisp:(eu-ssm-report "sp-h3neut-melb-i")][H3 Neut MELB I]] | [[elisp:(eu-ssm-report "sp-h3neut-niid-i")][H3 Neut NIID I]] | [[elisp:(eu-ssm-report "sp-h3neut-nimr-i")][H3 Neut NIMR I]] |          |
+| [[elisp:(eu-ssm-report "sp-bv-cdc-i")][BVic CDC I]]    | [[elisp:(eu-ssm-report "sp-bv-melb-i")][BVic MELB I]]    | [[elisp:(eu-ssm-report "sp-bv-niid-i")][BVic NIID I]]    | [[elisp:(eu-ssm-report "sp-bv-nimr-i")][BVic NIMR I]]    |          |
+| [[elisp:(eu-ssm-report "sp-by-cdc-i")][BYam CDC I]]    | [[elisp:(eu-ssm-report "sp-by-melb-i")][BYam MELB I]]    | [[elisp:(eu-ssm-report "sp-by-niid-i")][BYam NIID I]]    | [[elisp:(eu-ssm-report "sp-by-nimr-i")][BYam NIMR I]]    |          |
+
+
+[[elisp:(eu-ssm-report "sp-addendum")][SP-ADDENDUM]]
+
+** Signature pages with serum circles
+
+| [[elisp:(eu-ssm-report "spsc")][spsc]]      |             |              |              |              |        |
+|---------+-------------+--------------+--------------+--------------+--------|
+| [[elisp:(eu-ssm-report "spsc-h1")][H1]]      | [[elisp:(eu-ssm-report "spsc-h1-cdc")][H1 CDC]]      | [[elisp:(eu-ssm-report "spsc-h1-melb")][H1 MELB]]      | [[elisp:(eu-ssm-report "spsc-h1-niid")][H1 NIID]]      | [[elisp:(eu-ssm-report "spsc-h1-nimr")][H1 NIMR]]      | [[elisp:(eu-ssm-report "spsc-h1-all")][H1 ALL]] |
+| [[elisp:(eu-ssm-report "spsc-h3")][H3 HI]]   | [[elisp:(eu-ssm-report "spsc-h3-cdc")][H3 HI CDC]]   | [[elisp:(eu-ssm-report "spsc-h3-melb")][H3 HI MELB]]   |              | [[elisp:(eu-ssm-report "spsc-h3-nimr")][H3 HI NIMR]]   |        |
+| [[elisp:(eu-ssm-report "spsc-h3neut")][H3 Neut]] | [[elisp:(eu-ssm-report "spsc-h3neut-cdc")][H3 Neut CDC]] | [[elisp:(eu-ssm-report "spsc-h3neut-melb")][H3 Neut MELB]] | [[elisp:(eu-ssm-report "spsc-h3neut-niid")][H3 Neut NIID]] | [[elisp:(eu-ssm-report "spsc-h3neut-nimr")][H3 Neut NIMR]] |        |
+| [[elisp:(eu-ssm-report "spsc-bv")][BVic]]    | [[elisp:(eu-ssm-report "spsc-bv-cdc")][BVic CDC]]    | [[elisp:(eu-ssm-report "spsc-bv-melb")][BVic MELB]]    | [[elisp:(eu-ssm-report "spsc-bv-niid")][BVic NIID]]    | [[elisp:(eu-ssm-report "spsc-bv-nimr")][BVic NIMR]]    |        |
+| [[elisp:(eu-ssm-report "spsc-by")][BYam]]    | [[elisp:(eu-ssm-report "spsc-by-cdc")][BYam CDC]]    | [[elisp:(eu-ssm-report "spsc-by-melb")][BYam MELB]]    | [[elisp:(eu-ssm-report "spsc-by-niid")][BYam NIID]]    | [[elisp:(eu-ssm-report "spsc-by-nimr")][BYam NIMR]]    |        |
+
+
+| Interactive   |                |                |                |          |
+|---------------+----------------+----------------+----------------+----------|
+| [[elisp:(eu-ssm-report "spsc-h1-cdc-i")][H1 CDC I]]      | [[elisp:(eu-ssm-report "spsc-h1-melb-i")][H1 MELB I]]      | [[elisp:(eu-ssm-report "spsc-h1-niid-i")][H1 NIID I]]      | [[elisp:(eu-ssm-report "spsc-h1-nimr-i")][H1 NIMR I]]      | [[elisp:(eu-ssm-report "spsc-h1-all-i")][H1 ALL I]] |
+| [[elisp:(eu-ssm-report "spsc-h3-cdc-i")][H3 HI CDC I]]   | [[elisp:(eu-ssm-report "spsc-h3-melb-i")][H3 HI MELB I]]   |                | [[elisp:(eu-ssm-report "spsc-h3-nimr-i")][H3 HI NIMR I]]   |          |
+| [[elisp:(eu-ssm-report "spsc-h3neut-cdc-i")][H3 Neut CDC I]] | [[elisp:(eu-ssm-report "spsc-h3neut-melb-i")][H3 Neut MELB I]] | [[elisp:(eu-ssm-report "spsc-h3neut-niid-i")][H3 Neut NIID I]] | [[elisp:(eu-ssm-report "spsc-h3neut-nimr-i")][H3 Neut NIMR I]] |          |
+| [[elisp:(eu-ssm-report "spsc-bv-cdc-i")][BVic CDC I]]    | [[elisp:(eu-ssm-report "spsc-bv-melb-i")][BVic MELB I]]    | [[elisp:(eu-ssm-report "spsc-bv-niid-i")][BVic NIID I]]    | [[elisp:(eu-ssm-report "spsc-bv-nimr-i")][BVic NIMR I]]    |          |
+| [[elisp:(eu-ssm-report "spsc-by-cdc-i")][BYam CDC I]]    | [[elisp:(eu-ssm-report "spsc-by-melb-i")][BYam MELB I]]    | [[elisp:(eu-ssm-report "spsc-by-niid-i")][BYam NIID I]]    | [[elisp:(eu-ssm-report "spsc-by-nimr-i")][BYam NIMR I]]    |          |
+
+
+[[elisp:(eu-ssm-report "spsc-addendum")][SPSC-ADDENDUM]]
+
+[[elisp:(eu-ssm-report "sp-spsc-addendum")][SP SPSC ADDENDUM (interleave pages)]] --> use as the default
+
+** Signature pages with antigens colored by date
+
+| [[elisp:(eu-ssm-report "spc")][spc]]      |             |              |              |              |        |
+|---------+-------------+--------------+--------------+--------------+--------|
+| [[elisp:(eu-ssm-report "spc-h1")][H1]]      | [[elisp:(eu-ssm-report "spc-h1-cdc")][H1 CDC]]      | [[elisp:(eu-ssm-report "spc-h1-melb")][H1 MELB]]      | [[elisp:(eu-ssm-report "spc-h1-niid")][H1 NIID]]      | [[elisp:(eu-ssm-report "spc-h1-nimr")][H1 NIMR]]      | [[elisp:(eu-ssm-report "spc-h1-all")][H1 ALL]] |
+| [[elisp:(eu-ssm-report "spc-h3")][H3 HI]]   | [[elisp:(eu-ssm-report "spc-h3-cdc")][H3 HI CDC]]   | [[elisp:(eu-ssm-report "spc-h3-melb")][H3 HI MELB]]   |              | [[elisp:(eu-ssm-report "spc-h3-nimr")][H3 HI NIMR]]   |        |
+| [[elisp:(eu-ssm-report "spc-h3neut")][H3 Neut]] | [[elisp:(eu-ssm-report "spc-h3neut-cdc")][H3 Neut CDC]] | [[elisp:(eu-ssm-report "spc-h3neut-melb")][H3 Neut MELB]] | [[elisp:(eu-ssm-report "spc-h3neut-niid")][H3 Neut NIID]] | [[elisp:(eu-ssm-report "spc-h3neut-nimr")][H3 Neut NIMR]] |        |
+| [[elisp:(eu-ssm-report "spc-bv")][BVic]]    | [[elisp:(eu-ssm-report "spc-bv-cdc")][BVic CDC]]    | [[elisp:(eu-ssm-report "spc-bv-melb")][BVic MELB]]    | [[elisp:(eu-ssm-report "spc-bv-niid")][BVic NIID]]    | [[elisp:(eu-ssm-report "spc-bv-nimr")][BVic NIMR]]    |        |
+| [[elisp:(eu-ssm-report "spc-by")][BYam]]    | [[elisp:(eu-ssm-report "spc-by-cdc")][BYam CDC]]    | [[elisp:(eu-ssm-report "spc-by-melb")][BYam MELB]]    | [[elisp:(eu-ssm-report "spc-by-niid")][BYam NIID]]    | [[elisp:(eu-ssm-report "spc-by-nimr")][BYam NIMR]]    |        |
+
+
+| Interactive   |                |                |                |          |
+|---------------+----------------+----------------+----------------+----------|
+| [[elisp:(eu-ssm-report "spc-h1-cdc-i")][H1 CDC I]]      | [[elisp:(eu-ssm-report "spc-h1-melb-i")][H1 MELB I]]      | [[elisp:(eu-ssm-report "spc-h1-niid-i")][H1 NIID I]]      | [[elisp:(eu-ssm-report "spc-h1-nimr-i")][H1 NIMR I]]      | [[elisp:(eu-ssm-report "spc-h1-all-i")][H1 ALL I]] |
+| [[elisp:(eu-ssm-report "spc-h3-cdc-i")][H3 HI CDC I]]   | [[elisp:(eu-ssm-report "spc-h3-melb-i")][H3 HI MELB I]]   |                | [[elisp:(eu-ssm-report "spc-h3-nimr-i")][H3 HI NIMR I]]   |          |
+| [[elisp:(eu-ssm-report "spc-h3neut-cdc-i")][H3 Neut CDC I]] | [[elisp:(eu-ssm-report "spc-h3neut-melb-i")][H3 Neut MELB I]] | [[elisp:(eu-ssm-report "spc-h3neut-niid-i")][H3 Neut NIID I]] | [[elisp:(eu-ssm-report "spc-h3neut-nimr-i")][H3 Neut NIMR I]] |          |
+| [[elisp:(eu-ssm-report "spc-bv-cdc-i")][BVic CDC I]]    | [[elisp:(eu-ssm-report "spc-bv-melb-i")][BVic MELB I]]    | [[elisp:(eu-ssm-report "spc-bv-niid-i")][BVic NIID I]]    | [[elisp:(eu-ssm-report "spc-bv-nimr-i")][BVic NIMR I]]    |          |
+| [[elisp:(eu-ssm-report "spc-by-cdc-i")][BYam CDC I]]    | [[elisp:(eu-ssm-report "spc-by-melb-i")][BYam MELB I]]    | [[elisp:(eu-ssm-report "spc-by-niid-i")][BYam NIID I]]    | [[elisp:(eu-ssm-report "spc-by-nimr-i")][BYam NIMR I]]    |          |
+
+
+[[elisp:(eu-ssm-report "spc-addendum")][SPC-ADDENDUM]]
+
+[[elisp:(eu-ssm-report "addendum-3")][ADDENDUM-3]]  [[elisp:(eu-ssm-report "addendum-4")][ADDENDUM-4]]  [[elisp:(eu-ssm-report "addendum-5")][ADDENDUM-5]]
+
+
+* ======================================================================
+
+
+* Information meeting
+** Tree
+commands below make changes to tree/*.tree.settings.json and save them as tree/*.tree.information.json
+
+[[elisp:(eu-ssm-report "h1-tree-information")][H1 Tree Info]]  [[elisp:(eu-ssm-report "h3-tree-information")][H3 Tree Info]]  [[elisp:(eu-ssm-report "bv-tree-information")][BVic Tree Info]]  [[elisp:(eu-ssm-report "by-tree-information")][BYam Tree Info]]
+
+** Maps
+[[elisp:(eu-ssm-report "h1-information")][H1 Info]]  [[elisp:(eu-ssm-report "h3-information")][H3 HI Info]]  [[elisp:(eu-ssm-report "h3n-information")][H3 Neut Info]] [[elisp:(eu-ssm-report "bv-information")][BVic Info]]  [[elisp:(eu-ssm-report "by-information")][BYam Info]]
+
+* Commands
+** update hidb on albertine ~1.5min
+ssh i19 "whocc-update-ace-store && whocc-hidb5-update"
+hidb-get-from-albertine && cp ~/AD/data/hidb5.* db
+rm -f stat/* geo/*; ssm-report --force update_hidb stat geo
+ssm-report update-merges
+** re-make seqdb
+make-seqdb && cp ~/AD/data/seqdb.json.xz db
+** make lispmds save colored by clade
+acmacs-map-draw --clade --save merges/cdc-h3-neut.clade.save merges/cdc-h3-neut.ace
+** serum coverage
+ssm-report serumcoverage-init
+ssm-report serumcircle-report-cdc-h3-hi
+ssm-report h3-cov       ~4 hours!
+ssm-report h3neut-cov   ~40 min
+ssm-report serumcoverage-h3-hi
+ssm-report serumcoverage-h3-neut
+ssm-report serumcoverage-cdc-h3-hi
+ssm-report report-serumcoverage
+* TODO
+** requests
+- [ ]
+** report
+- [ ] All [0/2]
+  - [ ] geographical
+  - [ ] stat
+- [ ] H1 [0/5]
+  - [ ] tree
+  - [ ] merges
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] sig pages [0/5]
+    - [ ] ALL
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/5]
+    - [ ] ALL
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts
+  - [ ] serology
+- [ ] H3 HI [0/6]
+  - [ ] tree
+  - [ ] merges
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] sig pages [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] clades [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] ts [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] geography [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+  - [ ] serology [0/3]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] VIDRL
+- [ ] H3 Neut [0/5]
+  - [ ] merges
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] sig pages [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] geography [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] serology [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+- [ ] BVic [0/5]
+  - [ ] tree
+  - [ ] merges
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] sig pages [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] serology [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+- [ ] BYam [0/5]
+  - [ ] tree
+  - [ ] merges
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] sig pages [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] clades [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] ts [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+  - [ ] serology [0/4]
+    - [ ] CDC
+    - [ ] Crick
+    - [ ] NIID
+    - [ ] VIDRL
+* [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
+* COMMENT ====== local vars
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+#+STARTUP: showall indent
+Local Variables:
+eval: (auto-fill-mode 0)
+eval: (add-hook 'before-save-hook 'time-stamp)
+eval: (set (make-local-variable org-confirm-elisp-link-function) nil)
+End:

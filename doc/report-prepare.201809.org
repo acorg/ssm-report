@@ -1,6 +1,6 @@
 #+STARTUP: x-showall
 #+STARTUP: x-indent
-# Time-stamp: <2019-01-25 12:05:04 eu>
+# Time-stamp: <2020-01-28 10:23:49 eu>
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 * update hidb on albertine ~1.5min
 whocc-update-ace-store && whocc-hidb5-update
