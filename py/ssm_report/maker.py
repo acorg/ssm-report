@@ -60,8 +60,8 @@ def init_dir(dir):
     os.chdir(sRootDir.joinpath(dir))
     from . import init
     init.copy_templates(maker_version="2020-01")
-    # init.init_git()
-    # init.get_dbs()
+    init.init_git()
+    init.get_hidb_seqdb()
     init.init_dirs()
     init.init_settings()
     subprocess.check_call(["emacsclient", "-n", "README.org"])
@@ -91,7 +91,8 @@ class Commands:
             raise Error(f"Unrecognized command: {cmd}")
 
     def get_hidb_seqdb(self, **args):
-        subprocess.check_call('ssh albertine "whocc-update-ace-store && whocc-hidb5-update" && hidb-get-from-albertine && mkdir db && cp ~/AD/data/hidb* ~/AD/data/seqdb.json.xz db && ln -sf ~/AD/data/locationdb.json.xz db', shell=True)
+        from . import init
+        init.get_hidb_seqdb()
 
     def geo_stat(self, **args):
         self.stat(**args)

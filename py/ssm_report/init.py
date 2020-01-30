@@ -31,6 +31,11 @@ def init_dirs():
 
 # ----------------------------------------------------------------------
 
+def get_hidb_seqdb():
+    subprocess.check_call('ssh albertine "whocc-update-ace-store && whocc-hidb5-update" && hidb-get-from-albertine && mkdir db && cp ~/AD/data/hidb* ~/AD/data/seqdb.json.xz db && ln -sf ~/AD/data/locationdb.json.xz db', shell=True)
+
+# ----------------------------------------------------------------------
+
 def get_dbs():
     db_dir = Path("db")
     module_logger.info("Updating hidb in " + repr(str(db_dir)))
