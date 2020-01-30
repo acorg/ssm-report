@@ -90,6 +90,9 @@ class Commands:
         except AttributeError:
             raise Error(f"Unrecognized command: {cmd}")
 
+    def get_hidb_seqdb(self, **args):
+        subprocess.check_call('ssh albertine "whocc-update-ace-store && whocc-hidb5-update" && hidb-get-from-albertine && mkdir db && cp ~/AD/data/hidb* ~/AD/data/seqdb.json.xz db', shell=True)
+
     def geo_stat(self, **args):
         from .stat import make_stat
         make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=True)
