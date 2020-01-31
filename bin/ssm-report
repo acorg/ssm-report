@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # -*- Python -*-
-error Obsolete
+error Obsolete, use ssm-make
 
 """
 ssm report maker 2019
