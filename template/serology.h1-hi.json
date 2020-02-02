@@ -1,33 +1,21 @@
 { "_":"-*- js-indent-level: 2 -*-",
   "mods": {
     "serology": [
-      {"N":"antigens", "select": {"name": "Maine/38/2018"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Abu Dhabi/35/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Idaho/7/2018"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Wisconsin/505/2018"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Iowa/12/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Arizona/24/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Arizona/25/2019"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "KANAGAWA/IC1848/2019"},  "label": {"offset": [-1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
-      {"N":"antigens", "select": {"name": "Kanagawa/IC1892/2019"},  "label": {"offset": [1, 0], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"}
+      {"N":"antigens", "select": {"name": "",     "passage": "cell"},  "label": {"offset": [0, 1], "size": 24, "name_type": "abbreviated_with_passage_type"}, "report": true, "size": 18, "outline": "black", "fill": "orange", "order": "raise"},
     ],
     "ALL-serology": [
     ],
     "CDC-serology": [
-      {"N":"antigens", "select": {"name": "Abu Dhabi/35/2019"},  "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
-      {"N":"antigens", "select": {"name": "Iowa/12/2019", "passage": "egg"},  "label": {"offset": [0.5, -1], "name_type": "abbreviated_with_passage_type"}},
-      {"N":"antigens", "select": {"name": "Arizona/25/2019", "passage": "egg"},  "label": {"offset": [-0.9, 0.5], "name_type": "abbreviated_with_passage_type"}},
-      {"N":"antigens", "select": {"name": "Arizona/25/2019", "passage": "cell"},  "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
-      {"N":"antigens", "select": {"name": "Arizona/24/2019"},  "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type"}},
-      {"N":"antigens", "select": {"name": "Wisconsin/505/2018"},  "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type"}},
-      {"N":"antigens", "select": {"full_name": "A(H1N1)/IDAHO/7/2018 QMC2 (2018-10-12)"},  "show": false},
-      {"N":"antigens", "select": {"name": "Idaho/7/2018"},  "label": {"offset": [1, 0], "name_type": "abbreviated_with_passage_type"}}
+      {"?N":"antigens", "select": {"name": "Abu Dhabi/35/2019"},  "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
     ],
     "MELB-serology": [
+      {"?N":"antigens", "select": {"name": "Abu Dhabi/35/2019"},  "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
     ],
     "NIID-serology": [
+      {"?N":"antigens", "select": {"name": "Abu Dhabi/35/2019"},  "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
     ],
     "NIMR-serology": [
+      {"?N":"antigens", "select": {"name": "Abu Dhabi/35/2019"},  "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
     ]
   }
 }

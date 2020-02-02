@@ -106,6 +106,10 @@ class Commands:
         from .stat import make_stat
         make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=True)
 
+    def get_merges(self, **args):
+        from acmacs_whocc import acmacs
+        acmacs.get_recent_merges(Path("merges"))
+
     def tree(self, subtype, interactive, report_cumulative=False, **args):
         from .signature_page import tree_make
         tree_make(subtype=subtype, tree_dir=Path("tree"), seqdb=self._db_dir().joinpath("seqdb.json.xz"), interactive=interactive, report_cumulative=report_cumulative)
