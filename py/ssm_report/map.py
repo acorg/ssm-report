@@ -60,8 +60,8 @@ sApplyFor = {
         "set-legend"
         ],
     "aa-156-12m": [
-        "aa-156-6m",
-        "*{lab}-aa-156-6m",
+        "aa-156-12m",
+        "*{lab}-aa-156-12m",
         "set-legend"
         ],
     "N-gly-197": {

@@ -148,12 +148,12 @@ class Commands:
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
         make_map(prefix="N-gly-197", virus_type=subtype, assay=assay, lab=labs, mod="N-gly-197", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
 
-    def serology(self, subtype, assay, lab, interactive, months, open_image=True, **args):
+    def serology(self, subtype, assay, lab, interactive, open_image=True, **args):
         from .map import make_map
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
         make_map(prefix="serology", virus_type=subtype, assay=assay, lab=labs, mod="serology", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
 
-    def serology_aa_156(self, subtype, assay, lab, interactive, months, open_image=True, **args):
+    def serology_aa_156(self, subtype, assay, lab, interactive, open_image=True, **args):
         from .map import make_map
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
         make_map(prefix="serology-aa-156", virus_type=subtype, assay=assay, lab=labs, mod="serology-aa-156", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
