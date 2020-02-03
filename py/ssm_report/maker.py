@@ -117,9 +117,9 @@ class Commands:
     def tree_cumulative(self, **args):
         self.tree(report_cumulative=True, **args)
 
-    def maps(self, subtype, assay, **args):
+    def maps(self, raw_subtype, **args):
         sep = "=" * 100
-        for command_name in sSetup[subtype]["maps"]:
+        for command_name in sSetup[raw_subtype]["maps"]:
             if not command_name.startswith("tree") and not command_name.startswith("sp"):
                 print(f"{sep}\n{command_name}\n{sep}\n")
                 self.do(f"{raw_subtype}-{command_name}")

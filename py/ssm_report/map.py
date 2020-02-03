@@ -76,12 +76,14 @@ sApplyFor = {
         "clades-light",
         "*{lab}-clades-light",
         "*serology",
+        "*{lab}-serology",
         "set-legend"
         ],
     "serology-aa-156": [
         "aa-156-light",
         "*{lab}-aa-156-light",
         "*serology",
+        "*{lab}-serology",
         "set-legend"
         ],
     "information": [
