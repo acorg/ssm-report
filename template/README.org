@@ -1,4 +1,4 @@
-# Time-stamp: <2020-01-31 17:09:35 eu>
+# Time-stamp: <2020-02-02 11:05:23 eu>
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
 
 * TODO
@@ -127,6 +127,8 @@
 
     - [ ] 
 
+* copy trees
+d=2020-0131; for f in h1 h3 bv by; do rsync albertine:/syn/eu/ac/results/signature-pages/$d/$f/tree.json.xz tree/$f.tree.json.xz; done
 
 * Help
 
@@ -149,8 +151,8 @@ Cmd-F7 - settings files
 
 * Templates
 
-[[file:/syn/eu/ac/results/ssm/README.org][/syn/eu/ac/results/ssm/README.org]]
-[[file:/syn/eu/ac/results/ssm/README.before-20200130.org][/syn/eu/ac/results/ssm/README.before-20200130.org]]
+[[file:/Users/eu/AD/sources/ssm-report/template/README.org][/Users/eu/AD/sources/ssm-report/template/README.org]]
+[[file:/Users/eu/AD/sources/ssm-report/template/README.before-20200130.org][/Users/eu/AD/sources/ssm-report/template/README.before-20200130.org]]
 
 * COMMENT ====== local vars
 :PROPERTIES:
