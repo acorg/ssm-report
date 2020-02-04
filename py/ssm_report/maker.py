@@ -131,7 +131,7 @@ class Commands:
             mod = f"clade-{months}m"
         else:
             mod = "clade"
-        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and labs and len(labs) == 1, force=True)
 
     def aa_156(self, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .map import make_map
@@ -140,23 +140,23 @@ class Commands:
         else:
             mod = f"aa-156"
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
-        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+        make_map(prefix=mod, virus_type=subtype, assay=assay, lab=labs, mod=mod, output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and labs and len(labs) == 1, force=True)
 
     def N_gly_197(self, subtype, assay, lab, interactive, open_image=True, **args):
         "/syn/eu/ac/results/ssm/2020-0123-tc2/custom/bvic-197/README.org"
         from .map import make_map
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
-        make_map(prefix="N-gly-197", virus_type=subtype, assay=assay, lab=labs, mod="N-gly-197", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+        make_map(prefix="N-gly-197", virus_type=subtype, assay=assay, lab=labs, mod="N-gly-197", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and labs and len(labs) == 1, force=True)
 
     def serology(self, subtype, assay, lab, interactive, open_image=True, **args):
         from .map import make_map
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
-        make_map(prefix="serology", virus_type=subtype, assay=assay, lab=labs, mod="serology", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+        make_map(prefix="serology", virus_type=subtype, assay=assay, lab=labs, mod="serology", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and labs and len(labs) == 1, force=True)
 
     def serology_aa_156(self, subtype, assay, lab, interactive, open_image=True, **args):
         from .map import make_map
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
-        make_map(prefix="serology-aa-156", virus_type=subtype, assay=assay, lab=labs, mod="serology-aa-156", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and len(labs) == 1, force=True)
+        make_map(prefix="serology-aa-156", virus_type=subtype, assay=assay, lab=labs, mod="serology-aa-156", output_dir=self._output_path(subtype=subtype, assay=assay), interactive=interactive, open_image=open_image and labs and len(labs) == 1, force=True)
 
     def ts(self, subtype, assay, lab, open_image=False, **args):
         from .map import make_ts

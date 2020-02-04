@@ -12,6 +12,24 @@
     "no-legend": [
       {"N": "legend", "show": false}
     ],
+
+    "clades": [
+      {"N": "antigens", "select": {"clade": "Y2", "subtype": "BYAM"}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "Y2", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "Y3", "subtype": "BYAM"}, "outline": "black", "fill": "red", "legend": {"label": "Y3", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades-6m": [
+      {"N": "antigens", "select": {"clade": "Y2", "younger_than_days": 183}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "Y2", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "Y3", "younger_than_days": 183}, "outline": "black", "fill": "red", "legend": {"label": "Y3", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades-12m": [
+      {"N": "antigens", "select": {"clade": "Y2", "younger_than_days": 365}, "outline": "black", "fill": "cornflowerblue", "legend": {"label": "Y2", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "Y3", "younger_than_days": 365}, "outline": "black", "fill": "red", "legend": {"label": "Y3", "count": true}, "order": "raise", "report": true}
+    ],
+    "clades-light": [
+      {"N": "antigens", "select": {"clade": "Y2", "subtype": "BYAM"}, "outline": "#BFBFBF", "fill": "#8F9DBF", "legend": {"label": "Y2", "count": true}, "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "Y3", "subtype": "BYAM"}, "outline": "#BFBFBF", "fill": "#FFBFBF", "legend": {"label": "Y3", "count": true}, "order": "raise", "report": true}
+    ],
+
     "information": [
       {"N": "point_scale", "scale": 2.5, "outline_scale": 1},
       {"N": "antigens", "select": "all", "size": 15},
