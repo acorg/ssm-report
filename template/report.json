@@ -50,9 +50,9 @@
     {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic data"},
     {"?type": "antigenic_ts_description", "coloring": "continents"},
     {"?type": "statistics_table", "subtype": "H1", "lab": "all"},
-    "?new_page",
+    "? new_page",
     {"?type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "all"},
-    "?new_page",
+    "? new_page",
 
     {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 phylogenetic tree"},
     {"type": "phylogenetic_description"},
@@ -63,7 +63,7 @@
     {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map colored by phylogenetic clade"},
     {"?type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map, antigens color-coded by phylogenetic clade."},
     {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "clade"},
-    "?new_page",
+    "? new_page",
 
     {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps colored by amino-acid at 155, 156"},
     {"type": "maps", "images": [
@@ -92,7 +92,7 @@
     {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map with serology antigens."},
     {"?type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
     {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "serology"},
-    "?new_page",
+    "? new_page",
 
     {"type": "?************************* H3 *****************************"},
     {"type": "section_begin", "title": "H3N2", "subtype": "h3"},
@@ -105,9 +105,9 @@
     {"?type": "subsection_begin", "subtype": "H3", "title": "CDC H3N2 HI antigenic data"},
     {"?type": "antigenic_ts_description", "coloring": "continents"},
     {"?type": "statistics_table", "subtype": "H3", "lab": "CDC"},
-    "?new_page",
+    "? new_page",
     {"?type": "antigenic_ts", "subtype": "H3", "assay": "HI", "lab": "CDC"},
-    "?new_page",
+    "? new_page",
     {"type": "subsection_begin", "subtype": "H3", "title": "CDC H3N2 Neut antigenic data"},
     {"type": "neut_ts_description", "coloring": "continents"},
     "new_page",
@@ -146,7 +146,7 @@
     {"type": "phylogenetic_description"},
     "new_page",
     {"type": "phylogenetic_tree", "subtype": "H3"},
-    "?new_page", "?---- H3 maps colored by geo disabled on Derek request 2019-08-12 13:41",
+    "? new_page", "?---- H3 maps colored by geo disabled on Derek request 2019-08-12 13:41",
     {"?type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by geography"},
     {"?type": "maps", "images": [
       "h3-hi/geography-cdc.pdf", "h3-neut/geography-cdc.pdf",
@@ -157,41 +157,41 @@
     "new_page",
     {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade"},
     {"type": "maps", "images": [
-      "h3-hi/clade-cdc.pdf", "h3-neut/clade-cdc.pdf",
+      "",                     "h3-neut/clade-cdc.pdf",
       "h3-hi/clade-nimr.pdf", "h3-neut/clade-nimr.pdf",
-      "", "h3-neut/clade-niid.pdf",
+      "",                     "h3-neut/clade-niid.pdf",
       "h3-hi/clade-melb.pdf", "h3-neut/clade-melb.pdf"
     ]},
     "new_page",
-    {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade (since %(twelve_month_ago)s)"},
+    {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade (since February 2019)"},
     {"type": "maps", "images": [
-      "h3-hi/clade-12m-cdc.pdf", "h3-neut/clade-12m-cdc.pdf",
+      "",                         "h3-neut/clade-12m-cdc.pdf",
       "h3-hi/clade-12m-nimr.pdf", "h3-neut/clade-12m-nimr.pdf",
-      "", "h3-neut/clade-12m-niid.pdf",
+      "",                         "h3-neut/clade-12m-niid.pdf",
       "h3-hi/clade-12m-melb.pdf", "h3-neut/clade-12m-melb.pdf"
     ]},
     "new_page",
-    {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade (since %(six_month_ago)s)"},
+    {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade (since August 2019)"},
     {"type": "maps", "images": [
-      "h3-hi/clade-6m-cdc.pdf", "h3-neut/clade-6m-cdc.pdf",
+      "",                        "h3-neut/clade-6m-cdc.pdf",
       "h3-hi/clade-6m-nimr.pdf", "h3-neut/clade-6m-nimr.pdf",
-      "", "h3-neut/clade-6m-niid.pdf",
+      "",                        "h3-neut/clade-6m-niid.pdf",
       "h3-hi/clade-6m-melb.pdf", "h3-neut/clade-6m-melb.pdf"
     ]},
     "new_page",
-    {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by amino-acids at 142"},
-    {"type": "maps", "images": [
-      "h3-hi/aa-at-142-cdc.pdf", "h3-neut/aa-at-142-cdc.pdf",
+    {"?type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by amino-acids at 142"},
+    {"?type": "maps", "images": [
+      "",                         "h3-neut/aa-at-142-cdc.pdf",
       "h3-hi/aa-at-142-nimr.pdf", "h3-neut/aa-at-142-nimr.pdf",
-      "", "h3-neut/aa-at-142-niid.pdf",
+      "",                         "h3-neut/aa-at-142-niid.pdf",
       "h3-hi/aa-at-142-melb.pdf", "h3-neut/aa-at-142-melb.pdf"
     ]},
-    "new_page",
+    "? new_page",
     {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps with serology antigens"},
     {"type": "maps", "images": [
-      "h3-hi/serology-cdc.pdf", "h3-neut/serology-cdc.pdf",
+      "",                        "h3-neut/serology-cdc.pdf",
       "h3-hi/serology-nimr.pdf", "h3-neut/serology-nimr.pdf",
-      "", "h3-neut/serology-niid.pdf",
+      "",                        "h3-neut/serology-niid.pdf",
       "h3-hi/serology-melb.pdf", "h3-neut/serology-melb.pdf"
     ]},
     "new_page",
