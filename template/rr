@@ -1,5 +1,5 @@
 #! /bin/bash
 cd $(dirname $0) || exit 1
-ssm-report report "$@" && ./rename-report-on-server
+ssm-make report "$@" && ./rename-report-on-server
 ./sy
 ssh i19 "cd ${PWD}; if [ -f report/report.pdf ]; then chmod 0644 report/report.pdf; fi"
