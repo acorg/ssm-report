@@ -182,11 +182,11 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
     edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"; /usr/local/bin/emacsclient -n "{tree_settings}"'
     subprocess_check_call(edit_settings)
     sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" -s "{settings}" "{tree}" "{pdf}" --open --report-hz-section-antigens"""
-    open_pdf = f'open "{pdf.resolve()}"'
+    open_pdf = f'open "{pdf.resolve()}"; ~/bin/preview "{pdf.resolve()}" 70 0 1900 1300'
     if interactive:
         subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' "{tree_settings}" | xargs -L 1 -I % -R 0 /bin/bash -c 'tink; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; tink; {edit_settings}'""")
     else:
-        subprocess_check_call(sigp_cmd)
+        subprocess_check_call(f"""{sigp_cmd}; {open_pdf}""")
 
 # ----------------------------------------------------------------------
 

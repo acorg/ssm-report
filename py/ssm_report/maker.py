@@ -169,7 +169,8 @@ class Commands:
         sp_dir = Path("sp")
         signature_page_source_dir_init(sp_dir)
         signature_page_output_dir_init(sp_dir)
-        signature_page_make(virus_type=subtype, assay=assay, lab=labs, sp_source_dir=sp_dir, sp_output_dir=sp_dir, tree_dir=Path("tree"), merge_dir=Path("merges").resolve(), seqdb=self._seqdb_file(), interactive=interactive)
+        for lab in labs:
+            signature_page_make(virus_type=subtype, assay=assay, lab=lab, sp_source_dir=sp_dir, sp_output_dir=sp_dir, tree_dir=Path("tree"), merge_dir=Path("merges").resolve(), seqdb=self._seqdb_file(), interactive=interactive)
 
     def spc(self, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .signature_page import signature_page_make, signature_page_source_dir_init, signature_page_output_dir_init
@@ -177,7 +178,8 @@ class Commands:
         sp_dir = Path("spc")
         signature_page_source_dir_init(sp_dir)
         signature_page_output_dir_init(sp_dir)
-        signature_page_make(virus_type=subtype, assay=assay, lab=labs, serum_circles=True, orig_sp_source_dir=Path("sp"), sp_source_dir=sp_dir, sp_output_dir=sp_dir, tree_dir=Path("tree"), merge_dir=Path("merges").resolve(), seqdb=self._seqdb_file(), interactive=interactive)
+        for lab in labs:
+            signature_page_make(virus_type=subtype, assay=assay, lab=lab, serum_circles=True, orig_sp_source_dir=Path("sp"), sp_source_dir=sp_dir, sp_output_dir=sp_dir, tree_dir=Path("tree"), merge_dir=Path("merges").resolve(), seqdb=self._seqdb_file(), interactive=interactive)
 
     def _output_path(self, subtype, assay):
         return Path(f"{subtype[:2]}-{assay}")
@@ -190,9 +192,9 @@ class Commands:
         from .report import make_report_abbreviated
         make_report_abbreviated(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"))
 
-    def addendum_1(self):
+    def addendum_1(self, **args):
         from .report import make_signature_page_addendum_interleave
-        make_signature_page_addendum_interleave(source_dirs=[Path("sp"), Path("spsc")], output_dir=Path("report"), title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
+        make_signature_page_addendum_interleave(source_dirs=[Path("sp"), Path("spc")], output_dir=Path("report"), title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
 
     def _db_dir(self):
         return Path("db").resolve()
@@ -202,7 +204,10 @@ class Commands:
 
     def _get_lab(self, subtype, assay, lab, **args):
         if lab:
-            return lab
+            if isinstance(lab, str):
+                return [lab]
+            else:
+                return lab
         else:
             return self._get_setup(subtype=subtype, assay=assay).get("labs")
 
