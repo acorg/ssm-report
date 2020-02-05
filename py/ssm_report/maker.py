@@ -163,18 +163,18 @@ class Commands:
         labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
         make_ts(virus_type=subtype, assay=assay, lab=labs, output_dir=self._output_path(subtype=subtype, assay=assay), force=True, dot_size=sDotSize, start=sSetup["time-series"]["date"]["start"], end=sSetup["time-series"]["date"]["end"], period=sSetup["time-series"]["period"], teleconference=sReport["cover"]["teleconference"], previous=sReport["previous"])
 
-    def sp(self, subtype, assay, lab, interactive, months, open_image=True, **args):
+    def sp(self, raw_subtype, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .signature_page import signature_page_make, signature_page_source_dir_init, signature_page_output_dir_init
-        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        labs = self._get_lab(subtype=raw_subtype, assay=assay, lab=lab)
         sp_dir = Path("sp")
         signature_page_source_dir_init(sp_dir)
         signature_page_output_dir_init(sp_dir)
         for lab in labs:
             signature_page_make(virus_type=subtype, assay=assay, lab=lab, sp_source_dir=sp_dir, sp_output_dir=sp_dir, tree_dir=Path("tree"), merge_dir=Path("merges").resolve(), seqdb=self._seqdb_file(), interactive=interactive)
 
-    def spc(self, subtype, assay, lab, interactive, months, open_image=True, **args):
+    def spc(self, raw_subtype, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .signature_page import signature_page_make, signature_page_source_dir_init, signature_page_output_dir_init
-        labs = self._get_lab(subtype=subtype, assay=assay, lab=lab)
+        labs = self._get_lab(subtype=raw_subtype, assay=assay, lab=lab)
         sp_dir = Path("spc")
         signature_page_source_dir_init(sp_dir)
         signature_page_output_dir_init(sp_dir)
