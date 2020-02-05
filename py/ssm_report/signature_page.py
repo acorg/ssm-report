@@ -179,7 +179,7 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
         no_draw = "--no-draw" if not interactive else ""
         subprocess_check_call(f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" {no_draw} --init-settings "{settings}" "{tree}" "{pdf}" """)
         _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles, colored_by_date=colored_by_date)
-    edit_settings = f'/usr/local/bin/emacsclient -n "{settings}"; /usr/local/bin/emacsclient -n "{tree_settings}"'
+    edit_settings = f'/usr/local/bin/emacsclient -n "{tree_settings}"; /usr/local/bin/emacsclient -n "{settings}"'
     subprocess_check_call(edit_settings)
     sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" -s "{settings}" "{tree}" "{pdf}" --open --report-hz-section-antigens"""
     open_pdf = f'open "{pdf.resolve()}"; ~/bin/preview "{pdf.resolve()}" 70 0 1900 1300'
@@ -307,8 +307,8 @@ def _signature_page_update_viewport_rotate_flip(virus_type, assay, lab, settings
     for field in ["flip", "rotate", "viewport"]:
         data = None
         try:
-            module_logger.debug("{} {}".format(lab.upper() + "_" + field, map_settings["mods"][lab.upper() + "_" + field]))
-            for mod in map_settings["mods"][lab.upper() + "_" + field]:
+            module_logger.debug("{} {}".format(lab.upper() + "-" + field, map_settings["mods"][lab.upper() + "-" + field]))
+            for mod in map_settings["mods"][lab.upper() + "-" + field]:
                 if mod.get("N") == field:
                     data = mod
         except KeyError:
