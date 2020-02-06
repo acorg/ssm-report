@@ -314,7 +314,13 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
         if open_image == "quicklook":
             subprocess.Popen(["/usr/bin/qlmanage", "-p", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         elif open_image == "open" or open_image is True:
-            subprocess.Popen(f"/usr/bin/open '{output}'; sleep 1; /usr/bin/open /Applications/Emacs.app", start_new_session=True, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            # subprocess.Popen(f"/usr/bin/open '{output}'; sleep 1; /usr/bin/open /Applications/Emacs.app", start_new_session=True, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            # print(f"open {output}")
+            win_width = 950
+            subprocess.check_call(["preview", output, "-p", f"70.0.{win_width}.{win_width + 50}"])
+            previous_tc_image = Path("previous", output)
+            if previous_tc_image.exists():
+                subprocess.check_call(["preview", previous_tc_image, "-p", f"{win_width + 70}.0.{win_width}.{win_width + 50}"])
 
 # ----------------------------------------------------------------------
 
