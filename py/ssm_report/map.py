@@ -302,25 +302,32 @@ def make_map_for_lab(output_dir, prefix, virus_type, assay, lab, mod, settings_f
     script_i_filename = output_dir.joinpath(f"{output_prefix}-i.sh")
     settings_args = " ".join("-s '{}'".format(filename) for filename in (settings_files + [s2_filename]))
     output = output_dir.joinpath(output_prefix + ".pdf")
+    previous_tc_image = Path("previous", output)
+    win_width = 950
     script_filename.open("w").write(f"#! /bin/bash\nexec map-draw --db-dir {os.getcwd()}/db -v {settings_args} '{chart}' '{output}'\n")
     script_filename.chmod(0o700)
-    script_i_filename.open("w").write(f"#! /bin/bash\nexec map-draw-interactive --db-dir {os.getcwd()}/db {settings_args} '{chart}' '{output}'\n")
+    if previous_tc_image.exists():
+        script_i_filename.open("w").write(f"#! /bin/bash\nexec map-draw-interactive --db-dir {os.getcwd()}/db {settings_args} '{chart}' '{output}' --pos '70.0.{win_width}.{win_width + 50}' --previous '{previous_tc_image}' --previous-pos '{win_width + 70}.0.{win_width}.{win_width + 50}'\n")
+    else:
+        script_i_filename.open("w").write(f"#! /bin/bash\nexec map-draw-interactive --db-dir {os.getcwd()}/db {settings_args} '{chart}' '{output}'\n")
     script_i_filename.chmod(0o700)
     if interactive:
-        subprocess.check_call(";".join(f"emacsclient -n '{filename}'" for filename in settings_files), shell=True)
-        subprocess.check_call(str(script_i_filename))
+        subprocess.check_call(";".join(f"emacsclient -n '{filename}'" for filename in settings_files) + f"; {script_i_filename}", shell=True)
     else:
         subprocess.check_call(str(script_filename))
         if open_image == "quicklook":
             subprocess.Popen(["/usr/bin/qlmanage", "-p", output], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         elif open_image == "open" or open_image is True:
-            # subprocess.Popen(f"/usr/bin/open '{output}'; sleep 1; /usr/bin/open /Applications/Emacs.app", start_new_session=True, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            # print(f"open {output}")
-            win_width = 950
-            subprocess.check_call(["preview", output, "-p", f"70.0.{win_width}.{win_width + 50}"])
-            previous_tc_image = Path("previous", output)
-            if previous_tc_image.exists():
-                subprocess.check_call(["preview", previous_tc_image, "-p", f"{win_width + 70}.0.{win_width}.{win_width + 50}"])
+            preview(output, previous_tc_image, win_width=win_width)
+
+# ----------------------------------------------------------------------
+
+def preview(filename, prev_filename, win_width = 950):
+    # subprocess.Popen(f"/usr/bin/open '{output}'; sleep 1; /usr/bin/open /Applications/Emacs.app", start_new_session=True, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # print(f"open {output}")
+    subprocess.check_call(["preview", filename, "-p", f"70.0.{win_width}.{win_width + 50}"])
+    if Path(prev_filename).exists():
+        subprocess.check_call(["preview", prev_filename, "-p", f"{win_width + 70}.0.{win_width}.{win_width + 50}"])
 
 # ----------------------------------------------------------------------
 
