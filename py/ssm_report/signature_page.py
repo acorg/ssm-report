@@ -181,10 +181,11 @@ def signature_page_make(virus_type, assay, lab, sp_source_dir, sp_output_dir, tr
         _signature_page_update_settings(virus_type=virus_type, assay=assay, lab=lab, settings_file=settings, serum_circles=serum_circles, colored_by_date=colored_by_date)
     edit_settings = f'/usr/local/bin/emacsclient -n "{tree_settings}"; /usr/local/bin/emacsclient -n "{settings}"'
     subprocess_check_call(edit_settings)
-    sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" -s "{settings}" "{tree}" "{pdf}" --open --report-hz-section-antigens"""
-    open_pdf = f'open "{pdf.resolve()}"; ~/bin/preview "{pdf.resolve()}" 70 0 1900 1300'
+    sigp_cmd = f"""~/AD/bin/sigp --seqdb "{seqdb}" --chart "{chart}" -s "{tree_settings}" -s "{settings}" "{tree}" "{pdf}" --report-hz-section-antigens"""
+    pdf_width = 1930
+    open_pdf = f'~/bin/preview "{pdf.resolve()}" -p 70.0.{pdf_width}.{int(pdf_width * 0.63) + 50}'
     if interactive:
-        subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' "{tree_settings}" | xargs -L 1 -I % -R 0 /bin/bash -c 'tink; printf "\n\n> ====================================================================================================\n\n"; {sigp_cmd} || say failed; tink; {edit_settings}'""")
+        subprocess_check_call(f"""{open_pdf}; {edit_settings}; fswatch --latency=0.1 '{settings}' "{tree_settings}" | xargs -L 1 -I % -R 0 /bin/bash -c 'tink; printf "\n\n> ====================================================================================================\n\n"; ( {sigp_cmd} && {open_pdf} ) || say failed; tink'""")
     else:
         subprocess_check_call(f"""{sigp_cmd}; {open_pdf}""")
 
