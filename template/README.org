@@ -1,5 +1,6 @@
-# Time-stamp: <2020-02-02 11:05:23 eu>
+# Time-stamp: <2020-02-06 10:08:24 eu>
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
+[[https://worldhealthorg-my.sharepoint.com/:f:/g/personal/lievrem_who_int/EsWipHzg-WBHhuQkssp34PsBVpB6pucxdjLVY5OuUki4Vw?e=5%3aRqGQVW&at=9][WHO report folder]]
 
 * TODO
 
