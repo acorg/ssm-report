@@ -91,6 +91,12 @@ def tree_make_information_settings(virus_type, tree_dir, output_dir):
 
 # ----------------------------------------------------------------------
 
+def tree_report_first_last_leaves(subtype, tree_dir, seqdb):
+    tree = tree_dir.joinpath(f"{subtype}.tree.json.xz")
+    subprocess_check_call(f"tal --seqdb '{seqdb}' --first-last-leaves 10 -D whocc '{tree}'")
+
+# ----------------------------------------------------------------------
+
 def _tree_update_settings(subtype, settings):
     data = read_json(settings)
     data.pop("_", None)

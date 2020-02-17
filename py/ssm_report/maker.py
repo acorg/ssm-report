@@ -41,6 +41,7 @@ def list_commands_for_helm():
                 if map_type in ["tree"]:
                     print(f"{subtype}-{map_type}-i")
                     print(f"{subtype}-{map_type}-cumulative")
+                    print(f"{subtype}-{map_type}-first-last-leaves")
                 else:
                     for lab in sSetup.get(subtype, {}).get("labs", []):
                         print(f"{subtype}-{map_type}-{lab}")
@@ -116,6 +117,10 @@ class Commands:
 
     def tree_cumulative(self, **args):
         self.tree(report_cumulative=True, **args)
+
+    def tree_first_last_leaves(self, subtype, **args):
+        from .signature_page import tree_report_first_last_leaves
+        tree_report_first_last_leaves(subtype=subtype, tree_dir=Path("tree"), seqdb=self._db_dir().joinpath("seqdb.json.xz"))
 
     def maps(self, raw_subtype, **args):
         sep = "=" * 100
