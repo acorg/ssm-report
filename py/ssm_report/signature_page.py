@@ -270,7 +270,7 @@ def _signature_page_update_vaccines(virus_type, assay, lab, settings, map_settin
         if vaccine_data.get("label"):
             vaccine_data["label"]["name_type"] = "abbreviated_location_with_passage_type"
             vaccine_data["label"]["size"] = 9
-        vaccine_data["outline"] = "white"
+        vaccine_data["outline"] = "black" # "white" # black on Derek's request of 2020-02-18 12:28
         vaccine_data["report"] = True
         vaccine_data["size"] = 15
         # print(vaccine_data)
