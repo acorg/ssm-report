@@ -216,6 +216,9 @@ def _signature_page_update_settings(virus_type, assay, lab, settings_file, serum
             if isinstance(mod, dict):
                 if mod.get("N") in ["?tracked_sera", "?tracked_serum_circles"]:
                     mod["N"] = mod["N"][1:]
+                if mod.get("?N") in ["tracked_sera", "tracked_serum_circles"]:
+                    mod["N"] = mod["?N"]
+                    del mod["?N"]
                 if mod.get("N") in ["tracked_serum_circles"]:
                     mod["outline"] = "passage"
         else:
