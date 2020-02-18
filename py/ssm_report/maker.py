@@ -47,6 +47,8 @@ def list_commands_for_helm():
                         print(f"{subtype}-{map_type}-{lab}")
                         if map_type not in ["ts"]:
                             print(f"{subtype}-{map_type}-i-{lab}")
+        for lab in sSetup.get(subtype, {}).get("labs", []):
+            print(f"{subtype}-names-{lab}")
 
     for command_name in sSetup.get("commands", {}):
         print(command_name)
@@ -79,6 +81,7 @@ class Commands:
 
     def do(self, command_name):
         command = self.parse_cmd(command_name)
+        # print(command)
         if command.get("command"):
             subprocess.check_call(command["command"], shell=True)
         else:
@@ -128,6 +131,12 @@ class Commands:
             if not command_name.startswith("tree") and not command_name.startswith("sp"):
                 print(f"{sep}\n{command_name}\n{sep}\n")
                 self.do(f"{raw_subtype}-{command_name}")
+
+    def names(self, subtype, assay, lab, **args):
+        from .charts import get_chart
+        chart = get_chart(virus_type=subtype, assay=assay, lab=lab)
+        print(f"chart-names {chart}\n")
+        subprocess.check_call(["chart-names", chart])
 
     def clade(self, subtype, assay, lab, interactive, months, open_image=True, **args):
         from .map import make_map
