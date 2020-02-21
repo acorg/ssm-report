@@ -784,7 +784,7 @@ central, and are omitted here.
 \noindent
 Both the theoretical and empirical results are shown at the bottom of any
 timeseries webpage. The theoretical and empirical radii are similar to each
-other, and are on average only about 0.25 antigenic units different. The
+other, and are on average only about 0.5 antigenic units different. The
 empirical radius is the one shown on the antigenic maps.
 
 \vspace{1em}
@@ -856,7 +856,7 @@ central, and are omitted here.
 \vspace{1em}
 \noindent
 The theoretical and empirical radii are similar to each other, and are
-on average only about 0.25 antigenic units different. The empirical
+on average only about 0.5 antigenic units different. The empirical
 radius is the one shown on the antigenic maps.
 
 \vspace{1em}
