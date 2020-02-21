@@ -670,7 +670,7 @@ Month-by-month geographic time series from %time_series_start% to %time_series_e
 
 \vspace{1em}
 \noindent
-Strains colored by clade: 3C2/3C3=Blue, 3C2a=Red, 3C2a1=DarkRed, 3C3a=Green, 3C3b=DarkBlue, unsequenced=Grey
+Strains colored by clade: 3C2/3C3=Blue, 3C2a=Red, 3C2a1=DarkRed, 3C3a=Green, 3C3b=DarkBlue, sequenced=Yellow, unsequenced=Grey
 
 \vspace{1em}
 \noindent
