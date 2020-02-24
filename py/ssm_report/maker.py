@@ -210,6 +210,10 @@ class Commands:
         from .report import make_signature_page_addendum_interleave
         make_signature_page_addendum_interleave(source_dirs=[Path("sp"), Path("spc")], output_dir=Path("report"), title="Addendum 1 (integrated genetic-antigenic analyses)", output_name="sp-spsc-addendum", T_SerumCirclesDescriptionEggCell=True)
 
+    def addendum_2(self, **args):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-2", report_settings_file="report-addendum-2.json")
+
     def _db_dir(self):
         return Path("db").resolve()
 

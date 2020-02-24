@@ -75,11 +75,13 @@ class LatexReport:
         self.data = []
         LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
         paper_size = settings.get("paper_size", "a4")   # a4, letter https://tug.org/TUGboat/tb35-3/tb111thurnherr.pdf
+        landscape = "landscape" if settings.get("landscape") else "portreat"
+        usepackage = settings.get("usepackage", "")
         self.substitute = {
-            "documentclass": "\documentclass[%spaper,12pt]{article}" % (paper_size,),
-            "cover_top_space": "130pt",
-            "cover_after_meeting_date_space": "180pt",
-            "usepackage": "",
+            "documentclass": "\documentclass[%spaper,%s,12pt]{article}" % (paper_size,landscape),
+            "cover_top_space": settings.get("cover_top_space", "130pt"),
+            "cover_after_meeting_date_space": settings.get("cover_after_meeting_date_space", "180pt"),
+            "usepackage": usepackage,
             "cover_quotation": "\\quotation",
             "now": datetime.datetime.now(LOCAL_TIMEZONE).strftime("%Y-%m-%d %H:%M %Z"),
             "$0": sys.argv[0],
@@ -273,6 +275,12 @@ class LatexReport:
         module_logger.info("PDF {}".format(image))
         if image.exists():
             self.data.append(latex.T_PhylogeneticTree.format(image=image.resolve()))
+
+    def make_signature_page(self, page):
+        image = Path(page.get("image", ""))
+        module_logger.info("Signature page (pdf) {}".format(image))
+        if image.exists():
+            self.data.append(latex.T_SignaturePage.format(image=image.resolve()))
 
     def make_phylogenetic_description(self, page):
         self.data.append(latex.T_PhylogeneticTreeDescription)
