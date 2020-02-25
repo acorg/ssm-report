@@ -214,6 +214,18 @@ class Commands:
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-2", report_settings_file="report-addendum-2.json")
 
+    def addendum_3(self, **args):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-3", report_settings_file="report-addendum-3.json")
+
+    def addendum_4(self, **args):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-4", report_settings_file="report-addendum-4.json")
+
+    def addendum_5(self, **args):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-5", report_settings_file="report-addendum-5.json")
+
     def _db_dir(self):
         return Path("db").resolve()
 
