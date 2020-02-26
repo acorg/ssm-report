@@ -36,6 +36,8 @@ def list_commands_for_helm():
     for subtype in sSubtypes:
         if sSetup[subtype].get("maps"):
             print(f"{subtype}-maps")
+            print(f"information-{subtype}-maps")
+            print(f"information-{subtype}-maps-i")
             for map_type in sSetup[subtype]["maps"]:
                 print(f"{subtype}-{map_type}")
                 if map_type in ["tree"]:
@@ -132,12 +134,16 @@ class Commands:
         from .signature_page import tree_report_first_last_leaves
         tree_report_first_last_leaves(subtype=subtype, tree_dir=Path("tree"), seqdb=self._db_dir().joinpath("seqdb.json.xz"))
 
-    def maps(self, raw_subtype, **args):
-        sep = "=" * 100
-        for command_name in sSetup[raw_subtype]["maps"]:
-            if not command_name.startswith("tree") and not command_name.startswith("sp"):
-                print(f"{sep}\n{command_name}\n{sep}\n")
-                self.do(f"{raw_subtype}-{command_name}")
+    def maps(self, raw_subtype, information, subtype, assay, interactive, open_image=True, **args):
+        if not information:
+            sep = "=" * 100
+            for command_name in sSetup[raw_subtype]["maps"]:
+                if not command_name.startswith("tree") and not command_name.startswith("sp"):
+                    print(f"{sep}\n{command_name}\n{sep}\n")
+                    self.do(f"{raw_subtype}-{command_name}")
+        else:
+            from .map import make_map_information
+            make_map_information(virus_type=subtype, assay=assay, output_dir=Path("information"), interactive=interactive, open_image=open_image)
 
     def names(self, subtype, assay, lab, **args):
         from .charts import get_chart
