@@ -42,6 +42,7 @@ def list_commands_for_helm():
                     print(f"{subtype}-{map_type}-i")
                     print(f"{subtype}-{map_type}-cumulative")
                     print(f"{subtype}-{map_type}-first-last-leaves")
+                    print(f"information-{subtype}-{map_type}")
                 else:
                     for lab in sSetup.get(subtype, {}).get("labs", []):
                         print(f"{subtype}-{map_type}-{lab}")
@@ -81,7 +82,7 @@ class Commands:
 
     def do(self, command_name):
         command = self.parse_cmd(command_name)
-        # print(command)
+        print(command)
         if command.get("command"):
             subprocess.check_call(command["command"], shell=True)
         else:
@@ -114,9 +115,15 @@ class Commands:
         from acmacs_whocc import acmacs
         acmacs.get_recent_merges(Path("merges"))
 
-    def tree(self, subtype, interactive, report_cumulative=False, **args):
+    def tree(self, subtype, interactive, information, report_cumulative=False, **args):
         from .signature_page import tree_make
-        tree_make(subtype=subtype, tree_dir=Path("tree"), seqdb=self._db_dir().joinpath("seqdb.json.xz"), interactive=interactive, report_cumulative=report_cumulative)
+        tree_dir = Path("tree")
+        if not information:
+            tree_make(subtype=subtype, tree_dir=tree_dir, seqdb=self._db_dir().joinpath("seqdb.json.xz"), interactive=interactive, report_cumulative=report_cumulative)
+        else:
+            from .signature_page import tree_make_information_settings
+            tree_make_information_settings(virus_type=subtype, tree_dir=tree_dir, output_dir=Path("information"))
+            tree_make(subtype=subtype, tree_dir=tree_dir, seqdb=self._seqdb_file(), output_dir=Path("information"), settings_infix="information")
 
     def tree_cumulative(self, **args):
         self.tree(report_cumulative=True, **args)
@@ -250,6 +257,11 @@ class Commands:
     @classmethod
     def parse_cmd(cls, cmd):
         fields = cmd.split("-")
+        if fields[0] == "information":
+            information = True
+            del fields[0]
+        else:
+            information = False
         subtype = fields[0]
         if len(fields) == 1 or subtype not in sSubtypes:
             command = sSetup.get("commands", {}).get(cmd)
@@ -290,7 +302,7 @@ class Commands:
         else:
             inferred_subtype = subtype
             assay = "hi"
-        return {"raw_subtype": subtype, "subtype": inferred_subtype, "assay": assay, "map": map_type, "lab": lab, "interactive": interactive, "months": months}
+        return {"raw_subtype": subtype, "subtype": inferred_subtype, "assay": assay, "map": map_type, "lab": lab, "interactive": interactive, "months": months, "information": information}
 
 # ======================================================================
 ### Local Variables:
