@@ -56,7 +56,7 @@ def list_commands_for_helm():
     for command_name in sSetup.get("commands", {}):
         print(command_name)
 
-    for command_name in ["get-merges", "get-hidb-seqdb", "geo-stat", "geo", "stat", "report", "report-abbreviated", "addendum-1", "addendum-2", "addendum-3", "addendum-4", "addendum-5"]:
+    for command_name in ["get-merges", "get-hidb-seqdb", "geo-stat", "geo", "stat", "report", "report-abbreviated", "addendum-1", "addendum-2", "addendum-3", "addendum-4", "addendum-5", "addendum-6"]:
         print(command_name)
 
 # ----------------------------------------------------------------------
@@ -238,6 +238,10 @@ class Commands:
     def addendum_5(self, **args):
         from .report import make_report
         make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-5", report_settings_file="report-addendum-5.json")
+
+    def addendum_6(self, **args):
+        from .report import make_report
+        make_report(source_dir=Path(".").resolve(), source_dir_2=Path(""), output_dir=Path("report"), report_name="addendum-6", report_settings_file="report-addendum-6.json")
 
     def _db_dir(self):
         return Path("db").resolve()
