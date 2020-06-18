@@ -8,6 +8,7 @@ include $(ACMACSD_ROOT)/share/Makefile.config
 
 install:
 	$(call symbolic_link,$(abspath py)/ssm_report,$(AD_PY)/ssm_report)
+	$(call symbolic_link,$(abspath py)/vr,$(AD_PY)/vr)
 	$(call symbolic_link_wildcard,$(abspath bin)/*,$(AD_BIN))
 .PHONY: install
 

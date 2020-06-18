@@ -1,0 +1,70 @@
+#! /usr/bin/env python3
+# -*- Python -*-
+
+"""
+ssm/vcm report initializer 2020-06
+"""
+
+import sys, os, re, subprocess, traceback
+if f"{sys.version_info.major}.{sys.version_info.minor}" < "3.7": raise RuntimeError("Run script with python 3.7+")
+from pathlib import Path
+# sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
+import logging; module_logger = logging.getLogger(__name__)
+
+# ----------------------------------------------------------------------
+
+def main(dir_name):
+    if not re.match(r"^202\d-[01][0-9][0-3][0-9]-.+$", dir_name):
+        raise RuntimeError(f"Invalid name format ({dir_name}), expected YYYY-MMDD-text")
+    target_dir = Path("/syn/eu/ac/results/ssm", dir_name)
+    # if target_dir.exists():
+    #     raise RuntimeError(f"Target dir already exists: \"{target_dir}\"")
+
+    template_dir = Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("sources/ssm-report/template-vr")
+    if not template_dir.exists():
+        raise RuntimeError(f"Template dir not found: \"{template_dir}\"")
+
+    target_dir.mkdir(exist_ok=True)
+
+    fields = make_fields(target_dir=target_dir)
+    for src in template_dir.glob("*"):
+        add_file(source_name=src, target_dir=target_dir, fields=fields)
+
+# ----------------------------------------------------------------------
+
+def make_fields(target_dir):
+    return {
+        "dir_name": target_dir.name,
+    }
+
+# ----------------------------------------------------------------------
+
+def add_file(source_name, target_dir, fields):
+    output = target_dir.joinpath(source_name.name)
+    if not output.exists():
+        with open(output, "w") as out:
+            out.write(source_name.open().read().format(fields))
+    else:
+        module_logger.warning(f"{output} already exists (not overwritten)")
+
+# ----------------------------------------------------------------------
+
+try:
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
+    parser.add_argument('name', nargs=1, action='store')
+    args = parser.parse_args()
+    logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
+    main(args.name[0])
+# except maker.Error as err:
+#     logging.error(f"{err}")
+#     exit(1)
+except Exception as err:
+    logging.error(f"{err}\n{traceback.format_exc()}")
+    exit(2)
+
+# ======================================================================
+### Local Variables:
+### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
+### End:
