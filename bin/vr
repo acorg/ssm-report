@@ -11,7 +11,33 @@ from pathlib import Path
 sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
 import logging; module_logger = logging.getLogger(__name__)
 
-from ssm_report import maker
+import vr
+
+# ----------------------------------------------------------------------
+
+def main(commands):
+    check_dir()
+    if not args.commands:
+        raise vr.Error("No commands in the command line")
+    for cmd in args.commands:
+        vr.command.process(cmd)
+
+        # maker.load_setup()
+        # maker.load_report()
+        # elif args.commands:
+        #     for cmd in args.commands:
+        #         maker.do(cmd)
+        # else:
+        #     print(os.getcwd())
+
+# ----------------------------------------------------------------------
+
+def check_dir():
+    expected_parent = Path(os.environ["HOME"], "ac/results/ssm")
+    curdir = Path(".").resolve()
+    if curdir.parent != expected_parent:
+        raise vr.Error(f"invalid current dir ({curdir}), a directory under \"{expected_parent}\" expected")
+    # print(curdir.parent)
 
 # ----------------------------------------------------------------------
 
@@ -19,7 +45,6 @@ try:
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
-    parser.add_argument('--init', action='store', dest='init_dir', default=None)
     parser.add_argument('--list-commands-for-helm', action='store_true', dest='list_commands_for_helm', default=False)
 
     parser.add_argument('commands', nargs='*', action='store')
@@ -27,20 +52,11 @@ try:
     args = parser.parse_args()
     logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
 
-    if args.init_dir:
-        maker.init_dir(args.init_dir)
+    if args.list_commands_for_helm:
+        vr.command.list_for_helm()
     else:
-        maker.set_working_dir()
-        maker.load_setup()
-        maker.load_report()
-        if args.list_commands_for_helm:
-            maker.list_commands_for_helm()
-        elif args.commands:
-            for cmd in args.commands:
-                maker.do(cmd)
-        else:
-            print(os.getcwd())
-except maker.Error as err:
+        main(args.commands)
+except vr.Error as err:
     logging.error(f"{err}")
     exit(1)
 except Exception as err:

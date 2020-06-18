@@ -1,6 +1,8 @@
-from . import command as command
-from .error import Error
 
+# ----------------------------------------------------------------------
+
+class Error (RuntimeError): pass
+    
 # ======================================================================
 ### Local Variables:
 ### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
