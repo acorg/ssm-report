@@ -1,6 +1,6 @@
 import sys
 import logging; module_logger = logging.getLogger(__name__)
-from . import report
+from . import report, map
 from .error import Error
 
 # ----------------------------------------------------------------------
@@ -10,19 +10,22 @@ sCommands = {
     "addendum": report.make_addendum,
     }
 
+from report import maps
+for map_data in maps():
+    sCommands["-".join(map_data)] = map.make_map
+
 # ----------------------------------------------------------------------
 
 def process(command):
-    sys.path.insert(0, ".")
     cmd = sCommands.get(command)
     if not cmd:
         raise Error(f"unknown command {command}")
-    cmd()
+    cmd(command)
 
 # ----------------------------------------------------------------------
 
 def list_for_helm():
-    print("\n".join(sCommands))
+    print("\n".join(sorted(sCommands)))
 
 # ======================================================================
 ### Local Variables:

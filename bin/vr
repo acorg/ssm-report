@@ -16,7 +16,6 @@ import vr
 # ----------------------------------------------------------------------
 
 def main(commands):
-    check_dir()
     if not args.commands:
         raise vr.Error("No commands in the command line")
     for cmd in args.commands:
@@ -52,6 +51,7 @@ try:
     args = parser.parse_args()
     logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
 
+    check_dir()
     if args.list_commands_for_helm:
         vr.command.list_for_helm()
     else:
