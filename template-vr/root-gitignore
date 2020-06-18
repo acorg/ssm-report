@@ -1,0 +1,10 @@
+.backup
+*.pdf
+*.ace
+*.save
+*.xz
+*.bz2
+.#*
+log
+report
+out

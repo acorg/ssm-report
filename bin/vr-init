@@ -13,6 +13,9 @@ import logging; module_logger = logging.getLogger(__name__)
 
 # ----------------------------------------------------------------------
 
+sInitialFiles = ["root-gitignore"]
+# ----------------------------------------------------------------------
+
 def main(dir_name):
     if not re.match(r"^202\d-[01][0-9][0-3][0-9]-.+$", dir_name):
         raise RuntimeError(f"Invalid name format ({dir_name}), expected YYYY-MMDD-text")
@@ -27,8 +30,11 @@ def main(dir_name):
     target_dir.mkdir(exist_ok=True)
 
     fields = make_fields(target_dir=target_dir)
+    add_file(source_pathname=template_dir.joinpath("root-gitignore"), target_dir=target_dir, fields=fields, target_name=".gitignore", add_to_git=False)
+    init_git(target_dir=target_dir)
     for src in template_dir.glob("*"):
-        add_file(source_name=src, target_dir=target_dir, fields=fields)
+        if src.name not in sInitialFiles:
+            add_file(source_pathname=src, target_dir=target_dir, fields=fields)
 
 # ----------------------------------------------------------------------
 
@@ -39,13 +45,39 @@ def make_fields(target_dir):
 
 # ----------------------------------------------------------------------
 
-def add_file(source_name, target_dir, fields):
-    output = target_dir.joinpath(source_name.name)
+def add_file(source_pathname, target_dir, fields, target_name=None, add_to_git=True):
+    if target_name:
+        output = target_dir.joinpath(target_name)
+    else:
+        output = target_dir.joinpath(source_pathname.name)
     if not output.exists():
         with open(output, "w") as out:
-            out.write(source_name.open().read().format(fields))
+            out.write(source_pathname.open().read().format(fields))
     else:
         module_logger.warning(f"{output} already exists (not overwritten)")
+    if add_to_git:
+        subprocess.check_call(f"cd {target_dir} && git add '{output.name}'", shell=True)
+
+# ----------------------------------------------------------------------
+
+def init_git(target_dir):
+    project_git_dir = target_dir.name + ".git"
+    module_logger.info("init_git {}".format(project_git_dir))
+    # remote
+    if not subprocess.call("ssh albertine '[[ -f who-reports/{p}/HEAD ]]'".format(p=project_git_dir), shell=True):
+        module_logger.info("Remote git repo exists")
+    elif not subprocess.call("ssh albertine '[[ -e who-reports/{p} ]]'".format(p=project_git_dir), shell=True):
+        raise RuntimeError("albertine:who-reports/{project_git_dir} present but it is not a git repository")
+    else:
+        module_logger.info("Creating remote git repo")
+        subprocess.check_call(f"ssh albertine 'mkdir who-reports/{project_git_dir} && cd who-reports/{project_git_dir} && git init --bare'", shell=True)
+
+    if target_dir.joinpath(".git").is_dir():
+        module_logger.info("local repository present")
+    elif target_dir.joinpath(".git").exists():
+        raise RuntimeError(".git exists and it is not a directory")
+    else:
+        subprocess.check_call(f"cd {target_dir} && git init && git add .gitignore && git commit -m 'vr-init init_git' && git remote add origin ssh://albertine/home/eu/who-reports/{project_git_dir} && git push --set-upstream origin master", shell=True)
 
 # ----------------------------------------------------------------------
 
