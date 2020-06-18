@@ -7,7 +7,7 @@ from .error import Error
 
 sCommands = {
     "report": report.make_report,
-    "addendum": report.make_addendum,
+    "report-addendum": report.make_addendum,
     }
 
 from report import maps
