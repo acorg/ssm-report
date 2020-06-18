@@ -39,8 +39,20 @@ def main(dir_name):
 # ----------------------------------------------------------------------
 
 def make_fields(target_dir):
+    m = re.match(r"^(\d{4})-(\d\d)(\d\d)-", target_dir.name)
+    if not m:
+        raise RuntimeError(f"invalid target_dir name pattern: {target_dir.name}")
+    report_year = int(m.group(1))
+    report_month = int(m.group(2))
+    report_day = int(m.group(3))
+
     return {
         "dir_name": target_dir.name,
+
+        "report_year": report_year,
+        "report_month": report_month,
+        "report_day": report_day,
+        "report_date": f"{report_year}-{report_month:02d}-{report_day:02d}",
     }
 
 # ----------------------------------------------------------------------
@@ -50,9 +62,10 @@ def add_file(source_pathname, target_dir, fields, target_name=None, add_to_git=T
         output = target_dir.joinpath(target_name)
     else:
         output = target_dir.joinpath(source_pathname.name)
+    # print(fields)
     if not output.exists():
         with open(output, "w") as out:
-            out.write(source_pathname.open().read().format(fields))
+            out.write(source_pathname.open().read().format(**fields))
     else:
         module_logger.warning(f"{output} already exists (not overwritten)")
     if add_to_git:

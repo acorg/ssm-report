@@ -1,16 +1,17 @@
-# Time-stamp: <2020-06-18 09:42:01 eu>
+# Time-stamp: <2020-06-18 11:15:37 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
 [[https://worldhealthorg-my.sharepoint.com/:f:/g/personal/lievrem_who_int/EsWipHzg-WBHhuQkssp34PsBVpB6pucxdjLVY5OuUki4Vw?e=5%3aRqGQVW&at=9][WHO report folder (OneDrive)]]
 
-* [2020-06-18 Thu 09:39]
-* Process
-* Buttons
-[[elisp:(eu-process "mdi " "map-draw-interactive --name-after-mod -s draw.json " t)][mdi ]]
-[[file:draw.json][draw.json]]
-[[elisp:(find-file "index.html")][edit index.html]] [[file:index.html][view index.html]]
-[[elisp:(eu-process "syput-get" "syput; syget" t)][syput-get]]  [[elisp:(eu-process "syput-get" "syput" t)][syput]]  [[elisp:(eu-process "syput-get" "syget" t)][syget]]
+* install report
+
+#+BEGIN_SRC bash
+  ssh i19 "cp -v /syn/eu/ac/results/ssm/{dir_name}/report/report.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-{report_date}.pdf"
+  ssh i19 "cp -v /syn/eu/ac/results/ssm/{dir_name}/report/sp-spsc-addendum.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-{report_date}.addendum-1.pdf"
+  ssh i19 "chmod 0644 /syn/WebSites/Protected/ssmreport/*{report_date}*; ls -l /syn/WebSites/Protected/ssmreport/*{report_date}*"
+#+END_SRC
+
 
 * COMMENT local vars ======================================================================
 :PROPERTIES:
