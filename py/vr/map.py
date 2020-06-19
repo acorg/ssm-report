@@ -4,7 +4,7 @@ from pathlib import Path
 # ======================================================================
 
 def make_map(command_name, interactive, *r, **a):
-    subtype, assay, lab, map_name = command_name.split("-", maxsplit=4)
+    subtype, assay, lab, map_name = command_name.split("-", maxsplit=3)
     subtype_short = subtype[:2]
     open_pdf = True
     output_dir = Path("out")
