@@ -14,9 +14,13 @@
 
     "vr:vaccines": [
         "vaccines-{virus-type}{lineage}{subset}",
-        {"N": "antigens", "select": {"vaccine": {"type": "any"}}, "label": {"format": "{abbreviated_name}-{passage_type}", "offset": [0, 1], "size": 36, "show": false}},
+        {"N": "antigens", "select": {"vaccine": {"type": "any"}}, "label": {"format": "{abbreviated_name}-{passage_type}", "offset": [0, 1], "size": 30, "show": false}},
         "loc:vaccines-{virus-type/lineage}{subset}",
         "loc:vaccines-{virus-type/lineage}{subset}-{lab}"
+    ],
+
+    "vr:rotate:viewport": [
+        "loc:rotate:viewport-{virus-type/lineage}{subset}-{lab}"
     ],
 
     "vr:reset": [
@@ -25,6 +29,6 @@
         "/egg",
         {"N": "title", "text_size": 24, "font_weight": "bold"},
         {"N": "point-scale", "scale": 4, "outline_scale": 1},
-        "? viewport rotate"
+        "vr:rotate:viewport"
     ]
 }
