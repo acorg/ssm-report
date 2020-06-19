@@ -1,7 +1,7 @@
 {
     "clades-B/Vic": [
         {"N": "antigens", "select": {"sequenced": true, "date": "{date-recent}", "report": true}, "?fill": "#C0C000",  "outline": "black", "legend": {"label": "sequenced ({count})"}, "order": "raise"},
-        {"N": "antigens", "select": {"clade": "V1A",      "date": "{date-recent}", "report": true}, "fill": "#6495ED", "outline": "black", "legend": {"label": "V1.A ({count})"}, "order": "raise"},
+        {"N": "antigens", "select": {"clade-all": ["V1A", "!2DEL2017", "!3DEL2017"],      "date": "{date-recent}", "report": true}, "fill": "#6495ED", "outline": "black", "legend": {"label": "V1.A ({count})"}, "order": "raise"},
         {"N": "antigens", "select": {"clade": "2DEL2017", "date": "{date-recent}", "report": true}, "fill": "#DE8244", "outline": "black", "legend": {"label": "2-Del mutants ({count})"}, "order": "raise"},
         {"N": "antigens", "select": {"clade": "3DEL2017", "date": "{date-recent}", "report": true}, "fill": "#BF3EFF", "outline": "black", "legend": {"label": "3-Del mutants ({count})"}, "order": "raise"}
     ]
