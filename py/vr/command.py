@@ -6,8 +6,8 @@ from .error import Error
 
 # ----------------------------------------------------------------------
 
-def __get_merges(command): get_merges()
-def __get_hidb(command): get_hidb()
+def __get_merges(command, *r, **a): get_merges()
+def __get_hidb(command, *r, **a): get_hidb()
 
 sCommands = {
     "report": report.make_report,
@@ -22,11 +22,11 @@ for map_data in maps():
 
 # ----------------------------------------------------------------------
 
-def process(command):
+def process(command, interactive=False):
     cmd = sCommands.get(command)
     if not cmd:
         raise Error(f"unknown command {command}")
-    cmd(command)
+    cmd(command, interactive=interactive)
 
 # ----------------------------------------------------------------------
 

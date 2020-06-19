@@ -2,7 +2,7 @@ import sys
 
 # ----------------------------------------------------------------------
 
-def make_report(command_name):
+def make_report(command_name, *r, **a):
     print(sys.path, file=sys.stderr)
     from report import report
     report()
@@ -10,7 +10,7 @@ def make_report(command_name):
 
 # ----------------------------------------------------------------------
 
-def make_addendum(command_name):
+def make_addendum(command_name, *r, **a):
     pass
 
 # ======================================================================

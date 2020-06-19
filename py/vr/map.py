@@ -3,11 +3,10 @@ from pathlib import Path
 
 # ======================================================================
 
-def make_map(command_name):
+def make_map(command_name, interactive, *r, **a):
     subtype, assay, lab, map_name = command_name.split("-", maxsplit=4)
     subtype_short = subtype[:2]
     open_pdf = True
-    interactive = False
     output_dir = Path("out")
     output_dir.mkdir(exist_ok=True)
 
