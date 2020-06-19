@@ -4,7 +4,10 @@ def maps():
         ["h1", "hi", "cdc", "156"],
         ["h1", "hi", "melb", "156"],
 
-        ["bvic", "hi", "cdc", "clade"],
+        ["bvic", "hi", "cdc",  "clade"],
+        ["bvic", "hi", "melb", "clade"],
+        ["bvic", "hi", "niid", "clade"],
+        ["bvic", "hi", "nimr", "clade"],
 
         ["~all", "", "", "geographic"],
         ["~all", "", "", "stat"],
