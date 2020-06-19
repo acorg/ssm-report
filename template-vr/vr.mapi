@@ -15,7 +15,8 @@
     "vr:vaccines": [
         "vaccines-{virus-type}{lineage}{subset}",
         {"N": "antigens", "select": {"vaccine": {"type": "any"}}, "label": {"format": "{abbreviated_name}-{passage_type}", "offset": [0, 1], "size": 36, "show": false}},
-        "loc:vaccines-{virus-type/lineage}{subset}"
+        "loc:vaccines-{virus-type/lineage}{subset}",
+        "loc:vaccines-{virus-type/lineage}{subset}-{lab}"
     ],
 
     "vr:reset": [
