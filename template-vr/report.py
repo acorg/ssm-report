@@ -17,9 +17,24 @@ def maps():
         ["bvic", "hi", "niid", "clade-12m"],
         ["bvic", "hi", "nimr", "clade-12m"],
 
+        ["bvic", "hi", "cdc",  "clade-ngly"],
+        ["bvic", "hi", "melb", "clade-ngly"],
+        ["bvic", "hi", "niid", "clade-ngly"],
+        ["bvic", "hi", "nimr", "clade-ngly"],
+        ["bvic", "hi", "cdc",  "serology"],
+        ["bvic", "hi", "melb", "serology"],
+        ["bvic", "hi", "niid", "serology"],
+        ["bvic", "hi", "nimr", "serology"],
+
+        ["h1", "tree"],
+        ["h3", "tree"],
+        ["bvic", "tree"],
+        ["byam", "tree"],
+
         ["~all", "", "", "geographic"],
         ["~all", "", "", "stat"],
         ]
+
 
 # ----------------------------------------------------------------------
 
