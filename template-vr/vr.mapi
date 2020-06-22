@@ -5,6 +5,8 @@
         }
     ],
 
+    "? clade": "----------------------------------------------------------------------------------------------------",
+
     "vr:clade": [
         "vr:reset",
         "loc:clades-{virus-type/lineage}{subset}",
@@ -22,6 +24,20 @@
     "vr:clade-6m": [
         {"N": "vr:clade", "date-recent": {"younger-than-days": 183}}
     ],
+
+    "? B/Vic 2020-02": "",
+    "vr:clade-ngly": [
+        "vr:reset",
+        "loc:clades-{virus-type/lineage}{subset}",
+        "loc:clades-{virus-type/lineage}{subset}-{lab}",
+        "loc:N-gly-197-{virus-type/lineage}{subset}",
+        "vr:vaccines",
+        {"N": "title", "lines": ["{lab} {virus_type_lineage} by clade and potential N-gly"]},
+        "loc:title-{virus-type/lineage}{subset}",
+        "loc:legend-{virus-type/lineage}{subset}"
+    ],
+
+    "? vaccines": "----------------------------------------------------------------------------------------------------",
 
     "vr:vaccines": [
         "vaccines-{virus-type}{lineage}{subset}",
