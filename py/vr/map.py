@@ -11,7 +11,12 @@ def make_map(command_name, interactive, *r, **a):
     output_dir.mkdir(exist_ok=True)
 
     merge = f"merges/{lab}-{subtype_short}-{assay}.ace"
-    pdf = f"{output_dir}/{subtype}-{assay}-{lab}-{map_name}.pdf"
+
+    if map_name == "ts":        # no output pdf for ts, see vr.mapi "vr:ts"
+        pdf = "/"
+    else:
+        pdf = f"{output_dir}/{subtype}-{assay}-{lab}-{map_name}.pdf"
+
     if subtype == "h3":
         settings = f"-s vr.mapi -s {subtype}.mapi -s {subtype}-{assay}.mapi -s serology.mapi -s vaccines.mapi"
     else:

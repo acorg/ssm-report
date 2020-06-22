@@ -3,7 +3,11 @@
         {"N": "set",
          "vr": true,
          "vaccine-size": 65,
-         "clade-pale": ""
+         "clade-pale": "",
+         "time-series-start": "2020-01",
+         "time-series-end":   "2020-07",
+         "time-series-interval": {"month": 1},
+         "output_dir": "out", "?": "necessary for ts"
         }
     ],
 
@@ -40,6 +44,22 @@
         {"N": "title", "lines": ["{lab} {virus_type_lineage} by clade and potential N-gly"]},
         "loc:title-{virus-type/lineage}{subset}",
         "loc:legend-{virus-type/lineage}{subset}"
+    ],
+
+    "? ts": "----------------------------------------------------------------------------------------------------",
+
+    "vr:ts": [
+        "vr:reset",
+        "loc:ts-{virus-type/lineage}{subset}",
+        "vr:vaccines",
+        "loc:title-{virus-type/lineage}{subset}",
+        "? loc:legend-{virus-type/lineage}{subset}",
+
+        {"N": "time-series",
+         "start": "{time-series-start}", "end": "{time-series-end}", "interval": "{time-series-interval}",
+         "output": "{output_dir}/{subtype}-{assay}-{lab}-{ts}-{ts_numeric}.pdf",
+         "title": "{lab} {virus_type_lineage} {ts_text}"
+        }
     ],
 
     "? serology": "----------------------------------------------------------------------------------------------------",

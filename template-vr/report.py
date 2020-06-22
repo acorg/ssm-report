@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------
+
 # [subtype, assay, lab, map-name]
 def maps():
     return [
@@ -20,7 +22,6 @@ def maps():
         ["bvic", "hi", "melb", "clade-ngly"],
         ["bvic", "hi", "niid", "clade-ngly"],
         ["bvic", "hi", "nimr", "clade-ngly"],
-
         ["bvic", "hi", "cdc",  "serology"],
         ["bvic", "hi", "melb", "serology"],
         ["bvic", "hi", "niid", "serology"],
@@ -30,6 +31,7 @@ def maps():
         ["bvic", "hi", "melb", "ts"],
         ["bvic", "hi", "niid", "ts"],
         ["bvic", "hi", "nimr", "ts"],
+        # ts: compare with previous
 
         ["h1", "tree"],
         ["h3", "tree"],
