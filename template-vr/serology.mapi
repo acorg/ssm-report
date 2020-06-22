@@ -26,14 +26,10 @@
     ],
 
     "loc:serology-B/Vic-CDC": [
-      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2MDCK1 (2019-11-01)"}, "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type"}},
-      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 MDCK1 (2017-02-27)"}, "show": false},
-      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2"}, "show": false},
-      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2 (2018-07-30)"}, "show": false},
-      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 DISTINCT QMC2"}, "show": false},
-      {"?N":"antigens", "select": {"full_name": "B/RHODE ISLAND/1/2019 MDCK1 (2019-12-20)"}, "label": {"offset": [-1, -0.1], "name_type": "abbreviated_with_passage_type"}},
-      {"?N":"antigens", "select": {"full_name": "B/RHODE ISLAND/1/2019 E3 (2019-12-16)"}, "show": true, "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
-      {"?N":"antigens", "select": {"full_name": "B/RHODE ISLAND/1/2019 E2 (2019-04-15)"}, "show": true, "label": {"offset": [-0.95, -0.5], "name_type": "abbreviated_with_passage_type"}}
+        {"N":"antigens", "show": false, "select": {"name": ["~IOWA/6/2017 MDCK1 (2017-02-27)", "~IOWA/6/2017 QMC2", "~IOWA/6/2017 QMC2 (2018-07-30)", "~IOWA/6/2017 DISTINCT QMC2"]}},
+        {"N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 MDCK1 (2019-12-20)"}, "label": {"offset": [-1, -0.1], "name_type": "abbreviated_with_passage_type"}},
+        {"N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 E3 (2019-12-16)"}, "show": true, "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
+        {"N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 E2 (2019-04-15)"}, "show": true, "label": {"offset": [-0.95, -0.5], "name_type": "abbreviated_with_passage_type"}}
     ],
 
     "loc:serology-B/Vic-VIDRL": [

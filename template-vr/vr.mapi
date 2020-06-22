@@ -46,7 +46,7 @@
 
     "vr:serology": [
         "vr:reset",
-        {"N": "vr:clade-base", "?clade-pale": ":s-0.2"},
+        {"N": "vr:clade-base", "clade-pale": ":p+0.5"},
         "loc:serology-{virus-type/lineage}{subset}",
         "loc:serology-{virus-type/lineage}{subset}-{lab}",
         "vr:vaccines",
