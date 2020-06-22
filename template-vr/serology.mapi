@@ -1,2 +1,49 @@
 {
+    "init": [
+        {"N": "set",
+         "serology-antigen-size": 48,
+         "serology-fill": "orange",
+         "serology-label": {"size": 24, "format": "{abbreviated_name}-{passage_type}"},
+        }
+    ],
+
+    "? H1pdm": "----------------------------------------------------------------------------------------------------",
+    "? H3 HI": "----------------------------------------------------------------------------------------------------",
+    "? H3 Neut": "----------------------------------------------------------------------------------------------------",
+
+    "? B/Vic": "----------------------------------------------------------------------------------------------------",
+    "loc:serology-B/Vic": [
+      {"N":"antigens", "select": {"name": "Iowa/6/2017",         "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Rhode Island/1/2019"},                    "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Darwin/8/2019",       "passage": "egg"},  "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Victoria/2113/2019"},                     "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Yokohama/18/2019",    "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Niigata-C/6/2019",    "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N": "crick serology report for ssm"},
+      {"N":"antigens", "select": {"name": "Hong Kong/514/2019",  "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Stockholm/5/2019",    "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"N":"antigens", "select": {"name": "Nizwa/6350/2019",     "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"}
+    ],
+
+    "loc:serology-B/Vic-CDC": [
+      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2MDCK1 (2019-11-01)"}, "label": {"offset": [0, 1], "name_type": "abbreviated_with_passage_type"}},
+      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 MDCK1 (2017-02-27)"}, "show": false},
+      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2"}, "show": false},
+      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 QMC2 (2018-07-30)"}, "show": false},
+      {"?N":"antigens", "select": {"full_name": "B/IOWA/6/2017 DISTINCT QMC2"}, "show": false},
+      {"?N":"antigens", "select": {"full_name": "B/RHODE ISLAND/1/2019 MDCK1 (2019-12-20)"}, "label": {"offset": [-1, -0.1], "name_type": "abbreviated_with_passage_type"}},
+      {"?N":"antigens", "select": {"full_name": "B/RHODE ISLAND/1/2019 E3 (2019-12-16)"}, "show": true, "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
+      {"?N":"antigens", "select": {"full_name": "B/RHODE ISLAND/1/2019 E2 (2019-04-15)"}, "show": true, "label": {"offset": [-0.95, -0.5], "name_type": "abbreviated_with_passage_type"}}
+    ],
+
+    "loc:serology-B/Vic-VIDRL": [
+    ],
+
+    "loc:serology-B/Vic-NIID": [
+    ],
+
+    "loc:serology-B/Vic-Crick": [
+    ],
+
+    "? B/Yam": "----------------------------------------------------------------------------------------------------",
 }

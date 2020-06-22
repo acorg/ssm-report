@@ -23,7 +23,7 @@ def make_map(command_name, interactive, *r, **a):
     if interactive:
         cmd += " -i"
     #print(f"make_map {command_name} -> {subtype}, {assay}, {lab}, {map_name}")
-    # print(cmd)
+    print(cmd)
     subprocess.check_call(cmd, shell=True)
 
 # ======================================================================

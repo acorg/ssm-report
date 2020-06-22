@@ -1,16 +1,22 @@
 {
     "init": [
         {"N": "set",
-         "vr": true
+         "vr": true,
+         "vaccine-size": 65,
+         "clade-pale": ""
         }
     ],
 
     "? clade": "----------------------------------------------------------------------------------------------------",
 
+    "vr:clade-base": [
+        "loc:clades-{virus-type/lineage}{subset}",
+        "loc:clades-{virus-type/lineage}{subset}-{lab}"
+    ],
+
     "vr:clade": [
         "vr:reset",
-        "loc:clades-{virus-type/lineage}{subset}",
-        "loc:clades-{virus-type/lineage}{subset}-{lab}",
+        "vr:clade-base",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus_type_lineage} by clade"]},
         "loc:title-{virus-type/lineage}{subset}",
@@ -28,11 +34,23 @@
     "? B/Vic 2020-02": "",
     "vr:clade-ngly": [
         "vr:reset",
-        "loc:clades-{virus-type/lineage}{subset}",
-        "loc:clades-{virus-type/lineage}{subset}-{lab}",
+        "vr:clade-base",
         "loc:N-gly-197-{virus-type/lineage}{subset}",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus_type_lineage} by clade and potential N-gly"]},
+        "loc:title-{virus-type/lineage}{subset}",
+        "loc:legend-{virus-type/lineage}{subset}"
+    ],
+
+    "? serology": "----------------------------------------------------------------------------------------------------",
+
+    "vr:serology": [
+        "vr:reset",
+        {"N": "vr:clade-base", "?clade-pale": ":s-0.2"},
+        "loc:serology-{virus-type/lineage}{subset}",
+        "loc:serology-{virus-type/lineage}{subset}-{lab}",
+        "vr:vaccines",
+        {"N": "title", "lines": ["{lab} {virus_type_lineage} with serology antigens"]},
         "loc:title-{virus-type/lineage}{subset}",
         "loc:legend-{virus-type/lineage}{subset}"
     ],
