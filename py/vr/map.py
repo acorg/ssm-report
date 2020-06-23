@@ -23,7 +23,7 @@ def make_map(command_name, interactive, *r, **a):
         settings = f"-s vr.mapi -s {subtype}.mapi -s serology.mapi -s vaccines.mapi"
 
     cmd = f"mapi -a vr:{map_name} {settings} {merge} {pdf}"
-    if open_pdf:
+    if open_pdf and map_name != "ts":
         cmd += " --open"
     if interactive:
         cmd += " -i"
