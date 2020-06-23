@@ -57,7 +57,7 @@
 
         {"N": "time-series",
          "start": "{time-series-start}", "end": "{time-series-end}", "interval": "{time-series-interval}",
-         "output": "{output_dir}/{virus_type_lineage_subset_short}-{assay}-{lab}-ts-{ts_numeric}.pdf",
+         "output": "{output_dir}/{virus_type_lineage_subset_short}-{assay}-{lab_lower}-ts-{ts_numeric}.pdf",
          "title": "{lab} {virus_type_lineage} {ts_text}"
         }
     ],

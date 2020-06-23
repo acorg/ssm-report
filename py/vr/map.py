@@ -27,9 +27,18 @@ def make_map(command_name, interactive, *r, **a):
         cmd += " --open"
     if interactive:
         cmd += " -i"
+
     #print(f"make_map {command_name} -> {subtype}, {assay}, {lab}, {map_name}")
     print(cmd)
     subprocess.check_call(cmd, shell=True)
+
+    if map_name == "ts":        # generate summary pdf
+        summary_pdf = f"{output_dir}/{subtype}-{assay}-{lab}-{map_name}-summary.pdf"
+        cmd2 = f"pdf-combine {output_dir}/{subtype}-{assay}-{lab}-{map_name}-*.pdf {summary_pdf}"
+        if open_pdf:
+            cmd2 += f" && open {summary_pdf}"
+        print(cmd2)
+        subprocess.check_call(cmd2, shell=True)
 
 # ======================================================================
 ### Local Variables:
