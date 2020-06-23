@@ -36,7 +36,7 @@ def make_map(command_name, interactive, *r, **a):
         summary_pdf = f"{output_dir}/{subtype}-{assay}-{lab}-{map_name}-summary.pdf"
         cmd2 = f"pdf-combine {output_dir}/{subtype}-{assay}-{lab}-{map_name}-*.pdf {summary_pdf}"
         if open_pdf:
-            cmd2 += f" && open {summary_pdf}"
+            cmd2 += f" && preview -p 770.0.650.3000 {summary_pdf}"
         print(cmd2)
         subprocess.check_call(cmd2, shell=True)
 
