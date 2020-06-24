@@ -52,6 +52,7 @@
         "vr:reset",
         "loc:ts-{virus-type/lineage}{subset}",
         "vr:vaccines",
+        {"N": "title"},
         "loc:title-{virus-type/lineage}{subset}",
         "? loc:legend-{virus-type/lineage}{subset}",
 
