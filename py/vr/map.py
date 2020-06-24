@@ -6,6 +6,7 @@ from .lab import lab_new, lab_old
 # ======================================================================
 
 s_labs_for_subtype = {}
+s_clade_maps = {}
 
 class maker:
 
@@ -17,9 +18,12 @@ class maker:
         if lab:
             self.lab = lab_new(lab)
             global s_labs_for_subtype
-            s_labs_for_subtype.setdefault(self._labs_for_subtype_key(), set()).add(self.lab)
+            s_labs_for_subtype.setdefault(self._subtype_key(), set()).add(self.lab)
         else:
             self.lab = None
+        if map.startswith("clade-") or map == "clade":
+            global s_clade_maps
+            s_clade_maps.setdefault(self._subtype_key(), set()).add(map)
 
     def command_name_for_helm(self):
         return "-".join(en for en in (self.subtype, self.assay, self.lab, self.map_name) if en)
@@ -27,15 +31,21 @@ class maker:
     def __call__(self, command_name, interactive, open_pdf=True, output_dir=Path("out"), *r, **a):
         output_dir.mkdir(exist_ok=True)
         if not self.lab:
-            self.many(output_dir=output_dir)
+            self.many_labs(output_dir=output_dir)
         elif self.map_name == "ts":
             self.ts(open_pdf=open_pdf, output_dir=output_dir)
+        elif self.map_name == "clades":
+            self.many_clades(output_dir=output_dir)
         else:
             self.one(lab=self.lab, interactive=interactive, open_pdf=open_pdf, output_dir=output_dir)
 
-    def one(self, lab, interactive, open_pdf, output_dir):
-        pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-{lab}.pdf"
-        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
+    def one(self, interactive, open_pdf, output_dir, lab=None, map_name=None):
+        if not lab:
+            lab = self.lab
+        if not map_name:
+            map_name = self.map_name
+        pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
+        cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
         if interactive:
             cmd += " -i --open"
         elif open_pdf:
@@ -57,13 +67,15 @@ class maker:
         print(cmd2)
         subprocess.check_call(cmd2, shell=True)
 
-    def many(self, output_dir):
+    def many_labs(self, output_dir):
         global s_labs_for_subtype
-        for lab in sorted(s_labs_for_subtype[self._labs_for_subtype_key()]):
-            if Path(self.merge(lab=lab)).exists():
-                self.one(lab=lab, interactive=False, open_pdf=False, output_dir=output_dir)
-            else:
-                module_logger.warning(f"No merge for \"{lab}\": {self.merge(lab=lab)}")
+        for lab in sorted(s_labs_for_subtype[self._subtype_key()]):
+            self.one(lab=lab, interactive=False, open_pdf=False, output_dir=output_dir)
+
+    def many_clades(self, output_dir):
+        global s_clades
+        for clade_map in sorted(s_clade_maps[self._subtype_key()]):
+            self.one(lab=self.lab, map_name=clade_map, interactive=False, open_pdf=False, output_dir=output_dir)
 
     def _assay(self):
         if self.assay is None:
@@ -74,14 +86,25 @@ class maker:
     def merge(self, lab):
         return f"merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
 
+    def merge_exists(self, lab):
+        return Path(self.merge(lab=lab)).exists()
+
     def _settings(self):
         if self.subtype == "h3":
             return f"-s vr.mapi -s {self.subtype}.mapi -s {self.subtype}-{assay}.mapi -s serology.mapi -s vaccines.mapi"
         else:
             return f"-s vr.mapi -s {self.subtype}.mapi -s serology.mapi -s vaccines.mapi"
 
-    def _labs_for_subtype_key(self):
+    def _subtype_key(self):
         return f"{self.subtype} {assay if self.assay else 'hi'}"
+
+# ======================================================================
+
+def makers(subtype, labs, maps, assay=None, **options):
+    result = [mk for mk in (maker(subtype=subtype, assay=assay, lab=lab, map=map, **options) for lab in labs for map in maps) if mk.merge_exists(mk.lab)]
+    if result and len([en for en in maps if en.startswith("clade")]) > 1:
+        result += [maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options) for lab in labs]
+    return result
 
 # ======================================================================
 ### Local Variables:

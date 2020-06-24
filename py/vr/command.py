@@ -18,7 +18,11 @@ sCommands = {
 
 from report import maps
 for map_maker in maps(sys.modules[__name__]):
-    sCommands[map_maker.command_name_for_helm()] = map_maker
+    if isinstance(map_maker, list):
+        for mm in map_maker:
+            sCommands[mm.command_name_for_helm()] = mm
+    else:
+        sCommands[map_maker.command_name_for_helm()] = map_maker
 
 # ----------------------------------------------------------------------
 
