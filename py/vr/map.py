@@ -34,7 +34,7 @@ def make_map(command_name, interactive, *r, **a):
 
     if map_name == "ts":        # generate summary pdf
         summary_pdf = f"{output_dir}/{subtype}-{assay}-{lab}-{map_name}-summary.pdf"
-        cmd2 = f"pdf-combine {output_dir}/{subtype}-{assay}-{lab}-{map_name}-*.pdf {summary_pdf}"
+        cmd2 = f"pdf-combine {output_dir}/{subtype}-{assay}-{lab}-{map_name}-[12]*.pdf {summary_pdf}"
         if open_pdf:
             cmd2 += f" && preview -p 770.0.650.3000 {summary_pdf}"
         print(cmd2)

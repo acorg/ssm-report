@@ -30,6 +30,7 @@
 
     "loc:ts-B/Vic": [
         "/continents",
+        {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
         {"N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
     ],
 
