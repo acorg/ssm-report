@@ -30,6 +30,10 @@
 
     "loc:ts-B/Vic": [
         "/continents",
+        {"N": "antigens", "select": {"test": true}, "size": 25},
+        {"N": "if", "condition": "{compare-with-previous}", "then": [
+            {"N": "antigens", "select": {"test": true}, "size": 15}
+        ]},
         {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
         {"N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
     ],

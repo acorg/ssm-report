@@ -4,8 +4,8 @@
          "vr": true,
          "vaccine-size": 65,
          "clade-pale": "",
-         "time-series-start": "2020-01",
-         "time-series-end":   "2020-07",
+         "time-series-start": "2019-10",
+         "time-series-end":   "2020-04",
          "time-series-interval": {"month": 1},
          "output_dir": "out", "?": "necessary for ts"
         }

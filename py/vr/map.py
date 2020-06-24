@@ -55,15 +55,15 @@ class maker:
         subprocess.check_call(cmd, shell=True)
 
     def ts(self, open_pdf, output_dir):
-        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {self.merge(lab=self.lab)} /"
-
+        compare_with_previous = str(bool(self.options.get("compare_with_previous"))).lower()
+        cmd = f"mapi -a vr:{self.map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=self.lab)} {self.previous_merge(lab=self.lab)} /"
         print(cmd)
         subprocess.check_call(cmd, shell=True)
 
         summary_pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-summary-{self.lab}.pdf"
         cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-{self.lab}-[12]*.pdf {summary_pdf}"
         if open_pdf:
-            cmd2 += f" && preview -p 930.0.820.3000 {summary_pdf}"
+            cmd2 += f" && preview -p 1050.0.930.3000 {summary_pdf}"
         print(cmd2)
         subprocess.check_call(cmd2, shell=True)
 
@@ -85,6 +85,13 @@ class maker:
 
     def merge(self, lab):
         return f"merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
+
+    def previous_merge(self, lab):
+        mer = f"previous/merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
+        if Path(mer).exists():
+            return mer
+        else:
+            return ""
 
     def merge_exists(self, lab):
         mer = self.merge(lab=lab)
