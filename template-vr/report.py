@@ -13,6 +13,7 @@ def maps(modul):
 
         # H1 --------------------------------------------------
 
+        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-156", "clade-156-6m", "clade--156-12m", "serology", "ts"], compare_with_previous=True),
         # modul.map.maker(subtype="h1", lab="cdc",  map="156"),
         # modul.map.maker(subtype="h1", lab="melb", map="156"),
         # modul.map.maker(subtype="h1", lab="niid", map="156"),
