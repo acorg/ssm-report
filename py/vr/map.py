@@ -3,42 +3,80 @@ from pathlib import Path
 
 # ======================================================================
 
-def make_map(command_name, interactive, *r, **a):
-    subtype, assay, lab, map_name = command_name.split("-", maxsplit=3)
-    subtype_short = subtype[:2]
-    open_pdf = True
-    output_dir = Path("out")
-    output_dir.mkdir(exist_ok=True)
+s_labs_for_subtype = {}
 
-    merge = f"merges/{lab}-{subtype_short}-{assay}.ace"
+class maker:
 
-    if map_name == "ts":        # no output pdf for ts, see vr.mapi "vr:ts"
-        pdf = "/"
-    else:
-        pdf = f"{output_dir}/{subtype}-{assay}-{lab}-{map_name}.pdf"
+    def __init__(self, subtype, assay=None, lab=None, map=None, **options):
+        self.subtype = subtype
+        self.assay = assay
+        self.lab = lab
+        self.map_name = map
+        self.options = options
+        if lab:
+            global s_labs_for_subtype
+            s_labs_for_subtype.setdefault(self._labs_for_subtype_key(), set()).add(lab)
 
-    if subtype == "h3":
-        settings = f"-s vr.mapi -s {subtype}.mapi -s {subtype}-{assay}.mapi -s serology.mapi -s vaccines.mapi"
-    else:
-        settings = f"-s vr.mapi -s {subtype}.mapi -s serology.mapi -s vaccines.mapi"
+    def command_name_for_helm(self):
+        return "-".join(en for en in (self.subtype, self.assay, self.lab, self.map_name) if en)
 
-    cmd = f"mapi -a vr:{map_name} {settings} {merge} {pdf}"
-    if open_pdf and map_name != "ts":
-        cmd += " --open"
-    if interactive:
-        cmd += " -i"
+    def __call__(self, command_name, interactive, open_pdf=True, output_dir=Path("out"), *r, **a):
+        output_dir.mkdir(exist_ok=True)
+        if not self.lab:
+            self.many(output_dir=output_dir)
+        elif self.map_name == "ts":
+            self.ts(open_pdf=open_pdf, output_dir=output_dir)
+        else:
+            self.one(lab=self.lab, interactive=interactive, open_pdf=open_pdf, output_dir=output_dir)
 
-    #print(f"make_map {command_name} -> {subtype}, {assay}, {lab}, {map_name}")
-    print(cmd)
-    subprocess.check_call(cmd, shell=True)
+    def one(self, lab, interactive, open_pdf, output_dir):
+        subtype_short, assay = self._assay()
+        merge = f"merges/{lab}-{subtype_short}-{assay}.ace"
+        pdf = f"{output_dir}/{self.subtype}-{assay}-{lab}-{self.map_name}.pdf"
+        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {merge} {pdf}"
+        if interactive:
+            cmd += " -i --open"
+        elif open_pdf:
+            cmd += f" && preview -p 930.0.820.870 {pdf}"
 
-    if map_name == "ts":        # generate summary pdf
-        summary_pdf = f"{output_dir}/{subtype}-{assay}-{lab}-{map_name}-summary.pdf"
-        cmd2 = f"pdf-combine {output_dir}/{subtype}-{assay}-{lab}-{map_name}-[12]*.pdf {summary_pdf}"
+        #print(f"make_map {command_name} -> {self.subtype}, {assay}, {lab}, {self.map_name}")
+        print(cmd)
+        subprocess.check_call(cmd, shell=True)
+
+    def ts(self, open_pdf, output_dir):
+        subtype_short, assay = self._assay()
+        merge = f"merges/{self.lab}-{subtype_short}-{assay}.ace"
+        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {merge} /"
+
+        print(cmd)
+        subprocess.check_call(cmd, shell=True)
+
+        summary_pdf = f"{output_dir}/{self.subtype}-{assay}-{self.lab}-{self.map_name}-summary.pdf"
+        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{assay}-{self.lab}-{self.map_name}-[12]*.pdf {summary_pdf}"
         if open_pdf:
             cmd2 += f" && preview -p 930.0.820.3000 {summary_pdf}"
         print(cmd2)
         subprocess.check_call(cmd2, shell=True)
+
+    def many(self, output_dir):
+        global s_labs_for_subtype
+        for lab in sorted(s_labs_for_subtype[self._labs_for_subtype_key()]):
+            self.one(lab=lab, interactive=False, open_pdf=False, output_dir=output_dir)
+
+    def _assay(self):
+        if self.assay is None:
+            return self.subtype[:2], "hi"
+        else:
+            return self.subtype[:2], self.assay
+
+    def _settings(self):
+        if self.subtype == "h3":
+            return f"-s vr.mapi -s {self.subtype}.mapi -s {self.subtype}-{assay}.mapi -s serology.mapi -s vaccines.mapi"
+        else:
+            return f"-s vr.mapi -s {self.subtype}.mapi -s serology.mapi -s vaccines.mapi"
+
+    def _labs_for_subtype_key(self):
+        return f"{self.subtype} {assay if self.assay else 'hi'}"
 
 # ======================================================================
 ### Local Variables:

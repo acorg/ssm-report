@@ -17,8 +17,8 @@ sCommands = {
     }
 
 from report import maps
-for map_data in maps():
-    sCommands["-".join(map_data)] = map.make_map
+for map_maker in maps(sys.modules[__name__]):
+    sCommands[map_maker.command_name_for_helm()] = map_maker
 
 # ----------------------------------------------------------------------
 
