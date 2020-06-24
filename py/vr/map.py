@@ -1,5 +1,7 @@
 import subprocess
 from pathlib import Path
+import logging; module_logger = logging.getLogger(__name__)
+from .lab import lab_new, lab_old
 
 # ======================================================================
 
@@ -10,12 +12,14 @@ class maker:
     def __init__(self, subtype, assay=None, lab=None, map=None, **options):
         self.subtype = subtype
         self.assay = assay
-        self.lab = lab
         self.map_name = map
         self.options = options
         if lab:
+            self.lab = lab_new(lab)
             global s_labs_for_subtype
-            s_labs_for_subtype.setdefault(self._labs_for_subtype_key(), set()).add(lab)
+            s_labs_for_subtype.setdefault(self._labs_for_subtype_key(), set()).add(self.lab)
+        else:
+            self.lab = None
 
     def command_name_for_helm(self):
         return "-".join(en for en in (self.subtype, self.assay, self.lab, self.map_name) if en)
@@ -30,29 +34,24 @@ class maker:
             self.one(lab=self.lab, interactive=interactive, open_pdf=open_pdf, output_dir=output_dir)
 
     def one(self, lab, interactive, open_pdf, output_dir):
-        subtype_short, assay = self._assay()
-        merge = f"merges/{lab}-{subtype_short}-{assay}.ace"
-        pdf = f"{output_dir}/{self.subtype}-{assay}-{lab}-{self.map_name}.pdf"
-        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {merge} {pdf}"
+        pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{lab}-{self.map_name}.pdf"
+        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
         if interactive:
             cmd += " -i --open"
         elif open_pdf:
             cmd += f" && preview -p 930.0.820.870 {pdf}"
 
-        #print(f"make_map {command_name} -> {self.subtype}, {assay}, {lab}, {self.map_name}")
         print(cmd)
         subprocess.check_call(cmd, shell=True)
 
     def ts(self, open_pdf, output_dir):
-        subtype_short, assay = self._assay()
-        merge = f"merges/{self.lab}-{subtype_short}-{assay}.ace"
-        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {merge} /"
+        cmd = f"mapi -a vr:{self.map_name} {self._settings()} {self.merge(lab=self.lab)} /"
 
         print(cmd)
         subprocess.check_call(cmd, shell=True)
 
-        summary_pdf = f"{output_dir}/{self.subtype}-{assay}-{self.lab}-{self.map_name}-summary.pdf"
-        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{assay}-{self.lab}-{self.map_name}-[12]*.pdf {summary_pdf}"
+        summary_pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{self.lab}-{self.map_name}-summary.pdf"
+        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{self.lab}-{self.map_name}-[12]*.pdf {summary_pdf}"
         if open_pdf:
             cmd2 += f" && preview -p 930.0.820.3000 {summary_pdf}"
         print(cmd2)
@@ -61,13 +60,19 @@ class maker:
     def many(self, output_dir):
         global s_labs_for_subtype
         for lab in sorted(s_labs_for_subtype[self._labs_for_subtype_key()]):
-            self.one(lab=lab, interactive=False, open_pdf=False, output_dir=output_dir)
+            if Path(self.merge(lab=lab)).exists():
+                self.one(lab=lab, interactive=False, open_pdf=False, output_dir=output_dir)
+            else:
+                module_logger.warning(f"No merge for \"{lab}\": {self.merge(lab=lab)}")
 
     def _assay(self):
         if self.assay is None:
-            return self.subtype[:2], "hi"
+            return "hi"
         else:
-            return self.subtype[:2], self.assay
+            return self.assay
+
+    def merge(self, lab):
+        return f"merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
 
     def _settings(self):
         if self.subtype == "h3":
