@@ -87,16 +87,17 @@ class maker:
         return f"merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
 
     def merge_exists(self, lab):
-        return Path(self.merge(lab=lab)).exists()
+        mer = self.merge(lab=lab)
+        return Path(mer).exists()
 
     def _settings(self):
         if self.subtype == "h3":
-            return f"-s vr.mapi -s {self.subtype}.mapi -s {self.subtype}-{assay}.mapi -s serology.mapi -s vaccines.mapi"
+            return f"-s vr.mapi -s {self.subtype}.mapi -s {self.subtype}-{self.assay}.mapi -s serology.mapi -s vaccines.mapi"
         else:
             return f"-s vr.mapi -s {self.subtype}.mapi -s serology.mapi -s vaccines.mapi"
 
     def _subtype_key(self):
-        return f"{self.subtype} {assay if self.assay else 'hi'}"
+        return f"{self.subtype} {self.assay if self.assay else 'hi'}"
 
 # ======================================================================
 

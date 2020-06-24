@@ -1,5 +1,7 @@
 # ----------------------------------------------------------------------
 
+compare_with_previous = True
+
 # [subtype, assay, lab, map-name]
 def maps(modul):
     return [
@@ -13,19 +15,25 @@ def maps(modul):
 
         # H1 --------------------------------------------------
 
-        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-156", "clade-156-6m", "clade--156-12m", "serology", "ts"], compare_with_previous=True),
+        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-156", "clade-156-6m", "clade-156-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
         # modul.map.maker(subtype="h1", lab="cdc",  map="156"),
         # modul.map.maker(subtype="h1", lab="melb", map="156"),
         # modul.map.maker(subtype="h1", lab="niid", map="156"),
         # modul.map.maker(subtype="h1", lab="nimr", map="156"),
 
-        # H3 --------------------------------------------------
+        # H3 HI --------------------------------------------------
+
+        modul.map.makers(subtype="h3", assay="hi", labs=["crick", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
+
+        # H3 Neut --------------------------------------------------
+
+        modul.map.makers(subtype="h3", assay="neut", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
 
         # B/Vic --------------------------------------------------
 
         # compare_with_previous
 
-        modul.map.makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "serology", "ts"], compare_with_previous=True),
+        modul.map.makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "serology", "ts"], compare_with_previous=compare_with_previous),
 
         # modul.map.maker(subtype="bvic", lab="cdc",  map="clade"),
         # modul.map.maker(subtype="bvic", lab="melb", map="clade"),
@@ -53,12 +61,14 @@ def maps(modul):
         # modul.map.maker(subtype="bvic", lab="nimr", map="serology"),
         # modul.map.maker(subtype="bvic",             map="serology"),
 
-        # modul.map.maker(subtype="bvic", lab="cdc",  map="ts", compare_with_previous=True),
-        # modul.map.maker(subtype="bvic", lab="melb", map="ts", compare_with_previous=True),
-        # modul.map.maker(subtype="bvic", lab="niid", map="ts", compare_with_previous=True),
-        # modul.map.maker(subtype="bvic", lab="nimr", map="ts", compare_with_previous=True),
+        # modul.map.maker(subtype="bvic", lab="cdc",  map="ts", compare_with_previous=compare_with_previous),
+        # modul.map.maker(subtype="bvic", lab="melb", map="ts", compare_with_previous=compare_with_previous),
+        # modul.map.maker(subtype="bvic", lab="niid", map="ts", compare_with_previous=compare_with_previous),
+        # modul.map.maker(subtype="bvic", lab="nimr", map="ts", compare_with_previous=compare_with_previous),
 
         # B/Yam --------------------------------------------------
+
+        modul.map.makers(subtype="byam", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology"], compare_with_previous=compare_with_previous),
     ]
 
 # ----------------------------------------------------------------------
