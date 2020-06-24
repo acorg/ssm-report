@@ -22,6 +22,8 @@ def maps(modul):
 
         # B/Vic --------------------------------------------------
 
+        # modul.map.maker(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "serology", "ts"], compare_with_previous=True),
+
         modul.map.maker(subtype="bvic", lab="cdc",  map="clade"),
         modul.map.maker(subtype="bvic", lab="melb", map="clade"),
         modul.map.maker(subtype="bvic", lab="niid", map="clade"),
