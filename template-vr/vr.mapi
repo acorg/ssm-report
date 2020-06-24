@@ -7,6 +7,8 @@
          "time-series-start": "2019-10",
          "time-series-end":   "2020-04",
          "time-series-interval": {"month": 1},
+         "not-found-in-previous-size": 25,
+         "found-in-previous-size": 15,
          "output_dir": "out", "?": "necessary for ts"
         }
     ],

@@ -88,7 +88,7 @@ class maker:
 
     def previous_merge(self, lab):
         mer = f"previous/merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
-        if Path(mer).exists():
+        if self.options.get("compare_with_previous") and Path(mer).exists():
             return mer
         else:
             return ""
