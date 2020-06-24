@@ -3,6 +3,25 @@
 # [subtype, assay, lab, map-name]
 def maps(modul):
     return [
+        #     ["h1", "tree"],
+        #     ["h3", "tree"],
+        #     ["bvic", "tree"],
+        #     ["byam", "tree"],
+
+        #     ["~all", "", "", "geographic"],
+        #     ["~all", "", "", "stat"],
+
+        # H1 --------------------------------------------------
+
+        # modul.map.maker(subtype="h1", lab="cdc",  map="156"),
+        # modul.map.maker(subtype="h1", lab="melb", map="156"),
+        # modul.map.maker(subtype="h1", lab="niid", map="156"),
+        # modul.map.maker(subtype="h1", lab="nimr", map="156"),
+
+        # H3 --------------------------------------------------
+
+        # B/Vic --------------------------------------------------
+
         modul.map.maker(subtype="bvic", lab="cdc",  map="clade"),
         modul.map.maker(subtype="bvic", lab="melb", map="clade"),
         modul.map.maker(subtype="bvic", lab="niid", map="clade"),
@@ -33,48 +52,9 @@ def maps(modul):
         modul.map.maker(subtype="bvic", lab="melb", map="ts", compare_with_previous=True),
         modul.map.maker(subtype="bvic", lab="niid", map="ts", compare_with_previous=True),
         modul.map.maker(subtype="bvic", lab="nimr", map="ts", compare_with_previous=True),
+
+        # B/Yam --------------------------------------------------
     ]
-
-    # return [
-    #     ["h1", "hi", "cdc", "156"],
-    #     ["h1", "hi", "melb", "156"],
-
-    #     ["bvic", "hi", "cdc",  "clade"],
-    #     ["bvic", "hi", "melb", "clade"],
-    #     ["bvic", "hi", "niid", "clade"],
-    #     ["bvic", "hi", "nimr", "clade"],
-    #     ["bvic", "hi", "cdc",  "clade-6m"],
-    #     ["bvic", "hi", "melb", "clade-6m"],
-    #     ["bvic", "hi", "niid", "clade-6m"],
-    #     ["bvic", "hi", "nimr", "clade-6m"],
-    #     ["bvic", "hi", "cdc",  "clade-12m"],
-    #     ["bvic", "hi", "melb", "clade-12m"],
-    #     ["bvic", "hi", "niid", "clade-12m"],
-    #     ["bvic", "hi", "nimr", "clade-12m"],
-    #     ["bvic", "hi", "cdc",  "clade-ngly"],
-    #     ["bvic", "hi", "melb", "clade-ngly"],
-    #     ["bvic", "hi", "niid", "clade-ngly"],
-    #     ["bvic", "hi", "nimr", "clade-ngly"],
-    #     ["bvic", "hi", "cdc",  "serology"],
-    #     ["bvic", "hi", "melb", "serology"],
-    #     ["bvic", "hi", "niid", "serology"],
-    #     ["bvic", "hi", "nimr", "serology"],
-
-    #     ["bvic", "hi", "cdc",  "ts"],
-    #     ["bvic", "hi", "melb", "ts"],
-    #     ["bvic", "hi", "niid", "ts"],
-    #     ["bvic", "hi", "nimr", "ts"],
-    #     # ts: compare with previous
-
-    #     ["h1", "tree"],
-    #     ["h3", "tree"],
-    #     ["bvic", "tree"],
-    #     ["byam", "tree"],
-
-    #     ["~all", "", "", "geographic"],
-    #     ["~all", "", "", "stat"],
-    #     ]
-
 
 # ----------------------------------------------------------------------
 
