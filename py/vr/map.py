@@ -34,7 +34,7 @@ class maker:
             self.one(lab=self.lab, interactive=interactive, open_pdf=open_pdf, output_dir=output_dir)
 
     def one(self, lab, interactive, open_pdf, output_dir):
-        pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{lab}-{self.map_name}.pdf"
+        pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-{lab}.pdf"
         cmd = f"mapi -a vr:{self.map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
         if interactive:
             cmd += " -i --open"
@@ -50,8 +50,8 @@ class maker:
         print(cmd)
         subprocess.check_call(cmd, shell=True)
 
-        summary_pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{self.lab}-{self.map_name}-summary.pdf"
-        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{self.lab}-{self.map_name}-[12]*.pdf {summary_pdf}"
+        summary_pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-summary-{self.lab}.pdf"
+        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-{self.lab}-[12]*.pdf {summary_pdf}"
         if open_pdf:
             cmd2 += f" && preview -p 930.0.820.3000 {summary_pdf}"
         print(cmd2)
