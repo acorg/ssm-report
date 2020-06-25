@@ -4,7 +4,9 @@
     ],
 
     "loc:rotate:viewport-A(H3N2)-Crick": [
-        {"?N": "viewport", "rel": [3.5, 2.0, -4]}
+        {"N": "flip", "direction": "ew"},
+        {"N": "rotate", "degrees": 90},
+        {"N": "viewport", "rel": [1.5, 1.5, -3]}
     ],
 
     "loc:title-A(H3N2)": [
@@ -48,5 +50,8 @@
     ],
 
     "loc:vaccines-A(H3N2)-Crick": [
+        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "passage": "egg", "most-used-for-name": true, "report": true}, "label": {"offset": [1, -0.5]}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "cell", "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [0.5, 1]}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "egg", "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [-0.5, -1]}}
     ]
 }
