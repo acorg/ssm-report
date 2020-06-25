@@ -45,7 +45,9 @@ class maker:
         if not map_name:
             map_name = self.map_name
         pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
-        cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf} --preview 1050.0.930.980"
+        cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
+        if open_pdf:
+            cmd += " --preview 1050.0.930.980"
         if interactive:
             cmd += " -i"
 
