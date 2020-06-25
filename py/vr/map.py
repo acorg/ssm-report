@@ -67,8 +67,8 @@ class maker:
         print(cmd)
         subprocess.check_call(cmd, shell=True)
 
-        summary_pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-summary-{self.lab}.pdf"
-        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-{self.lab}-[12]*.pdf {summary_pdf}"
+        summary_pdf = f"{output_dir}/summary-{self.subtype}-{self._assay()}-{self.map_name}-{self.lab}.pdf"
+        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-{self.lab}*.pdf {summary_pdf}"
         if open_pdf:
             cmd2 += f" && preview -p 1050.0.930.3000 {summary_pdf}"
         print(cmd2)
