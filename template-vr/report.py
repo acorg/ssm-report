@@ -15,7 +15,7 @@ def maps(modul):
 
         # H1 --------------------------------------------------
 
-        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-156", "clade-156-6m", "clade-156-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-155-156", "clade-155-156-6m", "clade-155-156-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
 
         # you may add individual maps like below
         # modul.map.maker(subtype="h1", lab="cdc",  map="clade-156"),

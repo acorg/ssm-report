@@ -49,7 +49,7 @@ class maker:
         if interactive:
             cmd += " -i --open"
         elif open_pdf:
-            cmd += f" && preview -p 930.0.820.870 {pdf}"
+            cmd += f" && preview -p 1050.0.930.980 {pdf}"
 
         print(cmd)
         subprocess.check_call(cmd, shell=True)

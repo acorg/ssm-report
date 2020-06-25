@@ -2,11 +2,13 @@
     "init": [
         {"N": "set",
          "vr": true,
-         "vaccine-size": 65,
-         "clade-pale": "",
+
          "time-series-start": "2019-10",
          "time-series-end":   "2020-04",
          "time-series-interval": {"month": 1},
+
+         "vaccine-size": 50,
+         "clade-pale": "",
          "not-found-in-previous-size": 25,
          "found-in-previous-size": 15,
          "output_dir": "out", "?": "necessary for ts"
@@ -35,6 +37,24 @@
 
     "vr:clade-6m": [
         {"N": "vr:clade", "date-recent": {"younger-than-days": 183}}
+    ],
+
+    "? H1 2020-02": "",
+    "vr:clade-155-156": [
+        "vr:reset",
+        "loc:clade-155-156-{virus-type/lineage}{subset}",
+        "loc:clade-155-156-{virus-type/lineage}{subset}-{lab}",
+        "vr:vaccines",
+        "loc:title-{virus-type/lineage}{subset}",
+        "loc:legend-{virus-type/lineage}{subset}"
+    ],
+
+    "vr:clade-155-156-12m": [
+        {"N": "vr:clade-155-156", "date-recent": {"younger-than-days": 365}}
+    ],
+
+    "vr:clade-155-156-6m": [
+        {"N": "vr:clade-155-156", "date-recent": {"younger-than-days": 183}}
     ],
 
     "? B/Vic 2020-02": "",
@@ -96,7 +116,7 @@
         "/all-grey",
         "/egg",
         {"N": "title", "text_size": 24, "font_weight": "bold"},
-        {"N": "point-scale", "scale": 4, "outline_scale": 1},
+        {"N": "point-scale", "scale": 2.5, "outline_scale": 1},
         "vr:rotate:viewport"
     ]
 }

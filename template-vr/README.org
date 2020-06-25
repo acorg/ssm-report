@@ -1,8 +1,14 @@
-# Time-stamp: <2020-06-23 18:27:20 eu>
+# Time-stamp: <2020-06-25 11:13:38 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
 [[https://worldhealthorg-my.sharepoint.com/:f:/g/personal/lievrem_who_int/EsWipHzg-WBHhuQkssp34PsBVpB6pucxdjLVY5OuUki4Vw?e=5%3aRqGQVW&at=9][WHO report folder (OneDrive)]]
+
+* link previous report data
+
+ln -s ../2020-0224-ssm previous
+
+see compare_with_previous in [[report.py]]
 
 * set of maps
 
