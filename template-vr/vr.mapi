@@ -26,7 +26,7 @@
         "vr:reset",
         "vr:clade-base",
         "vr:vaccines",
-        {"N": "title", "lines": ["{lab} {virus_type_lineage} by clade"]},
+        {"N": "title", "lines": ["{lab} {virus_type_lineage} {assay_neut} by clade"]},
         "loc:title-{virus-type/lineage}{subset}{assay-neut}",
         "loc:legend-{virus-type/lineage}{subset}{assay-neut}"
     ],
