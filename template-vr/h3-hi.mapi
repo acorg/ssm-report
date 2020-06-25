@@ -38,6 +38,7 @@
     ],
 
     "loc:clades-A(H3N2)-Crick": [
+      {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"]},   "fill": "green:t+0.7", "outline": ":t+0.7", "legend": {"label": "3a 144N 2015-2017 ({count})"}, "report": true}
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",
