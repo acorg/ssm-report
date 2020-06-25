@@ -111,7 +111,10 @@ class maker:
 def makers(subtype, labs, maps, assay=None, **options):
     result = [mk for mk in (maker(subtype=subtype, assay=assay, lab=lab, map=map, **options) for lab in labs for map in maps) if mk.merge_exists(mk.lab)]
     if result and len([en for en in maps if en.startswith("clade")]) > 1:
-        result += [maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options) for lab in labs]
+        for lab in labs:
+            mk = maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options)
+            if mk.merge_exists(lab):
+                result.append(maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options))
     return result
 
 # ======================================================================
