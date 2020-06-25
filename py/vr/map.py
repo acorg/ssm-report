@@ -60,28 +60,34 @@ class maker:
             lab = self.lab
         if not map_name:
             map_name = self.map_name
-        pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
-        cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
-        if open_pdf:
-            cmd += " --preview 1050.0.930.980"
-        if interactive:
-            cmd += " -i"
+        if self.merge_exists(lab=lab):
+            pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
+            cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
+            if open_pdf:
+                cmd += " --preview 1050.0.930.980"
+            if interactive:
+                cmd += " -i"
 
-        print(cmd)
-        subprocess.check_call(cmd, shell=True)
+            print(cmd)
+            subprocess.check_call(cmd, shell=True)
+        else:
+            module_logger.warning(f"No merge present: {self.merge(lab=lab)}: cannot make {map_name}")
 
     def ts(self, lab, map_name, open_pdf, output_dir):
-        compare_with_previous = str(bool(self.options.get("compare_with_previous"))).lower()
-        cmd = f"mapi -a vr:{map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=lab)} {self.previous_merge(lab=lab)} /"
-        print(cmd)
-        subprocess.check_call(cmd, shell=True)
+        if self.merge_exists(lab=lab):
+            compare_with_previous = str(bool(self.options.get("compare_with_previous"))).lower()
+            cmd = f"mapi -a vr:{map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=lab)} {self.previous_merge(lab=lab)} /"
+            print(cmd)
+            subprocess.check_call(cmd, shell=True)
 
-        summary_pdf = f"{output_dir}/summary-{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
-        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}*.pdf {summary_pdf}"
-        if open_pdf:
-            cmd2 += f" && preview -p 1050.0.930.3000 {summary_pdf}"
-        print(cmd2)
-        subprocess.check_call(cmd2, shell=True)
+            summary_pdf = f"{output_dir}/summary-{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
+            cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}*.pdf {summary_pdf}"
+            if open_pdf:
+                cmd2 += f" && preview -p 1050.0.930.3000 {summary_pdf}"
+            print(cmd2)
+            subprocess.check_call(cmd2, shell=True)
+        else:
+            module_logger.warning(f"No merge present: {self.merge(lab=lab)}: cannot make ts")
 
     def many_labs(self, output_dir):
         global s_labs_for_subtype
