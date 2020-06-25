@@ -45,6 +45,7 @@
         "loc:clade-155-156-{virus-type/lineage}{subset}",
         "loc:clade-155-156-{virus-type/lineage}{subset}-{lab}",
         "vr:vaccines",
+        {"N": "title", "lines": ["{lab} {virus_type_lineage} by amino-acid at 155, 156"]},
         "loc:title-{virus-type/lineage}{subset}",
         "loc:legend-{virus-type/lineage}{subset}"
     ],

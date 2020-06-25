@@ -8,6 +8,32 @@
     ],
 
     "? H1pdm": "----------------------------------------------------------------------------------------------------",
+
+    "loc:serology-A(H1N1)2009pdm": [
+      {"?N":"antigens", "select": {"name": "",         "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},                    "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "",       "passage": "egg"},  "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},                     "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "",    "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "",    "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+    ],
+
+    "loc:serology-A(H1N1)2009pdm-CDC": [
+        {"?N":"antigens", "show": false, "select": {"name": ["~IOWA/6/2017 MDCK1 (2017-02-27)", "~IOWA/6/2017 QMC2", "~IOWA/6/2017 QMC2 (2018-07-30)", "~IOWA/6/2017 DISTINCT QMC2"]}},
+        {"?N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 MDCK1 (2019-12-20)"}, "label": {"offset": [-1, -0.1], "name_type": "abbreviated_with_passage_type"}},
+        {"?N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 E3 (2019-12-16)"}, "show": true, "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
+        {"?N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 E2 (2019-04-15)"}, "show": true, "label": {"offset": [-0.95, -0.5], "name_type": "abbreviated_with_passage_type"}}
+    ],
+
+    "loc:serology-A(H1N1)2009pdm-VIDRL": [
+    ],
+
+    "loc:serology-A(H1N1)2009pdm-NIID": [
+    ],
+
+    "loc:serology-A(H1N1)2009pdm-Crick": [
+    ],
+
     "? H3 HI": "----------------------------------------------------------------------------------------------------",
     "? H3 Neut": "----------------------------------------------------------------------------------------------------",
 
@@ -42,4 +68,30 @@
     ],
 
     "? B/Yam": "----------------------------------------------------------------------------------------------------",
+
+    "loc:serology-B/Yam": [
+      {"?N":"antigens", "select": {"name": "",         "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},                    "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "",       "passage": "egg"},  "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": ""},                     "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "",    "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+      {"?N":"antigens", "select": {"name": "",    "passage": "cell"}, "label": "{serology-label}", "report": true, "size": "{serology-antigen-size}", "outline": "black", "fill": "{serology-fill}", "order": "raise"},
+    ],
+
+    "loc:serology-B/Yam-CDC": [
+        {"?N":"antigens", "show": false, "select": {"name": ["~IOWA/6/2017 MDCK1 (2017-02-27)", "~IOWA/6/2017 QMC2", "~IOWA/6/2017 QMC2 (2018-07-30)", "~IOWA/6/2017 DISTINCT QMC2"]}},
+        {"?N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 MDCK1 (2019-12-20)"}, "label": {"offset": [-1, -0.1], "name_type": "abbreviated_with_passage_type"}},
+        {"?N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 E3 (2019-12-16)"}, "show": true, "label": {"offset": [-1, 0], "name_type": "abbreviated_with_passage_type"}},
+        {"?N":"antigens", "select": {"name": "~RHODE ISLAND/1/2019 E2 (2019-04-15)"}, "show": true, "label": {"offset": [-0.95, -0.5], "name_type": "abbreviated_with_passage_type"}}
+    ],
+
+    "loc:serology-B/Yam-VIDRL": [
+    ],
+
+    "loc:serology-B/Yam-NIID": [
+    ],
+
+    "loc:serology-B/Yam-Crick": [
+    ],
+
 }
