@@ -45,11 +45,9 @@ class maker:
         if not map_name:
             map_name = self.map_name
         pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
-        cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
+        cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf} --preview 1050.0.930.980"
         if interactive:
-            cmd += " -i --open"
-        elif open_pdf:
-            cmd += f" && preview -p 1050.0.930.980 {pdf}"
+            cmd += " -i"
 
         print(cmd)
         subprocess.check_call(cmd, shell=True)
