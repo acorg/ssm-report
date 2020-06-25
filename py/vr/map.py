@@ -34,13 +34,13 @@ class maker:
         if not self.lab:
             self.many_labs(output_dir=output_dir)
         elif self.map_name == "ts":
-            self.ts(open_pdf=open_pdf, output_dir=output_dir)
+            self.ts(map_name=self.map_name, open_pdf=open_pdf, output_dir=output_dir)
         elif self.map_name == "clades":
             self.many_clades(output_dir=output_dir)
         elif not self.map_name and self.maps:
             for map_name in self.maps:
                 if map_name == "ts":
-                    self.ts(open_pdf=False, output_dir=output_dir)
+                    self.ts(map_name=map_name, open_pdf=False, output_dir=output_dir)
                 else:
                     self.one(map_name=map_name, interactive=False, open_pdf=False, output_dir=output_dir)
         else:
@@ -61,14 +61,14 @@ class maker:
         print(cmd)
         subprocess.check_call(cmd, shell=True)
 
-    def ts(self, open_pdf, output_dir):
+    def ts(self, map_name, open_pdf, output_dir):
         compare_with_previous = str(bool(self.options.get("compare_with_previous"))).lower()
-        cmd = f"mapi -a vr:{self.map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=self.lab)} {self.previous_merge(lab=self.lab)} /"
+        cmd = f"mapi -a vr:{map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=self.lab)} {self.previous_merge(lab=self.lab)} /"
         print(cmd)
         subprocess.check_call(cmd, shell=True)
 
-        summary_pdf = f"{output_dir}/summary-{self.subtype}-{self._assay()}-{self.map_name}-{self.lab}.pdf"
-        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{self.map_name}-{self.lab}*.pdf {summary_pdf}"
+        summary_pdf = f"{output_dir}/summary-{self.subtype}-{self._assay()}-{map_name}-{self.lab}.pdf"
+        cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{map_name}-{self.lab}*.pdf {summary_pdf}"
         if open_pdf:
             cmd2 += f" && preview -p 1050.0.930.3000 {summary_pdf}"
         print(cmd2)
