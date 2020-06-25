@@ -10,10 +10,11 @@ s_clade_maps = {}
 
 class maker:
 
-    def __init__(self, subtype, assay=None, lab=None, map=None, **options):
+    def __init__(self, subtype, assay=None, lab=None, map=None, maps=None, **options):
         self.subtype = subtype
         self.assay = assay
         self.map_name = map
+        self.maps = maps
         self.options = options
         if lab:
             self.lab = lab_new(lab)
@@ -21,7 +22,7 @@ class maker:
             s_labs_for_subtype.setdefault(self._subtype_key(), set()).add(self.lab)
         else:
             self.lab = None
-        if map.startswith("clade-") or map == "clade":
+        if map and (map.startswith("clade-") or map == "clade"):
             global s_clade_maps
             s_clade_maps.setdefault(self._subtype_key(), set()).add(map)
 
@@ -36,6 +37,12 @@ class maker:
             self.ts(open_pdf=open_pdf, output_dir=output_dir)
         elif self.map_name == "clades":
             self.many_clades(output_dir=output_dir)
+        elif not self.map_name and self.maps:
+            for map_name in self.maps:
+                if map_name == "ts":
+                    self.ts(open_pdf=False, output_dir=output_dir)
+                else:
+                    self.one(map_name=map_name, interactive=False, open_pdf=False, output_dir=output_dir)
         else:
             self.one(lab=self.lab, interactive=interactive, open_pdf=open_pdf, output_dir=output_dir)
 
@@ -115,6 +122,8 @@ def makers(subtype, labs, maps, assay=None, **options):
             mk = maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options)
             if mk.merge_exists(lab):
                 result.append(maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options))
+    for lab in labs:
+        result.append(maker(subtype=subtype, assay=assay, lab=lab, maps=maps, **options))
     return result
 
 # ======================================================================
