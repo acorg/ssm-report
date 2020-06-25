@@ -1,2 +1,64 @@
 {
+    "loc:rotate:viewport-A(H3N2)neut-VIDRL": [
+        {"?N": "viewport", "rel": [6, 7.0, -9]}
+    ],
+
+    "loc:rotate:viewport-A(H3N2)neut-Crick": [
+        {"?N": "viewport", "rel": [3.5, 2.0, -4]}
+    ],
+
+    "loc:title-A(H3N2)neut": [
+    ],
+
+    "loc:legend-A(H3N2)neut": [
+        {"N": "legend", "offset": [-10, -10], "show": true}
+    ],
+
+    "? ts": "----------------------------------------------------------------------------------------------------",
+
+    "loc:ts-A(H3N2)neut": [
+        "/continents",
+        {"N": "antigens", "select": {"test": true}, "size": "{not-found-in-previous-size}"},
+        {"N": "if", "condition": "{compare-with-previous}", "then": [
+            {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "{found-in-previous-size}"}
+        ]},
+        {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
+        {"N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
+    ],
+
+    "? clades": "----------------------------------------------------------------------------------------------------",
+
+    "loc:clades-A(H3N2)neut": [
+        "loc:clades-A(H3N2)-all"
+    ],
+
+    "loc:clades-A(H3N2)neut-CDC": [
+    ],
+
+    "loc:clades-A(H3N2)neut-VIDRL": [
+    ],
+
+    "loc:clades-A(H3N2)neut-NIID": [
+    ],
+
+    "loc:clades-A(H3N2)neut-Crick": [
+    ],
+
+    "? vaccines": "----------------------------------------------------------------------------------------------------",
+
+    "loc:vaccines-A(H3N2)neut": [
+        "loc:vaccines-A(H3N2)-all"
+    ],
+
+    "loc:vaccines-A(H3N2)neut-CDC": [
+    ],
+
+    "loc:vaccines-A(H3N2)neut-VIDRL": [
+    ],
+
+    "loc:vaccines-A(H3N2)neut-NIID": [
+    ],
+
+    "loc:vaccines-A(H3N2)neut-Crick": [
+    ]
 }
