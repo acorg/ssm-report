@@ -8,7 +8,7 @@
     ],
 
     "loc:rotate:viewport-A(H3N2)neut-NIID": [
-        {"?N": "viewport", "rel": [6, 7.0, -9]}
+        {"N": "viewport", "rel": [2, 1, -2]}
     ],
 
     "loc:rotate:viewport-A(H3N2)neut-Crick": [
@@ -68,6 +68,7 @@
     ],
 
     "loc:vaccines-A(H3N2)neut-NIID": [
+        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "passage": "egg", "most-used-for-name": true, "name": "~AUSTRALIA"}, "label": {"offset": [0, -1]}},
     ],
 
     "loc:vaccines-A(H3N2)neut-Crick": [
