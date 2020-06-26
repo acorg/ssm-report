@@ -12,7 +12,9 @@
     ],
 
     "loc:rotate:viewport-B/Yam-Crick": [
-        {"?N": "viewport", "rel": [3.5, 2.0, -4]}
+        {"N": "flip", "direction": "ew"},
+        {"N": "rotate", "degrees": -60},
+        {"N": "viewport", "rel": [2, 2, -5]}
     ],
 
     "loc:title-B/Yam": [
@@ -79,10 +81,11 @@
     ],
 
     "loc:vaccines-B/Yam-NIID": [
-        {"N": "antigens", "show": false, "select": {"vaccine": {"type": "previous"},  "name": "~(FLORIDA|WISCONSIN)", "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [-0.8, 1]}, "select": {"vaccine": {"type": "current"}, "passage": "cell", "most-used-for-name": true}},
+        {"N": "antigens", "show": false, "select": {"vaccine": {"type": "previous"},  "name": "~(FLORIDA|WISCONSIN)"}},
+        {"N": "antigens", "label": {"offset": [-0.8, 1]}, "select": {"vaccine": {"type": "current"}, "passage": "cell", "most-used-for-name": true}}
     ],
 
     "loc:vaccines-B/Yam-Crick": [
+        {"N": "antigens", "show": false, "select": {"vaccine": {"type": "previous"}}},
     ]
 }
