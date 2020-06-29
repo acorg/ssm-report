@@ -7,7 +7,7 @@ from acmacs_base.json import read_json, write_json
 
 # ----------------------------------------------------------------------
 
-def make_geographic(geo_dir, db_dir, virus_types=None, force=False):
+def make_geographic(geo_dir, db_dir=None, settings_dir=Path("."), virus_types=None, force=False):
     if force or not geo_dir.joinpath("index.html").exists():
         geo_dir.mkdir(exist_ok=True)
         prefixes = {}
@@ -15,10 +15,10 @@ def make_geographic(geo_dir, db_dir, virus_types=None, force=False):
             output_prefix = virus_type + "-geographic"
             output = geo_dir.joinpath(output_prefix + "-")
             script_filename = geo_dir.joinpath(output_prefix + ".sh")
-            script_filename.open("w").write("#! /bin/bash\nexec geographic-draw --db-dir {pwd}/db -v -s '{s1}' --time-series '{period}' '{virus_type}' '{output}'\n".format(
-                s1=str(Path(virus_type.lower() + "-geographic.json")),
+            script_filename.open("w").write("#! /bin/bash\nexec geographic-draw {db_dir} -v -s '{s1}' --time-series '{period}' '{virus_type}' '{output}'\n".format(
+                s1=str(settings_dir.joinpath(virus_type.lower() + "-geographic.json")),
                 virus_type=virus_type,
-                pwd=os.getcwd(),
+                db_dir=f"--db-dir {db_dir}" if db_dir else "",
                 period="monthly",
                 output=output
                 ))
@@ -105,15 +105,18 @@ sColoringByVirusType = {
 
 # ======================================================================
 
-def make_geographic_settings(force=False):
-    report_settings = read_json("report.json")
+def make_geographic_settings(settings_dir=Path("."), start_date=None, end_date=None, force=False):
+    if not start_date and not end_date:
+        report_settings = read_json("report.json")
+        start_date = report_settings["time_series"]["date"]["start"]
+        end_date = report_settings["time_series"]["date"]["end"]
     for virus_type in ["b", "h1", "h3"]:
-        filename = Path(virus_type + "-geographic.json")
+        filename = settings_dir.joinpath(virus_type + "-geographic.json")
         if force or not filename.exists():
             settings = copy.deepcopy(sSettings)
             settings["coloring"] = sColoringByVirusType[virus_type]
-            settings["start_date"] = report_settings["time_series"]["date"]["start"]
-            settings["end_date"] = report_settings["time_series"]["date"]["end"]
+            settings["start_date"] = start_date
+            settings["end_date"] = end_date
             write_json(filename, settings, compact=False)
 
 # ======================================================================
