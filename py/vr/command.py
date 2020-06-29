@@ -1,4 +1,4 @@
-import sys, subprocess
+import sys, os, subprocess, json
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 from . import report, map
@@ -8,12 +8,14 @@ from .error import Error
 
 def __get_merges(command, *r, **a): get_merges()
 def __get_hidb(command, *r, **a): get_hidb()
+def __stat_geo(command, *r, **a): stat_geo()
 
 sCommands = {
     "report": report.make_report,
     "report-addendum": report.make_addendum,
     "~get-merges": __get_merges,
     "~get-hidb": __get_hidb,
+    "~stat-geo": __stat_geo,
     }
 
 from report import maps
@@ -31,6 +33,14 @@ def process(command, interactive=False):
     if not cmd:
         raise Error(f"unknown command {command}")
     cmd(command, interactive=interactive)
+
+# ----------------------------------------------------------------------
+
+def stat_geo():
+    from ssm_report.stat import _make_stat
+    vr_data = json.load(Path("vr.mapi").open())
+    _make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=vr_data["init"][0]["time-series-start"], end=vr_data["init"][0]["time-series-end"], previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
+    subprocess.check_call("open stat/index.html", shell=True)
 
 # ----------------------------------------------------------------------
 

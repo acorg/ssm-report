@@ -1,8 +1,29 @@
-# Time-stamp: <2020-02-06 14:50:06 eu>
+# Time-stamp: <2020-06-29 12:59:52 eu>
 
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 
-* [before 2020-01-30] start new report preparation
+* Init
+vr-init 2020-0811-tc1
+vr-init 2020-0903-tc2
+vr-init 2020-0921-ssm
+
+* Make
+[[/Users/eu/.emacs.d/eu/eu-ssm.el][eu-ssm.el]]
+M-x eu-ssm-load
+C-f7 -> helm-ssm
+(setq eu-ssm-dir "/syn/eu/ac/results/ssm/2020-0811-tc1")
+ln -s ../2020-0224-ssm previous
+edit /syn/eu/ac/results/ssm/*/report.py
+heml-ssm: ~get-hidb
+heml-ssm: ~get-merges
+helm-ssm: ~stat-geo
+
+* [before 2020-01-30]
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+
+**  start new report preparation
 
 M-x eu-ssm-load
 
@@ -10,7 +31,7 @@ M-x eu-ssm-load
 SSM_DATE=2020-0224-ssm; ssm-make --init ~/ac/results/ssm/${SSM_DATE}
 #+END_SRC
 
-* [before 2020-01-30] start new report preparation
+** [before 2020-01-30] start new report preparation
 :PROPERTIES:
 :VISIBILITY: folded
 :END:
