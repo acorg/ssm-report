@@ -11,8 +11,13 @@ def __get_hidb(command, *r, **a): get_hidb()
 def __stat_geo(command, *r, **a): stat_geo()
 
 sCommands = {
-    "report": report.make_report,
-    "report-addendum": report.make_addendum,
+    "~report": report.make_report,
+    "~addendum-1": report.make_addendum_1,
+    "~addendum-2": report.make_addendum_2,
+    "~addendum-3": report.make_addendum_3,
+    "~addendum-4": report.make_addendum_4,
+    "~addendum-5": report.make_addendum_5,
+    "~addendum-6": report.make_addendum_6,
     "~get-merges": __get_merges,
     "~get-hidb": __get_hidb,
     "~stat-geo": __stat_geo,

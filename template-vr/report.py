@@ -10,9 +10,6 @@ def maps(modul):
         #     ["bvic", "tree"],
         #     ["byam", "tree"],
 
-        #     ["~all", "", "", "geographic"],
-        #     ["~all", "", "", "stat"],
-
         # H1 --------------------------------------------------
 
         modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-155-156", "clade-155-156-6m", "clade-155-156-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
@@ -42,8 +39,32 @@ def maps(modul):
 
 # ----------------------------------------------------------------------
 
-def report():
-    print("local report")
+def report(output_filename, modul):
+    modul.generate(output_filename=output_filename,
+                   data=[
+                       # modul.cover()
+                   ],
+    )
+
+# ----------------------------------------------------------------------
+
+def addendum_1(output_filename, modul):
+    pass
+
+def addendum_2(output_filename, modul):
+    pass
+
+def addendum_3(output_filename, modul):
+    pass
+
+def addendum_4(output_filename, modul):
+    pass
+
+def addendum_5(output_filename, modul):
+    pass
+
+def addendum_6(output_filename, modul):
+    pass
 
 # ======================================================================
 ### Local Variables:

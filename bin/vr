@@ -5,7 +5,7 @@
 ssm/vcm report maker 2020-06
 """
 
-import sys, os, traceback
+import sys, os, traceback, subprocess
 if f"{sys.version_info.major}.{sys.version_info.minor}" < "3.7": raise RuntimeError("Run script with python 3.7+")
 from pathlib import Path
 sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
@@ -57,12 +57,15 @@ try:
         vr.command.list_for_helm()
     else:
         main(args.commands)
+except subprocess.CalledProcessError as err:
+    logging.error(f"{err}")
+    exit(3)
 except vr.Error as err:
     logging.error(f"{err}")
-    exit(1)
+    exit(2)
 except Exception as err:
     logging.error(f"{err}\n{traceback.format_exc()}")
-    exit(2)
+    exit(1)
 
 # ======================================================================
 ### Local Variables:
