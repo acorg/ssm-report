@@ -37,7 +37,7 @@ def process(command, interactive=False):
 # ----------------------------------------------------------------------
 
 def stat_geo():
-    from ssm_report.stat import _make_stat
+    from .stat import make_stat
     vr_data = json.load(Path("vr.mapi").open())
     start_date = vr_data["init"][0]["time-series-start"]
     if len(start_date) == 7:
@@ -46,10 +46,10 @@ def stat_geo():
     if len(end_date) == 7:
         end_date = f"{end_date}-01"
 
-    _make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=start_date, end=end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
+    make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=start_date, end=end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
     subprocess.check_call("open stat/index.html", shell=True)
 
-    from ssm_report.geographic import make_geographic, make_geographic_settings
+    from .geographic import make_geographic, make_geographic_settings
     geo_dir = Path("geo")
     geo_dir.mkdir(exist_ok=True)
     make_geographic_settings(settings_dir=geo_dir, start_date=start_date, end_date=end_date, force=False)
