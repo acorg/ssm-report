@@ -54,6 +54,7 @@ def stat_geo():
     geo_dir.mkdir(exist_ok=True)
     make_geographic_settings(settings_dir=geo_dir, start_date=start_date, end_date=end_date, force=False)
     make_geographic(geo_dir=geo_dir, settings_dir=geo_dir, force=True)
+    subprocess.check_call(f"pdf-combine {geo_dir}/H1-*.pdf {geo_dir}/H3-*.pdf {geo_dir}/B-*.pdf {geo_dir}/all.pdf && open {geo_dir}/all.pdf", shell=True)
 
 # ----------------------------------------------------------------------
 
