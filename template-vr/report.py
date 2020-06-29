@@ -42,8 +42,9 @@ def maps(modul):
 def report(output_filename, modul):
     modul.generate(output_filename=output_filename,
                    data=[
-                       # modul.cover()
+                       modul.cover()
                    ],
+                   landscape="portreat"
     )
 
 # ----------------------------------------------------------------------

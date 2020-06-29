@@ -244,6 +244,61 @@ T_TableOfContents = r"""
 
 # ----------------------------------------------------------------------
 
+T_Cover = r"""
+% ----------------------------------------------------------------------
+% Cover
+% ----------------------------------------------------------------------
+
+\thispagestyle{empty}
+
+{%cover_quotation%
+\vspace*{%cover_top_space%}
+{
+\fontsize{22}{26} \selectfont
+\noindent
+\textbf{Information for the WHO Consultation\\ on the Composition of Influenza Vaccines\\ for the %report_hemisphere% Hemisphere %report_year%}
+\par
+}
+
+\vspace{90pt}
+{
+\fontsize{19}{24} \selectfont
+\noindent
+%teleconference%
+
+\vspace{10pt}
+\noindent
+%addendum%
+
+\vspace{50pt}
+\noindent
+%meeting_date%
+\par
+}
+
+\vspace{%cover_after_meeting_date_space%}
+{
+\large
+\noindent
+Center for Pathogen Evolution
+
+% \vspace{10pt}
+% \noindent
+% WHO Collaborating Center for Modeling, Evolution, and Control of Emerging Infectious Diseases
+
+\vspace{10pt}
+\noindent
+University of Cambridge, United Kingdom
+% do not remove two empty lines below
+
+
+% do not remove two empty lines above!
+}
+}
+"""
+
+# ----------------------------------------------------------------------
+
 T_ = r"""
 """
 

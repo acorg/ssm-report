@@ -8,8 +8,6 @@ def generate(output_filename: Path, data: list,
              paper_size="a4",
              page_numbering=True,
              landscape="landscape", # portreat
-             cover_top_space="130pt",
-             cover_after_meeting_date_space="180pt"
 ):
     output_dir = output_filename.parent
     output_dir.mkdir(exist_ok=True)
@@ -22,6 +20,29 @@ def generate(output_filename: Path, data: list,
         output_filename.chmod(0o444)
     subprocess.check_call(f"open {output_filename}", shell=True)
 
+# ----------------------------------------------------------------------
+
+class cover:
+
+    def __init__(self,
+                 cover_top_space="130pt",
+                 cover_after_meeting_date_space="180pt",
+                 cover_quotation="\\quotation",
+                 report_hemisphere="Southern",
+                 report_year="2021",
+                 teleconference="Teleconference 1",
+                 addendum="",
+                 meeting_date="11th August 2020"
+    ):
+        self.args = inspect.getargvalues(inspect.currentframe()).locals
+
+    def latex(self):
+        return [
+            substitute(latex.T_Cover,
+                       **self.args
+                       )
+            ]
+    
 # ----------------------------------------------------------------------
 
 def generate_latex(latex_source, args):
@@ -45,6 +66,8 @@ def generate_latex(latex_source, args):
     ]
     if not args["page_numbering"]:
         tex.append(latex.T_NoPageNumbering)
+    for entry in args["data"]:
+        tex.extend(entry.latex())
     tex.append(latex.T_Tail)
     text = '\n\n'.join(tex)
     with latex_source.open('w') as f:
