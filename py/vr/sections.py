@@ -1,4 +1,4 @@
-import inspect
+import inspect, json, lzma, pprint
 import logging; module_logger = logging.getLogger(__name__)
 from . import latex
 from .report import generate, substitute
@@ -89,6 +89,54 @@ class geographic_ts:
         if no:
             result.append("\\end{GeographicMapsTable}")
         return result
+
+# ----------------------------------------------------------------------
+
+class statistics_table:
+
+    sLabsForGetStat = {"CDC": ["CDC"], "NIMR": ["Crick", "CRICK", "NIMR"], "CRICK": ["Crick", "CRICK", "NIMR"], "MELB": ["VIDRL", "MELB"], "VIDRL": ["VIDRL", "MELB"]}
+
+    sContinents = ['ASIA', 'AUSTRALIA-OCEANIA', 'NORTH-AMERICA', 'EUROPE', 'RUSSIA', 'AFRICA', 'MIDDLE-EAST', 'SOUTH-AMERICA', 'CENTRAL-AMERICA', 'all', 'sera', 'sera_unique']
+
+    sHeader = {'ASIA': 'Asia', 'AUSTRALIA-OCEANIA': 'Oceania', 'NORTH-AMERICA': 'N Amer', 'EUROPE': 'Europe', 'RUSSIA': 'Russia', 'AFRICA': 'Africa',
+               'MIDDLE-EAST': 'M East', 'SOUTH-AMERICA': 'S Amer', 'CENTRAL-AMERICA': 'C Amer', 'all': 'TOTAL', 'month': 'Year-Mo', 'year': 'Year',
+               'sera': 'Sera', 'sera_unique': 'Sr Uniq'}
+
+    def __init__(self, **args):
+        for k, v in args.items():
+            setattr(self, k, v)
+        pprint.pprint(vars(self))
+        
+    def latex(self):
+        data = json.load(lzma.LZMAFile(self.current, "rb"))
+        data_antigens = self._get_for_lab(data['antigens'][self.subtype])
+        data_sera_unique = self._get_for_lab(data['sera_unique'].get(self.subtype, {}))
+        data_sera = self._get_for_lab(data['sera'].get(self.subtype, {}))
+        if self.previous:
+            previous_data = json.load(lzma.LZMAFile(self.previous, "rb"))
+            previous_data_antigens = self._get_for_lab(previous_data['antigens'].get(self.subtype, {}))
+            previous_data_sera_unique = self._get_for_lab(previous_data['sera_unique'].get(self.subtype, {}))
+            previous_data_sera = self._get_for_lab(previous_data['sera'].get(self.subtype, {}))
+            previous_sum = collections.defaultdict(int)
+        else:
+            previous_data_antigens, previous_data_sera_unique, previous_data_sera = {}, {}, {}
+
+        heading = ' & '.join('\\ContinentHeading{{{}}}'.format(n) for n in (self.sHeader[nn] for nn in self.sContinents))
+        heading = heading.replace('{TOTAL}', 'Total{TOTAL}').replace('{Sr Unique}', 'Last{Sr Unique}').replace('{Sr Uniq}', 'Last{Sr Uniq}')
+        result = [
+            r"\begin{WhoccStatisticsTable}  \hline",
+            r"\PeriodHeading{Month} & " + heading + r"\\",
+            r"\hline",
+            r"\end{WhoccStatisticsTable}"
+        ]
+        return result
+
+    def _get_for_lab(self, source):
+        for try_lab in self.sLabsForGetStat.get(self.lab, [self.lab]):
+            r = source.get(try_lab)
+            if r is not None:
+                return r
+        return {}
 
 # ======================================================================
 ### Local Variables:

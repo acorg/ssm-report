@@ -78,7 +78,9 @@ def report(output_filename, vr_data, modul):
                        modul.text_no_indent(sColoredByRegion),
                        # modul.vspace(1),
                        # modul.text_no_indent(sBigSmallDotsDescription),
-                       
+                       modul.vspace(3),
+                       modul.statistics_table(subtype="A(H1N1)", lab="CDC", current=Path("stat", "stat.json.xz"), previous=None, start=vr_data.start_date, end=vr_data.end_date),
+
    #  {"type": "statistics_table", "subtype": "H1", "lab": "CDC"},
    #  "new_page",
    #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "CDC"},
