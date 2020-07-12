@@ -22,29 +22,6 @@ def generate(output_filename: Path, data: list,
 
 # ----------------------------------------------------------------------
 
-class cover:
-
-    def __init__(self,
-                 cover_top_space="130pt",
-                 cover_after_meeting_date_space="180pt",
-                 cover_quotation="\\quotation",
-                 report_hemisphere="Southern",
-                 report_year="2021",
-                 teleconference="Teleconference 1",
-                 addendum="",
-                 meeting_date="11th August 2020"
-    ):
-        self.args = inspect.getargvalues(inspect.currentframe()).locals
-
-    def latex(self):
-        return [
-            substitute(latex.T_Cover,
-                       **self.args
-                       )
-            ]
-    
-# ----------------------------------------------------------------------
-
 def generate_latex(latex_source, args):
     LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
     tex = [
@@ -86,7 +63,8 @@ def substitute(text, **args):
 
 def make_report(command_name, *r, **a):
     from report import report
-    report(Path("report", "report.pdf"), sys.modules[__name__])
+    from . import sections
+    report(Path("report", "report.pdf"), sections)
 
 # ----------------------------------------------------------------------
 

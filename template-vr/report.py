@@ -42,7 +42,15 @@ def maps(modul):
 def report(output_filename, modul):
     modul.generate(output_filename=output_filename,
                    data=[
-                       modul.cover()
+                       modul.cover(),
+                       modul.toc(),
+                       modul.section_title("H1N1pdm09"),
+
+                       modul.section_title("H3N2"),
+
+                       modul.section_title("B"),
+                       modul.section_title("B/Vic"),
+                       modul.section_title("B/Yam"),
                    ],
                    landscape="portreat"
     )
