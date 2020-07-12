@@ -41,17 +41,23 @@ def process(command, interactive=False):
 
 # ----------------------------------------------------------------------
 
+class vr_data:
+
+    def __init__(self):
+        vr_data = json.load(Path("vr.mapi").open())
+        self.start_date = vr_data["init"][0]["time-series-start"]
+        self.end_date = vr_data["init"][0]["time-series-end"]
+        if len(self.start_date) == 7:
+            self.start_date = f"{self.start_date}-01"
+        if len(self.end_date) == 7:
+            self.end_date = f"{self.end_date}-01"
+
+# ----------------------------------------------------------------------
+
 def stat_geo():
     from .stat import make_stat
-    vr_data = json.load(Path("vr.mapi").open())
-    start_date = vr_data["init"][0]["time-series-start"]
-    if len(start_date) == 7:
-        start_date = f"{start_date}-01"
-    end_date = vr_data["init"][0]["time-series-end"]
-    if len(end_date) == 7:
-        end_date = f"{end_date}-01"
-
-    make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=start_date, end=end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
+    data = vr_data()
+    make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=data.start_date, end=data.end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
     subprocess.check_call("open stat/index.html", shell=True)
 
     from .geographic import make_geographic, make_geographic_settings

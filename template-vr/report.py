@@ -39,7 +39,14 @@ def maps(modul):
 
 # ----------------------------------------------------------------------
 
-def report(output_filename, modul):
+sGeographicTimeSeriesSubtitle = "Month-by-month geographic time series from {time_series_start} to {time_series_end}."
+sGeographicMapDesc = "Each dot indicates the isolation location for a strain that has been measured in an HI table. Thus these figures can be interpreted as a virologically-confirmed epidemiological spatial timeseries (modulo the usual caveats about surveillance biases)."
+
+# ----------------------------------------------------------------------
+
+def report(output_filename, vr_data, modul):
+    import pprint
+    pprint.pprint(vars(vr_data))
     modul.generate(output_filename=output_filename,
                    data=[
                        modul.cover(),
@@ -48,11 +55,11 @@ def report(output_filename, modul):
                        modul.section_title("H1N1pdm09"),
                        modul.subsection_title("H1N1pdm09 geographic data"),
                        modul.vspace(3),
-                       modul.text_no_indent("Month-by-month geographic time series from %time_series_start% to %time_series_end%."),
+                       modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_date, time_series_end=vr_data.end_date)),
                        modul.vspace(1),
                        modul.text_no_indent("Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey"),
                        modul.vspace(1),
-                       modul.text_no_indent("Each dot indicates the isolation location for a strain that has been measured in an HI table. Thus these figures can be interpreted as a virologically-confirmed epidemiological spatial timeseries (modulo the usual caveats about surveillance biases)."),
+                       modul.text_no_indent(sGeographicMapDesc),
 
    # {"type": "geographic_data_description", "coloring": "h1_clade"},
    #  "new_page",

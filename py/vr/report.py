@@ -64,7 +64,8 @@ def substitute(__text__, **args):
 def make_report(command_name, *r, **a):
     from report import report
     from . import sections
-    report(Path("report", "report.pdf"), sections)
+    from .command import vr_data
+    report(Path("report", "report.pdf"), vr_data(), sections)
 
 # ----------------------------------------------------------------------
 
