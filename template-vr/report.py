@@ -55,7 +55,7 @@ def report(output_filename, vr_data, modul):
                        modul.section_title("H1N1pdm09"),
                        modul.subsection_title("H1N1pdm09 geographic data"),
                        modul.vspace(3),
-                       modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_date, time_series_end=vr_data.end_date)),
+                       modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
                        modul.vspace(1),
                        modul.text_no_indent("Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey"),
                        modul.vspace(1),

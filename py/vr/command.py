@@ -1,4 +1,4 @@
-import sys, os, subprocess, json
+import sys, os, subprocess, json, datetime
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 from . import report, map
@@ -51,6 +51,8 @@ class vr_data:
             self.start_date = f"{self.start_date}-01"
         if len(self.end_date) == 7:
             self.end_date = f"{self.end_date}-01"
+        self.start_month_year = datetime.date.fromisoformat(self.start_date).strftime("%B %Y")
+        self.end_month_year = (datetime.date.fromisoformat(self.end_date) - datetime.timedelta(days=1)).strftime("%B %Y")
 
 # ----------------------------------------------------------------------
 
