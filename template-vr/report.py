@@ -43,6 +43,10 @@ def maps(modul):
 
 sGeographicTimeSeriesSubtitle = "Month-by-month geographic time series from {time_series_start} to {time_series_end}."
 sGeographicMapDesc = "Each dot indicates the isolation location for a strain that has been measured in an HI table. Thus these figures can be interpreted as a virologically-confirmed epidemiological spatial timeseries (modulo the usual caveats about surveillance biases)."
+sMonthByMonthTimeSeries = "Month-by-month time series from {time_series_start} to {time_series_end}."
+sAntigenicMapGrid = "Grid indicates 1 unit of antigenic distance, a 2-fold dilution in HI titer."
+sColoredByRegion = r"Reference antigens and antisera no fill. Epi strains (small dots) colored by region: \\ \ColorCodedByRegion"
+sBigSmallDotsDescription = "Small antigen dots indicate strains also in previous report, larger antigen dots indicate strains added since previous report."
 
 # ----------------------------------------------------------------------
 
@@ -64,14 +68,17 @@ def report(output_filename, vr_data, modul):
                        modul.text_no_indent(sGeographicMapDesc),
                        modul.new_page(),
                        modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
+                       modul.new_page(),
+                       modul.subsection_title("CDC H1N1pdm09 antigenic data"),
+                       modul.vspace(3),
+                       modul.text_no_indent(sMonthByMonthTimeSeries.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
+                       modul.vspace(1),
+                       modul.text_no_indent(sAntigenicMapGrid),
+                       modul.vspace(1),
+                       modul.text_no_indent(sColoredByRegion),
+                       modul.vspace(1),
+                       modul.text_no_indent(sBigSmallDotsDescription),
                        
-   # {"type": "geographic_data_description", "coloring": "h1_clade"},
-   #  "new_page",
-   #  {"type": "geographic_ts", "subtype": "H1"},
-   #  "new_page",
-
-   #  {"type": "subsection_begin", "subtype": "H1", "title": "CDC H1N1pdm09 antigenic data"},
-   #  {"type": "antigenic_ts_description", "coloring": "continents"},
    #  {"type": "statistics_table", "subtype": "H1", "lab": "CDC"},
    #  "new_page",
    #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "CDC"},

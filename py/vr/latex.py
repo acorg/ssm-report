@@ -46,16 +46,32 @@ T_ColorCodedBy = r"""
 % ----------------------------------------------------------------------
 % ColorCodedBy
 % ----------------------------------------------------------------------
+\newcommand\cbox[1][black]{\textcolor{#1}{\rule{0.7em}{0.7em}}}
 \newcommand{\ColorCodedByRegion}{%
-{\color{NorthAmerica}DarkBlue = NorthAmerica},
-{\color{SouthAmerica}LightBlue = SouthAmerica},
-{\color{Europe}Green = Europe},
-{\color{Africa}Orange = Africa},
-{\color{MiddleEast}Purple = MiddleEast},
-{\color{Russia}Maroon = Russia},
-{\color{Asia}Red = E SE Asia},
-{\color{AustraliaOceania}Pink = Oceania},
-{\color{Unknown}Grey = unknown}.
+  \begin{tabular}{l l l}
+    \cbox[NorthAmerica] & North America & Dark Blue \\
+    \cbox[SouthAmerica] & South America & Light Blue \\
+    \cbox[Europe] & Europe & Green \\
+    \cbox[Africa] & Africa & Orange \\
+    \cbox[MiddleEast] & MiddleEast & Purple \\
+    \cbox[Russia] & Russia & Maroon \\
+    \cbox[Asia] & East and South East Asia & Red \\
+    \cbox[AustraliaOceania] & Australia and Oceania & Pink \\
+    \cbox[Unknown] & unknown & Grey \\
+  \end{tabular}
+
+}
+
+\newcommand{\ColorCodedByRegionOld}{%
+{\color{NorthAmerica}DarkBlue = NorthAmerica} \\
+{\color{SouthAmerica}LightBlue = SouthAmerica} \\
+{\color{Europe}Green = Europe} \\
+{\color{Africa}Orange = Africa} \\
+{\color{MiddleEast}Purple = MiddleEast} \\
+{\color{Russia}Maroon = Russia} \\
+{\color{Asia}Red = E SE Asia} \\
+{\color{AustraliaOceania}Pink = Oceania} \\
+{\color{Unknown}Grey = unknown}
 }
 
 \newcommand{\ColorCodedByLineage}{%

@@ -72,7 +72,7 @@ class subsection_title (_single_latex_entry):
 class geographic_ts:
 
     def __init__(self, pdfs):
-        self.pdfs = pdfs
+        self.pdfs = sorted(pdfs)
 
     def latex(self):
         result = []

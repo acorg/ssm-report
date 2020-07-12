@@ -31,6 +31,7 @@ def generate_latex(latex_source, args):
         latex.T_RemoveSectionNumbering,
         latex.T_TableOfContents,
         # latex.T_ColorsBW,
+        latex.T_ColorsColors,
         latex.T_ColorCodedBy,
         latex.T_AntigenicMapTable,
         latex.T_WhoccStatisticsTable,
