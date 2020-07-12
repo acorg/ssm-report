@@ -1,3 +1,5 @@
+from pathlib import Path
+
 # ----------------------------------------------------------------------
 
 compare_with_previous = True
@@ -60,7 +62,9 @@ def report(output_filename, vr_data, modul):
                        modul.text_no_indent("Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey"),
                        modul.vspace(1),
                        modul.text_no_indent(sGeographicMapDesc),
-
+                       modul.new_page(),
+                       modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
+                       
    # {"type": "geographic_data_description", "coloring": "h1_clade"},
    #  "new_page",
    #  {"type": "geographic_ts", "subtype": "H1"},

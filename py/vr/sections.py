@@ -40,12 +40,13 @@ class _single_latex_entry:
         except Exception as err:
             module_logger.error(f"args: {self.args}")
             raise
-
-# ----------------------------------------------------------------------
-
 # toc()
 class toc (_single_latex_entry):
     def __init__(self): super().__init__(latex.T_TOC)
+
+# new_page()
+class new_page (_single_latex_entry):
+    def __init__(self): super().__init__(latex.T_NewPage)
 
 # vspace(1)
 class vspace (_single_latex_entry):
@@ -62,6 +63,32 @@ class section_title (_single_latex_entry):
 # subsection_title("H1N1pdm09 geographic data")
 class subsection_title (_single_latex_entry):
     def __init__(self, title): super().__init__(latex.T_Subsection, title=title)
+
+# ----------------------------------------------------------------------
+
+# geographic_ts(Path("geo").glob("H1-geographic-*.pdf"))
+# geographic_ts(Path("geo").glob("H3-geographic-*.pdf"))
+# geographic_ts(Path("geo").glob("B-geographic-*.pdf"))
+class geographic_ts:
+
+    def __init__(self, pdfs):
+        self.pdfs = pdfs
+
+    def latex(self):
+        result = []
+        no = 0
+        for image in self.pdfs:
+            if image.exists():
+                if (no % 3) == 0:
+                    if no:
+                        result.append("\\end{GeographicMapsTable}")
+                    result.append("\\newpage")
+                    result.append("\\begin{GeographicMapsTable}")
+                result.append("  \\GeographicMap{{{}}} \\\\".format(image.resolve()))
+                no += 1
+        if no:
+            result.append("\\end{GeographicMapsTable}")
+        return result
 
 # ======================================================================
 ### Local Variables:
