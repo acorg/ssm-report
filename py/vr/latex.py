@@ -6,6 +6,7 @@ T_Head = r"""% !TEX encoding = UTF-8 Unicode
 \usepackage[cm]{fullpage}
 \usepackage{verbatim}
 \usepackage[table]{xcolor}
+\usepackage{tikz}               % draw filled circles in \ColorCodedByRegion
 
 \usepackage{graphicx}           % multiple pdfs per page
 \usepackage[export]{adjustbox}  % frame in \includegraphics
@@ -46,7 +47,8 @@ T_ColorCodedBy = r"""
 % ----------------------------------------------------------------------
 % ColorCodedBy
 % ----------------------------------------------------------------------
-\newcommand\cbox[1][black]{\textcolor{#1}{\rule{0.7em}{0.7em}}}
+% \newcommand\cbox[1][black]{\textcolor{#1}{\rule{0.7em}{0.7em}}}
+\newcommand\cbox[1][black]{\tikz[baseline=-0.5ex]\draw[black,fill=#1,radius=0.3em] (0,0) circle ;}
 \newcommand{\ColorCodedByRegion}{%
   \begin{tabular}{l l l}
     \cbox[NorthAmerica] & North America & Dark Blue \\
