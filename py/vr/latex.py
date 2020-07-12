@@ -411,17 +411,31 @@ T_Begin = r"""
 
 T_NoPageNumbering = r" \pagenumbering{gobble} "
 
-# ----------------------------------------------------------------------
-
-T_Section = r"""%no-eol%
-% ----------------------------------------------------------------------
-% Section
-% ----------------------------------------------------------------------
-\newpage
-\section{%title%}
-"""
+T_NewPage = r"\newpage"
+T_VSpace = r"\vspace{%em%em}"
+T_Text_NoIndent = r"\noindent %text%"
 
 # ----------------------------------------------------------------------
+
+T_Section = r"\newpage \section{%title%}"
+T_Subsection = r"\subsection{%title%}"
+
+# ----------------------------------------------------------------------
+
+
+# T_Description_3_parts = r"""%no-eol%
+# \vspace{3em}
+# \noindent
+# %part_1%
+
+# \vspace{1em}
+# \noindent
+# %part_2%
+
+# \vspace{1em}
+# \noindent
+# %part_3%
+# """
 
 
 # ======================================================================

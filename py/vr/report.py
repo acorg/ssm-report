@@ -52,12 +52,12 @@ def generate_latex(latex_source, args):
 
 # ======================================================================
 
-def substitute(text, **args):
-    # text = text.replace('%no-eol%\n', '')
+def substitute(__text__, **args):
+    # __text__ = __text__.replace('%no-eol%\n', '')
     for option, value in args.items():
         if isinstance(value, (str, int, float)):
-            text = text.replace('%{}%'.format(option), str(value))
-    return text
+            __text__ = __text__.replace('%{}%'.format(option), str(value))
+    return __text__
 
 # ======================================================================
 

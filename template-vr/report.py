@@ -44,7 +44,92 @@ def report(output_filename, modul):
                    data=[
                        modul.cover(),
                        modul.toc(),
+
                        modul.section_title("H1N1pdm09"),
+                       modul.subsection_title("H1N1pdm09 geographic data"),
+                       modul.vspace(3),
+                       modul.text_no_indent("Month-by-month geographic time series from %time_series_start% to %time_series_end%."),
+                       modul.vspace(1),
+                       modul.text_no_indent("Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey"),
+                       modul.vspace(1),
+                       modul.text_no_indent("Each dot indicates the isolation location for a strain that has been measured in an HI table. Thus these figures can be interpreted as a virologically-confirmed epidemiological spatial timeseries (modulo the usual caveats about surveillance biases)."),
+
+   # {"type": "geographic_data_description", "coloring": "h1_clade"},
+   #  "new_page",
+   #  {"type": "geographic_ts", "subtype": "H1"},
+   #  "new_page",
+
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "CDC H1N1pdm09 antigenic data"},
+   #  {"type": "antigenic_ts_description", "coloring": "continents"},
+   #  {"type": "statistics_table", "subtype": "H1", "lab": "CDC"},
+   #  "new_page",
+   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "CDC"},
+   #  "new_page",
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "Crick H1N1pdm09 antigenic data"},
+   #  {"type": "antigenic_ts_description", "coloring": "continents"},
+   #  {"type": "statistics_table", "subtype": "H1", "lab": "NIMR"},
+   #  "new_page",
+   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "NIMR"},
+   #  "new_page",
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "NIID H1N1pdm09 antigenic data"},
+   #  {"type": "antigenic_ts_description", "coloring": "continents"},
+   #  {"type": "statistics_table", "subtype": "H1", "lab": "NIID"},
+   #  "new_page",
+   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "NIID"},
+   #  "new_page",
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "VIDRL H1N1pdm09 antigenic data"},
+   #  {"type": "antigenic_ts_description", "coloring": "continents"},
+   #  {"type": "statistics_table", "subtype": "H1", "lab": "MELB"},
+   #  "new_page",
+   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "MELB"},
+   #  "new_page",
+
+   #  {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic data"},
+   #  {"?type": "antigenic_ts_description", "coloring": "continents"},
+   #  {"?type": "statistics_table", "subtype": "H1", "lab": "all"},
+   #  "? new_page",
+   #  {"?type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "all"},
+   #  "? new_page",
+
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 phylogenetic tree"},
+   #  {"type": "phylogenetic_description"},
+   #  "new_page",
+   #  {"type": "phylogenetic_tree", "subtype": "H1"},
+   #  "new_page",
+
+   #  {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map colored by phylogenetic clade"},
+   #  {"?type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map, antigens color-coded by phylogenetic clade."},
+   #  {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "clade"},
+   #  "? new_page",
+
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps colored by amino-acid at 155, 156"},
+   #  {"type": "maps", "images": [
+   #    "h1-hi/aa-156-cdc.pdf", "h1-hi/aa-156-nimr.pdf",
+   #    "h1-hi/aa-156-niid.pdf", "h1-hi/aa-156-melb.pdf"
+   #  ]},
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps colored by amino-acid at 155, 156 (since February 2019)"},
+   #  {"type": "maps", "images": [
+   #    "h1-hi/aa-156-12m-cdc.pdf", "h1-hi/aa-156-12m-nimr.pdf",
+   #    "h1-hi/aa-156-12m-niid.pdf", "h1-hi/aa-156-12m-melb.pdf"
+   #  ]},
+   #  "new_page",
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps colored by amino-acid at 155, 156 (since August 2019)"},
+   #  {"type": "maps", "images": [
+   #    "h1-hi/aa-156-6m-cdc.pdf", "h1-hi/aa-156-6m-nimr.pdf",
+   #    "h1-hi/aa-156-6m-niid.pdf", "h1-hi/aa-156-6m-melb.pdf"
+   #  ]},
+   #  "new_page",
+
+   #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps with serology antigens."},
+   #  {"type": "description", "text": "Antigenic maps with serology antigens in orange, other antigens color-coded by by amino-acid at 155, 156."},
+   #  {"type": "maps", "images": [
+   #    "h1-hi/serology-aa-156-cdc.pdf", "h1-hi/serology-aa-156-nimr.pdf",
+   #    "h1-hi/serology-aa-156-niid.pdf", "h1-hi/serology-aa-156-melb.pdf"
+   #  ]},
+   #  {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map with serology antigens."},
+   #  {"?type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
+   #  {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "serology"},
+   #  "? new_page",
 
                        modul.section_title("H3N2"),
 
