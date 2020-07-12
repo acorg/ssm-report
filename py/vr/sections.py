@@ -1,4 +1,4 @@
-import inspect, json, lzma, pprint
+import inspect, json, lzma, re, collections, pprint
 import logging; module_logger = logging.getLogger(__name__)
 from . import latex
 from .report import generate, substitute
@@ -102,24 +102,26 @@ class statistics_table:
                'MIDDLE-EAST': 'M East', 'SOUTH-AMERICA': 'S Amer', 'CENTRAL-AMERICA': 'C Amer', 'all': 'TOTAL', 'month': 'Year-Mo', 'year': 'Year',
                'sera': 'Sera', 'sera_unique': 'Sr Uniq'}
 
+    sReYearMonth = {'month': re.compile(r'^\d{6}$', re.I), 'year': re.compile(r'^\d{4}$', re.I)}
+
     def __init__(self, **args):
+        self.period = "month"
         for k, v in args.items():
             setattr(self, k, v)
-        pprint.pprint(vars(self))
-        
+
     def latex(self):
         data = json.load(lzma.LZMAFile(self.current, "rb"))
-        data_antigens = self._get_for_lab(data['antigens'][self.subtype])
-        data_sera_unique = self._get_for_lab(data['sera_unique'].get(self.subtype, {}))
-        data_sera = self._get_for_lab(data['sera'].get(self.subtype, {}))
+        data_antigens = self.get_for_lab(data['antigens'][self.subtype])
+        data_sera_unique = self.get_for_lab(data['sera_unique'].get(self.subtype, {}))
+        data_sera = self.get_for_lab(data['sera'].get(self.subtype, {}))
         if self.previous:
             previous_data = json.load(lzma.LZMAFile(self.previous, "rb"))
-            previous_data_antigens = self._get_for_lab(previous_data['antigens'].get(self.subtype, {}))
-            previous_data_sera_unique = self._get_for_lab(previous_data['sera_unique'].get(self.subtype, {}))
-            previous_data_sera = self._get_for_lab(previous_data['sera'].get(self.subtype, {}))
+            previous_data_antigens = self.get_for_lab(previous_data['antigens'].get(self.subtype, {}))
+            previous_data_sera_unique = self.get_for_lab(previous_data['sera_unique'].get(self.subtype, {}))
+            previous_data_sera = self.get_for_lab(previous_data['sera'].get(self.subtype, {}))
             previous_sum = collections.defaultdict(int)
         else:
-            previous_data_antigens, previous_data_sera_unique, previous_data_sera = {}, {}, {}
+            previous_sum, previous_data_antigens, previous_data_sera_unique, previous_data_sera = {}, {}, {}, {}
 
         heading = ' & '.join('\\ContinentHeading{{{}}}'.format(n) for n in (self.sHeader[nn] for nn in self.sContinents))
         heading = heading.replace('{TOTAL}', 'Total{TOTAL}').replace('{Sr Unique}', 'Last{Sr Unique}').replace('{Sr Uniq}', 'Last{Sr Uniq}')
@@ -127,16 +129,78 @@ class statistics_table:
             r"\begin{WhoccStatisticsTable}  \hline",
             r"\PeriodHeading{Month} & " + heading + r"\\",
             r"\hline",
-            r"\end{WhoccStatisticsTable}"
         ]
+        for date in self.make_dates(data_antigens):
+            result.append(self.make_line(date, data_antigens=data_antigens.get(date, {}), data_sera=data_sera.get(date, {}), data_sera_unique=data_sera_unique.get(date, {}), previous_data_antigens=previous_data_antigens.get(date, {}), previous_data_sera=previous_data_sera.get(date, {}).get('all', 0), previous_data_sera_unique=previous_data_sera_unique.get(date, {}).get('all', 0)))
+            if previous_data_antigens:
+                for continent in self.sContinents[:-2]:
+                    previous_sum[continent] += previous_data_antigens.get(date, {}).get(continent, 0)
+                previous_sum['sera'] += previous_data_sera.get(date, {}).get('all', 0)
+                previous_sum['sera_unique'] += previous_data_sera_unique.get(date, {}).get('all', 0)
+        result.extend([
+            r"\hline",
+            self.make_line('all', data_antigens=data_antigens.get('all', {}), data_sera=data_sera.get('all', {}), data_sera_unique=data_sera_unique.get('all', {}), previous_data_antigens=previous_sum, previous_data_sera=previous_sum.get('sera'), previous_data_sera_unique=previous_sum.get('sera_unique')),
+            r"\hline",
+            r"\end{WhoccStatisticsTable}",
+        ])
         return result
 
-    def _get_for_lab(self, source):
+    def get_for_lab(self, source):
         for try_lab in self.sLabsForGetStat.get(self.lab, [self.lab]):
             r = source.get(try_lab)
             if r is not None:
                 return r
         return {}
+
+    def make_line(self, date, data_antigens, data_sera, data_sera_unique, previous_data_antigens, previous_data_sera, previous_data_sera_unique):
+
+        def diff_current_previous(continent):
+            diff = data_antigens.get(continent, 0) - previous_data_antigens.get(continent, 0)
+            if diff < 0:
+                module_logger.error('{} {}: Current: {} Previous: {}'.format(self.format_date(date), continent, data_antigens.get(continent, 0), previous_data_antigens.get(continent, 0)))
+                diff = 0
+            return diff
+
+        data = [self.format_date(date)]
+        if previous_data_antigens:
+            if date == 'all':
+                data.extend(['\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_antigens.get(continent, 0), diff_current_previous(continent)) for continent in self.sContinents[:-3]])
+                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_antigens.get('all', 0), diff_current_previous('all')))
+                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_sera.get('all', 0), data_sera.get('all', 0) - previous_data_sera))
+                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_sera_unique.get('all', 0), data_sera_unique.get('all', 0) - previous_data_sera_unique))
+            else:
+                data.extend(['\WhoccStatisticsTableCellTwo{{{}}}{{{}}}'.format(data_antigens.get(continent, 0), diff_current_previous(continent)) for continent in self.sContinents[:-3]])
+                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_antigens.get(self.sContinents[-3], 0), diff_current_previous(self.sContinents[-3])))
+                data.append( '\WhoccStatisticsTableCellTwo{{{}}}{{{}}}'.format(data_sera.get('all', 0), data_sera.get('all', 0) - previous_data_sera))
+                data.append( '\WhoccStatisticsTableCellTwo{{{}}}{{{}}}'.format(data_sera_unique.get('all', 0), data_sera_unique.get('all', 0) - previous_data_sera_unique))
+        else:
+            data.extend(['\WhoccStatisticsTableCellOne{{{}}}'.format(data_antigens.get(continent, 0)) for continent in self.sContinents[:-2]])
+            data.append( '\WhoccStatisticsTableCellOne{{{}}}'.format(data_sera.get('all', 0)))
+            data.append( '\WhoccStatisticsTableCellOne{{{}}}'.format(data_sera_unique.get('all', 0)))
+        return '  ' + ' & '.join(data) + ' \\\\'
+
+    def make_dates(self, data, **sorting):
+        rex = self.sReYearMonth[self.period]
+        start = None
+        end = None
+        # if self.period == 'month':
+        #     start = self.start and self.start.strftime('%Y%m')
+        #     end = self.end and self.end.strftime('%Y%m')
+        return sorted((date for date in data if rex.match(date) and (not start or date >= start) and (not end or date < end)), **sorting)
+
+    def format_date(self, date):
+        if date[0] == '9':
+            result = 'Unknown'
+        elif date == 'all':
+            result = '\\color{WhoccStatisticsTableTotal} TOTAL'
+        elif len(date) == 4 or date[4:] == '99':
+            if self.period == 'month':
+                result = '{}-??'.format(date[:4])
+            else:
+                result = '{}'.format(date[:4])
+        else:
+            result = '{}-{}'.format(date[:4], date[4:])
+        return result
 
 # ======================================================================
 ### Local Variables:
