@@ -76,8 +76,8 @@ def report(output_filename, vr_data, modul):
                        modul.text_no_indent(sAntigenicMapGrid),
                        modul.vspace(1),
                        modul.text_no_indent(sColoredByRegion),
-                       modul.vspace(1),
-                       modul.text_no_indent(sBigSmallDotsDescription),
+                       # modul.vspace(1),
+                       # modul.text_no_indent(sBigSmallDotsDescription),
                        
    #  {"type": "statistics_table", "subtype": "H1", "lab": "CDC"},
    #  "new_page",
