@@ -1,4 +1,4 @@
-import inspect, json, lzma, re, collections, itertools, pprint
+import inspect, json, lzma, re, collections, itertools, datetime, pprint
 import logging; module_logger = logging.getLogger(__name__)
 from . import latex
 from .report import generate, substitute
@@ -18,6 +18,9 @@ def subtype_assay_display(subtype, assay):
         return f"{SubtypeDisplay[subtype]} {AssayDisplay[assay]}"
     else:
         return f"{SubtypeDisplay[subtype]}"
+
+def months_ago(number_of_month):
+    return (datetime.date.today() - datetime.timedelta(days=number_of_month * 30)).strftime("%B %Y")
 
 # ----------------------------------------------------------------------
 

@@ -124,13 +124,13 @@ def h1(modul, vr_data):
             Path("out", "h1-hi-clade-155-156-niid.pdf"), Path("out", "h1-hi-clade-155-156-vidrl.pdf"), 
         ]),
         modul.new_page(), # --------------------------------------------------
-        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since \\textcolor{{red}}{{??????}})"),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since {modul.months_ago(12)})"),
         modul.maps_in_two_columns([
             Path("out", "h1-hi-clade-155-156-12m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-12m-crick.pdf"), 
             Path("out", "h1-hi-clade-155-156-12m-niid.pdf"), Path("out", "h1-hi-clade-155-156-12m-vidrl.pdf"), 
         ]),
         modul.new_page(), # --------------------------------------------------
-        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since \\textcolor{{red}}{{??????}})"),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since {modul.months_ago(6)})"),
         modul.maps_in_two_columns([
             Path("out", "h1-hi-clade-155-156-6m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-6m-crick.pdf"), 
             Path("out", "h1-hi-clade-155-156-6m-niid.pdf"), Path("out", "h1-hi-clade-155-156-6m-vidrl.pdf"), 
