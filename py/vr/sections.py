@@ -98,7 +98,7 @@ class whole_page_image:
         if self.filename.exists():
             return [f"\\WholePagePdfFit{{{self.filename.resolve()}}}"]
         else:
-            return [f"\\newpage {self.filename}"]
+            return [f"\\newpage \\vspace*{{15em}} {{\\fontsize{{40}}{{50}} \\selectfont \\noindent \\rotatebox{{315}}{{ \\textbf{{ \\textcolor{{red}}{{{self.filename}}} }} }}}}"]
 
 # ----------------------------------------------------------------------
 
