@@ -72,6 +72,10 @@ class vspace (_single_latex_entry):
 class text_no_indent (_single_latex_entry):
     def __init__(self, text): super().__init__(latex.T_Text_NoIndent, text=text)
 
+# text("text")
+class text (_single_latex_entry):
+    def __init__(self, text): super().__init__(latex.T_Text, text=text)
+
 # section_title("H1N1pdm09")
 class section_title (_single_latex_entry):
     def __init__(self, title): super().__init__(latex.T_Section, title=title)
@@ -79,6 +83,19 @@ class section_title (_single_latex_entry):
 # subsection_title("H1N1pdm09 geographic data")
 class subsection_title (_single_latex_entry):
     def __init__(self, title): super().__init__(latex.T_Subsection, title=title)
+
+# ----------------------------------------------------------------------
+
+# whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf"))
+class whole_page_image:
+    def __init__(self, filename):
+        self.filename = filename
+
+    def latex(self):
+        if self.filename.exists():
+            return [f"\\WholePagePdfFit{{{self.filename.resolve()}}}"]
+        else:
+            return [f"\\newpage {self.filename}"]
 
 # ----------------------------------------------------------------------
 

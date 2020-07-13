@@ -48,6 +48,29 @@ sAntigenicMapGrid = "Grid indicates 1 unit of antigenic distance, a 2-fold dilut
 sColoredByRegion = r"Reference antigens and antisera no fill. Epi strains (small dots) colored by region: \\ \ColorCodedByRegion"
 sBigSmallDotsDescription = "Small antigen dots indicate strains also in previous report, larger antigen dots indicate strains added since previous report."
 
+sPhylogeneticDescription = r"""\vspace{3em}
+\noindent
+The phylogenetic tree is color coded by region, legend is in the bottom left corner of the next page.
+
+\vspace{1em}
+\noindent
+The month in which recent strains in the tree were isolated is indicated
+by horizontal bars to the right of the tree drawn at the same vertical
+position as the position of the strain in the tree. The horizontal bars
+are also colored by region. This tree is zoomable, and when zoomed the
+strain names and dates on which they were isolated can be read.
+
+\vspace{1em}
+\noindent
+Nucleotide sequences of the HA1 domain of the HA were aligned. MODELTEST was run
+on the aligned sequences and GTR+I+gamma4 was determined to be the most
+appropriate evolutionary model for phylogenetic tree construction. Initial
+tree construction was performed using RAxML v8.2.8 under the GTRGAMMAI
+model. Global optimization of branch topology was then performed on the tree
+with the best likelihood score from RAxML using GARLI v2.1 under the model
+parameters determined by MODELTEST. Garli was run for 1,000,000 generations.
+"""
+
 # ----------------------------------------------------------------------
 
 def report(output_filename, vr_data, modul):
@@ -75,8 +98,8 @@ def h1(modul, vr_data):
     assay = "hi"
     labs = ["CDC", "NIID", "VIDRL"] # "Crick"
     return [
-        modul.section_title("{modul.SubtypeDisplay[subtype]}"),
-        modul.subsection_title("{modul.SubtypeDisplay[subtype]} geographic data"),
+        modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} geographic data"),
         modul.vspace(3),
         modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
         modul.vspace(1),
@@ -87,6 +110,9 @@ def h1(modul, vr_data):
         modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
         modul.new_page(), # --------------------------------------------------
         *antigenic_ts(modul=modul, subtype=subtype, assay="hi", labs=labs, colored_by=sColoredByRegion, vr_data=vr_data),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
+        modul.text(sPhylogeneticDescription),
+        modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.xpdf")),
     ]
 
    #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 phylogenetic tree"},
@@ -134,8 +160,8 @@ def h1(modul, vr_data):
 def h3(modul, vr_data):
     subtype = "A(H3N2)"
     return [
-        modul.section_title("{modul.SubtypeDisplay[subtype]}"),
-        modul.subsection_title("{modul.SubtypeDisplay[subtype]} geographic data"),
+        modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} geographic data"),
         modul.vspace(3),
         modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
         modul.vspace(1),
@@ -146,6 +172,9 @@ def h3(modul, vr_data):
         modul.geographic_ts(Path("geo").glob("H3-geographic-*.pdf")),
         modul.new_page(), # --------------------------------------------------
         *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="CDC", colored_by=sColoredByRegion, vr_data=vr_data),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
+        modul.text_no_indent(sPhylogeneticDescription),
+        modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
     ]
 
 # ----------------------------------------------------------------------

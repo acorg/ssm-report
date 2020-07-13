@@ -36,7 +36,7 @@ def generate_latex(latex_source, args):
         latex.T_AntigenicMapTable,
         latex.T_WhoccStatisticsTable,
         latex.T_GeographicMapsTable,
-        latex.T_PhylogeneticTree,
+        latex.T_WholePagePdf,
         latex.T_SignaturePage,
         # latex.T_AntigenicGeneticMapSingle,
         # latex.T_OverviewMapSingle,

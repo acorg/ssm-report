@@ -153,22 +153,22 @@ T_AntigenicMapTable = r"""
 
 # ----------------------------------------------------------------------
 
-T_PhylogeneticTree = r"""
+T_WholePagePdf = r"""
 % ----------------------------------------------------------------------
-% Phylogenetic tree
+% WholePagePdf
 % ----------------------------------------------------------------------
-\newenvironment{PhylogeneticTreeEnv}{
+\newenvironment{WholePagePdfEnv}{
    \noindent
    \begin{center}
 }{\end{center}\par}
-\newcommand{\PhylogeneticTree}[1]{\begin{PhylogeneticTreeEnv}\pagestyle{empty} \includepdf[pages=-,pagecommand={\thispagestyle{fancy}}]{#1}\end{PhylogeneticTreeEnv}}
-\newcommand{\PhylogeneticTreeFit}[1]{\begin{PhylogeneticTreeEnv}\includegraphics[page=1,scale=0.9]{#1}\end{PhylogeneticTreeEnv}}
-\newcommand{\PhylogeneticTreeTwoToc}[3]{
-  \begin{PhylogeneticTreeEnv}
+\newcommand{\WholePagePdf}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdf[pages=-,pagecommand={\thispagestyle{fancy}}]{#1}\end{WholePagePdfEnv}}
+\newcommand{\WholePagePdfFit}[1]{\begin{WholePagePdfEnv}\includegraphics[page=1,scale=0.9]{#1}\end{WholePagePdfEnv}}
+\newcommand{\WholePagePdfTwoToc}[3]{
+  \begin{WholePagePdfEnv}
     \includepdf[pages=-,pagecommand={\pagestyle{fancy}}]{#1}
     \addcontentsline{toc}{subsection}{#2}
     \includepdf[pages=-,pagecommand={\pagestyle{fancy}}]{#3}
-  \end{PhylogeneticTreeEnv}}
+  \end{WholePagePdfEnv}}
 
 """
 
@@ -433,6 +433,7 @@ T_NoPageNumbering = r" \pagenumbering{gobble} "
 T_NewPage = r"\newpage"
 T_VSpace = r"\vspace{%em%em}"
 T_Text_NoIndent = r"\noindent %text%"
+T_Text = r"%text%"
 
 # ----------------------------------------------------------------------
 
