@@ -1,4 +1,4 @@
-import inspect, json, lzma, re, collections, pprint
+import inspect, json, lzma, re, collections, itertools, pprint
 import logging; module_logger = logging.getLogger(__name__)
 from . import latex
 from .report import generate, substitute
@@ -73,13 +73,14 @@ class geographic_ts:
 
     def __init__(self, pdfs):
         self.pdfs = sorted(pdfs)
+        self.images_per_page = 3
 
     def latex(self):
         result = []
         no = 0
         for image in self.pdfs:
             if image.exists():
-                if (no % 3) == 0:
+                if (no % self.images_per_page) == 0:
                     if no:
                         result.append("\\end{GeographicMapsTable}")
                     result.append("\\newpage")
@@ -90,6 +91,48 @@ class geographic_ts:
             result.append("\\end{GeographicMapsTable}")
         return result
 
+# ----------------------------------------------------------------------
+
+# antigenic_ts(Path("out").glob("h1-hi-ts-cdc-*.pdf")),
+class antigenic_ts:
+
+    # args: title, image_scale, tabcolsep, arraystretch, fontsize, images_per_page
+    def __init__(self, pdfs, **args):
+        self.fontsize = r"\normalsize"
+        self.images_per_page = 6
+        self.pdfs = [im.resolve() if im.exists() else None for im in sorted(pdfs)]
+        for k, v in args.items():
+            setattr(self, k, v)
+
+    def latex(self):
+        result = []
+        for page_no, images_on_page in enumerate(itertools.zip_longest(*([iter(self.pdfs)] * self.images_per_page))):
+            if page_no:
+                result.append("\\newpage")
+            result.extend(self.antigenic_map_table(images_on_page))
+        return result
+
+    def antigenic_map_table(self, images):
+        result = []
+        if getattr(self, "image_scale", None) is not None:
+            result.append("\\begin{AntigenicMapTableWithSep}{%fpt}{%f}{%s}" % (getattr(self, "tabcolsep", None), getattr(self, "arraystretch", None), self.image_scale))
+        else:
+            result.append("\\begin{AntigenicMapTable}")
+        if getattr(self, "title", None):
+            result.append("\multicolumn{2}{>{\hspace{0.3em}}c<{\hspace{0.3em}}}{{%s %s}} \\\\" % (self.fontsize, self.title))
+        for no in range(0, len(images), 2):
+            if images[no] and images[no + 1]:
+                result.append("\\AntigenicMap{%s} & \\AntigenicMap{%s} \\\\" % (images[no], images[no + 1]))
+            elif images[no]:
+                result.append("\\AntigenicMap{%s} & \\hspace{18em} \\\\" % (images[no], ))
+            elif images[no+1]:
+                result.append("\\hspace{18em} & \\AntigenicMap{%s} \\\\" % (images[no + 1], ))
+        if getattr(self, "image_scale", None) is not None:
+            result.append("\\end{AntigenicMapTableWithSep}")
+        else:
+            result.append("\\end{AntigenicMapTable}")
+        return result
+    
 # ----------------------------------------------------------------------
 
 class statistics_table:

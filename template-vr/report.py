@@ -66,9 +66,9 @@ def report(output_filename, vr_data, modul):
                        modul.text_no_indent("Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey"),
                        modul.vspace(1),
                        modul.text_no_indent(sGeographicMapDesc),
-                       modul.new_page(),
+                       modul.new_page(), # --------------------------------------------------
                        modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
-                       modul.new_page(),
+                       modul.new_page(), # --------------------------------------------------
                        modul.subsection_title("CDC H1N1pdm09 antigenic data"),
                        modul.vspace(3),
                        modul.text_no_indent(sMonthByMonthTimeSeries.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
@@ -80,7 +80,10 @@ def report(output_filename, vr_data, modul):
                        # modul.text_no_indent(sBigSmallDotsDescription),
                        modul.vspace(3),
                        modul.statistics_table(subtype="A(H1N1)", lab="CDC", current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
-
+                       modul.new_page(), # --------------------------------------------------
+                       modul.antigenic_ts(Path("out").glob("h1-hi-ts-cdc-*.pdf")),
+                       modul.new_page(), # --------------------------------------------------
+                       
    #  {"type": "statistics_table", "subtype": "H1", "lab": "CDC"},
    #  "new_page",
    #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "CDC"},
