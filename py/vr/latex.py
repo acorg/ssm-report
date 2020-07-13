@@ -49,19 +49,19 @@ T_ColorCodedBy = r"""
 % ----------------------------------------------------------------------
 % \newcommand\cbox[1][black]{\textcolor{#1}{\rule{0.7em}{0.7em}}}
 \newcommand\cbox[1][black]{\tikz[baseline=-0.5ex]\draw[black,fill=#1,radius=0.3em] (0,0) circle ;}
+
 \newcommand{\ColorCodedByRegion}{%
   \begin{tabular}{l l l}
-    \cbox[NorthAmerica] & North America & Dark Blue \\
-    \cbox[SouthAmerica] & South America & Light Blue \\
-    \cbox[Europe] & Europe & Green \\
-    \cbox[Africa] & Africa & Orange \\
-    \cbox[MiddleEast] & MiddleEast & Purple \\
-    \cbox[Russia] & Russia & Maroon \\
-    \cbox[Asia] & East and South East Asia & Red \\
-    \cbox[AustraliaOceania] & Australia and Oceania & Pink \\
-    \cbox[Unknown] & unknown & Grey \\
+    \cbox[NorthAmerica]     & North America            & Dark Blue \\
+    \cbox[SouthAmerica]     & South America            & Light Blue \\
+    \cbox[Europe]           & Europe                   & Green \\
+    \cbox[Africa]           & Africa                   & Orange \\
+    \cbox[MiddleEast]       & MiddleEast               & Purple \\
+    \cbox[Russia]           & Russia                   & Maroon \\
+    \cbox[Asia]             & East and South East Asia & Red \\
+    \cbox[AustraliaOceania] & Australia and Oceania    & Pink \\
+    \cbox[Unknown]          & unknown                  & Grey \\
   \end{tabular}
-
 }
 
 \newcommand{\ColorCodedByRegionOld}{%
@@ -76,25 +76,27 @@ T_ColorCodedBy = r"""
 {\color{Unknown}Grey = unknown}
 }
 
-\newcommand{\ColorCodedByLineage}{%
-{\color{Yamagata}Red = Yamagata},
-{\color{Victoria}Blue = Victoria}.
-{\color{Victoria}Green = Victoria deletion mutants}.
-}
+% \newcommand{\ColorCodedByLineage}{%
+% {\color{Yamagata}Red = Yamagata},
+% {\color{Victoria}Blue = Victoria}.
+% {\color{Victoria}Green = Victoria deletion mutants}.
+% }
 
 \newcommand{\ColorCodedByLineageVicDelMut}{%
-{\color{Yamagata}Red = Yamagata},
-{\color{Victoria}Blue = Victoria},
-{\color{Victoria}Cyan = Victoria 2-del mutants},
-{\color{Victoria}Purple = Victoria 3-del mutants}.
+  \begin{tabular}{l l l}
+    \cbox[Yamagata]     & Yamagata               & Red \\
+    \cbox[Victoria]     & Victoria               & Blue \\
+    \cbox[Victoria2del] & Victoria 2-del mutants & Cyan \\
+    \cbox[Victoria3del] & Victoria 3-del mutants & Purple \\
+  \end{tabular}
 }
 
-\newcommand{\ColorCodedByYear}{%
-{\color{YearGrey}Grey - before 2012},
-{\color{YearOrange}Orange - 2012},
-{\color{YearBlue}Blue - 2013},
-{\color{YearMagenta}Magenta - 2014}.
-}
+% \newcommand{\ColorCodedByYear}{%
+% {\color{YearGrey}Grey - before 2012},
+% {\color{YearOrange}Orange - 2012},
+% {\color{YearBlue}Blue - 2013},
+% {\color{YearMagenta}Magenta - 2014}.
+% }
 """
 
 # ----------------------------------------------------------------------
@@ -406,8 +408,10 @@ T_ColorsColors = r"""
 \definecolor{YearMagenta}{HTML}{FF00FF}
 \definecolor{YearBlue}{HTML}{0000FF}
 
-\definecolor{Yamagata}{HTML}{FF0000}
-\definecolor{Victoria}{HTML}{0000FF}
+\definecolor{Yamagata}    {HTML}{FF0000}
+\definecolor{Victoria}    {HTML}{0000FF}
+\definecolor{Victoria2del}{HTML}{00FFFF}
+\definecolor{Victoria3del}{HTML}{800080}
 
 % ----------------------------------------------------------------------
 % Other colors

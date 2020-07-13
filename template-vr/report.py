@@ -45,7 +45,10 @@ sGeographicTimeSeriesSubtitle = "Month-by-month geographic time series from {tim
 sGeographicMapDesc = "Each dot indicates the isolation location for a strain that has been measured in an HI table. Thus these figures can be interpreted as a virologically-confirmed epidemiological spatial timeseries (modulo the usual caveats about surveillance biases)."
 sMonthByMonthTimeSeries = "Month-by-month time series from {time_series_start} to {time_series_end}."
 sAntigenicMapGrid = "Grid indicates 1 unit of antigenic distance, a 2-fold dilution in HI titer."
+
 sColoredByRegion = r"Reference antigens and antisera no fill. Epi strains (small dots) colored by region: \\ \ColorCodedByRegion"
+sColoredByH3Clade = r"Strains colored by clade: 3C2/3C3=Blue, 3C2a=Red, 3C2a1=DarkRed, 3C3a=Green, 3C3b=DarkBlue, sequenced=Yellow, unsequenced=Grey"
+
 sBigSmallDotsDescription = "Small antigen dots indicate strains also in previous report, larger antigen dots indicate strains added since previous report."
 
 sPhylogeneticDescription = r"""\vspace{3em}
@@ -82,11 +85,7 @@ def report(output_filename, vr_data, modul):
                        modul.toc(),
                        *h1(modul, vr_data),
                        *h3(modul, vr_data),
-
-
-                       modul.section_title("B"),
-                       modul.section_title("B/Vic"),
-                       modul.section_title("B/Yam"),
+                       *b(modul, vr_data),
                    ],
                    landscape="portreat"
     )
@@ -155,114 +154,185 @@ def h3(modul, vr_data):
         modul.vspace(3),
         modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
         modul.vspace(1),
-        modul.text_no_indent("Strains colored by ??????????"),
+        modul.text_no_indent(sColoredByH3Clade),
         modul.vspace(1),
         modul.text_no_indent(sGeographicMapDesc),
         modul.new_page(), # --------------------------------------------------
         modul.geographic_ts(Path("geo").glob("H3-geographic-*.pdf")),
+
         modul.new_page(), # --------------------------------------------------
-        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="CDC", colored_by=sColoredByRegion, vr_data=vr_data),
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="CDC",   colored_by=sColoredByRegion, vr_data=vr_data),
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="hi",   lab="Crick", colored_by=sColoredByRegion, vr_data=vr_data),
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="Crick", colored_by=sColoredByRegion, vr_data=vr_data),
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="NIID",  colored_by=sColoredByRegion, vr_data=vr_data),
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="hi",   lab="VIDRL", colored_by=sColoredByRegion, vr_data=vr_data),
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="VIDRL", colored_by=sColoredByRegion, vr_data=vr_data),
+
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
         modul.text_no_indent(sPhylogeneticDescription),
         modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
+
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
+        modul.maps_in_two_columns([
+            None,                                     Path("out", "h3-neut-clade-cdc.pdf"),
+            Path("out", "h3-hi-clade-crick.pdf"),     Path("out", "h3-neut-clade-crick.pdf"),
+            None,                                     Path("out", "h3-neut-clade-niid.pdf"),
+            Path("out", "h3-hi-clade-vidrl.pdf"),     Path("out", "h3-neut-clade-vidrl.pdf"),
+        ]),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
+        modul.maps_in_two_columns([
+            None,                                     Path("out", "h3-neut-clade-12m-cdc.pdf"),
+            Path("out", "h3-hi-clade-12m-crick.pdf"), Path("out", "h3-neut-clade-12m-crick.pdf"),
+            None,                                     Path("out", "h3-neut-clade-12m-niid.pdf"),
+            Path("out", "h3-hi-clade-12m-vidrl.pdf"), Path("out", "h3-neut-clade-12m-vidrl.pdf"),
+        ]),
+
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
+        modul.maps_in_two_columns([
+            None,                                     Path("out", "h3-neut-clade-6m-cdc.pdf"),
+            Path("out", "h3-hi-clade-6m-crick.pdf"),  Path("out", "h3-neut-clade-6m-crick.pdf"),
+            None,                                     Path("out", "h3-neut-clade-6m-niid.pdf"),
+            Path("out", "h3-hi-clade-6m-vidrl.pdf"),  Path("out", "h3-neut-clade-6m-vidrl.pdf"),
+        ]),
+
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
+        modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by phylogenetic clade."),
+        modul.maps_in_two_columns([
+            None,                                     Path("out", "h3-neut-serology-cdc.pdf"),
+            Path("out", "h3-hi-serology-crick.pdf"),  Path("out", "h3-neut-serology-crick.pdf"),
+            None,                                     Path("out", "h3-neut-serology-niid.pdf"),
+            Path("out", "h3-hi-serology-vidrl.pdf"),  Path("out", "h3-neut-serology-vidrl.pdf"),
+        ]),
     ]
 
-    # {"type": "geographic_data_description", "coloring": "h3_clade"},
-    # "new_page",
-    # {"type": "geographic_ts", "subtype": "H3"},
-    # "new_page",
+# ----------------------------------------------------------------------
 
-    # {"?type": "subsection_begin", "subtype": "H3", "title": "CDC H3N2 HI antigenic data"},
-    # {"?type": "antigenic_ts_description", "coloring": "continents"},
-    # {"?type": "statistics_table", "subtype": "H3", "lab": "CDC"},
-    # "? new_page",
-    # {"?type": "antigenic_ts", "subtype": "H3", "assay": "HI", "lab": "CDC"},
-    # "? new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "CDC H3N2 Neut antigenic data"},
-    # {"type": "neut_ts_description", "coloring": "continents"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "H3", "assay": "NEUT", "lab": "CDC"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "Crick H3N2 HI antigenic data"},
-    # {"type": "antigenic_ts_description", "coloring": "continents"},
-    # {"type": "statistics_table", "subtype": "H3", "lab": "NIMR"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "H3", "assay": "HI", "lab": "NIMR"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "Crick H3N2 Neut antigenic data"},
-    # {"type": "neut_ts_description", "coloring": "continents"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "H3", "assay": "NEUT", "lab": "NIMR"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "NIID H3N2 Neut antigenic data"},
-    # {"type": "neut_ts_description", "coloring": "continents"},
-    # {"type": "statistics_table", "subtype": "H3", "lab": "NIID"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "H3", "assay": "NEUT", "lab": "NIID"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "VIDRL H3N2 HI antigenic data"},
-    # {"type": "antigenic_ts_description", "coloring": "continents"},
-    # {"type": "statistics_table", "subtype": "H3", "lab": "MELB"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "H3", "assay": "HI", "lab": "MELB"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "VIDRL H3N2 Neut antigenic data"},
-    # {"type": "neut_ts_description", "coloring": "continents"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "H3", "assay": "NEUT", "lab": "MELB"},
-    # "new_page",
+def b(modul, vr_data):
+    subtype = "B"
+    return [
+        modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} Victoria and Yamagata geographic data"),
+        modul.vspace(3),
+        modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
+        modul.vspace(1),
+        modul.text_no_indent(r"Strains colored by lineage: \\ \ColorCodedByLineageVicDelMut"),
+        modul.vspace(1),
+        modul.text_no_indent(sGeographicMapDesc),
+        modul.new_page(), # --------------------------------------------------
+        modul.geographic_ts(Path("geo").glob("B-geographic-*.pdf")),
+        *bvic(modul, vr_data),
+        *byam(modul, vr_data),
+        ]
 
-    # {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 phylogenetic tree"},
+def bvic(modul, vr_data):
+    subtype = "BVIC"
+    return [
+        modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
+        ]
+
+    # {"type": "section_begin", "title": "B/Vic"},
+    # {"type": "subsection_begin", "subtype": "bv", "title": "CDC B/Vic antigenic data"},
+    # {"type": "antigenic_ts_description", "coloring": "continents"},
+    # {"type": "statistics_table", "subtype": "bv", "lab": "CDC"},
+    # "new_page",
+    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "CDC"},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "Crick B/Vic antigenic data"},
+    # {"type": "antigenic_ts_description", "coloring": "continents"},
+    # {"type": "statistics_table", "subtype": "bv", "lab": "NIMR"},
+    # "new_page",
+    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "NIMR"},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "NIID B/Vic antigenic data"},
+    # {"type": "antigenic_ts_description", "coloring": "continents"},
+    # {"type": "statistics_table", "subtype": "bv", "lab": "NIID"},
+    # "new_page",
+    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "NIID"},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "VIDRL B/Vic antigenic data"},
+    # {"type": "antigenic_ts_description", "coloring": "continents"},
+    # {"type": "statistics_table", "subtype": "bv", "lab": "MELB"},
+    # "new_page",
+    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "MELB"},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic phylogenetic tree"},
+    # {"type": "phylogenetic_description"},
+    # {"type": "phylogenetic_description_bvic_del"},
+    # "new_page",
+    # {"type": "phylogenetic_tree", "subtype": "bv"},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by phylogenetic clade"},
+    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps, antigens color-coded by phylogenetic clade."},
+    # {"type": "maps", "images": [
+    #   "bv-hi/clade-cdc.pdf", "bv-hi/clade-nimr.pdf",
+    #   "bv-hi/clade-niid.pdf", "bv-hi/clade-melb.pdf"
+    # ]},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by phylogenetic clade (since February 2019)"},
+    # {"type": "maps", "images": [
+    #   "bv-hi/clade-12m-cdc.pdf", "bv-hi/clade-12m-nimr.pdf",
+    #   "bv-hi/clade-12m-niid.pdf", "bv-hi/clade-12m-melb.pdf"
+    # ]},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by phylogenetic clade (since August 2019)"},
+    # {"type": "maps", "images": [
+    #   "bv-hi/clade-6m-cdc.pdf", "bv-hi/clade-6m-nimr.pdf",
+    #   "bv-hi/clade-6m-niid.pdf", "bv-hi/clade-6m-melb.pdf"
+    # ]},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by clade and potential N-gly"},
+    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps, antigens color-coded by clade and potential N-gly."},
+    # {"type": "maps", "images": [
+    #   "bv-hi/N-gly-197-cdc.pdf", "bv-hi/N-gly-197-nimr.pdf",
+    #   "bv-hi/N-gly-197-niid.pdf", "bv-hi/N-gly-197-melb.pdf"
+    # ]},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps with serology antigens"},
+    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
+    # {"type": "maps", "images": [
+    #   "bv-hi/serology-cdc.pdf", "bv-hi/serology-nimr.pdf",
+    #   "bv-hi/serology-niid.pdf", "bv-hi/serology-melb.pdf"
+    # ]},
+
+def byam(modul, vr_data):
+    subtype = "BYAM"
+    return [
+        modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
+        ]
+
+    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam phylogenetic tree"},
     # {"type": "phylogenetic_description"},
     # "new_page",
-    # {"type": "phylogenetic_tree", "subtype": "H3"},
-    # "? new_page", "?---- H3 maps colored by geo disabled on Derek request 2019-08-12 13:41",
-    # {"?type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by geography"},
-    # {"?type": "maps", "images": [
-    #   "h3-hi/geography-cdc.pdf", "h3-neut/geography-cdc.pdf",
-    #   "h3-hi/geography-nimr.pdf", "h3-neut/geography-nimr.pdf",
-    #   "", "h3-neut/geography-niid.pdf",
-    #   "h3-hi/geography-melb.pdf", "h3-neut/geography-melb.pdf"
+    # {"type": "phylogenetic_tree", "subtype": "by"},
+    # "new_page",
+    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps colored by phylogenetic clade"},
+    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps, antigens color-coded by phylogenetic clade."},
+    # {"type": "maps", "images": [
+    #   "by-hi/clade-cdc.pdf", "by-hi/clade-nimr.pdf",
+    #   "by-hi/clade-niid.pdf", "by-hi/clade-melb.pdf"
     # ]},
     # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade"},
+    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps colored by phylogenetic clade (since February 2019)"},
     # {"type": "maps", "images": [
-    #   "",                     "h3-neut/clade-cdc.pdf",
-    #   "h3-hi/clade-nimr.pdf", "h3-neut/clade-nimr.pdf",
-    #   "",                     "h3-neut/clade-niid.pdf",
-    #   "h3-hi/clade-melb.pdf", "h3-neut/clade-melb.pdf"
+    #   "by-hi/clade-12m-cdc.pdf", "by-hi/clade-12m-nimr.pdf",
+    #   "by-hi/clade-12m-niid.pdf", "by-hi/clade-12m-melb.pdf"
     # ]},
     # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade (since February 2019)"},
+    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps colored by phylogenetic clade (since August 2019)"},
     # {"type": "maps", "images": [
-    #   "",                         "h3-neut/clade-12m-cdc.pdf",
-    #   "h3-hi/clade-12m-nimr.pdf", "h3-neut/clade-12m-nimr.pdf",
-    #   "",                         "h3-neut/clade-12m-niid.pdf",
-    #   "h3-hi/clade-12m-melb.pdf", "h3-neut/clade-12m-melb.pdf"
+    #   "by-hi/clade-6m-cdc.pdf", "by-hi/clade-6m-nimr.pdf",
+    #   "by-hi/clade-6m-niid.pdf", "by-hi/clade-6m-melb.pdf"
     # ]},
     # "new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by phylogenetic clade (since August 2019)"},
+    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps with serology antigens"},
+    # {"type": "description", "text": "Top row left to right CDC, Crick, bottom row left to right NIID, VIDRL antigenic maps with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
     # {"type": "maps", "images": [
-    #   "",                        "h3-neut/clade-6m-cdc.pdf",
-    #   "h3-hi/clade-6m-nimr.pdf", "h3-neut/clade-6m-nimr.pdf",
-    #   "",                        "h3-neut/clade-6m-niid.pdf",
-    #   "h3-hi/clade-6m-melb.pdf", "h3-neut/clade-6m-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"?type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps colored by amino-acids at 142"},
-    # {"?type": "maps", "images": [
-    #   "",                         "h3-neut/aa-at-142-cdc.pdf",
-    #   "h3-hi/aa-at-142-nimr.pdf", "h3-neut/aa-at-142-nimr.pdf",
-    #   "",                         "h3-neut/aa-at-142-niid.pdf",
-    #   "h3-hi/aa-at-142-melb.pdf", "h3-neut/aa-at-142-melb.pdf"
-    # ]},
-    # "? new_page",
-    # {"type": "subsection_begin", "subtype": "H3", "title": "H3N2 antigenic maps with serology antigens"},
-    # {"type": "maps", "images": [
-    #   "",                        "h3-neut/serology-cdc.pdf",
-    #   "h3-hi/serology-nimr.pdf", "h3-neut/serology-nimr.pdf",
-    #   "",                        "h3-neut/serology-niid.pdf",
-    #   "h3-hi/serology-melb.pdf", "h3-neut/serology-melb.pdf"
+    #   "by-hi/serology-cdc.pdf", "by-hi/serology-nimr.pdf",
+    #   "by-hi/serology-niid.pdf", "by-hi/serology-melb.pdf"
     # ]},
 
 # ----------------------------------------------------------------------
