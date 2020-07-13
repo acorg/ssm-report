@@ -51,7 +51,9 @@ sColoredByH3Clade = r"Strains colored by clade: 3C2/3C3=Blue, 3C2a=Red, 3C2a1=Da
 
 sBigSmallDotsDescription = "Small antigen dots indicate strains also in previous report, larger antigen dots indicate strains added since previous report."
 
-sPhylogeneticDescription = r"""\vspace{3em}
+sPhylogeneticDescription = r"""
+
+\vspace{3em}
 \noindent
 The phylogenetic tree is color coded by region, legend is in the bottom left corner of the next page.
 
@@ -95,7 +97,7 @@ def report(output_filename, vr_data, modul):
 def h1(modul, vr_data):
     subtype = "A(H1N1)"
     assay = "hi"
-    labs = ["CDC", "NIID", "VIDRL"] # "Crick"
+    labs = ["CDC", "Crick", "NIID", "VIDRL"]
     return [
         modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
 
@@ -112,6 +114,7 @@ def h1(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         *antigenic_ts(modul=modul, subtype=subtype, assay="hi", labs=labs, colored_by=sColoredByRegion, vr_data=vr_data),
 
+        modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
         modul.text(sPhylogeneticDescription),
         modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
@@ -168,6 +171,7 @@ def h3(modul, vr_data):
         *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="hi",   lab="VIDRL", colored_by=sColoredByRegion, vr_data=vr_data),
         *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="VIDRL", colored_by=sColoredByRegion, vr_data=vr_data),
 
+        modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
         modul.text_no_indent(sPhylogeneticDescription),
         modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
@@ -230,41 +234,19 @@ def b(modul, vr_data):
 
 def bvic(modul, vr_data):
     subtype = "BVIC"
+    labs = ["CDC", "Crick", "NIID", "VIDRL"]
     return [
+        modul.new_page(), # --------------------------------------------------
         modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
-        ]
+        *antigenic_ts(modul=modul, subtype=subtype, assay="hi", labs=labs, colored_by=sColoredByRegion, vr_data=vr_data),
 
-    # {"type": "section_begin", "title": "B/Vic"},
-    # {"type": "subsection_begin", "subtype": "bv", "title": "CDC B/Vic antigenic data"},
-    # {"type": "antigenic_ts_description", "coloring": "continents"},
-    # {"type": "statistics_table", "subtype": "bv", "lab": "CDC"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "CDC"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "Crick B/Vic antigenic data"},
-    # {"type": "antigenic_ts_description", "coloring": "continents"},
-    # {"type": "statistics_table", "subtype": "bv", "lab": "NIMR"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "NIMR"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "NIID B/Vic antigenic data"},
-    # {"type": "antigenic_ts_description", "coloring": "continents"},
-    # {"type": "statistics_table", "subtype": "bv", "lab": "NIID"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "NIID"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "VIDRL B/Vic antigenic data"},
-    # {"type": "antigenic_ts_description", "coloring": "continents"},
-    # {"type": "statistics_table", "subtype": "bv", "lab": "MELB"},
-    # "new_page",
-    # {"type": "antigenic_ts", "subtype": "bv", "assay": "HI", "lab": "MELB"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic phylogenetic tree"},
-    # {"type": "phylogenetic_description"},
-    # {"type": "phylogenetic_description_bvic_del"},
-    # "new_page",
-    # {"type": "phylogenetic_tree", "subtype": "bv"},
-    # "new_page",
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
+        modul.text_no_indent(sPhylogeneticDescription),
+        modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
+
+    ]
+
     # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by phylogenetic clade"},
     # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps, antigens color-coded by phylogenetic clade."},
     # {"type": "maps", "images": [
@@ -300,7 +282,9 @@ def bvic(modul, vr_data):
 
 def byam(modul, vr_data):
     subtype = "BYAM"
+    labs = ["CDC", "Crick", "NIID", "VIDRL"]
     return [
+        modul.new_page(), # --------------------------------------------------
         modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
         ]
 
@@ -354,7 +338,7 @@ def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
         # modul.vspace(1),
         # modul.text_no_indent(sBigSmallDotsDescription),
         modul.vspace(3),
-        modul.statistics_table(subtype=subtype, lab=lab, current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
+        modul.statistics_table(subtype=modul.SubtypeStat[subtype], lab=lab, current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
         modul.new_page(), # --------------------------------------------------
         modul.maps_in_two_columns(Path("out").glob(f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf")),
         modul.new_page()
