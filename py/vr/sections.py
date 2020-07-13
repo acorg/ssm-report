@@ -5,6 +5,22 @@ from .report import generate, substitute
 
 # ----------------------------------------------------------------------
 
+LabDisplay = {"CDC": "CDC", "NIMR": "Crick", "CRICK": "Crick", "MELB": "VIDRL", "VIDRL": "VIDRL", "NIID": "NIID"}
+LabFilename = {"CDC": "cdc", "NIMR": "crick", "CRICK": "crick", "MELB": "vidrl", "VIDRL": "vidrl", "NIID": "niid"}
+
+SubtypeDisplay = {"A(H1N1)": "H1N1pdm09", "A(H3N2)": "H3N2", "B": "B", "BVIC": "B/Vic", "BYAM": "B/Yam"}
+SubtypeFilename = {"A(H1N1)": "h1", "A(H3N2)": "h3", "BVIC": "bvic", "BYAM": "byam"}
+
+AssayDisplay = {"hi": "HI", "neut": "Neut"}
+
+def subtype_assay_display(subtype, assay):
+    if subtype == "A(H3N2)":
+        return f"{SubtypeDisplay[subtype]} {AssayDisplay[assay]}"
+    else:
+        return f"{SubtypeDisplay[subtype]}"
+
+# ----------------------------------------------------------------------
+
 class cover:
 
     def __init__(self,
@@ -132,7 +148,7 @@ class antigenic_ts:
         else:
             result.append("\\end{AntigenicMapTable}")
         return result
-    
+
 # ----------------------------------------------------------------------
 
 class statistics_table:

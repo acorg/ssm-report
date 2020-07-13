@@ -57,62 +57,37 @@ def report(output_filename, vr_data, modul):
                    data=[
                        modul.cover(),
                        modul.toc(),
+                       *h1(modul, vr_data),
+                       *h3(modul, vr_data),
 
-                       modul.section_title("H1N1pdm09"),
-                       modul.subsection_title("H1N1pdm09 geographic data"),
-                       modul.vspace(3),
-                       modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
-                       modul.vspace(1),
-                       modul.text_no_indent("Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey"),
-                       modul.vspace(1),
-                       modul.text_no_indent(sGeographicMapDesc),
-                       modul.new_page(), # --------------------------------------------------
-                       modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
-                       modul.new_page(), # --------------------------------------------------
-                       modul.subsection_title("CDC H1N1pdm09 antigenic data"),
-                       modul.vspace(3),
-                       modul.text_no_indent(sMonthByMonthTimeSeries.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
-                       modul.vspace(1),
-                       modul.text_no_indent(sAntigenicMapGrid),
-                       modul.vspace(1),
-                       modul.text_no_indent(sColoredByRegion),
-                       # modul.vspace(1),
-                       # modul.text_no_indent(sBigSmallDotsDescription),
-                       modul.vspace(3),
-                       modul.statistics_table(subtype="A(H1N1)", lab="CDC", current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
-                       modul.new_page(), # --------------------------------------------------
-                       modul.antigenic_ts(Path("out").glob("h1-hi-ts-cdc-*.pdf")),
-                       modul.new_page(), # --------------------------------------------------
-                       
-   #  {"type": "statistics_table", "subtype": "H1", "lab": "CDC"},
-   #  "new_page",
-   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "CDC"},
-   #  "new_page",
-   #  {"type": "subsection_begin", "subtype": "H1", "title": "Crick H1N1pdm09 antigenic data"},
-   #  {"type": "antigenic_ts_description", "coloring": "continents"},
-   #  {"type": "statistics_table", "subtype": "H1", "lab": "NIMR"},
-   #  "new_page",
-   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "NIMR"},
-   #  "new_page",
-   #  {"type": "subsection_begin", "subtype": "H1", "title": "NIID H1N1pdm09 antigenic data"},
-   #  {"type": "antigenic_ts_description", "coloring": "continents"},
-   #  {"type": "statistics_table", "subtype": "H1", "lab": "NIID"},
-   #  "new_page",
-   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "NIID"},
-   #  "new_page",
-   #  {"type": "subsection_begin", "subtype": "H1", "title": "VIDRL H1N1pdm09 antigenic data"},
-   #  {"type": "antigenic_ts_description", "coloring": "continents"},
-   #  {"type": "statistics_table", "subtype": "H1", "lab": "MELB"},
-   #  "new_page",
-   #  {"type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "MELB"},
-   #  "new_page",
 
-   #  {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic data"},
-   #  {"?type": "antigenic_ts_description", "coloring": "continents"},
-   #  {"?type": "statistics_table", "subtype": "H1", "lab": "all"},
-   #  "? new_page",
-   #  {"?type": "antigenic_ts", "subtype": "H1", "assay": "HI", "lab": "all"},
-   #  "? new_page",
+                       modul.section_title("B"),
+                       modul.section_title("B/Vic"),
+                       modul.section_title("B/Yam"),
+                   ],
+                   landscape="portreat"
+    )
+
+# ----------------------------------------------------------------------
+
+def h1(modul, vr_data):
+    subtype = "A(H1N1)"
+    assay = "hi"
+    labs = ["CDC", "NIID", "VIDRL"] # "Crick"
+    return [
+        modul.section_title("{modul.SubtypeDisplay[subtype]}"),
+        modul.subsection_title("{modul.SubtypeDisplay[subtype]} geographic data"),
+        modul.vspace(3),
+        modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
+        modul.vspace(1),
+        modul.text_no_indent("Strains colored by clade: 156N+155G=Blue, 156K=Red, 155E=Yellow, 156D=Green, 156S=SpringGreen, 156X=Orange, 155X=Brown, unsequenced=Grey"),
+        modul.vspace(1),
+        modul.text_no_indent(sGeographicMapDesc),
+        modul.new_page(), # --------------------------------------------------
+        modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
+        modul.new_page(), # --------------------------------------------------
+        *antigenic_ts(modul=modul, subtype=subtype, assay="hi", labs=labs, colored_by=sColoredByRegion, vr_data=vr_data),
+    ]
 
    #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 phylogenetic tree"},
    #  {"type": "phylogenetic_description"},
@@ -154,14 +129,49 @@ def report(output_filename, vr_data, modul):
    #  {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "serology"},
    #  "? new_page",
 
-                       modul.section_title("H3N2"),
+# ----------------------------------------------------------------------
 
-                       modul.section_title("B"),
-                       modul.section_title("B/Vic"),
-                       modul.section_title("B/Yam"),
-                   ],
-                   landscape="portreat"
-    )
+def h3(modul, vr_data):
+    subtype = "A(H3N2)"
+    return [
+        modul.section_title("{modul.SubtypeDisplay[subtype]}"),
+        modul.subsection_title("{modul.SubtypeDisplay[subtype]} geographic data"),
+        modul.vspace(3),
+        modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
+        modul.vspace(1),
+        modul.text_no_indent("Strains colored by ??????????"),
+        modul.vspace(1),
+        modul.text_no_indent(sGeographicMapDesc),
+        modul.new_page(), # --------------------------------------------------
+        modul.geographic_ts(Path("geo").glob("H3-geographic-*.pdf")),
+        modul.new_page(), # --------------------------------------------------
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="CDC", colored_by=sColoredByRegion, vr_data=vr_data),
+    ]
+
+# ----------------------------------------------------------------------
+
+def antigenic_ts(modul, subtype, assay, labs, colored_by, vr_data):
+    return [item for lab in labs for item in antigenic_ts_for_lab(modul=modul, subtype=subtype, assay=assay, lab=lab, colored_by=colored_by, vr_data=vr_data)]
+
+def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
+    lab = lab.upper()
+    subtype = subtype.upper()
+    return [
+        modul.subsection_title(f"{modul.LabDisplay[lab]} {modul.subtype_assay_display(subtype, assay)} antigenic data"),
+        modul.vspace(3),
+        modul.text_no_indent(sMonthByMonthTimeSeries.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
+        modul.vspace(1),
+        modul.text_no_indent(sAntigenicMapGrid),
+        modul.vspace(1),
+        modul.text_no_indent(colored_by),
+        # modul.vspace(1),
+        # modul.text_no_indent(sBigSmallDotsDescription),
+        modul.vspace(3),
+        modul.statistics_table(subtype=subtype, lab=lab, current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
+        modul.new_page(), # --------------------------------------------------
+        modul.antigenic_ts(Path("out").glob(f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf")),
+        modul.new_page()
+        ]
 
 # ----------------------------------------------------------------------
 
