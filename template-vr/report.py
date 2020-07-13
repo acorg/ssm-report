@@ -117,17 +117,20 @@ def h1(modul, vr_data):
         modul.text(sPhylogeneticDescription),
         modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.xpdf")),
 
+        modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156"),
         modul.maps_in_two_columns([
             Path("out", "h1-hi-clade-155-156-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-crick.pdf"), 
             Path("out", "h1-hi-clade-155-156-niid.pdf"), Path("out", "h1-hi-clade-155-156-vidrl.pdf"), 
         ]),
-        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since ??????)"),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since \\textcolor{{red}}{{??????}})"),
         modul.maps_in_two_columns([
             Path("out", "h1-hi-clade-155-156-12m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-12m-crick.pdf"), 
             Path("out", "h1-hi-clade-155-156-12m-niid.pdf"), Path("out", "h1-hi-clade-155-156-12m-vidrl.pdf"), 
         ]),
-        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since ??????)"),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since \\textcolor{{red}}{{??????}})"),
         modul.maps_in_two_columns([
             Path("out", "h1-hi-clade-155-156-6m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-6m-crick.pdf"), 
             Path("out", "h1-hi-clade-155-156-6m-niid.pdf"), Path("out", "h1-hi-clade-155-156-6m-vidrl.pdf"), 

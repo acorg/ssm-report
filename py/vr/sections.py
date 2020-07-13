@@ -153,26 +153,22 @@ class maps_in_two_columns:
             result.append("\\begin{AntigenicMapTableWithSep}{%fpt}{%f}{%s}" % (getattr(self, "tabcolsep", None), getattr(self, "arraystretch", None), self.image_scale))
         else:
             result.append("\\begin{AntigenicMapTable}")
-        # if getattr(self, "title", None):
-        #     result.append("\multicolumn{2}{>{\hspace{0.3em}}c<{\hspace{0.3em}}}{{%s %s}} \\\\" % (self.fontsize, self.title))
         for no in range(0, len(images), 2):
-            if images[no] and images[no + 1]:
-                result.append(f"\\AntigenicMap{{{self.resolve(images[no])}}} & \\AntigenicMap{{{self.resolve(images[no + 1])}}} \\\\")
-            elif images[no]:
-                result.append(f"\\AntigenicMap{{{self.resolve(images[no])}}} & \\hspace{{18em}} \\\\")
-            elif images[no+1]:
-                result.append(f"\\hspace{{18em}} & \\AntigenicMap{{{self.resolve(images[no + 1])}}} \\\\")
+            result.append(f"{self.map(images[no])} & {self.map(images[no + 1])} \\\\")
         if getattr(self, "image_scale", None) is not None:
             result.append("\\end{AntigenicMapTableWithSep}")
         else:
             result.append("\\end{AntigenicMapTable}")
         return result
 
-    def resolve(self, image):
-        if image and image.exists():
-            return image.resolve()
+    def map(self, image):
+        if image:
+            if image.exists():
+                return f"\\AntigenicMap{{{image.resolve()}}}"
+            else:
+                return f"{{\\fontsize{{18}}{{22}} \\selectfont \\noindent \\rotatebox{{45}}{{ \\textbf{{ \\textcolor{{red}}{{{image}}} }} }}}}"
         else:
-            return image
+            return r"\hspace{18em}"
 
 # ----------------------------------------------------------------------
 
