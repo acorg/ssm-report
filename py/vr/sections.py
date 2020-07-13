@@ -108,6 +108,8 @@ class statistics_table:
         self.period = "month"
         for k, v in args.items():
             setattr(self, k, v)
+        if self.previous and not self.previous.exists():
+            self.previous = None
 
     def latex(self):
         data = json.load(lzma.LZMAFile(self.current, "rb"))
@@ -155,6 +157,7 @@ class statistics_table:
     def make_line(self, date, data_antigens, data_sera, data_sera_unique, previous_data_antigens, previous_data_sera, previous_data_sera_unique):
 
         def diff_current_previous(continent):
+            # return previous_data_antigens.get(continent, 0)
             diff = data_antigens.get(continent, 0) - previous_data_antigens.get(continent, 0)
             if diff < 0:
                 module_logger.error('{} {}: Current: {} Previous: {}'.format(self.format_date(date), continent, data_antigens.get(continent, 0), previous_data_antigens.get(continent, 0)))
@@ -162,21 +165,20 @@ class statistics_table:
             return diff
 
         data = [self.format_date(date)]
-        if previous_data_antigens:
-            if date == 'all':
-                data.extend(['\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_antigens.get(continent, 0), diff_current_previous(continent)) for continent in self.sContinents[:-3]])
-                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_antigens.get('all', 0), diff_current_previous('all')))
-                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_sera.get('all', 0), data_sera.get('all', 0) - previous_data_sera))
-                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_sera_unique.get('all', 0), data_sera_unique.get('all', 0) - previous_data_sera_unique))
-            else:
-                data.extend(['\WhoccStatisticsTableCellTwo{{{}}}{{{}}}'.format(data_antigens.get(continent, 0), diff_current_previous(continent)) for continent in self.sContinents[:-3]])
-                data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_antigens.get(self.sContinents[-3], 0), diff_current_previous(self.sContinents[-3])))
-                data.append( '\WhoccStatisticsTableCellTwo{{{}}}{{{}}}'.format(data_sera.get('all', 0), data_sera.get('all', 0) - previous_data_sera))
-                data.append( '\WhoccStatisticsTableCellTwo{{{}}}{{{}}}'.format(data_sera_unique.get('all', 0), data_sera_unique.get('all', 0) - previous_data_sera_unique))
+        if date == 'all':
+            total = "Total"
         else:
-            data.extend(['\WhoccStatisticsTableCellOne{{{}}}'.format(data_antigens.get(continent, 0)) for continent in self.sContinents[:-2]])
-            data.append( '\WhoccStatisticsTableCellOne{{{}}}'.format(data_sera.get('all', 0)))
-            data.append( '\WhoccStatisticsTableCellOne{{{}}}'.format(data_sera_unique.get('all', 0)))
+            total = ""
+        if previous_data_antigens:
+            data.extend(['\WhoccStatisticsTableCellTwo{}{{{}}}{{{}}}'.format(total, data_antigens.get(continent, 0), diff_current_previous(continent)) for continent in self.sContinents[:-3]])
+            data.append( '\WhoccStatisticsTableCellTwoTotal{{{}}}{{{}}}'.format(data_antigens.get('all', 0), diff_current_previous('all')))
+            data.append( '\WhoccStatisticsTableCellTwo{}{{{}}}{{{}}}'.format(total, data_sera.get('all', 0), data_sera.get('all', 0) - previous_data_sera))
+            data.append( '\WhoccStatisticsTableCellTwo{}{{{}}}{{{}}}'.format(total, data_sera_unique.get('all', 0), data_sera_unique.get('all', 0) - previous_data_sera_unique))
+        else:
+            data.extend(['\WhoccStatisticsTableCellOne{}{{{}}}'.format(total, data_antigens.get(continent, 0)) for continent in self.sContinents[:-3]])
+            data.append('\WhoccStatisticsTableCellOneTotal{{{}}}'.format(data_antigens.get(self.sContinents[-3], 0)))
+            data.append( '\WhoccStatisticsTableCellOne{}{{{}}}'.format(total, data_sera.get('all', 0)))
+            data.append( '\WhoccStatisticsTableCellOne{}{{{}}}'.format(total, data_sera_unique.get('all', 0)))
         return '  ' + ' & '.join(data) + ' \\\\'
 
     def make_dates(self, data, **sorting):

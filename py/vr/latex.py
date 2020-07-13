@@ -104,6 +104,7 @@ T_WhoccStatisticsTable = r"""
 % Table with statistics
 % ----------------------------------------------------------------------
 \newcommand{\WhoccStatisticsTableCellOne}[1]{#1 & & & &}
+\newcommand{\WhoccStatisticsTableCellOneTotal}[1]{\color{WhoccStatisticsTableTotal}#1 & & & & }
 \newcommand{\WhoccStatisticsTableCellTwo}[2]{#1 & ( & #2 & ) &}
 % \newcommand{\WhoccStatisticsTableCellTwoTotal}[2]{\textbf{#1} & \textbf{(} & \textbf{#2} & \textbf{)} & }
 \newcommand{\WhoccStatisticsTableCellTwoTotal}[2]{\color{WhoccStatisticsTableTotal}#1 & \color{WhoccStatisticsTableTotal}( & \color{WhoccStatisticsTableTotal}#2 & \color{WhoccStatisticsTableTotal}) & }
