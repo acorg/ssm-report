@@ -99,6 +99,7 @@ def h1(modul, vr_data):
     labs = ["CDC", "NIID", "VIDRL"] # "Crick"
     return [
         modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
+
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} geographic data"),
         modul.vspace(3),
         modul.text_no_indent(sGeographicTimeSeriesSubtitle.format(time_series_start=vr_data.start_month_year, time_series_end=vr_data.end_month_year)),
@@ -108,23 +109,31 @@ def h1(modul, vr_data):
         modul.text_no_indent(sGeographicMapDesc),
         modul.new_page(), # --------------------------------------------------
         modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
+
         modul.new_page(), # --------------------------------------------------
         *antigenic_ts(modul=modul, subtype=subtype, assay="hi", labs=labs, colored_by=sColoredByRegion, vr_data=vr_data),
+
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
         modul.text(sPhylogeneticDescription),
         modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.xpdf")),
+
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156"),
+        modul.maps_in_two_columns([
+            Path("out", "h1-hi-clade-155-156-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-crick.pdf"), 
+            Path("out", "h1-hi-clade-155-156-niid.pdf"), Path("out", "h1-hi-clade-155-156-vidrl.pdf"), 
+        ]),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since ??????)"),
+        modul.maps_in_two_columns([
+            Path("out", "h1-hi-clade-155-156-12m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-12m-crick.pdf"), 
+            Path("out", "h1-hi-clade-155-156-12m-niid.pdf"), Path("out", "h1-hi-clade-155-156-12m-vidrl.pdf"), 
+        ]),
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since ??????)"),
+        modul.maps_in_two_columns([
+            Path("out", "h1-hi-clade-155-156-6m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-6m-crick.pdf"), 
+            Path("out", "h1-hi-clade-155-156-6m-niid.pdf"), Path("out", "h1-hi-clade-155-156-6m-vidrl.pdf"), 
+        ]),
     ]
 
-   #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 phylogenetic tree"},
-   #  {"type": "phylogenetic_description"},
-   #  "new_page",
-   #  {"type": "phylogenetic_tree", "subtype": "H1"},
-   #  "new_page",
-
-   #  {"?type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic map colored by phylogenetic clade"},
-   #  {"?type": "description", "text": "CDC+Crick+NIID+VIDRL antigenic map, antigens color-coded by phylogenetic clade."},
-   #  {"?type": "map", "subtype": "H1", "assay": "HI", "lab": "all", "map_type": "clade"},
-   #  "? new_page",
 
    #  {"type": "subsection_begin", "subtype": "H1", "title": "H1N1pdm09 antigenic maps colored by amino-acid at 155, 156"},
    #  {"type": "maps", "images": [
@@ -198,7 +207,7 @@ def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
         modul.vspace(3),
         modul.statistics_table(subtype=subtype, lab=lab, current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
         modul.new_page(), # --------------------------------------------------
-        modul.antigenic_ts(Path("out").glob(f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf")),
+        modul.maps_in_two_columns(Path("out").glob(f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf")),
         modul.new_page()
         ]
 

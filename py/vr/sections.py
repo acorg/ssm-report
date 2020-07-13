@@ -126,14 +126,16 @@ class geographic_ts:
 
 # ----------------------------------------------------------------------
 
-# antigenic_ts(Path("out").glob("h1-hi-ts-cdc-*.pdf")),
-class antigenic_ts:
+# maps_in_two_columns(Path("out").glob("h1-hi-ts-cdc-*.pdf")),
+class maps_in_two_columns:
 
-    # args: title, image_scale, tabcolsep, arraystretch, fontsize, images_per_page
+    # args: image_scale, tabcolsep, arraystretch, images_per_page
     def __init__(self, pdfs, **args):
-        self.fontsize = r"\normalsize"
+        self.image_scale = "9 / 30"
+        self.tabcolsep = 7.0
+        self.arraystretch = 3.5
         self.images_per_page = 6
-        self.pdfs = [im.resolve() if im.exists() else None for im in sorted(pdfs)]
+        self.pdfs = pdfs
         for k, v in args.items():
             setattr(self, k, v)
 
@@ -151,20 +153,26 @@ class antigenic_ts:
             result.append("\\begin{AntigenicMapTableWithSep}{%fpt}{%f}{%s}" % (getattr(self, "tabcolsep", None), getattr(self, "arraystretch", None), self.image_scale))
         else:
             result.append("\\begin{AntigenicMapTable}")
-        if getattr(self, "title", None):
-            result.append("\multicolumn{2}{>{\hspace{0.3em}}c<{\hspace{0.3em}}}{{%s %s}} \\\\" % (self.fontsize, self.title))
+        # if getattr(self, "title", None):
+        #     result.append("\multicolumn{2}{>{\hspace{0.3em}}c<{\hspace{0.3em}}}{{%s %s}} \\\\" % (self.fontsize, self.title))
         for no in range(0, len(images), 2):
             if images[no] and images[no + 1]:
-                result.append("\\AntigenicMap{%s} & \\AntigenicMap{%s} \\\\" % (images[no], images[no + 1]))
+                result.append(f"\\AntigenicMap{{{self.resolve(images[no])}}} & \\AntigenicMap{{{self.resolve(images[no + 1])}}} \\\\")
             elif images[no]:
-                result.append("\\AntigenicMap{%s} & \\hspace{18em} \\\\" % (images[no], ))
+                result.append(f"\\AntigenicMap{{{self.resolve(images[no])}}} & \\hspace{{18em}} \\\\")
             elif images[no+1]:
-                result.append("\\hspace{18em} & \\AntigenicMap{%s} \\\\" % (images[no + 1], ))
+                result.append(f"\\hspace{{18em}} & \\AntigenicMap{{{self.resolve(images[no + 1])}}} \\\\")
         if getattr(self, "image_scale", None) is not None:
             result.append("\\end{AntigenicMapTableWithSep}")
         else:
             result.append("\\end{AntigenicMapTable}")
         return result
+
+    def resolve(self, image):
+        if image and image.exists():
+            return image.resolve()
+        else:
+            return image
 
 # ----------------------------------------------------------------------
 
