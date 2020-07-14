@@ -70,23 +70,29 @@ def make_report(command_name, *r, **a):
 
 # ----------------------------------------------------------------------
 
+def make_addendum_X(no, *r, **a):
+    from report import addendum_1, addendum_2, addendum_3, addendum_4, addendum_5, addendum_6
+    from . import sections
+    from .command import vr_data
+    locals()[f"addendum_{no}"](Path("report", f"addendum-{no}.pdf"), vr_data(), sections)
+
 def make_addendum_1(command_name, *r, **a):
-    pass
+    make_addendum_X(1, *r, **a)
 
 def make_addendum_2(command_name, *r, **a):
-    pass
+    make_addendum_X(2, *r, **a)
 
 def make_addendum_3(command_name, *r, **a):
-    pass
+    make_addendum_X(3, *r, **a)
 
 def make_addendum_4(command_name, *r, **a):
-    pass
+    make_addendum_X(4, *r, **a)
 
 def make_addendum_5(command_name, *r, **a):
-    pass
+    make_addendum_X(5, *r, **a)
 
 def make_addendum_6(command_name, *r, **a):
-    pass
+    make_addendum_X(6, *r, **a)
 
 # ======================================================================
 ### Local Variables:

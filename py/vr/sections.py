@@ -176,6 +176,15 @@ class maps_in_two_columns:
 
 # ----------------------------------------------------------------------
 
+class serum_circle_description_page:
+
+    def __init__(self, **args):
+        pass
+
+    def latex(self):
+        return [latex.T_SerumCirclesDescriptionEggCell]
+# ----------------------------------------------------------------------
+
 class statistics_table:
 
     sLabsForGetStat = {"CDC": ["CDC"], "NIMR": ["Crick", "CRICK", "NIMR"], "CRICK": ["Crick", "CRICK", "NIMR"], "MELB": ["VIDRL", "MELB"], "VIDRL": ["VIDRL", "MELB"]}

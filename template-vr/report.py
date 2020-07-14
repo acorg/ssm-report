@@ -2,6 +2,25 @@ from pathlib import Path
 
 # ----------------------------------------------------------------------
 
+cover_data = {
+    "report_hemisphere": "Southern",
+    "report_year": "2021",
+    "teleconference":  "Teleconference 1",
+    "meeting_date": "11th August 2020"
+}
+
+cover_portreat = {
+    "cover_top_space": "130pt",
+    "cover_after_meeting_date_space": "180pt",
+}
+
+cover_landscape = {
+    "cover_top_space": "10pt",
+    "cover_after_meeting_date_space": "100pt",
+}
+
+# ----------------------------------------------------------------------
+
 compare_with_previous = True
 
 # [subtype, assay, lab, map-name]
@@ -79,11 +98,9 @@ parameters determined by MODELTEST. Garli was run for 1,000,000 generations.
 # ----------------------------------------------------------------------
 
 def report(output_filename, vr_data, modul):
-    import pprint
-    pprint.pprint(vars(vr_data))
     modul.generate(output_filename=output_filename,
                    data=[
-                       modul.cover(),
+                       modul.cover(**cover_data, **cover_portreat),
                        modul.toc(),
                        *h1(modul, vr_data),
                        *h3(modul, vr_data),
@@ -341,22 +358,30 @@ def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
 
 # ----------------------------------------------------------------------
 
-def addendum_1(output_filename, modul):
+def addendum_1(output_filename, vr_data, modul):
+    modul.generate(output_filename=output_filename,
+                   landscape="landscape",
+                   data=[
+                       modul.cover(addendum="Addendum 1 (integrated genetic-antigenic analyses)", **cover_data, **cover_landscape),
+                       modul.serum_circle_description_page(),
+                   ],
+    )
+
+# ----------------------------------------------------------------------
+
+def addendum_2(output_filename, vr_data, modul):
     pass
 
-def addendum_2(output_filename, modul):
+def addendum_3(output_filename, vr_data, modul):
     pass
 
-def addendum_3(output_filename, modul):
+def addendum_4(output_filename, vr_data, modul):
     pass
 
-def addendum_4(output_filename, modul):
+def addendum_5(output_filename, vr_data, modul):
     pass
 
-def addendum_5(output_filename, modul):
-    pass
-
-def addendum_6(output_filename, modul):
+def addendum_6(output_filename, vr_data, modul):
     pass
 
 # ======================================================================

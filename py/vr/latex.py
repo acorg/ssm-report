@@ -446,21 +446,78 @@ T_Subsection = r"\subsection{%title%}"
 
 # ----------------------------------------------------------------------
 
+T_SerumCirclesDescriptionEggCell = r"""%no-eol%
+\newpage
 
-# T_Description_3_parts = r"""%no-eol%
-# \vspace{3em}
-# \noindent
-# %part_1%
+% \newgeometry{top=5em, bottom=5em, left=2.5em, right=10em}
 
-# \vspace{1em}
-# \noindent
-# %part_2%
+\subsection{Serum circle description}
 
-# \vspace{1em}
-# \noindent
-# %part_3%
-# """
+\vspace{1em}
+% \small
+\noindent
+Serum circles shown in blue are for sera raised against cell passaged-viruses, in red for sera raised against egg-passaged viruses.
 
+
+\vspace{1em}
+\noindent
+Strains outside a serum circle are $>$4-fold low-reactors to the homologous
+titer for the serum.
+
+\vspace{1em}
+\noindent
+Here we describe why serum circles have different radii. One might expect the
+serum circle delimiting $>$4-fold low-reactors to have radius 2. However, this
+would only be the case when the homologous titer is the same as the maximum
+titer for a serum - and this is not always the case.
+
+\vspace{1em}
+\noindent
+The theoretical (or "target") distance in an antigenic map from serum S to a
+antigen A is $\log_2$ (max titer for serum S against any antigen) - $\log_2$
+(titer for serum S against antigen A). In other words, the number of 2-folds
+between the maximum titer for serum S, and the titer of serum S to antigen A.
+
+\vspace{1em}
+\noindent
+Thus the theoretical distance between a serum and antigen is dependent on both
+the maximum titer observed for the serum and its homologous titer.
+
+\vspace{1em}
+\noindent
+If low reactors were defined as $>$4-fold from the max titer for a serum then
+the theoretical radius for all serum circles would be 2 units, and this text
+would not be necessary. But low reactors are defined as $>$4-fold from the
+homologous titer, hence the radius is 2 units plus the number of 2-folds
+between max titer and the homologous titer for a serum. Saying the same thing
+mathematically the theoretical radius for a serum circle is 2 + $\log_2$ (max
+titer for serum S against any antigen A) - $\log_2$ (homologous titer for
+serum S).
+
+\vspace{1em}
+\noindent
+In addition to the theoretical serum circle radius, we also calculate an
+empirical radius. The difference is that the theoretical radius is calculated
+from the target distance between sera and antigens as specified by the HI
+titers, whereas the empirical radius is determined from the antigenic map and
+thus the actual distances in the antigenic map between the sera and antigens.
+There are some extra details about the empirical calculation but they are not
+central, and are omitted here.
+
+\vspace{1em}
+\noindent
+The theoretical and empirical radii are similar to each other, and are
+on average only about 0.5 antigenic units different. The empirical
+radius is the one shown on the antigenic maps.
+
+\vspace{1em}
+\noindent
+The center of a serum circle for serum S is at the serum point in the map
+for serum S.
+
+% \restoregeometry
+
+"""
 
 # ======================================================================
 ### Local Variables:
