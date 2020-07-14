@@ -8,6 +8,7 @@ def generate(output_filename: Path, data: list,
              paper_size="a4",
              page_numbering=True,
              landscape="landscape", # portreat
+             usepackage="",
 ):
     output_dir = output_filename.parent
     output_dir.mkdir(exist_ok=True)
@@ -26,7 +27,9 @@ def generate_latex(latex_source, args):
     LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
     tex = [
         substitute(latex.T_Head, program=sys.argv[0], now=datetime.datetime.now(LOCAL_TIMEZONE).strftime("%Y-%m-%d %H:%M %Z"),
-                   documentclass="\documentclass[%spaper,%s,12pt]{article}" % (args["paper_size"], args["landscape"])),
+                   documentclass="\documentclass[%spaper,%s,12pt]{article}" % (args["paper_size"], args["landscape"]),
+                   usepackage=args["usepackage"],
+        ),
         latex.T_BlankPage,
         latex.T_RemoveSectionNumbering,
         latex.T_TableOfContents,
