@@ -365,10 +365,10 @@ def addendum_1(output_filename, vr_data, modul):
                    data=[
                        modul.cover(addendum="Addendum 1 (integrated genetic-antigenic analyses)", **cover_data, **cover_landscape),
                        modul.serum_circle_description_page(),
-                       modul.whole_page_image(Path("spc", "h1-cdc-hi.pdf")),
-                       modul.whole_page_image(Path("spc", "h1-nimr-hi.pdf")),
-                       modul.whole_page_image(Path("spc", "h1-niid-hi.pdf")),
-                       modul.whole_page_image(Path("spc", "h1-melb-hi.pdf")),
+                       modul.signature_page(Path("spc", "h1-cdc-hi.pdf")),
+                       modul.signature_page(Path("spc", "h1-nimr-hi.pdf")),
+                       modul.signature_page(Path("spc", "h1-niid-hi.pdf")),
+                       modul.signature_page(Path("spc", "h1-melb-hi.pdf")),
                    ],
     )
 

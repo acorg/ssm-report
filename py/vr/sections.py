@@ -101,6 +101,16 @@ class whole_page_image:
         else:
             return [f"\\newpage \\vspace*{{15em}} {{\\fontsize{{40}}{{50}} \\selectfont \\noindent \\rotatebox{{315}}{{ \\textbf{{ \\textcolor{{red}}{{{self.filename}}} }} }}}}"]
 
+class signature_page:
+    def __init__(self, filename):
+        self.filename = filename
+
+    def latex(self):
+        if self.filename.exists():
+            return [f"\\SignaturePageFit{{{self.filename.resolve()}}}"]
+        else:
+            return [f"\\newpage \\vspace*{{15em}} {{\\fontsize{{40}}{{50}} \\selectfont \\noindent \\rotatebox{{315}}{{ \\textbf{{ \\textcolor{{red}}{{{self.filename}}} }} }}}}"]
+
 # ----------------------------------------------------------------------
 
 # geographic_ts(Path("geo").glob("H1-geographic-*.pdf"))
@@ -183,6 +193,7 @@ class serum_circle_description_page:
 
     def latex(self):
         return [latex.T_SerumCirclesDescriptionEggCell]
+
 # ----------------------------------------------------------------------
 
 class statistics_table:
