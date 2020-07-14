@@ -245,40 +245,34 @@ def bvic(modul, vr_data):
         modul.text_no_indent(sPhylogeneticDescription),
         modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
 
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
+        modul.maps_in_two_columns([
+            Path("out", "bvic-hi-clade-cdc.pdf"),  Path("out", "bvic-hi-clade-crick.pdf"),
+            Path("out", "bvic-hi-clade-niid.pdf"), Path("out", "bvic-hi-clade-vidrl.pdf"),
+        ]),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
+        modul.maps_in_two_columns([
+            Path("out", "bvic-hi-clade-12m-cdc.pdf"),  Path("out", "bvic-hi-clade-12m-crick.pdf"),
+            Path("out", "bvic-hi-clade-12m-niid.pdf"), Path("out", "bvic-hi-clade-12m-vidrl.pdf"),
+        ]),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
+        modul.maps_in_two_columns([
+            Path("out", "bvic-hi-clade-6m-cdc.pdf"),  Path("out", "bvic-hi-clade-6m-crick.pdf"),
+            Path("out", "bvic-hi-clade-6m-niid.pdf"), Path("out", "bvic-hi-clade-6m-vidrl.pdf"),
+        ]),
+
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
+        modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by phylogenetic clade."),
+        modul.maps_in_two_columns([
+            Path("out", "bvic-hi-serology-cdc.pdf"),  Path("out", "bvic-hi-serology-crick.pdf"),
+            Path("out", "bvic-hi-serology-niid.pdf"), Path("out", "bvic-hi-serology-vidrl.pdf"),
+        ]),
     ]
 
-    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by phylogenetic clade"},
-    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps, antigens color-coded by phylogenetic clade."},
-    # {"type": "maps", "images": [
-    #   "bv-hi/clade-cdc.pdf", "bv-hi/clade-nimr.pdf",
-    #   "bv-hi/clade-niid.pdf", "bv-hi/clade-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by phylogenetic clade (since February 2019)"},
-    # {"type": "maps", "images": [
-    #   "bv-hi/clade-12m-cdc.pdf", "bv-hi/clade-12m-nimr.pdf",
-    #   "bv-hi/clade-12m-niid.pdf", "bv-hi/clade-12m-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by phylogenetic clade (since August 2019)"},
-    # {"type": "maps", "images": [
-    #   "bv-hi/clade-6m-cdc.pdf", "bv-hi/clade-6m-nimr.pdf",
-    #   "bv-hi/clade-6m-niid.pdf", "bv-hi/clade-6m-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps colored by clade and potential N-gly"},
-    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps, antigens color-coded by clade and potential N-gly."},
-    # {"type": "maps", "images": [
-    #   "bv-hi/N-gly-197-cdc.pdf", "bv-hi/N-gly-197-nimr.pdf",
-    #   "bv-hi/N-gly-197-niid.pdf", "bv-hi/N-gly-197-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "bv", "title": "B/Vic antigenic maps with serology antigens"},
-    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
-    # {"type": "maps", "images": [
-    #   "bv-hi/serology-cdc.pdf", "bv-hi/serology-nimr.pdf",
-    #   "bv-hi/serology-niid.pdf", "bv-hi/serology-melb.pdf"
-    # ]},
 
 def byam(modul, vr_data):
     subtype = "BYAM"
@@ -286,38 +280,39 @@ def byam(modul, vr_data):
     return [
         modul.new_page(), # --------------------------------------------------
         modul.section_title(f"{modul.SubtypeDisplay[subtype]}"),
-        ]
 
-    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam phylogenetic tree"},
-    # {"type": "phylogenetic_description"},
-    # "new_page",
-    # {"type": "phylogenetic_tree", "subtype": "by"},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps colored by phylogenetic clade"},
-    # {"type": "description", "text": "CDC, Crick, NIID, VIDRL antigenic maps, antigens color-coded by phylogenetic clade."},
-    # {"type": "maps", "images": [
-    #   "by-hi/clade-cdc.pdf", "by-hi/clade-nimr.pdf",
-    #   "by-hi/clade-niid.pdf", "by-hi/clade-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps colored by phylogenetic clade (since February 2019)"},
-    # {"type": "maps", "images": [
-    #   "by-hi/clade-12m-cdc.pdf", "by-hi/clade-12m-nimr.pdf",
-    #   "by-hi/clade-12m-niid.pdf", "by-hi/clade-12m-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps colored by phylogenetic clade (since August 2019)"},
-    # {"type": "maps", "images": [
-    #   "by-hi/clade-6m-cdc.pdf", "by-hi/clade-6m-nimr.pdf",
-    #   "by-hi/clade-6m-niid.pdf", "by-hi/clade-6m-melb.pdf"
-    # ]},
-    # "new_page",
-    # {"type": "subsection_begin", "subtype": "by", "title": "B/Yam antigenic maps with serology antigens"},
-    # {"type": "description", "text": "Top row left to right CDC, Crick, bottom row left to right NIID, VIDRL antigenic maps with serology antigens in orange, other antigens color-coded by phylogenetic clade."},
-    # {"type": "maps", "images": [
-    #   "by-hi/serology-cdc.pdf", "by-hi/serology-nimr.pdf",
-    #   "by-hi/serology-niid.pdf", "by-hi/serology-melb.pdf"
-    # ]},
+        # modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
+        modul.text_no_indent(sPhylogeneticDescription),
+        modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
+
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
+        modul.maps_in_two_columns([
+            Path("out", "byam-hi-clade-cdc.pdf"),  Path("out", "byam-hi-clade-crick.pdf"),
+            Path("out", "byam-hi-clade-niid.pdf"), Path("out", "byam-hi-clade-vidrl.pdf"),
+        ]),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
+        modul.maps_in_two_columns([
+            Path("out", "byam-hi-clade-12m-cdc.pdf"),  Path("out", "byam-hi-clade-12m-crick.pdf"),
+            Path("out", "byam-hi-clade-12m-niid.pdf"), Path("out", "byam-hi-clade-12m-vidrl.pdf"),
+        ]),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
+        modul.maps_in_two_columns([
+            Path("out", "byam-hi-clade-6m-cdc.pdf"),  Path("out", "byam-hi-clade-6m-crick.pdf"),
+            Path("out", "byam-hi-clade-6m-niid.pdf"), Path("out", "byam-hi-clade-6m-vidrl.pdf"),
+        ]),
+
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
+        modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by phylogenetic clade."),
+        modul.maps_in_two_columns([
+            Path("out", "byam-hi-serology-cdc.pdf"),  Path("out", "byam-hi-serology-crick.pdf"),
+            Path("out", "byam-hi-serology-niid.pdf"), Path("out", "byam-hi-serology-vidrl.pdf"),
+        ]),
+    ]
 
 # ----------------------------------------------------------------------
 
