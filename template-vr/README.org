@@ -1,4 +1,4 @@
-# Time-stamp: <2020-07-28 11:36:29 eu>
+# Time-stamp: <2020-07-28 11:47:20 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
@@ -6,7 +6,8 @@ keywords: ssm vcm
 
 * link previous report data
 
-ln -s ../2020-0224-ssm previous
+ls -l
+ln -s %(previous)s previous
 
 see compare_with_previous in [[report.py]]
 
@@ -68,9 +69,9 @@ see [[vr.mapi]] "init"
 * install report
 
 #+BEGIN_SRC bash
-  ssh i19 "cp -v /syn/eu/ac/results/ssm/{dir_name}/report/report.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-{report_date}.pdf"
-  ssh i19 "cp -v /syn/eu/ac/results/ssm/{dir_name}/report/sp-spsc-addendum.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-{report_date}.addendum-1.pdf"
-  ssh i19 "chmod 0644 /syn/WebSites/Protected/ssmreport/*{report_date}*; ls -l /syn/WebSites/Protected/ssmreport/*{report_date}*"
+  ssh i19 "cp -v /syn/eu/ac/results/ssm/%(dir_name)s/report/report.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-%(report_date)s.pdf"
+  ssh i19 "cp -v /syn/eu/ac/results/ssm/%(dir_name)s/report/sp-spsc-addendum.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-%(report_date)s.addendum-1.pdf"
+  ssh i19 "chmod 0644 /syn/WebSites/Protected/ssmreport/*%(report_date)s*; ls -l /syn/WebSites/Protected/ssmreport/*%(report_date)s*"
 #+END_SRC
 
 

@@ -57,15 +57,29 @@ def make_fields(target_dir):
 
     if tc == "tc1":
         teleconference = "Teleconference 1"
+        prev_suffix = "ssm"
     elif tc == "tc2":
         teleconference = "Teleconference 2"
+        prev_suffix = "tc1"
     elif tc == "tc3":
         teleconference = "Teleconference 3"
+        prev_suffix = "tc2"
     else:
         teleconference = ""
+        prev_suffix = "tc2"
 
     time_series_start = (meeting_date - datetime.timedelta(days=30*7)).strftime("%Y-%m")
     time_series_end = (meeting_date - datetime.timedelta(days=30)).strftime("%Y-%m")
+
+    prev_dirs = sorted(target_dir.parent.glob(f"*-{prev_suffix}"))
+    # pprint.pprint(prev_dirs)
+    if prev_dirs:
+        previous = f"../{prev_dirs[-1].name}"
+        previous_link = target_dir.joinpath("previous")
+        if not previous_link.exists():
+            previous_link.symlink_to(previous)
+    else:
+        previous = "/UNKNOWN"
 
     fields = {
         "dir_name": target_dir.name,
@@ -74,12 +88,15 @@ def make_fields(target_dir):
         "meeting_month": meeting_month,
         "meeting_day": meeting_day,
         "meeting_date": meeting_date.strftime("%d %B %Y"),
+        "report_date": meeting_date.strftime("%Y-%m-%d"),
         "report_hemisphere": report_hemisphere,
         "report_year": report_year,
         "teleconference": teleconference,
 
         "time_series_start": time_series_start,
         "time_series_end": time_series_end,
+
+        "previous": previous
     }
     pprint.pprint(fields)
     return fields
