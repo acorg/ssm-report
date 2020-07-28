@@ -1,10 +1,16 @@
-# Time-stamp: <2020-07-28 12:02:28 eu>
+# Time-stamp: <2020-07-28 12:17:48 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
 [[https://worldhealthorg-my.sharepoint.com/:f:/g/personal/lievrem_who_int/EsWipHzg-WBHhuQkssp34PsBVpB6pucxdjLVY5OuUki4Vw?e=5%3aRqGQVW&at=9][WHO report folder (OneDrive)]]
 
 (setq eu-ssm-dir "/syn/eu/ac/results/ssm/%(dir_name)s")
+
+M-x eu-ssm-load
+C-f7 -> helm-ssm
+heml-ssm: ~get-hidb
+heml-ssm: ~get-merges
+helm-ssm: ~stat-geo
 
 * link previous report data
 
