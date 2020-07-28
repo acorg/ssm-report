@@ -3,10 +3,10 @@ from pathlib import Path
 # ----------------------------------------------------------------------
 
 cover_data = {
-    "report_hemisphere": "Southern",
-    "report_year": "2021",
-    "teleconference":  "Teleconference 1",
-    "meeting_date": "11th August 2020"
+    "report_hemisphere": "%(report_hemisphere)s",
+    "report_year": "%(report_year)s",
+    "teleconference":  "%(teleconference)s",
+    "meeting_date": "%(meeting_date)s"
 }
 
 cover_portreat = {

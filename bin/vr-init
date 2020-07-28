@@ -5,7 +5,7 @@
 ssm/vcm report initializer 2020-06
 """
 
-import sys, os, re, subprocess, traceback
+import sys, os, re, datetime, subprocess, traceback, pprint
 if f"{sys.version_info.major}.{sys.version_info.minor}" < "3.7": raise RuntimeError("Run script with python 3.7+")
 from pathlib import Path
 # sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
@@ -39,21 +39,50 @@ def main(dir_name):
 # ----------------------------------------------------------------------
 
 def make_fields(target_dir):
-    m = re.match(r"^(\d{4})-(\d\d)(\d\d)-", target_dir.name)
+    m = re.match(r"^(\d{4})-(\d\d)(\d\d)-(.+)", target_dir.name)
     if not m:
         raise RuntimeError(f"invalid target_dir name pattern: {target_dir.name}")
-    report_year = int(m.group(1))
-    report_month = int(m.group(2))
-    report_day = int(m.group(3))
+    meeting_year = int(m.group(1))
+    meeting_month = int(m.group(2))
+    meeting_day = int(m.group(3))
+    meeting_date = datetime.date(meeting_year, meeting_month, meeting_day)
+    tc = m.group(4)
 
-    return {
+    if meeting_month > 6:
+        report_hemisphere = "Southern"
+        report_year = f"{meeting_year + 1}"
+    else:
+        report_hemisphere = "Northern"
+        report_year = f"{meeting_year}/{meeting_year + 1}"
+
+    if tc == "tc1":
+        teleconference = "Teleconference 1"
+    elif tc == "tc2":
+        teleconference = "Teleconference 2"
+    elif tc == "tc3":
+        teleconference = "Teleconference 3"
+    else:
+        teleconference = ""
+
+    time_series_start = (meeting_date - datetime.timedelta(days=30*7)).strftime("%Y-%m")
+    time_series_end = (meeting_date - datetime.timedelta(days=30)).strftime("%Y-%m")
+
+    fields = {
         "dir_name": target_dir.name,
 
+        "meeting_year": meeting_year,
+        "meeting_month": meeting_month,
+        "meeting_day": meeting_day,
+        "meeting_date": meeting_date.strftime("%d %B %Y"),
+        "report_hemisphere": report_hemisphere,
         "report_year": report_year,
-        "report_month": report_month,
-        "report_day": report_day,
-        "report_date": f"{report_year}-{report_month:02d}-{report_day:02d}",
+        "teleconference": teleconference,
+
+        "time_series_start": time_series_start,
+        "time_series_end": time_series_end,
     }
+    pprint.pprint(fields)
+    return fields
 
 # ----------------------------------------------------------------------
 
@@ -62,10 +91,10 @@ def add_file(source_pathname, target_dir, fields, target_name=None, add_to_git=T
         output = target_dir.joinpath(target_name)
     else:
         output = target_dir.joinpath(source_pathname.name)
-    # print(fields)
     if not output.exists():
+        module_logger.info(f"writing {output} <-- {source_pathname}")
         with open(output, "w") as out:
-            out.write(source_pathname.open().read().format(**fields))
+            out.write(source_pathname.open().read() % fields)
     else:
         module_logger.warning(f"{output} already exists (not overwritten)")
     if add_to_git:

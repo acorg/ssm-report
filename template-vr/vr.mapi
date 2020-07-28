@@ -3,8 +3,8 @@
         {"N": "set",
          "vr": true,
 
-         "time-series-start": "2019-10",
-         "time-series-end":   "2020-04",
+         "time-series-start": "%(time_series_start)s",
+         "time-series-end":   "%(time_series_end)s",
          "time-series-interval": {"month": 1},
 
          "vaccine-size": 50,

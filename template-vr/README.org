@@ -1,4 +1,4 @@
-# Time-stamp: <2020-06-25 11:13:38 eu>
+# Time-stamp: <2020-07-28 11:36:29 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
@@ -13,6 +13,53 @@ see compare_with_previous in [[report.py]]
 * set of maps
 
 see [[report.py]]
+
+** H1
+
+*** CDC
+
+*** Crick
+
+*** NIID
+
+*** VIDRL
+
+** H3 HI
+
+*** Crick
+
+*** VIDRL
+
+** H3 Neut
+
+*** CDC
+
+*** Crick
+
+*** NIID
+
+*** VIDRL
+
+** B/Vic
+
+*** CDC
+
+*** Crick
+
+*** NIID
+
+*** VIDRL
+
+** B/Yam
+
+*** CDC
+
+*** Crick
+
+*** NIID
+
+*** VIDRL
+
 
 * time series
 
