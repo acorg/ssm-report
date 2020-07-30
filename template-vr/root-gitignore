@@ -4,6 +4,7 @@
 *.save
 *.xz
 *.bz2
+*.tjz
 .#*
 log
 merges
