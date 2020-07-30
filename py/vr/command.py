@@ -1,7 +1,7 @@
 import sys, os, subprocess, json, datetime
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
-from . import report, map
+from . import report, map, tree
 from .error import Error
 
 # ----------------------------------------------------------------------

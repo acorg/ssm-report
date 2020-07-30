@@ -1,4 +1,4 @@
-# Time-stamp: <2020-07-28 12:17:48 eu>
+# Time-stamp: <2020-07-30 15:44:16 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
@@ -18,6 +18,11 @@ ls -l
 ln -s %(previous)s previous
 
 see compare_with_previous in [[report.py]]
+
+* trees
+
+SUBTYPE: ["h1", "h3", "bvic", "byam"]
+scp i19:/syn/eu/ac/results/signature-pages/*/SUBTYPE/tree.json.xz tree/SUBTYPE.tjz
 
 * set of maps
 

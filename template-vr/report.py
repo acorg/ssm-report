@@ -25,11 +25,9 @@ compare_with_previous = True
 
 # [subtype, assay, lab, map-name]
 def maps(modul):
+    # modul is vr.command
     return [
-        #     ["h1", "tree"],
-        #     ["h3", "tree"],
-        #     ["bvic", "tree"],
-        #     ["byam", "tree"],
+        modul.tree.makers(),
 
         # H1 --------------------------------------------------
 
