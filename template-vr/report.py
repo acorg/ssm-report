@@ -124,7 +124,7 @@ def h1(modul, vr_data):
         modul.vspace(1),
         modul.text_no_indent(sGeographicMapDesc),
         modul.new_page(), # --------------------------------------------------
-        modul.geographic_ts(Path("geo").glob("H1-geographic-*.pdf")),
+        modul.geographic_ts(sorted(Path("geo").glob("H1-geographic-*.pdf"))),
 
         modul.new_page(), # --------------------------------------------------
         *antigenic_ts(modul=modul, subtype=subtype, assay="hi", labs=labs, colored_by=sColoredByRegion, vr_data=vr_data),
@@ -176,7 +176,7 @@ def h3(modul, vr_data):
         modul.vspace(1),
         modul.text_no_indent(sGeographicMapDesc),
         modul.new_page(), # --------------------------------------------------
-        modul.geographic_ts(Path("geo").glob("H3-geographic-*.pdf")),
+        modul.geographic_ts(sorted(Path("geo").glob("H3-geographic-*.pdf"))),
 
         modul.new_page(), # --------------------------------------------------
         *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="CDC",   colored_by=sColoredByRegion, vr_data=vr_data),
@@ -242,7 +242,7 @@ def b(modul, vr_data):
         modul.vspace(1),
         modul.text_no_indent(sGeographicMapDesc),
         modul.new_page(), # --------------------------------------------------
-        modul.geographic_ts(Path("geo").glob("B-geographic-*.pdf")),
+        modul.geographic_ts(sorted(Path("geo").glob("B-geographic-*.pdf"))),
         *bvic(modul, vr_data),
         *byam(modul, vr_data),
         ]
@@ -350,7 +350,7 @@ def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
         modul.vspace(3),
         modul.statistics_table(subtype=modul.SubtypeStat[subtype], lab=lab, current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
         modul.new_page(), # --------------------------------------------------
-        modul.maps_in_two_columns(Path("out").glob(f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf")),
+        modul.maps_in_two_columns(sorted(Path("out").glob(f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf"))),
         modul.new_page()
         ]
 
