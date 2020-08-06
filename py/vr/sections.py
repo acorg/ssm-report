@@ -12,7 +12,7 @@ SubtypeDisplay = {"A(H1N1)": "H1N1pdm09", "A(H3N2)": "H3N2", "B": "B", "BVIC": "
 SubtypeFilename = {"A(H1N1)": "h1", "A(H3N2)": "h3", "BVIC": "bvic", "BYAM": "byam"}
 SubtypeStat = {"A(H1N1)": "A(H1N1)", "A(H3N2)": "A(H3N2)", "BVIC": "BVICTORIA", "BYAM": "BYAMAGATA"}
 
-AssayDisplay = {"hi": "HI", "neut": "Neut"}
+AssayDisplay = {"hi": "HI", "hint": "HINT", "neut": "Neut"}
 
 def subtype_assay_display(subtype, assay):
     if subtype == "A(H3N2)":

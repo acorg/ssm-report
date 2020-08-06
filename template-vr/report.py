@@ -180,6 +180,7 @@ def h3(modul, vr_data):
         modul.geographic_ts(sorted(Path("geo").glob("H3-geographic-*.pdf"))),
 
         modul.new_page(), # --------------------------------------------------
+        *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="hint", lab="CDC",   colored_by=sColoredByRegion, vr_data=vr_data),
         *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="CDC",   colored_by=sColoredByRegion, vr_data=vr_data),
         *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="hi",   lab="Crick", colored_by=sColoredByRegion, vr_data=vr_data),
         *antigenic_ts_for_lab(modul=modul, subtype=subtype, assay="neut", lab="Crick", colored_by=sColoredByRegion, vr_data=vr_data),
@@ -195,7 +196,7 @@ def h3(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
         modul.maps_in_two_columns([
-            None,                                     Path("out", "h3-neut-clade-cdc.pdf"),
+            Path("out", "h3-hint-clade-cdc.pdf"),     Path("out", "h3-neut-clade-cdc.pdf"),
             Path("out", "h3-hi-clade-crick.pdf"),     Path("out", "h3-neut-clade-crick.pdf"),
             None,                                     Path("out", "h3-neut-clade-niid.pdf"),
             Path("out", "h3-hi-clade-vidrl.pdf"),     Path("out", "h3-neut-clade-vidrl.pdf"),
@@ -203,7 +204,7 @@ def h3(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
         modul.maps_in_two_columns([
-            None,                                     Path("out", "h3-neut-clade-12m-cdc.pdf"),
+            Path("out", "h3-hint-clade-12m-cdc.pdf"), Path("out", "h3-neut-clade-12m-cdc.pdf"),
             Path("out", "h3-hi-clade-12m-crick.pdf"), Path("out", "h3-neut-clade-12m-crick.pdf"),
             None,                                     Path("out", "h3-neut-clade-12m-niid.pdf"),
             Path("out", "h3-hi-clade-12m-vidrl.pdf"), Path("out", "h3-neut-clade-12m-vidrl.pdf"),
@@ -212,7 +213,7 @@ def h3(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
         modul.maps_in_two_columns([
-            None,                                     Path("out", "h3-neut-clade-6m-cdc.pdf"),
+            Path("out", "h3-hint-clade-6m-cdc.pdf"),  Path("out", "h3-neut-clade-6m-cdc.pdf"),
             Path("out", "h3-hi-clade-6m-crick.pdf"),  Path("out", "h3-neut-clade-6m-crick.pdf"),
             None,                                     Path("out", "h3-neut-clade-6m-niid.pdf"),
             Path("out", "h3-hi-clade-6m-vidrl.pdf"),  Path("out", "h3-neut-clade-6m-vidrl.pdf"),
@@ -222,7 +223,7 @@ def h3(modul, vr_data):
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
         modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by phylogenetic clade."),
         modul.maps_in_two_columns([
-            None,                                     Path("out", "h3-neut-serology-cdc.pdf"),
+            Path("out", "h3-hint-serology-cdc.pdf"),  Path("out", "h3-neut-serology-cdc.pdf"),
             Path("out", "h3-hi-serology-crick.pdf"),  Path("out", "h3-neut-serology-crick.pdf"),
             None,                                     Path("out", "h3-neut-serology-niid.pdf"),
             Path("out", "h3-hi-serology-vidrl.pdf"),  Path("out", "h3-neut-serology-vidrl.pdf"),
