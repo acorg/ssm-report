@@ -39,6 +39,7 @@ def maps(modul):
         # H3 HI --------------------------------------------------
 
         modul.map.makers(subtype="h3", assay="hi", labs=["crick", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"], maps=["clade", "clade-6m", "clade-12m", "ts"], compare_with_previous=compare_with_previous),
 
         # H3 Neut --------------------------------------------------
 
