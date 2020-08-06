@@ -55,10 +55,39 @@ def makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
 # ======================================================================
 
 sTalSettings = """{   "_": "-*- js-indent-level: 4 -*-",
+    "init": [
+        {"?N": "set", "report-cumulative-output": "-"}
+    ],
+
     "tal": [
+        {"?N": "margins", "left": 0.015},
         "clades-whocc",
         {"?N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}}
-    ]
+        {"?N": "nodes", "select": {"cumulative >=": 0.035, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}},
+        {"N": "time-series", "?start": "2017-01", "?slot": {"width": 0.005}},
+        {"N": "clades", "?slot": {"width": 0.007}, "?width-to-height-ratio": 0.045, 
+         "?all_clades": {"label": {"scale": 1.4}},
+         "per_clade": [
+         ]
+        },
+        "eu-aa-transitions",
+        "?hz"
+    ],
+
+    "eu-aa-transitions": [
+        {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
+         "per_node": [
+         ]
+        }
+    ],
+
+    "hz": [
+        {"N": "hz-sections", "report": true,
+         "sections": [
+             {"id": "G133R",       "first": "B/ARGENTINA/2863/2019_OR_h50DEF5B1", "last": "B/KANAGAWA/AC1886/2019_MDCK0/MDCK1_hF636BAFA", "?label": "", "show": true},
+         ]
+        }
+    ],
 }
 """
 
