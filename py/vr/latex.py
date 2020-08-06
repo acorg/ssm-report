@@ -7,7 +7,7 @@ T_Head = r"""% !TEX encoding = UTF-8 Unicode
 \usepackage[table]{xcolor}
 \usepackage{tikz}               % draw filled circles in \ColorCodedByRegion
 
-\usepackage{graphicx}           % multiple pdfs per page
+\usepackage{graphicx}           % multiple pdfs per page, pdf
 \usepackage[export]{adjustbox}  % frame in \includegraphics
 \usepackage{grffile}            % to allow .a.pdf in \includegraphics
 \usepackage{pdfpages}           % phylogenetic tree
@@ -164,7 +164,8 @@ T_WholePagePdf = r"""
    \noindent
    \begin{center}
 }{\end{center}\par}
-\newcommand{\WholePagePdf}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdf[pages=-,pagecommand={\thispagestyle{fancy}}]{#1}\end{WholePagePdfEnv}}
+% \newcommand{\WholePagePdf}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdf[pages=-,pagecommand={\thispagestyle{fancy}}]{#1}\end{WholePagePdfEnv}}
+\newcommand{\WholePagePdf}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdf[pages={1}]{#1}\end{WholePagePdfEnv}}
 \newcommand{\WholePagePdfFit}[1]{\begin{WholePagePdfEnv}\includegraphics[page=1,scale=0.9]{#1}\end{WholePagePdfEnv}}
 \newcommand{\WholePagePdfTwoToc}[3]{
   \begin{WholePagePdfEnv}
