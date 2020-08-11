@@ -107,7 +107,7 @@ class signature_page:
 
     def latex(self):
         if self.filename.exists():
-            return [f"\\SignaturePageFit{{{self.filename.resolve()}}}"]
+            return [f"\\SignaturePageNoResacle{{{self.filename.resolve()}}}"]
         else:
             return [f"\\newpage \\vspace*{{15em}} {{\\fontsize{{40}}{{50}} \\selectfont \\noindent \\rotatebox{{315}}{{ \\textbf{{ \\textcolor{{red}}{{{self.filename}}} }} }}}}"]
 

@@ -188,6 +188,7 @@ T_SignaturePage = r"""
 }{\end{center}\par}
 \newcommand{\SignaturePageFit}[1]{\begin{SignaturePageEnv}\resizebox{!}{0.98\textheight}{\includegraphics[page=1]{#1}}\end{SignaturePageEnv}}
 \newcommand{\SignaturePage}[1]{\begin{SignaturePageEnv}\includegraphics[page=1]{#1}\end{SignaturePageEnv}}
+\newcommand{\SignaturePageNoResacle}[1]{\includepdf[pages=-,frame=true,noautoscale=false,fitpaper=true]{#1}}
 """
 
 # ----------------------------------------------------------------------
