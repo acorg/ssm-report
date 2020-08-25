@@ -16,6 +16,11 @@ class maker:
     def __call__(self, command_name, interactive, open_pdf=True, output_dir=Path("tree"), *r, **a):
         output_dir.mkdir(exist_ok=True)
         source_tjz = output_dir.joinpath(f"{self.subtype}.tjz")
+        txt = output_dir.joinpath(f"{self.subtype}.tree.txt")
+        if not txt.exists():
+            cmd = f"tal {source_tjz} {txt}"
+            print(cmd)
+            subprocess.check_call(cmd, shell=True)
         tal_settings = output_dir.joinpath(f"{self.subtype}.tree.tal")
         pdf = output_dir.joinpath(f"{self.subtype}.tree.pdf")
         if not tal_settings.exists():
