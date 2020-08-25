@@ -1,0 +1,21 @@
+{
+    "antigenic-maps-all": [
+        {"N": "legend", "show": false},
+        "/size-reset",
+        "/all-grey",
+        "/no-labels",
+        "/egg",
+        "loc:rotate:viewport-{virus-type/lineage}{subset}{assay-neut}-{lab}"
+    ],
+
+    "antigenic-map": [
+        "antigenic-map-reset",
+        {"N": "title", "remove-lines": true, "lines": ["{section_prefix}. {section_label} {section_aa_transitions}"]},
+        {"N": "antigens", "select": {"in-section": true, "report": true}, "fill": {"time-series-color-scale": true}, "outline": "black", "size": 5, "order": "raise"},
+        "serum-circles",
+        {"N": "vr:vaccines", "vaccine-size": 10}
+    ],
+
+    "serum-circles": [
+    ]
+}
