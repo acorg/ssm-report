@@ -6,10 +6,10 @@
     "tal": [
         {"N": "margins", "left": 0.005},
         {"N": "tree", "width-to-height-ratio": 0.455},
-        {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.022, 
+        {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.022,
          "all_clades": {"label": {"scale": 1.4}},
          "per_clade": [
-             {"name": "Y2", "show": false},
+             {"name": "Y2", "show": false}
          ]
         },
         "clades-whocc",
@@ -20,6 +20,13 @@
         "hz"
     ],
 
+    "hz": [
+        {"N": "hz-sections", "report": true,
+         "sections": [
+         ]
+        }
+    ],
+
     "eu-aa-transitions": [
         {"N": "draw-aa-transitions", "minimum_number_leaves_in_subtree": 40,
          "method": "derek",
@@ -27,12 +34,5 @@
          "per_node": [
          ]
         }
-    ],
-
-    "hz": [
-        {"N": "hz-sections", "report": true,
-         "sections": [
-         ]
-        }
-    ],
+    ]
 }
