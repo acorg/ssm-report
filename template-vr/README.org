@@ -1,8 +1,12 @@
-# Time-stamp: <2020-07-30 15:44:16 eu>
+# Time-stamp: <2020-08-26 10:41:51 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
 [[https://worldhealthorg-my.sharepoint.com/:f:/g/personal/lievrem_who_int/EsWipHzg-WBHhuQkssp34PsBVpB6pucxdjLVY5OuUki4Vw?e=5%3aRqGQVW&at=9][WHO report folder (OneDrive)]]
+
+#+BEGIN_SRC bash
+./sy
+#+END_SRC
 
 (setq eu-ssm-dir "/syn/eu/ac/results/ssm/%(dir_name)s")
 

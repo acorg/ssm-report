@@ -9,9 +9,11 @@ from .error import Error
 def __get_merges(command, *r, **a): get_merges()
 def __get_hidb(command, *r, **a): get_hidb()
 def __stat_geo(command, *r, **a): stat_geo()
+def __sy(command, *r, **a): sy()
 
 sCommands = {
     "~report": report.make_report,
+    "~report-upload": report.make_report_and_upload,
     "~addendum-1": report.make_addendum_1,
     "~addendum-2": report.make_addendum_2,
     "~addendum-3": report.make_addendum_3,
@@ -21,6 +23,7 @@ sCommands = {
     "~get-merges": __get_merges,
     "~get-hidb": __get_hidb,
     "~stat-geo": __stat_geo,
+    "~sy": __sy,
     }
 
 from report import maps
@@ -86,6 +89,11 @@ def get_hidb():
 
 def list_for_helm():
     print("\n".join(sorted(sCommands)))
+
+# ----------------------------------------------------------------------
+
+def sy():
+    subprocess.check_call("./sy", shell=True)
 
 # ======================================================================
 ### Local Variables:
