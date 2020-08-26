@@ -1,0 +1,53 @@
+{   "_": "-*- js-indent-level: 4 -*-",
+    "init": [
+        {"?N": "set", "report-cumulative-output": "-"}
+    ],
+
+    "tal": [
+        {"N": "margins", "left": 0.005},
+        {"N": "tree", "width-to-height-ratio": 0.4},
+        "clades-whocc",
+        "eu-aa-transitions",
+
+        {"N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"hide": false, "tree-edge-line-color": "red"}},
+        {"?N": "nodes", "select": {"cumulative >=": 0.028, "report": true}, "apply": {"hide": false, "tree-edge-line-color": "red"}},
+
+        {"N": "time-series", "?start": "2016-12", "?end": "2020-07",
+         "slot": {"?width": 0.0065, "label": {"scale": 1.1, "rotation": "clockwise"}}},
+
+        {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.04,
+         "all_clades": {"label": {"scale": 1.4}},
+         "per_clade": [
+             {"name": "2DEL2017", "section_inclusion_tolerance": 40, "display_name": "V1A.1", "label": {"scale": 1.4}},
+             {"name": "3DEL2017", "section_inclusion_tolerance": 20, "section_exclusion_tolerance": 11, "display_name": " ", "label": {"scale": 1.4}}
+         ]
+        },
+        {"?N": "draw-on-tree",
+         "texts": [
+             {"text": "V1A.2", "offset": [0.705, 0.166], "color": "black", "size": 0.01},
+             {"text": "V1A.3", "offset": [0.705, 0.735], "color": "black", "size": 0.01}
+         ]
+        },
+        {"N": "nodes", "select": {"vaccine": {"type": "current", "passage": "cell"}, "report": false}, "apply": "report"},
+        {"?N": "nodes", "select": {"vaccine": {"type": "current", "passage": "cell"}, "report": false}, "apply": {"text": {"text": "B/Washington/2/2019", "offset": [-0.22, 0.005], "absolute_x": 0.52, "color": "black", "size": 0.01}}},
+        "hz"
+    ],
+
+    "eu-aa-transitions": [
+        {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
+         "method": "derek",
+         "all_nodes": {"label": {"color": "grey30"}},
+         "per_node": [
+         ]
+        }
+    ],
+
+    "hz": [
+        {"N": "hz-sections", "report": true,
+         "?line": {"color": "black", "line_width": 1},
+         "?top-gap": 0.01, "?bottom-gap": 0.01,
+         "sections": [
+         ]
+        }
+    ]
+}

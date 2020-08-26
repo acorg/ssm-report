@@ -1,0 +1,38 @@
+{   "_": "-*- js-indent-level: 4 -*-",
+    "init": [
+        {"?N": "set", "report-cumulative-output": "-"}
+    ],
+
+    "tal": [
+        {"N": "margins", "left": 0.005},
+        {"N": "tree", "width-to-height-ratio": 0.455},
+        {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.022, 
+         "all_clades": {"label": {"scale": 1.4}},
+         "per_clade": [
+             {"name": "Y2", "show": false},
+         ]
+        },
+        "clades-whocc",
+        {"?N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}},
+        {"N": "nodes", "select": {"cumulative >=": 0.027, "report": true}, "apply": {"hide": true, "tree-edge-line-color": "red"}},
+        {"N": "time-series", "start": "2017-01", "slot": {"width": 0.0065, "label": {"scale": 1.0, "rotation": "clockwise"}}},
+        "eu-aa-transitions",
+        "hz"
+    ],
+
+    "eu-aa-transitions": [
+        {"N": "draw-aa-transitions", "minimum_number_leaves_in_subtree": 40,
+         "method": "derek",
+         "all_nodes": {"label": {"color": "grey30"}},
+         "per_node": [
+         ]
+        }
+    ],
+
+    "hz": [
+        {"N": "hz-sections", "report": true,
+         "sections": [
+         ]
+        }
+    ],
+}
