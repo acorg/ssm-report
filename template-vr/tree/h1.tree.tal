@@ -20,20 +20,20 @@
         {"?N": "nodes", "select": {"seq_id": "AH1N1/NORWAY/2316/2019_OR_h555CAF89", "report": true}, "apply": {"hide": false, "tree-edge-line-color": "red", "tree-edge-line-width": 2.0}}
     ],
 
-    "eu-aa-transitions": [
-        {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
-         "method": "derek",
-         "all_nodes": {"label": {"color": "grey30"}},
-         "per_node": [
-         ]
-        }
-    ],
-
     "hz": [
         {"N": "hz-sections", "report": true,
          "?line": {"color": "black", "line_width": 1},
          "?top-gap": 0.01, "?bottom-gap": 0.01,
          "sections": [
+         ]
+        }
+    ],
+
+    "eu-aa-transitions": [
+        {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
+         "method": "derek",
+         "all_nodes": {"label": {"color": "grey30"}},
+         "per_node": [
          ]
         }
     ],
@@ -51,7 +51,7 @@
              {"name": "156D",  "show": true},
              {"name": "156S",  "show": false, "section_exclusion_tolerance": 2},
              {"name": "156K",  "show": true, "section_exclusion_tolerance": 10},
-             {"name": "156N",  "show": true, "section_inclusion_tolerance": 20}
+             {"name": "156N",  "show": true, "section_inclusion_tolerance": 10}
          ]
         }
     ]
