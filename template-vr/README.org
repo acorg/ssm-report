@@ -1,4 +1,4 @@
-# Time-stamp: <2020-08-26 10:41:51 eu>
+# Time-stamp: <2020-08-27 08:50:04 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
@@ -41,6 +41,10 @@ see [[report.py]]
 *** NIID
 
 *** VIDRL
+
+** H3 HINT
+
+*** CDC
 
 ** H3 HI
 
