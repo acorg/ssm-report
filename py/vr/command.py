@@ -88,7 +88,17 @@ def get_hidb():
 # ----------------------------------------------------------------------
 
 def list_for_helm():
-    print("\n".join(sorted(sCommands)))
+    # print("\n".join(sorted(sCommands)))
+
+    def key(name):
+        if name[0] == 'h':
+            return f"1{name}"
+        elif name[0] == 'b':
+            return f"2{name}"
+        else:
+            return f"3{name}"
+
+    print("\n".join(sorted(sCommands, key=key)))
 
 # ----------------------------------------------------------------------
 
