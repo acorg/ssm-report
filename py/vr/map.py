@@ -131,7 +131,7 @@ class maker:
 # ======================================================================
 
 def makers(subtype, labs, maps, assay=None, **options):
-    result = [mk for mk in (maker(subtype=subtype, assay=assay, lab=lab, map=map, **options) for lab in labs for map in maps) if mk.merge_exists(mk.lab)]
+    result = [mk for mk in (maker(subtype=subtype, assay=assay, lab=lab, map=map, **options) for lab in labs for map in maps if map != "sp") if mk.merge_exists(mk.lab)]
     if result and len([en for en in maps if en.startswith("clade")]) > 1:
         for lab in labs:
             mk = maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options)
@@ -140,6 +140,9 @@ def makers(subtype, labs, maps, assay=None, **options):
     for lab in labs:
         result.append(maker(subtype=subtype, assay=assay, lab=lab, maps=maps, **options))
     result.append(maker(subtype=subtype, assay=assay, labs=labs, maps=maps, **options))
+    if "sp" in maps:
+        from . import tree
+        result.extend(tree.makers_sp(subtype=subtype, assay=assay, labs=labs))
     return result
 
 # ======================================================================

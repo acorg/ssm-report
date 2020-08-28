@@ -39,8 +39,7 @@ class maker:
         return f"tree/{self.subtype}.tjz"
 
     def tree_exists(self):
-        mer = self.tree()
-        return Path(mer).exists()
+        return Path(self.tree()).exists()
 
     def _settings(self):
         if self.subtype == "h3":
@@ -52,10 +51,44 @@ class maker:
         return f"{self.subtype} {self.assay if self.assay else 'hi'}"
 
 
-# ======================================================================
+# ----------------------------------------------------------------------
 
 def makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
     return [mk for mk in (maker(subtype=subtype, **options) for subtype in subtypes) if mk.tree_exists()]
+
+# ======================================================================
+
+class sp_maker:
+
+    def __init__(self, subtype, lab, assay, sp="sp"):
+        self.subtype = subtype
+        self.lab = lab
+        self.assay = assay
+        self.sp = sp
+
+    def tree(self):
+        return f"sp/{self.subtype}.tjz"
+
+    def tree_exists(self):
+        return Path(self.tree()).exists()
+
+    def merge(self):
+        return f"merges/{self.lab}-{self.subtype[:2]}-{self.assay or 'hi'}.ace"
+
+    def merge_exists(self):
+        return Path(self.merge()).exists()
+
+    def command_name_for_helm(self):
+        if self.assay:
+            assay = f"-{self.assay}"
+        else:
+            assay = ""
+        return f"{self.subtype}{assay}-{self.lab}-{self.sp}"
+
+# ----------------------------------------------------------------------
+
+def makers_sp(subtype, labs, assay):
+    return [mk for mk in (sp_maker(subtype=subtype, lab=lab, assay=assay, sp=sp) for lab in labs for sp in ["sp", "spc"]) if mk.tree_exists() and mk.merge_exists()]
 
 # ======================================================================
 
@@ -70,7 +103,7 @@ sTalSettings = """{   "_": "-*- js-indent-level: 4 -*-",
         {"?N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}}
         {"?N": "nodes", "select": {"cumulative >=": 0.035, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}},
         {"N": "time-series", "?start": "2017-01", "?slot": {"width": 0.005}},
-        {"N": "clades", "?slot": {"width": 0.007}, "?width-to-height-ratio": 0.045, 
+        {"N": "clades", "?slot": {"width": 0.007}, "?width-to-height-ratio": 0.045,
          "?all_clades": {"label": {"scale": 1.4}},
          "per_clade": [
          ]

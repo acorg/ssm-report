@@ -31,23 +31,23 @@ def maps(modul):
 
         # H1 --------------------------------------------------
 
-        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-155-156", "clade-155-156-6m", "clade-155-156-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-155-156", "clade-155-156-6m", "clade-155-156-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # you may add individual maps like below
         # modul.map.maker(subtype="h1", lab="cdc",  map="clade-156"),
 
         # H3 HI --------------------------------------------------
 
-        modul.map.makers(subtype="h3", assay="hi", labs=["crick", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
-        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"], maps=["clade", "clade-6m", "clade-12m", "ts"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"], maps=["clade", "clade-6m", "clade-12m", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hi", labs=["crick", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts"], "sp", compare_with_previous=compare_with_previous),
 
         # H3 Neut --------------------------------------------------
 
-        modul.map.makers(subtype="h3", assay="neut", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="neut", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # B/Vic --------------------------------------------------
 
-        modul.map.makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "serology", "ts"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # you may add individual maps like below
         # modul.map.maker(subtype="bvic", lab="cdc",  map="clade"),
