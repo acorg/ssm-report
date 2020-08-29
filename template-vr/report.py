@@ -359,17 +359,14 @@ def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
 # ----------------------------------------------------------------------
 
 def addendum_1(output_filename, vr_data, modul):
+    pages = [modul.signature_page(path) for path in (Path("sp", f"{subtype}.{lab}{assay}.{sp}.pdf") for subtype in ["h1", "h3", "bvic", "byam"] for lab in ["cdc", "nimr", "niid", "melb"] for assay in ["-hi", "-hint", "-neut", ""] for sp in ["sp", "spc"]) if path.exists()]
     modul.generate(output_filename=output_filename,
                    paper_size="a4", landscape="landscape", page_numbering=True,
                    usepackage=r"\usepackage[noheadfoot,nomarginpar,margin=0pt,bottom=10pt,paperheight=900.0pt,paperwidth=565.0pt]{geometry}",
                    data=[
                        modul.cover(addendum="Addendum 1 (integrated genetic-antigenic analyses)", **cover_data, **cover_landscape),
                        modul.serum_circle_description_page(),
-                       modul.signature_page(Path("spc", "h1-cdc-hi.pdf")),
-                       modul.signature_page(Path("spc", "h1-nimr-hi.pdf")),
-                       modul.signature_page(Path("spc", "h1-niid-hi.pdf")),
-                       modul.signature_page(Path("spc", "h1-melb-hi.pdf")),
-                   ],
+                   ] + pages,
     )
 
 # ----------------------------------------------------------------------
