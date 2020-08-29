@@ -71,24 +71,35 @@ class sp_maker:
         self.sp = sp
 
     def command_name_for_helm(self):
-        return f"{self.subtype}{self.assay_infix}-{self.lab}-{self.sp}"
-
-    # tal -s ../vr.mapi -s ../h3.mapi -s ../h3-hint.mapi -s ../serology.mapi -s ../vaccines.mapi -s h3.tree.tal -s sp.tal -s h3.sp.tal -s h3.sp.cdc-hint.tal --chart ../merges/cdc-h3-hint.ace h3.tjz h3.cdc-hint.sp.pdf --open
-    # tal -s ../vr.mapi -s ../h1.mapi -s ../h1.mapi -s ../serology.mapi -s ../vaccines.mapi -s h1.tree.tal -s sp.tal -s h1.sp.tal -s h1.sp.cdc.tal --chart ../merges/cdc-h1-hi.ace h1.tjz h1.cdc.sp.pdf --open
-    # tal -s ../vr.mapi -s ../h1.mapi -s ../h1.mapi -s ../serology.mapi -s ../vaccines.mapi -s h1.tree.tal -s sp.tal -s spc.tal -s h1.sp.tal -s h1.sp.cdc.tal --chart ../merges/cdc-h1-hi.ace h1.tjz h1.cdc.spc.pdf --open
+        if isinstance(self.lab, str):
+            return f"{self.subtype}{self.assay_infix}-{self.lab}-{self.sp}"
+        else:
+            return f"{self.subtype}{self.assay_infix}-spx"
 
     def __call__(self, command_name, interactive, open_pdf=True, output_dir=Path("sp"), *r, **a):
+        if isinstance(self.lab, str):
+            self.run_one(lab=self.lab, sp=self.sp, interactive=interactive, open_pdf=open_pdf, output_dir=output_dir)
+        else:
+            for lab in self.lab:
+                for sp in self.sp:
+                    print(f"\n> ======================================================================================================================================================\n> {self.subtype}{self.assay_infix} {lab} {sp}\n> ======================================================================================================================================================\n\n")
+                    self.run_one(lab=lab, sp=sp, interactive=False, open_pdf=False, output_dir=output_dir)
+
+    sFixLab = {"crick": "nimr", "vidrl": "melb"}
+
+    def run_one(self, lab, sp, interactive, open_pdf, output_dir):
+        lab = self.sFixLab.get(lab, lab)
         source_tjz = output_dir.joinpath(f"{self.subtype}.tjz")
         tal_settings = output_dir.joinpath(f"{self.subtype}.tree.tal")
-        chart = self.merge()
-        pdf = output_dir.joinpath(f"{self.subtype}.{self.lab}{self.assay_infix}.{self.sp}.pdf")
+        chart = self.merge(lab=lab)
+        pdf = output_dir.joinpath(f"{self.subtype}.{lab}{self.assay_infix}.{sp}.pdf")
         cmd = f"tal -s vr.mapi -s {self.subtype}.mapi"
         if self.assay:
             cmd += f" -s {self.subtype}-{self.assay}.mapi"
         cmd += f" -s serology.mapi -s vaccines.mapi -s sp/{self.subtype}.tree.tal -s sp/sp.tal"
-        if self.sp == "spc":
+        if sp == "spc":
             cmd += " -s sp/spc.tal"
-        cmd += f" -s sp/{self.subtype}.sp.tal -s sp/{self.subtype}.sp.{self.lab}{self.assay_infix}.tal"
+        cmd += f" -s sp/{self.subtype}.sp.tal -s sp/{self.subtype}.sp.{lab}{self.assay_infix}.tal"
         cmd += f" --chart {chart} {source_tjz} {pdf}"
         if open_pdf:
             # cmd += " --preview 100.0.834.1000"
@@ -104,16 +115,20 @@ class sp_maker:
     def tree_exists(self):
         return Path(self.tree()).exists()
 
-    def merge(self):
-        return f"merges/{self.lab}-{self.subtype[:2]}-{self.assay or 'hi'}.ace"
+    def merge(self, lab=None):
+        return f"merges/{lab or self.lab}-{self.subtype[:2]}-{self.assay or 'hi'}.ace"
 
-    def merge_exists(self):
-        return Path(self.merge()).exists()
+    def merge_exists(self, lab=None):
+        return Path(self.merge(lab)).exists()
 
 # ----------------------------------------------------------------------
 
 def makers_sp(subtype, labs, assay):
-    return [mk for mk in (sp_maker(subtype=subtype, lab=lab, assay=assay, sp=sp) for lab in labs for sp in ["sp", "spc"]) if mk.tree_exists() and mk.merge_exists()]
+    makers = [mk for mk in (sp_maker(subtype=subtype, lab=lab, assay=assay, sp=sp) for lab in labs for sp in ["sp", "spc"]) if mk.tree_exists() and mk.merge_exists()]
+    spx_maker = sp_maker(subtype=subtype, lab=labs, assay=assay, sp=["sp", "spc"])
+    if spx_maker.tree_exists():
+        makers.append(spx_maker)
+    return makers
 
 # ======================================================================
 
