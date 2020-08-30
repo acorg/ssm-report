@@ -75,7 +75,7 @@ def make_report_and_upload(command_name, *r, **a):
     subprocess.check_call("""ssh i19 "cd $(pwd); if [[ -d report && -f report/report.pdf ]]; then mv report/report.pdf report/report.\$(stat -c %y report/report.pdf | sed 's/\..*//g; s/-//g; s/://g; s/ /-/g').pdf; else echo no report dir; fi" """, shell=True)
     make_report(command_name, *r, **a)
     subprocess.check_call("./sy", shell=True)
-    
+
 # ----------------------------------------------------------------------
 
 def make_addendum_X(no, *r, **a):

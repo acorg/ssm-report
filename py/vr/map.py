@@ -50,6 +50,8 @@ class maker:
                 for map_name in self.maps:
                     if map_name == "ts":
                         self.ts(lab=lab, map_name=map_name, open_pdf=False, output_dir=output_dir)
+                    elif map_name in ["sp", "spc", "spx"]:
+                        pass    # no sig page
                     else:
                         self.one(lab=lab, map_name=map_name, interactive=False, open_pdf=False, output_dir=output_dir)
         else:
