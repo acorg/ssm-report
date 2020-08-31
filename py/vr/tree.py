@@ -116,7 +116,9 @@ class sp_maker:
         return Path(self.tree()).exists()
 
     def merge(self, lab=None):
-        return f"merges/{lab or self.lab}-{self.subtype[:2]}-{self.assay or 'hi'}.ace"
+        lab = lab or self.lab
+        lab = self.sFixLab.get(lab, lab)
+        return f"merges/{lab}-{self.subtype[:2]}-{self.assay or 'hi'}.ace"
 
     def merge_exists(self, lab=None):
         return Path(self.merge(lab)).exists()
