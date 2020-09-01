@@ -25,8 +25,9 @@ def generate(output_filename: Path, data: list,
 
 def generate_latex(latex_source, args):
     LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
+    now = datetime.datetime.now(LOCAL_TIMEZONE).strftime("%Y-%m-%d %H:%M %Z")
     tex = [
-        substitute(latex.T_Head, program=sys.argv[0], now=datetime.datetime.now(LOCAL_TIMEZONE).strftime("%Y-%m-%d %H:%M %Z"),
+        substitute(latex.T_Head, program=sys.argv[0], now=now,
                    documentclass="\documentclass[%spaper,%s,12pt]{article}" % (args["paper_size"], args["landscape"]),
                    usepackage=args["usepackage"],
         ),
@@ -49,6 +50,7 @@ def generate_latex(latex_source, args):
         tex.append(latex.T_NoPageNumbering)
     for entry in args["data"]:
         tex.extend(entry.latex())
+    tex.append(substitute("\\par\\vspace*{\\fill}\\tiny{Report generated: %now%}\n\\newpage", now=now))
     tex.append(latex.T_Tail)
     text = '\n\n'.join(tex)
     with latex_source.open('w') as f:
