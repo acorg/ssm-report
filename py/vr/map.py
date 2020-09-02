@@ -42,6 +42,8 @@ class maker:
             for map_name in self.maps:
                 if map_name == "ts":
                     self.ts(lab=self.lab, map_name=map_name, open_pdf=False, output_dir=output_dir)
+                elif map_name in ["sp", "spc", "spx"]:
+                    pass    # no sig page
                 else:
                     self.one(map_name=map_name, interactive=False, open_pdf=False, output_dir=output_dir)
         # elif not self.lab and self.labs and self.map_name: # multiple maps for virus type and map type (all labs)
