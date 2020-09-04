@@ -1,4 +1,19 @@
 {
+    "init": [
+        {"N": "set",
+         "canvas-height": 563,
+
+         "hz-section-marker-label-size": 2.5,
+         "hz-section-marker-line-width": 0.6,
+
+         "gap-between-antigenic-maps": 10,
+         "antigenic-map-border-width": 1.0,
+         "reference-antigen-size": 3.0,
+         "test-antigen-size": 2.5,
+         "serum-size": 3.0
+        }
+    ],
+
     "antigenic-maps-all": [
         {"N": "legend", "show": false},
         "/size-reset",
@@ -10,10 +25,10 @@
 
     "antigenic-map": [
         "antigenic-map-reset",
-        {"N": "title", "remove-lines": true, "lines": ["{section_prefix}. {section_label} {section_aa_transitions}"]},
-        {"N": "antigens", "select": {"in-section": true, "report": true}, "fill": {"time-series-color-scale": true}, "outline": "black", "size": 5, "order": "raise"},
+        {"N": "title", "remove-lines": true, "text_size": 7, "lines": ["{section_prefix}. {section_label} {section_aa_transitions}"], "offset": [3, 3], "padding": 0},
+        {"N": "antigens", "select": {"in-section": true, "report": true}, "fill": {"time-series-color-scale": true}, "outline": "black", "size": 3.5, "outline_width": 0.5, "order": "raise"},
         "serum-circles",
-        {"N": "vr:vaccines", "vaccine-size": 10}
+        {"N": "vr:vaccines", "vaccine-size": 7, "vaccine-label-size": 7}
     ],
 
     "serum-circles": [

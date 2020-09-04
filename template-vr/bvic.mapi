@@ -8,21 +8,18 @@
     ],
 
     "loc:rotate:viewport-B/Vic-NIID": [
-        {"N": "flip", "direction": "ew"},
-        {"?N": "rotate", "degrees": 90},
-        {"N": "viewport", "rel": [1.6, 1.2, -3]}
+        {"N": "viewport", "rel": [1.6, 1.2, -2]}
     ],
 
     "loc:rotate:viewport-B/Vic-Crick": [
-        {"N": "rotate", "degrees": -30},
-        {"N": "viewport", "rel": [3.5, 2.0, -4]}
+        {"N": "viewport", "rel": [3.5, 3.0, -5]}
     ],
 
     "loc:title-B/Vic": [
     ],
 
     "loc:legend-B/Vic": [
-        {"N": "legend", "offset": [-10, 10], "show": true}
+        {"N": "legend", "offset": [-10, 10], "label_size": "{legend-label-size}", "point_size": "{legend-point-size}", "show": true}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -34,16 +31,16 @@
             {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "{found-in-previous-size}"}
         ]},
         {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
-        {"N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
+        {"?N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
     ],
 
     "? clades": "----------------------------------------------------------------------------------------------------",
 
     "loc:clades-B/Vic": [
-        {"N": "antigens", "select": {"sequenced": true, "date": "{date-recent}", "report": true},                                   "?fill":"#C0C000{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "sequenced ({count})"}, "order": "raise"},
-        {"N": "antigens", "select": {"clade-all": ["V1A", "!2DEL2017", "!3DEL2017"],      "date": "{date-recent}", "report": true}, "fill": "#6495ED{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "V1.A ({count})"}, "order": "raise"},
-        {"N": "antigens", "select": {"clade": "2DEL2017", "date": "{date-recent}", "report": true},                                 "fill": "#DE8244{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "2-Del mutants ({count})"}, "order": "raise"},
-        {"N": "antigens", "select": {"clade": "3DEL2017", "date": "{date-recent}", "report": true},                                 "fill": "#BF3EFF{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "3-Del mutants ({count})"}, "order": "raise"}
+        {"N": "antigens", "select": {"sequenced": true, "date": "{date-recent}", "report": true},                                   "?fill":"#C0C000{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "sequenced ({count})",     "show_if_none_selected": true}, "order": "raise"},
+        {"N": "antigens", "select": {"clade-all": ["V1A", "!2DEL2017", "!3DEL2017"],      "date": "{date-recent}", "report": true}, "fill": "#6495ED{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "V1.A ({count})",          "show_if_none_selected": true}, "order": "raise"},
+        {"N": "antigens", "select": {"clade": "2DEL2017", "date": "{date-recent}", "report": true},                                 "fill": "#DE8244{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "2-Del mutants ({count})", "show_if_none_selected": true}, "order": "raise"},
+        {"N": "antigens", "select": {"clade": "3DEL2017", "date": "{date-recent}", "report": true},                                 "fill": "#BF3EFF{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "3-Del mutants ({count})", "show_if_none_selected": true}, "order": "raise"}
     ],
 
     "loc:clades-B/Vic-CDC": [
@@ -91,16 +88,16 @@
     "? vaccines": "----------------------------------------------------------------------------------------------------",
 
     "loc:vaccines-B/Vic": [
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "egg",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black",  "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "egg",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black",  "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
 
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "red",   "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "red",   "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
 
-        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]},  "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]},  "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]},  "order": "raise"}
+        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"},  "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"},  "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"},  "order": "raise"}
     ],
 
     "loc:vaccines-B/Vic-CDC": [
@@ -111,24 +108,26 @@
     ],
 
     "loc:vaccines-B/Vic-VIDRL": [
-        {"N": "antigens", "label": {"offset": [-0.5, 1]}, "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~MALAYSIA"}},
-        {"N": "antigens", "label": {"offset": [-0.5, 1]}, "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~COLORADO"}},
-        {"N": "antigens", "label": {"offset": [0, 1]},    "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0.3, 1]},  "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0.9, -1]}, "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
+        {"N": "antigens", "label": {"offset": [-1, 0]},    "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~BRISBANE"}},
+        {"N": "antigens", "label": {"offset": [-1, 0]},    "select": {"vaccine": {"type": "previous"},  "passage": "cell",        "most-used-for-name": true, "name": "~BRISBANE"}},
+        {"N": "antigens", "label": {"offset": [-0.5, -1]}, "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~MALAYSIA"}},
+        {"N": "antigens", "label": {"offset": [-0.95, 0.2]},  "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~COLORADO"}},
+        {"N": "antigens", "label": {"offset": [0, 1]},     "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-0.6, 1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [0.9, -1]},  "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
     ],
 
     "loc:vaccines-B/Vic-NIID": [
-        {"N": "antigens", "label": {"offset": [-1, 0]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~COLORADO"}},
-        {"N": "antigens", "label": {"offset": [0.5, 1]},  "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0, -1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0.8, -1]}, "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
+        {"N": "antigens", "label": {"offset": [-1, 0]},   "select": {"vaccine": {"type": "previous"},  "passage": "cell",         "most-used-for-name": true, "name": "~COLORADO"}},
+        {"N": "antigens", "label": {"offset": [1, 0]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
     ],
 
     "loc:vaccines-B/Vic-Crick": [
         {"N": "antigens", "label": {"offset": [-1, 0]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~COLORADO"}},
-        {"N": "antigens", "label": {"offset": [0.5, 1]},  "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0, -1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-1, 0]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~BRISBANE"}},
+        {"N": "antigens", "label": {"offset": [-0.5, 1]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~MALAY"}},
+        {"N": "antigens", "label": {"offset": [1, 0]},  "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-0.7, -1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
         {"N": "antigens", "label": {"offset": [0.8, -1]}, "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
     ]
 }

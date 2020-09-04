@@ -1,31 +1,26 @@
 {   "_": "-*- js-indent-level: 4 -*-",
     "init": [
-        {"?N": "set", "report-cumulative-output": "-"}
+        {"?N": "set", "report-cumulative-output": "-", "report-cumulative-max": 100}
     ],
 
     "tal": [
+        {"N": "canvas", "height": "{canvas-height}"},
         {"N": "margins", "left": 0.005},
         {"N": "tree", "width-to-height-ratio": 0.4},
         "clades-whocc",
         "eu-aa-transitions",
 
         {"N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"hide": false, "tree-edge-line-color": "red"}},
-        {"?N": "nodes", "select": {"cumulative >=": 0.028, "report": true}, "apply": {"hide": false, "tree-edge-line-color": "red"}},
+        {"?N": "nodes", "select": {"cumulative >=": 0.028, "report": true}, "apply": {"hide": true, "tree-edge-line-color": "red"}},
 
-        {"N": "time-series", "?start": "2016-12", "?end": "2020-07",
-         "slot": {"?width": 0.0065, "label": {"scale": 1.1, "rotation": "clockwise"}}},
+        {"N": "time-series", "start": "2016-07", "end": "2020-07",
+         "slot": {"width": 0.0058, "label": {"scale": 1.0, "rotation": "clockwise"}}},
 
         {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.04,
          "all_clades": {"label": {"scale": 1.4}},
          "per_clade": [
-             {"name": "2DEL2017", "section_inclusion_tolerance": 40, "display_name": "V1A.1", "label": {"scale": 1.4}},
-             {"name": "3DEL2017", "section_inclusion_tolerance": 20, "section_exclusion_tolerance": 11, "display_name": " ", "label": {"scale": 1.4}}
-         ]
-        },
-        {"?N": "draw-on-tree",
-         "texts": [
-             {"text": "V1A.2", "offset": [0.705, 0.166], "color": "black", "size": 0.01},
-             {"text": "V1A.3", "offset": [0.705, 0.735], "color": "black", "size": 0.01}
+             {"name": "2DEL2017", "section_inclusion_tolerance": 40, "section_exclusion_tolerance": 33, "display_name": "V1A.1",                "label": {"scale": 1.4}},
+             {"name": "3DEL2017", "section_inclusion_tolerance": 20, "section_exclusion_tolerance": 11, "display_name": ["V1A.2", "V1A.3", "3del extra"], "label": {"scale": 1.4}}
          ]
         },
         {"N": "nodes", "select": {"vaccine": {"type": "current", "passage": "cell"}, "report": false}, "apply": "report"},
@@ -50,4 +45,5 @@
          ]
         }
     ]
+
 }

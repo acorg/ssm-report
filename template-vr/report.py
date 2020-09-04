@@ -38,8 +38,8 @@ def maps(modul):
 
         # H3 HI --------------------------------------------------
 
-        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"], maps=["clade", "clade-6m", "clade-12m", "ts", "sp"], compare_with_previous=compare_with_previous),
-        modul.map.makers(subtype="h3", assay="hi", labs=["crick", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts"], "sp", compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"],            maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hi",   labs=["crick", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # H3 Neut --------------------------------------------------
 
@@ -279,6 +279,12 @@ def bvic(modul, vr_data):
         modul.maps_in_two_columns([
             Path("out", "bvic-hi-clade-6m-cdc.pdf"),  Path("out", "bvic-hi-clade-6m-crick.pdf"),
             Path("out", "bvic-hi-clade-6m-niid.pdf"), Path("out", "bvic-hi-clade-6m-vidrl.pdf"),
+        ]),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by clade and potential N-gly"),
+        modul.maps_in_two_columns([
+            Path("out", "bvic-hi-clade-ngly-cdc.pdf"),  Path("out", "bvic-hi-clade-ngly-crick.pdf"),
+            Path("out", "bvic-hi-clade-ngly-niid.pdf"), Path("out", "bvic-hi-clade-ngly-vidrl.pdf"),
         ]),
 
         modul.new_page(), # --------------------------------------------------

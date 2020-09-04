@@ -14,14 +14,14 @@
     "loc:rotate:viewport-B/Yam-Crick": [
         {"N": "flip", "direction": "ew"},
         {"N": "rotate", "degrees": -60},
-        {"N": "viewport", "rel": [2, 2, -5]}
+        {"N": "viewport", "rel": [2, 3, -7]}
     ],
 
     "loc:title-B/Yam": [
     ],
 
     "loc:legend-B/Yam": [
-        {"N": "legend", "offset": [-10, -10], "show": true}
+        {"N": "legend", "offset": [-10, -10], "label_size": "{legend-label-size}", "point_size": "{legend-point-size}", "show": true}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -33,14 +33,14 @@
             {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "{found-in-previous-size}"}
         ]},
         {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
-        {"N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
+        {"?N": "legend", "show": false, "type": "continent_map", "size": 100, "offset": [-10, 10]}
     ],
 
     "? clades": "----------------------------------------------------------------------------------------------------",
 
     "loc:clades-B/Yam": [
-      {"N": "antigens", "select": {"clade": "Y2", "date": "{date-recent}"}, "fill": "cornflowerblue{clade-pale}", "legend": {"label": "Y2 ({count})"}, "outline": "black{clade-pale}", "order": "raise", "report": true},
-      {"N": "antigens", "select": {"clade": "Y3", "date": "{date-recent}"}, "fill": "red{clade-pale}",            "legend": {"label": "Y3 ({count})"}, "outline": "black{clade-pale}", "order": "raise", "report": true}
+      {"N": "antigens", "select": {"clade": "Y2", "date": "{date-recent}"}, "fill": "cornflowerblue{clade-pale}", "legend": {"label": "Y2 ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise", "report": true},
+      {"N": "antigens", "select": {"clade": "Y3", "date": "{date-recent}"}, "fill": "red{clade-pale}",            "legend": {"label": "Y3 ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise", "report": true}
     ],
 
     "loc:clades-B/Yam-CDC": [
@@ -58,26 +58,27 @@
     "? vaccines": "----------------------------------------------------------------------------------------------------",
 
     "loc:vaccines-B/Yam": [
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "egg",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black",  "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"},  "passage": "egg",        "most-used-for-name": true, "report": true}, "fill": "blue", "outline": "black",  "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
 
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "red",   "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "red",   "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "green", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"}, "order": "raise"},
 
-        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]},  "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]},  "order": "raise"},
-        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1]},  "order": "raise"}
+        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "cell",        "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"},  "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "egg",         "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"},  "order": "raise"},
+        {"N": "antigens", "select": {"vaccine": {"type": "surrogate"}, "passage": "reassortant", "most-used-for-name": true, "report": true}, "fill": "pink", "outline": "black", "size": "{vaccine-size}", "label": {"offset": [0, 1], "size": "{vaccine-label-size}"},  "order": "raise"}
     ],
 
     "loc:vaccines-B/Yam-CDC": [
     ],
 
     "loc:vaccines-B/Yam-VIDRL": [
-        {"N": "antigens", "label": {"offset": [-0.5, 1]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg", "name": "~MASSACHUSETTS", "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-0.3, -1]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg", "name": "~MASSACHUSETTS", "most-used-for-name": true}},
         {"N": "antigens", "label": {"offset": [1, 0]},   "select": {"vaccine": {"type": "previous"},  "passage": "cell", "name": "~MASSACHUSETTS", "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [-0.5, 1]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg", "name": "~WISCONSIN", "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0, -1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}}
+        {"N": "antigens", "label": {"offset": [-0.95, -0.2]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg", "name": "~WISCONSIN", "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [0, -1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-0.5, 1]},   "select": {"vaccine": {"type": "current"},   "passage": "reassortant",         "most-used-for-name": true}}
     ],
 
     "loc:vaccines-B/Yam-NIID": [

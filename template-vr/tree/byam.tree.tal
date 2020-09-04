@@ -4,6 +4,7 @@
     ],
 
     "tal": [
+        {"N": "canvas", "height": "{canvas-height}"},
         {"N": "margins", "left": 0.005},
         {"N": "tree", "width-to-height-ratio": 0.455},
         {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.022,
@@ -13,8 +14,8 @@
          ]
         },
         "clades-whocc",
-        {"?N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}},
-        {"N": "nodes", "select": {"cumulative >=": 0.027, "report": true}, "apply": {"hide": true, "tree-edge-line-color": "red"}},
+        {"N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}},
+        {"?N": "nodes", "select": {"cumulative >=": 0.027, "report": true}, "apply": {"hide": true, "tree-edge-line-color": "red"}},
         {"N": "time-series", "start": "2017-01", "slot": {"width": 0.0065, "label": {"scale": 1.0, "rotation": "clockwise"}}},
         "eu-aa-transitions",
         "hz"

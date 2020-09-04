@@ -1,14 +1,15 @@
-# Time-stamp: <2020-08-27 08:50:04 eu>
+# Time-stamp: <2020-09-04 14:36:10 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
-[[https://worldhealthorg-my.sharepoint.com/:f:/g/personal/lievrem_who_int/EsWipHzg-WBHhuQkssp34PsBVpB6pucxdjLVY5OuUki4Vw?e=5%3aRqGQVW&at=9][WHO report folder (OneDrive)]]
+[[https://worldhealthorg-my.sharepoint.com/:f:/g/personal/lievrem_who_int/EsWipHzg-WBHhuQkssp34PsBVpB6pucxdjLVY5OuUki4Vw?e=5{'dir_name': '2020-0903-tc2', 'meeting_year': 2020, 'meeting_month': 9, 'meeting_day': 3, 'meeting_date': '03 September 2020', 'report_date': '2020-09-03', 'report_hemisphere': 'Southern', 'report_year': '2021', 'teleconference': 'Teleconference 2', 'time_series_start': '2020-02', 'time_series_end': '2020-08', 'previous': '../2020-0811-tc1'}RqGQVW&at=9][WHO report folder (OneDrive)]]
 
 #+BEGIN_SRC bash
 ./sy
 #+END_SRC
 
-(setq eu-ssm-dir "/syn/eu/ac/results/ssm/%(dir_name)s")
+
+(setq eu-ssm-dir "/syn/eu/ac/results/ssm/2020-0903-tc2")
 
 M-x eu-ssm-load
 C-f7 -> helm-ssm
@@ -19,14 +20,20 @@ helm-ssm: ~stat-geo
 * link previous report data
 
 ls -l
-ln -s %(previous)s previous
+ln -s ../2020-0903-tc2 previous
 
 see compare_with_previous in [[report.py]]
 
-* trees
 
-SUBTYPE: ["h1", "h3", "bvic", "byam"]
-scp i19:/syn/eu/ac/results/signature-pages/*/SUBTYPE/tree.json.xz tree/SUBTYPE.tjz
+* TODO
+
+** H1
+
+** H3
+
+** B/Vic
+
+** B/Yam
 
 * set of maps
 
@@ -35,53 +42,77 @@ see [[report.py]]
 ** H1
 
 *** CDC
+custom
 
 *** Crick
+custom
 
 *** NIID
+custom
 
 *** VIDRL
 
 ** H3 HINT
 
 *** CDC
+custom
 
 ** H3 HI
 
 *** Crick
+chain
 
 *** VIDRL
+custom
 
 ** H3 Neut
 
 *** CDC
+chain
 
 *** Crick
+custom
 
 *** NIID
+chain
 
 *** VIDRL
+custom
 
 ** B/Vic
 
 *** CDC
+chain
 
 *** Crick
+custom
+viewport:14
 
 *** NIID
+custom
+viewport:12
 
 *** VIDRL
+custom: 3del left outliers moved
+viewport:12
 
 ** B/Yam
 
 *** CDC
+chain
+viewport:9
 
 *** Crick
+chain
+viewport:12
 
 *** NIID
+chain
+viewport:8
 
 *** VIDRL
-
+chain
+viewport:11
 
 * time series
 
@@ -90,9 +121,9 @@ see [[vr.mapi]] "init"
 * install report
 
 #+BEGIN_SRC bash
-  ssh i19 "cp -v /syn/eu/ac/results/ssm/%(dir_name)s/report/report.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-%(report_date)s.pdf"
-  ssh i19 "cp -v /syn/eu/ac/results/ssm/%(dir_name)s/report/sp-spsc-addendum.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-%(report_date)s.addendum-1.pdf"
-  ssh i19 "chmod 0644 /syn/WebSites/Protected/ssmreport/*%(report_date)s*; ls -l /syn/WebSites/Protected/ssmreport/*%(report_date)s*"
+  ssh i19 "cp -v /syn/eu/ac/results/ssm/2020-0916-ssm/report/report.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-2020-09-16.pdf"
+  ssh i19 "cp -v /syn/eu/ac/results/ssm/2020-0916-ssm/report/addendum-1.pdf /syn/WebSites/Protected/ssmreport/Cambridge-report-2020-09-16.addendum-1.pdf"
+  ssh i19 "chmod 0644 /syn/WebSites/Protected/ssmreport/*2020-09-03*; ls -l /syn/WebSites/Protected/ssmreport/*2020-09-03*"
 #+END_SRC
 
 

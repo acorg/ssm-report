@@ -8,6 +8,11 @@
          "time-series-interval": {"month": 1},
 
          "vaccine-size": 50,
+         "vaccine-label-size": 30,
+
+         "legend-label-size": 21,
+         "legend-point-size": 15,
+
          "clade-pale": "",
          "not-found-in-previous-size": 25,
          "found-in-previous-size": 15,
@@ -26,7 +31,7 @@
         "vr:reset",
         "vr:clade-base",
         "vr:vaccines",
-        {"N": "title", "lines": ["{lab} {virus_type_lineage} {assay_neut} by clade"]},
+        {"N": "title", "lines": ["{lab} {virus_type_lineage} {assay_HI_Neut} by clade"]},
         "loc:title-{virus-type/lineage}{subset}{assay-neut}",
         "loc:legend-{virus-type/lineage}{subset}{assay-neut}"
     ],
@@ -82,7 +87,7 @@
         {"N": "time-series",
          "start": "{time-series-start}", "end": "{time-series-end}", "interval": "{time-series-interval}",
          "output": "{output_dir}/{virus_type_lineage_short}-{assay}-ts-{lab_lower}-{ts_numeric}.pdf",
-         "title": "{lab} {virus_type_lineage} {ts_text}"
+         "title": "{lab} {virus_type_lineage} {assay_HI_Neut} {ts_text}"
         }
     ],
 
@@ -94,7 +99,7 @@
         "loc:serology-{virus-type/lineage}{subset}{assay-neut}",
         "loc:serology-{virus-type/lineage}{subset}{assay-neut}-{lab}",
         "vr:vaccines",
-        {"N": "title", "lines": ["{lab} {virus_type_lineage} with serology antigens"]},
+        {"N": "title", "lines": ["{lab} {virus_type_lineage} {assay_HI_Neut} with serology antigens"]},
         "loc:title-{virus-type/lineage}{subset}{assay-neut}",
         "loc:legend-{virus-type/lineage}{subset}{assay-neut}"
     ],
@@ -103,7 +108,7 @@
 
     "vr:vaccines": [
         "vaccines-{virus-type}{lineage}{subset}",
-        {"N": "antigens", "select": {"vaccine": {"type": "any"}}, "label": {"format": "{abbreviated_name}-{passage_type}", "offset": [0, 1], "size": 30, "show": false}},
+        {"?N": "antigens", "?x": "contradicts with serology, if serology is an old vaccine which is not shown as vaccine", "select": {"vaccine": {"type": "any"}}, "label": {"format": "{abbreviated_name}-{passage_type}", "offset": [0, 1], "size": 30, "show": false}},
         "loc:vaccines-{virus-type/lineage}{subset}{assay-neut}",
         "loc:vaccines-{virus-type/lineage}{subset}{assay-neut}-{lab}"
     ],
@@ -117,7 +122,7 @@
         "/all-grey",
         "/egg",
         {"N": "title", "text_size": 24, "font_weight": "bold"},
-        {"N": "point-scale", "scale": 2.5, "outline_scale": 1},
+        {"N": "point-scale", "scale": 4.0, "outline_scale": 1},
         "vr:rotate:viewport"
     ]
 }

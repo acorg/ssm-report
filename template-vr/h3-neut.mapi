@@ -4,7 +4,8 @@
     ],
 
     "loc:rotate:viewport-A(H3N2)neut-VIDRL": [
-        {"?N": "viewport", "rel": [6, 7.0, -9]}
+        {"?N": "viewport", "rel": [2.2, 2.0, -5]},
+        {"N": "viewport", "rel": [2, 0.5, -3]}
     ],
 
     "loc:rotate:viewport-A(H3N2)neut-NIID": [
@@ -12,14 +13,14 @@
     ],
 
     "loc:rotate:viewport-A(H3N2)neut-Crick": [
-        {"?N": "viewport", "rel": [3.5, 2.0, -4]}
+        {"N": "viewport", "rel": [0.5, 0, -1]}
     ],
 
     "loc:title-A(H3N2)neut": [
     ],
 
     "loc:legend-A(H3N2)neut": [
-        {"N": "legend", "offset": [-10, -10], "show": true}
+        {"N": "legend", "offset": [-10, -10], "label_size": "{legend-label-size}", "point_size": "{legend-point-size}", "show": true}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -31,7 +32,7 @@
             {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "{found-in-previous-size}"}
         ]},
         {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
-        {"N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
+        {"?N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
     ],
 
     "? clades": "----------------------------------------------------------------------------------------------------",
@@ -59,18 +60,35 @@
     ],
 
     "loc:vaccines-A(H3N2)neut-CDC": [
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "egg", "most-used-for-name": true, "name": "~SWITZERLAND"}, "label": {"offset": [-0.5, -1]}},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "cell", "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [1, 0]}},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "passage": "cell", "most-used-for-name": true, "name": "~KONG/45/2019"}, "label": {"offset": [1, 0]}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "egg",  "most-used-for-name": true, "name": "~SWITZERLAND"},  "label": {"offset": [-0.5, -1], "format": "{abbreviated_location_year}-{passage_type}", "size": "{vaccine-label-size}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "cell", "most-used-for-name": true, "name": "~KANSAS"},       "label": {"offset": [1, 0],     "format": "{abbreviated_location_year}-{passage_type}", "size": "{vaccine-label-size}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "cell", "most-used-for-name": true, "name": "~KONG/45/2019"}, "label": {"offset": [1, 0],     "format": "{abbreviated_location_year}-{passage_type}", "size": "{vaccine-label-size}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "reassortant", "most-used-for-name": true}, "label": {"offset": [-0.5, 1],     "format": "{abbreviated_location_year}-{reassortant}-{passage_type}", "size": "{vaccine-label-size}"}}
     ],
 
     "loc:vaccines-A(H3N2)neut-VIDRL": [
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SWITZERLAND"], "passage": "egg"}, "show": false},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SINGAPORE"],   "passage": "cell"}, "label": {"offset": [-0.8, -1], "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",        "passage": "cell", "most-used-for-name": true}, "label": {"offset": [-1, 0], "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",        "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [0, 1], "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~SWITZERLAND",   "passage": "cell", "most-used-for-name": true}, "label": {"offset": [1, 0],  "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "name": "~KONG",           "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [1, 0],  "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "name": "~SOUTH",          "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [-1, 0], "format": "{abbreviated_location_year}-{passage_type}"}}
     ],
 
     "loc:vaccines-A(H3N2)neut-NIID": [
-        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "passage": "egg", "most-used-for-name": true, "name": "~AUSTRALIA"}, "label": {"offset": [0, -1]}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SWITZERLAND"], "passage": "egg"}, "show": false},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SINGAPORE"],   "passage": "egg"}, "show": false},
+
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",    "passage": "cell", "most-used-for-name": true}, "label": {"offset": [0, -1],    "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "name": "~AUSTRALIA", "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [-0.5, -1], "format": "{abbreviated_location_year}-{passage_type}"}}
     ],
 
     "loc:vaccines-A(H3N2)neut-Crick": [
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SWITZERLAND"], "passage": "egg"}, "show": false},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SINGAPORE"],   "passage": "egg"}, "show": false},
+
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~SWITZERLAND", "passage": "cell", "most-used-for-name": true}, "label": {"offset": [0.7, 1], "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",      "passage": "cell", "most-used-for-name": true}, "label": {"offset": [0, -1],  "format": "{abbreviated_location_year}-{passage_type}"}}
     ]
 }
