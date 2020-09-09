@@ -32,7 +32,6 @@
 
     "eu-aa-transitions": [
         {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
-         "method": "derek",
          "all_nodes": {"label": {"color": "grey30"}},
          "per_node": [
          ]
