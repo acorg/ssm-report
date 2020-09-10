@@ -1,6 +1,7 @@
 {
     "init": [
-        {"? N": "set", "whocc": true}
+        {"? N": "set", "whocc": true},
+        {"?N": "set", "report-cumulative-output": "-"}
     ],
 
     "tal": [

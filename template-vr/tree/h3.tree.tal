@@ -1,4 +1,8 @@
 {
+    "init": [
+        {"?N": "set", "report-cumulative-output": "-"}
+    ],
+
     "tal": [
         {"N": "canvas", "height": "{canvas-height}"},
         {"?N": "margins", "left": 0.01},
@@ -17,7 +21,8 @@
         {"N": "nodes", "select": {"seq_id": "AH3N2/SOUTH_AUSTRALIA/34/2019_SIAT2_hCCC44034", "report": true}, "apply": {"text": {"text": "A/South Australia/34/2019", "offset": [-0.25, 0], "?absolute_x": 100, "color": "black", "size": 0.01}}},
         {"N": "nodes", "select": {"seq_id": "AH3N2/HONG_KONG/45/2019_SIAT2_h4D7113C9", "report": true}, "apply": {"text": {"text": "A/Hong Kong/45/2019", "offset": [-0.25, 0], "?absolute_x": 100, "color": "black", "size": 0.01}}},
 
-        {"?N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}}
+        {"?N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}},
+        {"N": "nodes", "select": {"cumulative >=": 0.04, "report": true}, "apply": {"?hide": true, "tree-edge-line-color": "red"}}
     ],
 
     "hz": [
@@ -56,7 +61,7 @@
              {"name": "3C.2A1B+135K+137F", "show": true, "display_name": "+137F", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 12},
              {"name": "3C.2A1B+135K+186D", "show": true, "display_name": "+186D", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 12},
              {"name": "3C.2A1B+131K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 40},
-             {"name": "3C.2A1B+131K+94N",  "show": true, "display_name": "+94N",  "slot": 0, "label": [{"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, -0.003]}, {"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, 0.01]}], "section_inclusion_tolerance": 2},
+             {"name": "3C.2A1B+131K+94N",  "show": true, "display_name": "+94N",  "slot": 0, "label": [{"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, -0.003]}, {"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, 0.01]}], "section_inclusion_tolerance": 4},
 
              {"?N": ""}
          ]
