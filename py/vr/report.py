@@ -73,6 +73,24 @@ def make_report(command_name, *r, **a):
     from .command import vr_data
     report(Path("report", "report.pdf"), vr_data(), sections)
 
+def make_report_b(command_name, *r, **a):
+    from report import report_b
+    from . import sections
+    from .command import vr_data
+    report_b(Path("report", "report-b.pdf"), vr_data(), sections)
+
+def make_report_h1(command_name, *r, **a):
+    from report import report_h1
+    from . import sections
+    from .command import vr_data
+    report_h1(Path("report", "report-h1.pdf"), vr_data(), sections)
+
+def make_report_h3(command_name, *r, **a):
+    from report import report_h3
+    from . import sections
+    from .command import vr_data
+    report_h3(Path("report", "report-h3.pdf"), vr_data(), sections)
+
 def make_report_and_upload(command_name, *r, **a):
     subprocess.check_call("""ssh i19 "cd $(pwd); if [[ -d report && -f report/report.pdf ]]; then mv report/report.pdf report/report.\$(stat -c %y report/report.pdf | sed 's/\..*//g; s/-//g; s/://g; s/ /-/g').pdf; else echo no report dir; fi" """, shell=True)
     make_report(command_name, *r, **a)

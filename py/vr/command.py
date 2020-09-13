@@ -13,6 +13,9 @@ def __sy(command, *r, **a): sy()
 
 sCommands = {
     "~report": report.make_report,
+    "~report-b": report.make_report_b,
+    "~report-h1": report.make_report_h1,
+    "~report-h3": report.make_report_h3,
     "~report-upload": report.make_report_and_upload,
     "~addendum-1": report.make_addendum_1,
     "~addendum-2": report.make_addendum_2,
