@@ -98,14 +98,26 @@ def make_report_and_upload(command_name, *r, **a):
 
 # ----------------------------------------------------------------------
 
-def make_addendum_X(no, *r, **a):
-    from report import addendum_1, addendum_2, addendum_3, addendum_4, addendum_5, addendum_6
+def make_addendum_X(no, subtype=None, *r, **a):
+    from report import addendum_1, addendum_1_b, addendum_1_h1, addendum_1_h3, addendum_2, addendum_3, addendum_4, addendum_5, addendum_6
     from . import sections
     from .command import vr_data
-    locals()[f"addendum_{no}"](Path("report", f"addendum-{no}.pdf"), vr_data(), sections)
+    if subtype:
+        locals()[f"addendum_{no}_{subtype}"](Path("report", f"addendum-{no}-{subtype}.pdf"), vr_data(), sections)
+    else:
+        locals()[f"addendum_{no}"](Path("report", f"addendum-{no}.pdf"), vr_data(), sections)
 
 def make_addendum_1(command_name, *r, **a):
     make_addendum_X(1, *r, **a)
+
+def make_addendum_1_b(command_name, *r, **a):
+    make_addendum_X(1, subtype='b', *r, **a)
+
+def make_addendum_1_h1(command_name, *r, **a):
+    make_addendum_X(1, subtype='h1', *r, **a)
+
+def make_addendum_1_h3(command_name, subtype='h3', *r, **a):
+    make_addendum_X(1, subtype='h3', *r, **a)
 
 def make_addendum_2(command_name, *r, **a):
     make_addendum_X(2, *r, **a)
