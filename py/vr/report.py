@@ -9,6 +9,7 @@ def generate(output_filename: Path, data: list,
              page_numbering=True,
              landscape="landscape", # portreat
              usepackage="",
+             time_stamp=True
 ):
     output_dir = output_filename.parent
     output_dir.mkdir(exist_ok=True)
@@ -24,6 +25,7 @@ def generate(output_filename: Path, data: list,
 # ----------------------------------------------------------------------
 
 def generate_latex(latex_source, args):
+    # pprint.pprint(args)
     LOCAL_TIMEZONE = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo # https://stackoverflow.com/questions/2720319/python-figure-out-local-timezone
     now = datetime.datetime.now(LOCAL_TIMEZONE).strftime("%Y-%m-%d %H:%M %Z")
     tex = [
@@ -50,7 +52,8 @@ def generate_latex(latex_source, args):
         tex.append(latex.T_NoPageNumbering)
     for entry in args["data"]:
         tex.extend(entry.latex())
-    tex.append(substitute("\\par\\vspace*{\\fill}\\tiny{Report generated: %now%}\n\\newpage", now=now))
+    if args.get("time_stamp"):
+        tex.append(substitute("\\par\\vspace*{\\fill}\\tiny{Report generated: %now%}\n\\newpage", now=now))
     tex.append(latex.T_Tail)
     text = '\n\n'.join(tex)
     with latex_source.open('w') as f:
