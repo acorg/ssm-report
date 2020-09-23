@@ -10,12 +10,13 @@ s_clade_maps = {}
 
 class maker:
 
-    def __init__(self, subtype, assay=None, lab=None, map=None, labs=None, maps=None, **options):
+    def __init__(self, subtype, assay=None, lab=None, map=None, labs=None, maps=None, info=False, **options):
         self.subtype = subtype
         self.assay = assay
         self.map_name = map
         self.maps = maps
         self.labs = labs
+        self.info = info
         self.options = options
         if lab:
             self.lab = lab_new(lab)
@@ -28,9 +29,17 @@ class maker:
             s_clade_maps.setdefault(self._subtype_key(), set()).add(map)
 
     def command_name_for_helm(self):
-        return "-".join(en for en in (self.subtype, self.assay, self.lab, self.map_name) if en)
+        if self.info:
+            return "info-" + "-".join(en for en in (self.subtype, self.assay, self.lab, self.map_name) if en)
+        else:
+            return "-".join(en for en in (self.subtype, self.assay, self.lab, self.map_name) if en)
 
-    def __call__(self, command_name, interactive, open_pdf=True, output_dir=Path("out"), *r, **a):
+    def __call__(self, command_name, interactive, open_pdf=True, output_dir=None, *r, **a):
+        if not output_dir:
+            if self.info:
+                output_dir = Path("info")
+            else:
+                output_dir = Path("out")
         output_dir.mkdir(exist_ok=True)
         if not self.lab and self.map_name:
             self.many_labs(output_dir=output_dir)
@@ -147,6 +156,15 @@ def makers(subtype, labs, maps, assay=None, **options):
     if "sp" in maps:
         from . import tree
         result.extend(tree.makers_sp(subtype=subtype, assay=assay, labs=labs))
+    return result
+
+# ======================================================================
+
+def info_makers(subtype, labs, maps, assay=None, **options):
+    result = [mk for mk in (maker(subtype=subtype, assay=assay, lab=lab, map=map, info=True, **options) for lab in labs for map in maps) if mk.merge_exists(mk.lab)]
+    for lab in labs:
+        result.append(maker(subtype=subtype, assay=assay, lab=lab, maps=maps, info=True, **options))
+    result.append(maker(subtype=subtype, assay=assay, labs=labs, maps=maps, info=True, **options))
     return result
 
 # ======================================================================

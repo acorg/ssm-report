@@ -28,6 +28,7 @@ def maps(modul):
     # modul is vr.command
     return [
         modul.tree.makers(),
+        # modul.tree.info_makers(),
 
         # H1 --------------------------------------------------
 

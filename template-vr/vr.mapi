@@ -124,5 +124,12 @@
         {"N": "title", "text_size": 24, "font_weight": "bold"},
         {"N": "point-scale", "scale": 4.0, "outline_scale": 1},
         "vr:rotate:viewport"
+    ],
+
+    "? info": "----------------------------------------------------------------------------------------------------",
+
+    "vr:info": [
+        {"N": "title", "show": false},
+        {"N": "legend", "show": false}
     ]
 }
