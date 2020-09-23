@@ -49,6 +49,8 @@ def maps(modul):
         # B/Vic --------------------------------------------------
 
         modul.map.makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.info_makers(subtype="bvic", labs=["crick"], maps=["info-clade-2m"]),
+        modul.map.info_makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["info-clade-12m"]),
 
         # you may add individual maps like below
         # modul.map.maker(subtype="bvic", lab="cdc",  map="clade"),
@@ -56,6 +58,7 @@ def maps(modul):
         # B/Yam --------------------------------------------------
 
         modul.map.makers(subtype="byam", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology"], compare_with_previous=compare_with_previous),
+        modul.map.info_makers(subtype="byam", labs=["cdc", "crick"], maps=["info-clade-12m"]),
     ]
 
 # ----------------------------------------------------------------------
