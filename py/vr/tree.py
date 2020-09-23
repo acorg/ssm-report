@@ -11,22 +11,39 @@ class maker:
         self.options = options
 
     def command_name_for_helm(self):
-        return f"{self.subtype}-tree"
+        if self.options.get("info"):
+            return f"info-{self.subtype}-tree"
+        else:
+            return f"{self.subtype}-tree"
 
-    def __call__(self, command_name, interactive, open_pdf=True, output_dir=Path("tree"), *r, **a):
+    def __call__(self, command_name, interactive, open_pdf=True, output_dir=None, *r, **a):
+        tree_dir = Path("tree")
+        info = self.options.get("info")
+        if not output_dir:
+            if info:
+                output_dir = Path("info")
+            else:
+                output_dir = tree_dir
         output_dir.mkdir(exist_ok=True)
-        source_tjz = output_dir.joinpath(f"{self.subtype}.tjz")
-        txt = output_dir.joinpath(f"{self.subtype}.tree.txt")
-        if not txt.exists():
-            cmd = f"tal {source_tjz} {txt}"
-            print(cmd)
-            subprocess.check_call(cmd, shell=True)
-        tal_settings = output_dir.joinpath(f"{self.subtype}.tree.tal")
-        pdf = output_dir.joinpath(f"{self.subtype}.tree.pdf")
+        source_tjz = tree_dir.joinpath(f"{self.subtype}.tjz")
+        tal_settings = tree_dir.joinpath(f"{self.subtype}.tree.tal")
         if not tal_settings.exists():
             with tal_settings.open("w") as fd:
                 fd.write(sTalSettings)
-        cmd = f"tal -s {tal_settings} {source_tjz} {pdf}"
+        pdf = output_dir.joinpath(f"{self.subtype}.tree.pdf")
+        if info:
+            info_settings = output_dir.joinpath(f"{self.subtype}.info.tal")
+            if not info_settings.exists():
+                with info_settings.open("w") as fd:
+                    fd.write(sTalInfoSettings)
+            cmd = f"tal -s {tal_settings} -s {info_settings} {source_tjz} {pdf}"
+        else:                   # not info
+            txt = output_dir.joinpath(f"{self.subtype}.tree.txt")
+            if not txt.exists():
+                cmd = f"tal {source_tjz} {txt}"
+                print(cmd)
+                subprocess.check_call(cmd, shell=True)
+            cmd = f"tal -s {tal_settings} {source_tjz} {pdf}"
         if open_pdf:
             # cmd += " --preview 100.0.834.1000"
             cmd += " --open"
@@ -41,11 +58,11 @@ class maker:
     def tree_exists(self):
         return Path(self.tree()).exists()
 
-    def _settings(self):
-        if self.subtype == "h3":
-            return f"-s vr.mapi -s {self.subtype}.mapi -s {self.subtype}-{self.assay}.mapi -s serology.mapi -s vaccines.mapi"
-        else:
-            return f"-s vr.mapi -s {self.subtype}.mapi -s serology.mapi -s vaccines.mapi"
+    # def _settings(self):
+    #     if self.subtype == "h3":
+    #         return f"-s vr.mapi -s {self.subtype}.mapi -s {self.subtype}-{self.assay}.mapi -s serology.mapi -s vaccines.mapi"
+    #     else:
+    #         return f"-s vr.mapi -s {self.subtype}.mapi -s serology.mapi -s vaccines.mapi"
 
     def _subtype_key(self):
         return f"{self.subtype} {self.assay if self.assay else 'hi'}"
@@ -55,6 +72,9 @@ class maker:
 
 def makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
     return [mk for mk in (maker(subtype=subtype, **options) for subtype in subtypes) if mk.tree_exists()]
+
+def info_makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
+    return [mk for mk in (maker(subtype=subtype, info=True, **options) for subtype in subtypes) if mk.tree_exists()]
 
 # ======================================================================
 
@@ -168,6 +188,23 @@ sTalSettings = """{   "_": "-*- js-indent-level: 4 -*-",
          ]
         }
     ],
+}
+"""
+
+# ======================================================================
+
+sTalInfoSettings = """{   "_": "-*- js-indent-level: 4 -*-",
+    "tal": [
+        {"N": "canvas", "height": "{canvas-height}"},
+        {"N": "margins", "left": 0.01},
+        {"N": "title", "show": false},
+        {"N": "tree", "width-to-height-ratio": 0.4},
+        {"N": "nodes", "select": {"all-and-intermediate": true}, "apply": {"tree-edge-line-width": 45}},
+        {"N": "draw-aa-transitions", "show": false},
+        {"?N": "time-series", "end": "2020-07", "slot": {"width": 0.0085, "?width": 0.00765, "label": {"scale": 0.7, "rotation": "clockwise"}}},
+        {"N": "gap", "id": "gap-right", "width-to-height-ratio": 0.07},
+        "hz"
+    ]
 }
 """
 
