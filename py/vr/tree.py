@@ -201,7 +201,7 @@ sTalInfoSettings = """{   "_": "-*- js-indent-level: 4 -*-",
         {"N": "tree", "width-to-height-ratio": 0.4},
         {"N": "nodes", "select": {"all-and-intermediate": true}, "apply": {"tree-edge-line-width": 45}},
         {"N": "draw-aa-transitions", "show": false},
-        {"?N": "time-series", "end": "2020-07", "slot": {"width": 0.0085, "?width": 0.00765, "label": {"scale": 0.7, "rotation": "clockwise"}}},
+        {"?N": "time-series", "start": "2018-06", "end": "2020-07", "slot": {"width": 0.0085, "?width": 0.00765, "label": {"scale": 0.7, "rotation": "clockwise"}}},
         {"N": "gap", "id": "gap-right", "width-to-height-ratio": 0.07},
         "hz"
     ]
