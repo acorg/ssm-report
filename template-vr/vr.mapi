@@ -136,7 +136,8 @@
     "vr:info-clade-12m": [
         "vr:reset",
         {"N": "vr:clade-base", "date-recent": {"younger-than-days": 365}},
-        "?vr:vaccines",
+        "vr:vaccines",
+        {"N": "antigens", "select": "all", "label": {"show": false}},
         "vr:info"
     ]
 }
