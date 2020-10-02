@@ -7,7 +7,7 @@
     "tal": [
         {"N": "canvas", "height": "{canvas-height}"},
         {"N": "margins", "left": 0.01},
-        {"? N": "clades", "slot": {"width": 0.01}, "width-to-height-ratio": 0.05, "all_clades": {"label": {"scale": 1.5}}},
+        {"? N": "clades", "slot": {"width": 0.01}, "width-to-height-ratio": 0.05, "all-clades": {"label": {"scale": 1.5}}},
         "clades-whocc",
         "hz",
         "eu-aa-transitions",
@@ -33,7 +33,7 @@
 
     "eu-aa-transitions": [
         {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
-         "all_nodes": {"label": {"color": "grey30"}},
+         "all-nodes": {"label": {"color": "grey30"}},
          "per_node": [
          ]
         }
@@ -42,17 +42,17 @@
     "clades-whocc": [
         "clades-{virus-type}{lineage}",
         {"N": "clades",
-         "per_clade": [
+         "per-clade": [
              {"name": "6B",    "show": false},
              {"name": "6B1",   "show": false},
              {"name": "6B1.A", "show": false},
              {"name": "6B2",   "show": false},
 
-             {"name": "155E",  "show": false, "section_exclusion_tolerance": 2},
+             {"name": "155E",  "show": false, "section-exclusion-tolerance": 2},
              {"name": "156D",  "show": true},
-             {"name": "156S",  "show": false, "section_exclusion_tolerance": 2},
-             {"name": "156K",  "show": true,  "section_exclusion_tolerance": 10},
-             {"name": "156N",  "show": true,  "section_inclusion_tolerance": 10}
+             {"name": "156S",  "show": false, "section-exclusion-tolerance": 2},
+             {"name": "156K",  "show": true,  "section-exclusion-tolerance": 10},
+             {"name": "156N",  "show": true,  "section-inclusion-tolerance": 10}
          ]
         }
     ]

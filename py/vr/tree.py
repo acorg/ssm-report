@@ -167,7 +167,7 @@ sTalSettings = """{
         {"N": "time-series", "?start": "2017-01", "?slot": {"width": 0.005}},
         {"N": "clades", "?slot": {"width": 0.007}, "?width-to-height-ratio": 0.045,
          "?all_clades": {"label": {"scale": 1.4}},
-         "per_clade": [
+         "per-clade": [
          ]
         },
         "eu-aa-transitions",

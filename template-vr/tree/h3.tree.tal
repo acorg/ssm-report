@@ -11,8 +11,8 @@
         {"N": "tree", "width-to-height-ratio": 0.41},
         {"N": "time-series", "?start": "2017-07", "end": "2020-07", "slot": {"width": 0.007, "label": {"scale": 0.9, "rotation": "clockwise"}}},
         {"N": "clades", "slot": {"width": 0.01}, "width-to-height-ratio": 0.05,
-         "all_clades": {"label": {"scale": 1.4}},
-         "per_clade": [
+         "all-clades": {"label": {"scale": 1.4}},
+         "per-clade": [
              {"?name": "3C.2A1B", "label": {"scale": 1.4}}
          ]
         },
@@ -36,7 +36,7 @@
 
     "eu-aa-transitions": [
         {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
-         "all_nodes": {"label": {"color": "grey30"}},
+         "all-nodes": {"label": {"color": "grey30"}},
          "per_node": [
          ]
         }
@@ -45,7 +45,7 @@
     "clades-whocc": [
         "clades-{virus-type}{lineage}",
         {"N": "clades",
-         "per_clade": [
+         "per-clade": [
              {"name": "3C.3",              "show": false},
              {"name": "3C.2A",             "show": false},
              {"name": "3C.2A1",            "show": false},
@@ -54,14 +54,14 @@
              {"name": "3C.2A4",            "show": false},
              {"name": "3C.2A1B+193S",      "show": false},
 
-             {"name": "3C.3A",             "show": true, "display_name": "3a",               "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 40},
+             {"name": "3C.3A",             "show": true, "display_name": "3a",               "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 40},
              {"name": "3C.2A3",            "show": true, "display_name": "2a3",              "label": {"rotation_degrees": 90, "scale": 1.5}},
              {"name": "3C.2A2",            "show": true, "display_name": "2a2",              "label": {"rotation_degrees": 90, "scale": 1.5}},
-             {"name": "3C.2A1B+135K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 12},
-             {"name": "3C.2A1B+135K+137F", "show": true, "display_name": "+137F", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 12},
-             {"name": "3C.2A1B+135K+186D", "show": true, "display_name": "+186D", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 12},
-             {"name": "3C.2A1B+131K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section_inclusion_tolerance": 40},
-             {"name": "3C.2A1B+131K+94N",  "show": true, "display_name": "+94N",  "slot": 0, "label": [{"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, -0.003]}, {"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, 0.01]}], "section_inclusion_tolerance": 4},
+             {"name": "3C.2A1B+135K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 12},
+             {"name": "3C.2A1B+135K+137F", "show": true, "display_name": "+137F", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 12},
+             {"name": "3C.2A1B+135K+186D", "show": true, "display_name": "+186D", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 12},
+             {"name": "3C.2A1B+131K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 40},
+             {"name": "3C.2A1B+131K+94N",  "show": true, "display_name": "+94N",  "slot": 0, "label": [{"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, -0.003]}, {"rotation_degrees": 90, "scale": 1.5, "offset": [0.004, 0.01]}], "section-inclusion-tolerance": 4},
 
              {"?N": ""}
          ]

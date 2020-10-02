@@ -131,7 +131,7 @@ def _tree_update_settings_bv(data, settings):
     for clade_data in data["clades"]["clades"]:
         clade_data["label_offset"] = [3, 0]
         if clade_data["name"] == "1A":
-            clade_data["section_inclusion_tolerance"] = 20
+            clade_data["section-inclusion-tolerance"] = 20
         elif clade_data["name"] == "1":
             clade_data["show"] = False
 

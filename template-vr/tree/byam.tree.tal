@@ -8,8 +8,8 @@
         {"N": "margins", "left": 0.005},
         {"N": "tree", "width-to-height-ratio": 0.455},
         {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.022,
-         "all_clades": {"label": {"scale": 1.4}},
-         "per_clade": [
+         "all-clades": {"label": {"scale": 1.4}},
+         "per-clade": [
              {"name": "Y2", "show": false}
          ]
         },
@@ -29,8 +29,8 @@
     ],
 
     "eu-aa-transitions": [
-        {"N": "draw-aa-transitions", "minimum_number_leaves_in_subtree": 40,
-         "all_nodes": {"label": {"color": "grey30"}},
+        {"N": "draw-aa-transitions", "minimum-number-leaves-in-subtree": 40,
+         "all-nodes": {"label": {"color": "grey30"}},
          "per_node": [
          ]
         }

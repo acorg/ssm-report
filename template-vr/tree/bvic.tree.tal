@@ -17,10 +17,10 @@
          "slot": {"width": 0.0058, "label": {"scale": 1.0, "rotation": "clockwise"}}},
 
         {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.04,
-         "all_clades": {"label": {"scale": 1.4}},
-         "per_clade": [
-             {"name": "2DEL2017", "section_inclusion_tolerance": 40, "section_exclusion_tolerance": 33, "display_name": "V1A.1",                "label": {"scale": 1.4}},
-             {"name": "3DEL2017", "section_inclusion_tolerance": 20, "section_exclusion_tolerance": 11, "display_name": ["V1A.2", "V1A.3", "3del extra"], "label": {"scale": 1.4}}
+         "all-clades": {"label": {"scale": 1.4}},
+         "per-clade": [
+             {"name": "2DEL2017", "section-inclusion-tolerance": 40, "section-exclusion-tolerance": 33, "display_name": "V1A.1",                "label": {"scale": 1.4}},
+             {"name": "3DEL2017", "section-inclusion-tolerance": 20, "section-exclusion-tolerance": 11, "display_name": ["V1A.2", "V1A.3", "3del extra"], "label": {"scale": 1.4}}
          ]
         },
         {"N": "nodes", "select": {"vaccine": {"type": "current", "passage": "cell"}, "report": false}, "apply": "report"},
@@ -39,7 +39,7 @@
 
     "eu-aa-transitions": [
         {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
-         "all_nodes": {"label": {"color": "grey30"}},
+         "all-nodes": {"label": {"color": "grey30"}},
          "per_node": [
          ]
         }
