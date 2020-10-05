@@ -5,7 +5,7 @@
     ],
 
     "tal": [
-        {"N": "canvas", "height": "{canvas-height}"},
+        {"N": "canvas", "height": "$canvas-height"},
         {"N": "margins", "left": 0.01},
         {"? N": "clades", "slot": {"width": 0.01}, "width-to-height-ratio": 0.05, "all-clades": {"label": {"scale": 1.5}}},
         "clades-whocc",
@@ -34,7 +34,7 @@
     "eu-aa-transitions": [
         {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
          "all-nodes": {"label": {"color": "grey30"}},
-         "per_node": [
+         "per-node": [
          ]
         }
     ],
@@ -52,7 +52,7 @@
              {"name": "156D",  "show": true},
              {"name": "156S",  "show": false, "section-exclusion-tolerance": 2},
              {"name": "156K",  "show": true,  "section-exclusion-tolerance": 10},
-             {"name": "156N",  "show": true,  "section-inclusion-tolerance": 10}
+             {"name": "156N",  "show": true,  "section-inclusion-tolerance": 12}
          ]
         }
     ]

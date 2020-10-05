@@ -4,7 +4,7 @@
     ],
 
     "tal": [
-        {"N": "canvas", "height": "{canvas-height}"},
+        {"N": "canvas", "height": "$canvas-height"},
         {"?N": "margins", "left": 0.01},
         "clades-whocc",
         "hz",
@@ -35,9 +35,12 @@
     ],
 
     "eu-aa-transitions": [
-        {"N": "draw-aa-transitions", "?minimum_number_leaves_in_subtree": 0.05,
+        {"N": "draw-aa-transitions",
+         "minimum-number-leaves-in-subtree": 0.00767,
+         "minimum-number-leaves-in-subtree-per-pos": {"94": 0.0037},
+         "non_common_tolerance": 0.7,
          "all-nodes": {"label": {"color": "grey30"}},
-         "per_node": [
+         "per-node": [
          ]
         }
     ],
@@ -53,11 +56,12 @@
              {"name": "3C.2A1B",           "show": false},
              {"name": "3C.2A4",            "show": false},
              {"name": "3C.2A1B+193S",      "show": false},
+             {"name": "3C.2A1B+131K+197R", "show": false},
 
              {"name": "3C.3A",             "show": true, "display_name": "3a",               "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 40},
              {"name": "3C.2A3",            "show": true, "display_name": "2a3",              "label": {"rotation_degrees": 90, "scale": 1.5}},
              {"name": "3C.2A2",            "show": true, "display_name": "2a2",              "label": {"rotation_degrees": 90, "scale": 1.5}},
-             {"name": "3C.2A1B+135K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 12},
+             {"name": "3C.2A1B+135K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 12, "section-exclusion-tolerance": 12},
              {"name": "3C.2A1B+135K+137F", "show": true, "display_name": "+137F", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 12},
              {"name": "3C.2A1B+135K+186D", "show": true, "display_name": "+186D", "slot": 0, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 12},
              {"name": "3C.2A1B+131K",      "show": true,                          "slot": 2, "label": {"rotation_degrees": 90, "scale": 1.5}, "section-inclusion-tolerance": 40},

@@ -4,7 +4,7 @@
     ],
 
     "tal": [
-        {"N": "canvas", "height": "{canvas-height}"},
+        {"N": "canvas", "height": "$canvas-height"},
         {"N": "margins", "left": 0.005},
         {"N": "tree", "width-to-height-ratio": 0.455},
         {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.022,
@@ -31,7 +31,7 @@
     "eu-aa-transitions": [
         {"N": "draw-aa-transitions", "minimum-number-leaves-in-subtree": 40,
          "all-nodes": {"label": {"color": "grey30"}},
-         "per_node": [
+         "per-node": [
          ]
         }
     ]
