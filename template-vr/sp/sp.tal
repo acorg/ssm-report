@@ -25,7 +25,7 @@
 
     "antigenic-map": [
         "antigenic-map-reset",
-        {"N": "title", "remove-lines": true, "text_size": 7, "lines": ["{section_prefix}. {section_label} {section_aa_transitions}"], "offset": [3, 3], "padding": 0},
+        {"N": "title", "remove-lines": true, "text_size": 7, "lines": ["{section-prefix}. {section-label} {section-aa-transitions}"], "offset": [3, 3], "padding": 0},
         {"N": "antigens", "select": {"in-section": true, "report": true}, "fill": {"time-series-color-scale": true}, "outline": "black", "size": 3.5, "outline_width": 0.5, "order": "raise"},
         "serum-circles",
         {"N": "vr:vaccines", "vaccine-size": 7, "vaccine-label-size": 7}
