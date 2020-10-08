@@ -38,7 +38,8 @@
         {"N": "draw-aa-transitions",
          "minimum-number-leaves-in-subtree": 0.00767,
          "minimum-number-leaves-in-subtree-per-pos": {"94": 0.0037},
-         "non_common_tolerance": 0.7,
+         "non-common-tolerance": 0.6,
+         "non-common-tolerance-per-pos": {"144": 0.7, "159": 0.7},
          "all-nodes": {"label": {"color": "grey30"}},
          "per-node": [
          ]
