@@ -1,15 +1,17 @@
-# Time-stamp: <2020-09-04 15:38:43 eu>
+# Time-stamp: <2020-11-10 10:12:09 eu>
 
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 
 * Init
-vr-init 2020-0811-tc1
-vr-init 2020-0903-tc2
-vr-init 2020-0916-ssm
+- vr-init 2020-1123-tc0
+
+- vr-init 2020-0916-ssm
+- vr-init 2020-0903-tc2
+- vr-init 2020-0811-tc1
 
 * Make
 [[/Users/eu/.emacs.d/eu/eu-ssm.el][eu-ssm.el]]
-(setq eu-ssm-dir "/syn/eu/ac/results/ssm/2020-0916-ssm")
+(customize-variable 'eu-ssm-dir)
 
 M-x eu-ssm-load
 C-f7 -> helm-ssm
