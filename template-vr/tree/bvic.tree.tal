@@ -13,7 +13,7 @@
         {"N": "nodes", "select": {"top-cumulative-gap": 2.0, "report": true}, "apply": {"hide": false, "tree-edge-line-color": "red"}},
         {"?N": "nodes", "select": {"cumulative >=": 0.028, "report": true}, "apply": {"hide": true, "tree-edge-line-color": "red"}},
 
-        {"N": "time-series", "start": "2016-07", "end": "2020-07",
+        {"N": "time-series", "start": "2016-07", "?end": "2020-07",
          "slot": {"width": 0.0058, "label": {"scale": 1.0, "rotation": "clockwise"}}},
 
         {"N": "clades", "slot": {"width": 0.007}, "width-to-height-ratio": 0.04,

@@ -9,7 +9,7 @@
         "clades-whocc",
         "hz",
         {"N": "tree", "width-to-height-ratio": 0.41},
-        {"N": "time-series", "?start": "2017-07", "end": "2020-07", "slot": {"width": 0.007, "label": {"scale": 0.9, "rotation": "clockwise"}}},
+        {"N": "time-series", "?start": "2017-07", "?end": "2020-07", "slot": {"width": 0.007, "label": {"scale": 0.9, "rotation": "clockwise"}}},
         {"N": "clades", "slot": {"width": 0.01}, "width-to-height-ratio": 0.05,
          "all-clades": {"label": {"scale": 1.4}},
          "per-clade": [
