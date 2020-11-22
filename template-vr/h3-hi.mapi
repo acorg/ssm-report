@@ -13,16 +13,16 @@
     ],
 
     "loc:legend-A(H3N2)hi": [
-        {"N": "legend", "offset": [-10, -10], "label_size": "{legend-label-size}", "point_size": "{legend-point-size}", "show": true}
+        {"N": "legend", "offset": [-10, -10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
 
     "loc:ts-A(H3N2)hi": [
         "/continents",
-        {"N": "antigens", "select": {"test": true}, "size": "{not-found-in-previous-size}"},
-        {"N": "if", "condition": "{compare-with-previous}", "then": [
-            {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "{found-in-previous-size}"}
+        {"N": "antigens", "select": {"test": true}, "size": "$not-found-in-previous-size"},
+        {"N": "if", "condition": "$compare-with-previous", "then": [
+            {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "$found-in-previous-size"}
         ]},
         {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
         {"N": "legend", "show": false, "type": "continent_map", "size": 100, "offset": [-10, 10]}
@@ -38,7 +38,7 @@
     ],
 
     "loc:clades-A(H3N2)hi-Crick": [
-      {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"], "date": "{date-recent}"},   "fill": "green:t+0.7", "outline": ":t+0.7", "legend": {"label": "3a 144N 2015-2017 ({count})"}, "report": true}
+      {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"], "date": "$date-recent"},   "fill": "green:t+0.7", "outline": ":t+0.7", "legend": {"label": "3a 144N 2015-2017 ({count})"}, "report": true}
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",
@@ -64,9 +64,9 @@
     ],
 
     "loc:vaccines-A(H3N2)hi-Crick": [
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "egg",  "most-used-for-name": true, "name": "~KONG"},   "label": {"offset": [0, -1],    "format": "{abbreviated_location_year}-{passage_type}", "size": "{vaccine-label-size}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "egg",  "most-used-for-name": true, "name": "~SOUTH"},  "label": {"offset": [0.5, 1],   "format": "{abbreviated_location_year}-{passage_type}", "size": "{vaccine-label-size}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "cell", "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [0.5, 1],   "format": "{abbreviated_location_year}-{passage_type}", "size": "{vaccine-label-size}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "egg",  "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [-0.5, -1], "format": "{abbreviated_location_year}-{passage_type}", "size": "{vaccine-label-size}"}}
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "egg",  "most-used-for-name": true, "name": "~KONG"},   "label": {"offset": [0, -1],    "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "egg",  "most-used-for-name": true, "name": "~SOUTH"},  "label": {"offset": [0.5, 1],   "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "cell", "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [0.5, 1],   "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "egg",  "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [-0.5, -1], "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}}
     ]
 }

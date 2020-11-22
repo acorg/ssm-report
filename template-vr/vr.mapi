@@ -23,17 +23,17 @@
     "? clade": "----------------------------------------------------------------------------------------------------",
 
     "vr:clade-base": [
-        "loc:clades-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:clades-{virus-type/lineage}{subset}{assay-neut}-{lab}"
+        "loc:clades-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:clades-{virus-type/lineage}{subset}{assay-no-hi-low}-{lab}"
     ],
 
     "vr:clade": [
         "vr:reset",
         "vr:clade-base",
         "vr:vaccines",
-        {"N": "title", "lines": ["{lab} {virus_type_lineage} {assay_HI_Neut} by clade"]},
-        "loc:title-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:legend-{virus-type/lineage}{subset}{assay-neut}"
+        {"N": "title", "lines": ["{lab} {virus-type/lineage} {assay-cap} by clade"]},
+        "loc:title-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:legend-{virus-type/lineage}{subset}{assay-no-hi-low}"
     ],
 
     "vr:clade-12m": [
@@ -47,12 +47,12 @@
     "? H1 2020-02": "",
     "vr:clade-155-156": [
         "vr:reset",
-        "loc:clade-155-156-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:clade-155-156-{virus-type/lineage}{subset}{assay-neut}-{lab}",
+        "loc:clade-155-156-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:clade-155-156-{virus-type/lineage}{subset}{assay-no-hi-low}-{lab}",
         "vr:vaccines",
-        {"N": "title", "lines": ["{lab} {virus_type_lineage} by amino-acid at 155, 156"]},
-        "loc:title-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:legend-{virus-type/lineage}{subset}{assay-neut}"
+        {"N": "title", "lines": ["{lab} {virus-type/lineage} by amino-acid at 155, 156"]},
+        "loc:title-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:legend-{virus-type/lineage}{subset}{assay-no-hi-low}"
     ],
 
     "vr:clade-155-156-12m": [
@@ -67,27 +67,27 @@
     "vr:clade-ngly": [
         "vr:reset",
         "vr:clade-base",
-        "loc:N-gly-197-{virus-type/lineage}{subset}{assay-neut}",
+        "loc:N-gly-197-{virus-type/lineage}{subset}{assay-no-hi-low}",
         "vr:vaccines",
-        {"N": "title", "lines": ["{lab} {virus_type_lineage} by clade and potential N-gly"]},
-        "loc:title-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:legend-{virus-type/lineage}{subset}{assay-neut}"
+        {"N": "title", "lines": ["{lab} {virus-type/lineage} by clade and potential N-gly"]},
+        "loc:title-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:legend-{virus-type/lineage}{subset}{assay-no-hi-low}"
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
 
     "vr:ts": [
         "vr:reset",
-        "loc:ts-{virus-type/lineage}{subset}{assay-neut}",
+        "loc:ts-{virus-type/lineage}{subset}{assay-no-hi-low}",
         "vr:vaccines",
         {"N": "title"},
-        "loc:title-{virus-type/lineage}{subset}{assay-neut}",
-        "? loc:legend-{virus-type/lineage}{subset}{assay-neut}",
+        "loc:title-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "? loc:legend-{virus-type/lineage}{subset}{assay-no-hi-low}",
 
         {"N": "time-series",
-         "start": "{time-series-start}", "end": "{time-series-end}", "interval": "{time-series-interval}",
-         "output": "{output_dir}/{virus_type_lineage_short}-{assay}-ts-{lab_lower}-{ts_numeric}.pdf",
-         "title": "{lab} {virus_type_lineage} {assay_HI_Neut} {ts_text}"
+         "start": "$time-series-start", "end": "$time-series-end", "interval": "$time-series-interval",
+         "output": "{output_dir}/{virus-type-lineage-subset-short-low}-{assay}-ts-{lab-low}-{ts-numeric}.pdf",
+         "title": "{lab} {virus-type/lineage} {assay-cap} {ts-text}"
         }
     ],
 
@@ -96,12 +96,12 @@
     "vr:serology": [
         "vr:reset",
         {"N": "vr:clade-base", "clade-pale": ":p+0.5"},
-        "loc:serology-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:serology-{virus-type/lineage}{subset}{assay-neut}-{lab}",
+        "loc:serology-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:serology-{virus-type/lineage}{subset}{assay-no-hi-low}-{lab}",
         "vr:vaccines",
-        {"N": "title", "lines": ["{lab} {virus_type_lineage} {assay_HI_Neut} with serology antigens"]},
-        "loc:title-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:legend-{virus-type/lineage}{subset}{assay-neut}"
+        {"N": "title", "lines": ["{lab} {virus-type/lineage} {assay-cap} with serology antigens"]},
+        "loc:title-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:legend-{virus-type/lineage}{subset}{assay-no-hi-low}"
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",
@@ -109,12 +109,12 @@
     "vr:vaccines": [
         "vaccines-{virus-type}{lineage}{subset}",
         {"?N": "antigens", "?x": "contradicts with serology, if serology is an old vaccine which is not shown as vaccine", "select": {"vaccine": {"type": "any"}}, "label": {"format": "{abbreviated_name}-{passage_type}", "offset": [0, 1], "size": 30, "show": false}},
-        "loc:vaccines-{virus-type/lineage}{subset}{assay-neut}",
-        "loc:vaccines-{virus-type/lineage}{subset}{assay-neut}-{lab}"
+        "loc:vaccines-{virus-type/lineage}{subset}{assay-no-hi-low}",
+        "loc:vaccines-{virus-type/lineage}{subset}{assay-no-hi-low}-{lab}"
     ],
 
     "vr:rotate:viewport": [
-        "loc:rotate:viewport-{virus-type/lineage}{subset}{assay-neut}-{lab}"
+        "loc:rotate:viewport-{virus-type/lineage}{subset}{assay-no-hi-low}-{lab}"
     ],
 
     "vr:reset": [

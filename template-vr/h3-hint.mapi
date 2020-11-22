@@ -8,16 +8,16 @@
     ],
 
     "loc:legend-A(H3N2)hint": [
-        {"N": "legend", "offset": [-10, -10], "label_size": "{legend-label-size}", "point_size": "{legend-point-size}", "show": true}
+        {"N": "legend", "offset": [-10, -10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
 
     "loc:ts-A(H3N2)hint": [
         "/continents",
-        {"N": "antigens", "select": {"test": true}, "size": "{not-found-in-previous-size}"},
-        {"N": "if", "condition": "{compare-with-previous}", "then": [
-            {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "{found-in-previous-size}"}
+        {"N": "antigens", "select": {"test": true}, "size": "$not-found-in-previous-size"},
+        {"N": "if", "condition": "$compare-with-previous", "then": [
+            {"N": "antigens", "select": {"test": true, "found-in": 1}, "size": "$found-in-previous-size"}
         ]},
         {"N": "antigens", "select": {"reference": true}, "fill": "transparent", "outline": "grey80"},
         {"?N": "legend", "type": "continent_map", "size": 100, "offset": [-10, 10]}
