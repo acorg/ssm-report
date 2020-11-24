@@ -20,7 +20,7 @@
         "/all-grey",
         "/no-labels",
         "/egg",
-        "loc:rotate:viewport-{virus-type/lineage}{subset}{assay-neut}-{lab}"
+        "loc:rotate:viewport-{virus-type/lineage}{subset}{assay-no-hi-low}-{lab}"
     ],
 
     "antigenic-map": [
