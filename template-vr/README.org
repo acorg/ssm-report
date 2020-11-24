@@ -1,4 +1,4 @@
-# Time-stamp: <2020-09-04 14:36:10 eu>
+# Time-stamp: <2020-11-24 08:54:20 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
@@ -37,7 +37,7 @@ see compare_with_previous in [[report.py]]
 
 * set of maps
 
-see [[report.py]]
+see [[file:report.py][report.py]]
 
 ** H1
 
