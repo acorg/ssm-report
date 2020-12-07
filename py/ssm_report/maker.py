@@ -114,8 +114,8 @@ class Commands:
         make_stat(stat_dir=Path("stat"), hidb_dir=self._db_dir(), force=True)
 
     def get_merges(self, **args):
-        from acmacs_whocc import acmacs
-        acmacs.get_recent_merges(Path("merges"))
+        from acmacs_whocc import get_recent_merges
+        get_recent_merges(Path("merges"))
 
     def tree(self, subtype, interactive, information, report_cumulative=False, **args):
         from .signature_page import tree_make

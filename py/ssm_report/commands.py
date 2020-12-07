@@ -353,8 +353,8 @@ class Processor:
     def update_merges(self, lab=None, subtype=None):
         target_dir = self._merges_dir()
         module_logger.info("Updating merges{}{} in {}".format(f" for {lab}" if lab else "", f" for {subtype}" if subtype else "", repr(str(target_dir))))
-        from acmacs_whocc import acmacs
-        acmacs.get_recent_merges(target_dir, lab=lab, subtype=subtype)
+        from acmacs_whocc import get_recent_merges
+        get_recent_merges(target_dir, lab=lab, subtype=subtype)
 
     def update_merges_h1(self):
         self.update_merges(subtype="H1")
@@ -703,8 +703,8 @@ class Processor:
     def _get_merges(self):
         target_dir = self._merges_dir()
         module_logger.info("Updating merges in " + repr(str(target_dir)))
-        from acmacs_whocc import acmacs
-        acmacs.get_recent_merges(target_dir)
+        from acmacs_whocc import get_recent_merges
+        get_recent_merges(target_dir)
         self.h1_overlay()
 
     # @classmethod

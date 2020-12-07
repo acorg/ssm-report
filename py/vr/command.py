@@ -83,8 +83,8 @@ def stat_geo():
 def get_merges():
     output_dir = Path("merges")
     output_dir.mkdir(exist_ok=True)
-    from acmacs_whocc import acmacs
-    acmacs.get_recent_merges(output_dir)
+    from acmacs_whocc import get_recent_merges
+    get_recent_merges(output_dir)
 
 # ----------------------------------------------------------------------
 

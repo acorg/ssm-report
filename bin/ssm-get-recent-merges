@@ -11,13 +11,13 @@ from pathlib import Path
 sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
 import logging; module_logger = logging.getLogger(__name__)
 
-from acmacs_whocc import acmacs
+from acmacs_whocc import get_recent_merges
 
 # ----------------------------------------------------------------------
 
 def main(args):
     os.makedirs(args.target_dir[0], exist_ok=True)
-    acmacs.get_recent_merges(Path(args.target_dir[0]), subtype=args.flu, lab=args.lab)
+    get_recent_merges(Path(args.target_dir[0]), subtype=args.flu, lab=args.lab)
 
 # ----------------------------------------------------------------------
 
