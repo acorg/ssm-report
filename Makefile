@@ -7,9 +7,8 @@ NO_RTAGS_TARGET=1
 include $(ACMACSD_ROOT)/share/Makefile.config
 
 install:
-	$(call symbolic_link,$(abspath py)/ssm_report,$(AD_PY)/ssm_report)
-	$(call symbolic_link,$(abspath py)/vr,$(AD_PY)/vr)
-	$(call symbolic_link_wildcard,$(abspath bin)/*,$(AD_BIN))
+	$(call install_all,$(AD_PACKAGE_NAME))
+	$(call install_wildcard,$(abspath py)/vr/*,$(AD_PY)/vr)
 .PHONY: install
 
 rtags:
