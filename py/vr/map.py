@@ -120,10 +120,10 @@ class maker:
             return self.assay
 
     def merge(self, lab):
-        return Path("merges", self.merge_new(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+        return Path("merges", self.merge_2021(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
 
     def previous_merge(self, lab):
-        mer = Path("previous", self.merge_new(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+        mer = Path("previous", self.merge_2021(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
         if not mer.exists():
             mer = Path("previous", self.merge_old(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
         if self.options.get("compare_with_previous") and mer.exists():
@@ -131,9 +131,9 @@ class maker:
         else:
             return ""
 
-    s_merge_new_subtype_fix = {"h1": "h1pdm"}
+    s_merge_2021_subtype_fix = {"h1": "h1pdm"}
     @classmethod
-    def merge_new(cls, subtype, assay, rbc, lab):
+    def merge_2021(cls, subtype, assay, rbc, lab):
         if rbc:
             assay_rbc = f"{assay}-{rbc}"
         elif assay == "neut":
@@ -143,7 +143,7 @@ class maker:
                 assay_rbc = "fra"
         else:
             assay_rbc = assay
-        return f"{cls.s_merge_new_subtype_fix.get(subtype, subtype)}-{assay_rbc}-{lab}.ace"
+        return f"{cls.s_merge_2021_subtype_fix.get(subtype, subtype)}-{assay_rbc}-{lab}.ace"
 
     @classmethod
     def merge_old(cls, subtype, assay, rbc, lab):
