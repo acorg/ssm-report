@@ -8,7 +8,7 @@ include $(ACMACSD_ROOT)/share/Makefile.config
 
 install:
 	$(call install_all,$(AD_PACKAGE_NAME))
-	$(call install_wildcard,$(abspath py)/vr/*,$(AD_PY)/vr)
+	$(call install_py,vr)
 .PHONY: install
 
 rtags:
