@@ -7,6 +7,7 @@ from .error import Error
 # ----------------------------------------------------------------------
 
 def __get_merges(command, *r, **a): get_merges()
+def __get_merge_from_chain(command, *r, **a): get_merge_from_chain(*r)
 def __get_hidb(command, *r, **a): get_hidb()
 def __stat_geo(command, *r, **a): stat_geo()
 def __sy(command, *r, **a): sy()
@@ -27,6 +28,7 @@ sCommands = {
     "~addendum-5": report.make_addendum_5,
     "~addendum-6": report.make_addendum_6,
     "~get-merges": __get_merges,
+    "!get-merge-from-chain": __get_merge_from_chain, # ! - secondary command, do not list for helm
     "~get-hidb": __get_hidb,
     "~stat-geo": __stat_geo,
     "~sy": __sy,
@@ -43,10 +45,11 @@ for map_maker in maps(sys.modules[__name__]):
 # ----------------------------------------------------------------------
 
 def process(command, interactive=False):
+    command, *args = command.split()
     cmd = sCommands.get(command)
     if not cmd:
         raise Error(f"unknown command {command}")
-    cmd(command, interactive=interactive)
+    cmd(command, interactive=interactive, *args)
 
 # ----------------------------------------------------------------------
 
@@ -81,10 +84,24 @@ def stat_geo():
 # ----------------------------------------------------------------------
 
 def get_merges():
-    output_dir = Path("merges")
-    output_dir.mkdir(exist_ok=True)
-    from acmacs_whocc import get_recent_merges
-    get_recent_merges(output_dir)
+    subprocess.check_call(["ssh", "i19", "ad-run", "ACMACSD_ROOT=/syn/eu/AD.chain", "whocc-report-chains"])
+
+def get_merge_from_chain(srl, remote_filename):
+    merge_dir = Path("merges")
+    merge_dir.mkdir(exist_ok=True)
+    target = merge_dir.joinpath(f"{srl}.chain.ace")
+    subprocess.check_call(["rsync", "-v", f"i19:{remote_filename}", str(target)])
+    print("\n")
+    subprocess.check_call(["chart-info", str(target)])
+    target_main = merge_dir.joinpath(f"{srl}.ace")
+    if not target_main.exists():
+        target_main.symlink_to(target.name)
+
+# def get_merges():
+#     output_dir = Path("merges")
+#     output_dir.mkdir(exist_ok=True)
+#     from acmacs_whocc import get_recent_merges
+#     get_recent_merges(output_dir)
 
 # ----------------------------------------------------------------------
 
@@ -104,7 +121,7 @@ def list_for_helm():
         else:
             return f"3{name}"
 
-    print("\n".join(sorted(sCommands, key=key)))
+    print("\n".join(sorted((cmd for cmd in sCommands if cmd and cmd[0] != '!'), key=key))) # commands started with ! are secondary and not listed
 
 # ----------------------------------------------------------------------
 

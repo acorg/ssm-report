@@ -18,7 +18,6 @@ import vr
 def main(commands):
     if not args.commands:
         raise vr.Error("No commands in the command line")
-    print(vr.command)
     for cmd in args.commands:
         vr.command.process(cmd, interactive=args.interactive)
 
