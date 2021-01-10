@@ -43,7 +43,7 @@ def check_dir():
 try:
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
+    parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.DEBUG, help='Enable debugging output.')
     parser.add_argument('--list-commands-for-helm', action='store_true', dest='list_commands_for_helm', default=False)
     parser.add_argument('-i', '--interactive', action='store_true', dest='interactive', default=False, help='Run mapi/tal in interactive mode.')
 

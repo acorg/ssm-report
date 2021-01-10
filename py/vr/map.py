@@ -10,12 +10,13 @@ s_clade_maps = {}
 
 class maker:
 
-    def __init__(self, subtype, assay=None, lab=None, map=None, labs=None, maps=None, info=False, **options):
+    def __init__(self, subtype, assay=None, lab=None, rbc=None, map=None, labs=None, maps=None, info=False, **options):
         self.subtype = subtype
         self.assay = assay
         self.map_name = map
         self.maps = maps
         self.labs = labs
+        self.rbc = rbc
         self.info = info
         self.options = options
         if lab:
@@ -119,18 +120,39 @@ class maker:
             return self.assay
 
     def merge(self, lab):
-        return f"merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
+        return Path("merges", self.merge_new(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
 
     def previous_merge(self, lab):
-        mer = f"previous/merges/{lab_old(lab)}-{self.subtype[:2]}-{self._assay()}.ace"
-        if self.options.get("compare_with_previous") and Path(mer).exists():
+        mer = Path("previous", self.merge_new(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+        if not mer.exists():
+            mer = Path("previous", self.merge_old(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+        if self.options.get("compare_with_previous") and mer.exists():
             return mer
         else:
             return ""
 
+    s_merge_new_subtype_fix = {"h1": "h1pdm"}
+    @classmethod
+    def merge_new(cls, subtype, assay, rbc, lab):
+        if rbc:
+            assay_rbc = f"{assay}-{rbc}"
+        elif assay == "neut":
+            if lab == "crick":
+                assay_rbc = "prn"
+            else:
+                assay_rbc = "fra"
+        else:
+            assay_rbc = assay
+        return f"{cls.s_merge_new_subtype_fix.get(subtype, subtype)}-{assay_rbc}-{lab}.ace"
+
+    @classmethod
+    def merge_old(cls, subtype, assay, rbc, lab):
+        return f"{lab_old(lab)}-{subtype}-{assay}.ace"
+
     def merge_exists(self, lab):
         mer = self.merge(lab=lab)
-        return Path(mer).exists()
+        #print(f"merge {mer} exists {mer.exists()}")
+        return mer.exists()
 
     def _settings(self):
         if self.subtype == "h3":
