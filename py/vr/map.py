@@ -123,9 +123,9 @@ class maker:
         return Path("merges", self.merge_2021(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
 
     def previous_merge(self, lab):
-        mer = Path("previous", self.merge_2021(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+        mer = Path("previous", "merges", self.merge_2021(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
         if not mer.exists():
-            mer = Path("previous", self.merge_old(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+            mer = Path("previous", "merges", self.merge_old(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
         if self.options.get("compare_with_previous") and mer.exists():
             return mer
         else:
