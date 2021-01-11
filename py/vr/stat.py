@@ -196,7 +196,7 @@ def _make_webpage(output_dir, stat):
 
 def _make_webtable(output, stat, virus_type, lab, period):
     global sContinentsForTables
-    data_antigens = stat['antigens'][virus_type].get(lab, {})
+    data_antigens = stat['antigens'].get(virus_type, {}).get(lab, {})
     if data_antigens:
         data_sera_unique = stat['sera_unique'].get(virus_type, {}).get(lab, {})
         data_sera = stat['sera'].get(virus_type, {}).get(lab, {})
