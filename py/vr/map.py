@@ -114,40 +114,41 @@ class maker:
             self.one(lab=self.lab, map_name=clade_map, interactive=False, open_pdf=False, output_dir=output_dir)
 
     def _assay(self):
-        if self.assay is None:
-            return "hi"
-        else:
-            return self.assay
+        return self.assay or "hi"
 
     def merge(self, lab):
-        return Path("merges", self.merge_2021(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+        return Path("merges", self.merge_2021(lab=lab))
 
     def previous_merge(self, lab):
-        mer = Path("previous", "merges", self.merge_2021(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+        mer = Path("previous", "merges", self.merge_2021(lab=lab))
         if not mer.exists():
-            mer = Path("previous", "merges", self.merge_old(subtype=self.subtype, assay=self._assay(), rbc=self.rbc, lab=lab))
+            mer = Path("previous", "merges", self.merge_old(lab=lab))
         if self.options.get("compare_with_previous") and mer.exists():
             return mer
         else:
             return ""
 
-    s_merge_2021_subtype_fix = {"h1": "h1pdm"}
-    @classmethod
-    def merge_2021(cls, subtype, assay, rbc, lab):
-        if rbc:
-            assay_rbc = f"{assay}-{rbc}"
-        elif assay == "neut":
+    def merge_2021(self, lab):
+        if self.rbc:
+            assay_rbc = self.assay_rbc()
+        elif self.assay == "neut":
             if lab == "crick":
                 assay_rbc = "prn"
             else:
                 assay_rbc = "fra"
         else:
-            assay_rbc = assay
-        return f"{cls.s_merge_2021_subtype_fix.get(subtype, subtype)}-{assay_rbc}-{lab}.ace"
+            assay_rbc = self.assay
+        return f"{self.subtype}-{assay_rbc}-{lab}.ace"
 
-    @classmethod
-    def merge_old(cls, subtype, assay, rbc, lab):
-        return f"{lab_old(lab)}-{subtype}-{assay}.ace"
+    s_merge_old_subtype_fix = {"h1pdm": "h1"}
+    def merge_old(self, lab):
+        return f"{lab_old(lab)}-{s_merge_old_subtype_fix.get(self.subtype, self.subtype)}-{self.assay}.ace"
+
+    def assay_rbc(self):
+        if self.rbc:
+            return f"{self._assay()}-{self.rbc}"
+        else:
+            return self._assay()
 
     def merge_exists(self, lab):
         mer = self.merge(lab=lab)
@@ -165,8 +166,8 @@ class maker:
 
 # ======================================================================
 
-def makers(subtype, labs, maps, assay=None, **options):
-    result = [mk for mk in (maker(subtype=subtype, assay=assay, lab=lab, map=map, **options) for lab in labs for map in maps if map != "sp") if mk.merge_exists(mk.lab)]
+def makers(subtype, labs, maps, assay=None, rbc=None, **options):
+    result = [mk for mk in (maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map=map, **options) for lab in labs for map in maps if map != "sp") if mk.merge_exists(mk.lab)]
     if result and len([en for en in maps if en.startswith("clade")]) > 1:
         for lab in labs:
             mk = maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options)
@@ -182,11 +183,11 @@ def makers(subtype, labs, maps, assay=None, **options):
 
 # ======================================================================
 
-def info_makers(subtype, labs, maps, assay=None, **options):
-    result = [mk for mk in (maker(subtype=subtype, assay=assay, lab=lab, map=map, info=True, **options) for lab in labs for map in maps) if mk.merge_exists(mk.lab)]
+def info_makers(subtype, labs, maps, assay=None, rbc=None, **options):
+    result = [mk for mk in (maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map=map, info=True, **options) for lab in labs for map in maps) if mk.merge_exists(mk.lab)]
     for lab in labs:
-        result.append(maker(subtype=subtype, assay=assay, lab=lab, maps=maps, info=True, **options))
-    result.append(maker(subtype=subtype, assay=assay, labs=labs, maps=maps, info=True, **options))
+        result.append(maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, maps=maps, info=True, **options))
+    result.append(maker(subtype=subtype, assay=assay, rbc=rbc, labs=labs, maps=maps, info=True, **options))
     return result
 
 # ======================================================================
