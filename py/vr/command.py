@@ -82,7 +82,7 @@ def stat():
     make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=data.start_date, end=data.end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
     subprocess.check_call("open stat/index.html", shell=True)
 
-def stat_geo():
+def geo():
     from .geographic import make_geographic, make_geographic_settings
     data = vr_data()
     geo_dir = Path("geo")
