@@ -1,6 +1,7 @@
 import subprocess
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
+from .merge import merge_finder
 
 # ======================================================================
 
@@ -78,14 +79,13 @@ def info_makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
 
 # ======================================================================
 
-class sp_maker:
+class sp_maker (merge_finder):
 
-    def __init__(self, subtype, lab, assay, sp="sp"):
-        self.subtype = subtype
+    def __init__(self, subtype, lab, assay, rbc, sp="sp"):
+        super().__init__(subtype=subtype, assay=assay, rbc=rbc)
         self.lab = lab
-        self.assay = assay
         if self.assay:
-            self.assay_infix = f"-{self.assay}"
+            self.assay_infix = f"-{self.assay_rbc()}"
         else:
             self.assay_infix = ""
         self.sp = sp
@@ -104,8 +104,6 @@ class sp_maker:
                 for sp in self.sp:
                     print(f"\n> ======================================================================================================================================================\n> {self.subtype}{self.assay_infix} {lab} {sp}\n> ======================================================================================================================================================\n\n")
                     self.run_one(lab=lab, sp=sp, interactive=False, open_pdf=False, output_dir=output_dir)
-
-    sFixLab = {"crick": "nimr", "vidrl": "melb"}
 
     def run_one(self, lab, sp, interactive, open_pdf, output_dir):
         lab = self.sFixLab.get(lab, lab)
@@ -135,19 +133,11 @@ class sp_maker:
     def tree_exists(self):
         return Path(self.tree()).exists()
 
-    def merge(self, lab=None):
-        lab = lab or self.lab
-        lab = self.sFixLab.get(lab, lab)
-        return f"merges/{lab}-{self.subtype[:2]}-{self.assay or 'hi'}.ace"
-
-    def merge_exists(self, lab=None):
-        return Path(self.merge(lab)).exists()
-
 # ----------------------------------------------------------------------
 
-def makers_sp(subtype, labs, assay):
-    makers = [mk for mk in (sp_maker(subtype=subtype, lab=lab, assay=assay, sp=sp) for lab in labs for sp in ["sp", "spc"]) if mk.tree_exists() and mk.merge_exists()]
-    spx_maker = sp_maker(subtype=subtype, lab=labs, assay=assay, sp=["sp", "spc"])
+def makers_sp(subtype, labs, assay, rbc):
+    makers = [mk for mk in (sp_maker(subtype=subtype, lab=lab, assay=assay, rbc=rbc, sp=sp) for lab in labs for sp in ["sp", "spc"]) if mk.tree_exists() and mk.merge_exists(lab=mk.lab)]
+    spx_maker = sp_maker(subtype=subtype, lab=labs, assay=assay, rbc=rbc, sp=["sp", "spc"])
     if spx_maker.tree_exists():
         makers.append(spx_maker)
     return makers

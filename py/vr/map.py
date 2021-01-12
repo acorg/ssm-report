@@ -2,23 +2,21 @@ import subprocess
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 from .lab import lab_new, lab_old
+from .merge import merge_finder
 
 # ======================================================================
 
 s_labs_for_subtype = {}
 s_clade_maps = {}
 
-class maker:
+class maker (merge_finder):
 
     def __init__(self, subtype, assay=None, lab=None, rbc=None, map=None, labs=None, maps=None, info=False, **options):
-        self.subtype = subtype
-        self.assay = assay
+        super().__init__(subtype=subtype, assay=assay, rbc=rbc, **options)
         self.map_name = map
         self.maps = maps
         self.labs = labs
-        self.rbc = rbc
         self.info = info
-        self.options = options
         if lab:
             self.lab = lab_new(lab)
             global s_labs_for_subtype
@@ -75,7 +73,7 @@ class maker:
         if not map_name:
             map_name = self.map_name
         if self.merge_exists(lab=lab):
-            pdf = f"{output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
+            pdf = f"{output_dir}/{self.subtype}-{self.assay_rbc()}-{map_name}-{lab}.pdf"
             cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
             # if open_pdf:
             #     cmd += " --preview 1050.0.930.980"
@@ -94,8 +92,8 @@ class maker:
             print(cmd)
             subprocess.check_call(cmd, shell=True)
 
-            summary_pdf = f"{output_dir}/summary-{self.subtype}-{self._assay()}-{map_name}-{lab}.pdf"
-            cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self._assay()}-{map_name}-{lab}*.pdf {summary_pdf}"
+            summary_pdf = f"{output_dir}/summary-{self.subtype}-{self.assay_rbc()}-{map_name}-{lab}.pdf"
+            cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self.assay_rbc()}-{map_name}-{lab}*.pdf {summary_pdf}"
             if open_pdf:
                 cmd2 += f" && preview -p 1050.0.930.3000 {summary_pdf}"
             print(cmd2)
@@ -113,48 +111,6 @@ class maker:
         for clade_map in sorted(s_clade_maps[self._subtype_key()]):
             self.one(lab=self.lab, map_name=clade_map, interactive=False, open_pdf=False, output_dir=output_dir)
 
-    def _assay(self):
-        return self.assay or "hi"
-
-    def merge(self, lab):
-        return Path("merges", self.merge_2021(lab=lab))
-
-    def previous_merge(self, lab):
-        mer = Path("previous", "merges", self.merge_2021(lab=lab))
-        if not mer.exists():
-            mer = Path("previous", "merges", self.merge_old(lab=lab))
-        if self.options.get("compare_with_previous") and mer.exists():
-            return mer
-        else:
-            return ""
-
-    def merge_2021(self, lab):
-        if self.rbc:
-            assay_rbc = self.assay_rbc()
-        elif self.assay == "neut":
-            if lab == "crick":
-                assay_rbc = "prn"
-            else:
-                assay_rbc = "fra"
-        else:
-            assay_rbc = self.assay
-        return f"{self.subtype}-{assay_rbc}-{lab}.ace"
-
-    s_merge_old_subtype_fix = {"h1pdm": "h1"}
-    def merge_old(self, lab):
-        return f"{lab_old(lab)}-{s_merge_old_subtype_fix.get(self.subtype, self.subtype)}-{self.assay}.ace"
-
-    def assay_rbc(self):
-        if self.rbc:
-            return f"{self._assay()}-{self.rbc}"
-        else:
-            return self._assay()
-
-    def merge_exists(self, lab):
-        mer = self.merge(lab=lab)
-        #print(f"merge {mer} exists {mer.exists()}")
-        return mer.exists()
-
     def _settings(self):
         if self.subtype == "h3":
             return f"-s vr.mapi -s {self.subtype}.mapi -s {self.subtype}-{self.assay}.mapi -s serology.mapi -s vaccines.mapi"
@@ -170,15 +126,15 @@ def makers(subtype, labs, maps, assay=None, rbc=None, **options):
     result = [mk for mk in (maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map=map, **options) for lab in labs for map in maps if map != "sp") if mk.merge_exists(mk.lab)]
     if result and len([en for en in maps if en.startswith("clade")]) > 1:
         for lab in labs:
-            mk = maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options)
+            mk = maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map="clades", **options)
             if mk.merge_exists(lab):
-                result.append(maker(subtype=subtype, assay=assay, lab=lab, map="clades", **options))
+                result.append(maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map="clades", **options))
     for lab in labs:
-        result.append(maker(subtype=subtype, assay=assay, lab=lab, maps=maps, **options))
-    result.append(maker(subtype=subtype, assay=assay, labs=labs, maps=maps, **options))
+        result.append(maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, maps=maps, **options))
+    result.append(maker(subtype=subtype, assay=assay, rbc=rbc, labs=labs, maps=maps, **options))
     if "sp" in maps:
         from . import tree
-        result.extend(tree.makers_sp(subtype=subtype, assay=assay, labs=labs))
+        result.extend(tree.makers_sp(subtype=subtype, assay=assay, rbc=rbc, labs=labs))
     return result
 
 # ======================================================================
