@@ -10,6 +10,8 @@ def __get_merges(command, *r, **a): get_merges()
 def __get_merge_from_chain(command, *r, **a): get_merge_from_chain(*r)
 def __get_hidb(command, *r, **a): get_hidb()
 def __stat_geo(command, *r, **a): stat_geo()
+def __geo(command, *r, **a): geo()
+def __stat(command, *r, **a): stat()
 def __sy(command, *r, **a): sy()
 
 sCommands = {
@@ -31,6 +33,8 @@ sCommands = {
     "!get-merge-from-chain": __get_merge_from_chain, # ! - secondary command, do not list for helm
     "~get-hidb": __get_hidb,
     "~stat-geo": __stat_geo,
+    "~stat": __stat,
+    "~geo": __geo,
     "~sy": __sy,
     }
 
@@ -69,12 +73,18 @@ class vr_data:
 # ----------------------------------------------------------------------
 
 def stat_geo():
+    stat()
+    geo()
+
+def stat():
     from .stat import make_stat
     data = vr_data()
     make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=data.start_date, end=data.end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
     subprocess.check_call("open stat/index.html", shell=True)
 
+def stat_geo():
     from .geographic import make_geographic, make_geographic_settings
+    data = vr_data()
     geo_dir = Path("geo")
     geo_dir.mkdir(exist_ok=True)
     make_geographic_settings(settings_dir=geo_dir, start_date=data.start_date, end_date=data.end_date, force=False)

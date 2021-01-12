@@ -8,7 +8,8 @@ from .lab import lab_display_name
 
 sVirusTypeForFilename = {"all": "all", "a(h3n2)": "h3n2", "a(h1n1)": "h1n1pdm", "h1seas": "h1n1seas", "h7": "h7", "h5": "h5", "b": "b", "victoria": "vic", "yamagata": "yam", "bvictoria": "bvic", "byamagata": "byam", "": ""}
 sContinents = ["ASIA", "AUSTRALIA-OCEANIA", "NORTH-AMERICA", "EUROPE", "RUSSIA", "AFRICA", "MIDDLE-EAST", "SOUTH-AMERICA", "CENTRAL-AMERICA"]
-sLabOrder = ["CDC", "NIMR", "NIID", "MELB"]
+# sLabOrder = ["CDC", "NIMR", "NIID", "MELB"]
+sLabOrder = ["CDC", "Crick", "NIID", "VIDRL"]
 
 sContinentsForTables = sContinents + ['all', 'sera', 'sera_unique']
 
@@ -18,7 +19,7 @@ sHeader = {'ASIA': 'Asia', 'AUSTRALIA-OCEANIA': 'Oceania', 'NORTH-AMERICA': 'N A
 
 sPeriodForFilename = {'year': '-year', 'month': ''}
 
-sVirusTypeOrder = ['all', 'B', 'BVICTORIA', 'BYAMAGATA', 'A(H1N1)', 'A(H3N2)']
+sVirusTypeOrder = ['all', 'A(H1N1)', 'A(H3N2)', 'B', 'BVICTORIA', 'BYAMAGATA']
 
 # ----------------------------------------------------------------------
 
@@ -185,11 +186,13 @@ def _make_webpage(output_dir, stat):
         output.write('</ul>\n')
         output.write('<a href="stat.csv">Yearly statistics in the CSV format</a>\n')
         for virus_type in sVirusTypeOrder:
+            output.write('<hr />\n<h2 id="{virus_type}" style="margin-bottom: 1em;"><span class="flu-type">{virus_type}</span></h2>\n'.format(virus_type=virus_type.replace('all', 'All flu types')))
             for lab in ['all'] + sLabOrder:
-                output.write('<hr />\n<h3 id="{virus_type}-{lab}" style="margin-bottom: 5px;"><span class="flu-type">{virus_type}</span> {lab}</h3>\n'.format(virus_type=virus_type.replace('all', 'All flu types,'), lab=lab_display_name(lab)))
+                # output.write('<hr />\n<h3 id="{virus_type}-{lab}" style="margin-bottom: 5px;"><span class="flu-type">{virus_type}</span> {lab}</h3>\n'.format(virus_type=virus_type.replace('all', 'All flu types,'), lab=lab_display_name(lab)))
+                output.write('<h3 id="{virus_type}-{lab}" style="margin-bottom: 1em;">{lab} {virus_type}</h3>\n'.format(virus_type=virus_type.replace('all', '(All flu types)'), lab=lab_display_name(lab)))
                 _make_webtable(output=output, stat=stat, virus_type=virus_type, lab=lab, period='month')
                 _make_webtable(output=output, stat=stat, virus_type=virus_type, lab=lab, period='year')
-        output.write('\n')
+        output.write('<div style="margin-bottom: 2em;">></div>\n')
         output.write('</body>\n</html>\n')
 
 # ----------------------------------------------------------------------
