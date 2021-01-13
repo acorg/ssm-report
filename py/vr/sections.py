@@ -9,7 +9,7 @@ LabDisplay = {"CDC": "CDC", "NIMR": "Crick", "CRICK": "Crick", "MELB": "VIDRL", 
 LabFilename = {"CDC": "cdc", "NIMR": "crick", "CRICK": "crick", "MELB": "vidrl", "VIDRL": "vidrl", "NIID": "niid"}
 
 SubtypeDisplay = {"A(H1N1)": "H1N1pdm09", "A(H3N2)": "H3N2", "B": "B", "BVIC": "B/Vic", "BYAM": "B/Yam"}
-SubtypeFilename = {"A(H1N1)": "h1", "A(H3N2)": "h3", "BVIC": "bvic", "BYAM": "byam"}
+SubtypeFilename = {"A(H1N1)": "h1pdm", "A(H3N2)": "h3", "BVIC": "bvic", "BYAM": "byam"}
 SubtypeStat = {"A(H1N1)": "A(H1N1)", "A(H3N2)": "A(H3N2)", "BVIC": "BVICTORIA", "BYAM": "BYAMAGATA"}
 
 AssayDisplay = {"hi": "HI", "hint": "HINT", "neut": "Neut"}
