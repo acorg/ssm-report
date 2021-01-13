@@ -73,7 +73,7 @@ class maker (merge_finder):
         if not map_name:
             map_name = self.map_name
         if self.merge_exists(lab=lab):
-            pdf = f"{output_dir}/{self.subtype}-{self.assay_rbc()}-{map_name}-{lab}.pdf"
+            pdf = f"{output_dir}/{self.subtype}-{self.assay_rbc(lab)}-{map_name}-{lab}.pdf"
             cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {pdf}"
             # if open_pdf:
             #     cmd += " --preview 1050.0.930.980"
@@ -92,8 +92,8 @@ class maker (merge_finder):
             print(cmd)
             subprocess.check_call(cmd, shell=True)
 
-            summary_pdf = f"{output_dir}/summary-{self.subtype}-{self.assay_rbc()}-{map_name}-{lab}.pdf"
-            cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self.assay_rbc()}-{map_name}-{lab}*.pdf {summary_pdf}"
+            summary_pdf = f"{output_dir}/summary-{self.subtype}-{self.assay_rbc(lab)}-{map_name}-{lab}.pdf"
+            cmd2 = f"pdf-combine {output_dir}/{self.subtype}-{self.assay_rbc(lab)}-{map_name}-{lab}*.pdf {summary_pdf}"
             if open_pdf:
                 cmd2 += f" && preview -p 1050.0.930.3000 {summary_pdf}"
             print(cmd2)

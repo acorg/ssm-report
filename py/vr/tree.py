@@ -85,7 +85,7 @@ class sp_maker (merge_finder):
         super().__init__(subtype=subtype, assay=assay, rbc=rbc)
         self.lab = lab
         if self.assay:
-            self.assay_infix = f"-{self.assay_rbc()}"
+            self.assay_infix = f"-{self.assay_rbc(lab)}"
         else:
             self.assay_infix = ""
         self.sp = sp

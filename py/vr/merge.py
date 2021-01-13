@@ -32,8 +32,15 @@ class merge_finder:
             return ""
 
     def merge_2021(self, lab):
-        if self.rbc:
-            assay_rbc = self.assay_rbc()
+        if self.rbc and isinstance(self.rbc, list):
+            for rbc in self.rbc:
+                mrg = f"{self.subtype}-hi-{rbc}-{lab}.ace"
+                # print(f">>>> {mrg} {Path('merges', mrg).exists()}")
+                if Path("merges", mrg).exists():
+                    return mrg
+            return "{self.subtype}-hi-{self.rbc}-{lab}.ace *not-found*"
+        elif self.rbc:
+            assay_rbc = self.assay_rbc(lab)
         elif self.assay == "neut":
             if lab == "crick":
                 assay_rbc = "prn"
@@ -47,8 +54,18 @@ class merge_finder:
     def merge_old(self, lab):
         return f"{lab_old(lab)}-{self.s_merge_old_subtype_fix.get(self.subtype, self.subtype)}-{self.assay}.ace"
 
-    def assay_rbc(self):
-        if self.rbc:
+    def assay_rbc(self, lab):
+        if self.rbc and isinstance(self.rbc, list):
+            if isinstance(lab, list):
+                lab = lab[0]
+            for rbc in self.rbc:
+                assay_rbc = f"hi-{rbc}"
+                mrg = f"{self.subtype}-{assay_rbc}-{lab}.ace"
+                # print(f">>>> {mrg} {Path('merges', mrg).exists()}")
+                if Path("merges", mrg).exists():
+                    return assay_rbc
+            return f"hi-{self.rbc}"
+        elif self.rbc:
             return f"{self.assay or 'hi'}-{self.rbc}"
         else:
             return self.assay or "hi"
