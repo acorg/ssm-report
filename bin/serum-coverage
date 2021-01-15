@@ -1,0 +1,111 @@
+#! /usr/bin/env python3
+
+import sys, os, subprocess, traceback
+from pathlib import Path
+import logging; module_logger = logging.getLogger(__name__)
+
+# ----------------------------------------------------------------------
+
+def main(args):
+    charts = [[Path(ch), Path(ch).resolve()] for ch in args.charts]
+
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir = output_dir.resolve()
+    os.chdir(output_dir)
+
+    mapi = make_mapi()
+    for ch, chart in charts:
+        chart_dir = Path(chart.stem)
+        chart_dir.mkdir(exist_ok=True)
+        try:
+            os.chdir(chart_dir)
+            log_filename = Path("log")
+            if log_filename.exists():
+                log_filename.rename("log~")
+            number_of_sera = int(subprocess.check_output(["chart-info", "--sera", str(chart)]))
+            with log_filename.open("w") as log:
+
+                def prn(text):
+                    log.write(text)
+                    print(text, end="")
+
+                prn(f"> ======================================================================\n${ch.stem}\nSera {number_of_sera}\n\n")
+        finally:
+            os.chdir(output_dir)
+
+# ----------------------------------------------------------------------
+
+def make_mapi():
+    fn = Path("serum-coverage.mapi")
+    if not fn.exists():
+        with fn.open("w") as out:
+            out.write("""{
+    "init": [
+        {"N": "set",
+         "serum-index": 0,
+         "show-empirical": false,
+         "show-theoretical": true,
+         "circle-fill": "red:t=0.9",
+         "circle-outline": "red",
+         "serum-sel": {"index": "$serum-index"}
+        }
+    ],
+
+    "mapi": [
+        {"N": "//clades", "?clade-pale": ":p+0.5"},
+        {"N": "antigens", "select": "all", "outline": "grey"},
+        {"N": "serum-circle", "sera": "$serum-sel", "report": true, "verbose": false,
+         "?hide-if": [{">": 5.5, "<": 2.0, "name": "<serum-name>", "lab": "<chart lab>"}],  "?": "disjunction (or) of objects, conjunction (and) of criteria within an object",
+         "?fold": 2.0, "? fold": "2 - 4fold, 3 - 8fold",
+         "empirical":    {"show": "$show-empirical", "fill": "$circle-fill", "outline": "$circle-outline", "outline_width": 2},
+         "theoretical":  {"show": "$show-theoretical", "fill": "$circle-fill", "outline": "$circle-outline", "outline_width": 2},
+         "fallback":     {"show": true, "?fill": "$circle-fill", "outline": "$circle-outline", "outline_width": 2, "outline_dash": "dash3"},
+         "mark_serum":   {"fill": "black", "outline": "black", "order": "raise", "?label": {"format": "{full_name}", "offset": [0, 1.2], "color": "black", "size": 12}},
+         "?mark_antigen": {"fill": "<color-modifier>", "outline": "<color-modifier>", "order": "raise", "label": {"format": "{full_name}", "offset": [0, 1.2], "color": "black", "size": 12}}
+        },
+
+        {"N": "serum-coverage", "sera": "$serum-sel",
+         "report": true,
+         "?fold": 2.0, "? fold": "2 - 4fold, 3 - 8fold",
+         "within_4fold": {"outline": "pink", "fill": ":t=0", "outline_width": 3, "order": "raise"},
+         "outside_4fold": {"outline": "black", "fill": ":t=0", "outline_width": 3, "order": "raise"},
+         "?mark_serum":   {"fill": "black", "outline": "black", "order": "raise", "?label": {"format": "{full_name}", "offset": [0, 1.2], "color": "black", "size": 12}},
+        },
+
+        {"N": "point-scale", "scale": 2, "outline_scale": 1},
+        {"N": "title", "show": true, "offset": [10, 10],
+         "remove-lines": true,
+         "lines": ["{lab} {virus-type/lineage-subset} {assay-cap}", "{sr-{serum-index}-full-name}"],
+         "padding": 0, "background": "transparent", "border_color": "black", "border_width": 0.0, "text_color": "black", "text_size": 20, "interline": 1.5, "font_weight": "bold", "font_slant": "normal", "font_family": "helvetica"
+        }
+
+    ]
+}
+""")
+    return fn
+
+# ----------------------------------------------------------------------
+
+try:
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-o', '--output-dir', action='store', dest='output_dir', default=".")
+    parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
+    # parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False)
+
+    parser.add_argument('charts', nargs='+', action='store')
+
+    args = parser.parse_args()
+    logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
+    exit_code = main(args)
+except Exception as err:
+    logging.error('{}\n{}'.format(err, traceback.format_exc()))
+    exit_code = 1
+exit(exit_code)
+
+
+# ======================================================================
+### Local Variables:
+### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
+### End:
