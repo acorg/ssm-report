@@ -31,7 +31,7 @@ def main(args):
                     print(text, end="")
 
                 pdfs = []
-                prn(f"> ======================================================================\n{ch.stem}\nSera {number_of_sera}\n\n")
+                prn(f"> ==============================================================================================================\n{ch.stem}\nSera {number_of_sera}\n\n")
                 for sr_no in range(number_of_sera):
                     prn(f"\nSR {sr_no}\n\n")
                     pdf = [f"{ch.stem}-{sr_no:03d}-empir.pdf", f"{ch.stem}-{sr_no:03d}-theor.pdf"]
@@ -43,9 +43,9 @@ def main(args):
                     subprocess.check_call(["mapi", "-s", str(mapi), "-D", f"serum-index={sr_no}", "-D", "show-empirical=false", "-D", "show-theoretical=true", chart, pdf[1]], stdout=log, stderr=subprocess.STDOUT)
                     log.flush()
                     pdfs.append(pdf)
-                    prn(">> --------------------------------------------------\n\n")
+                    prn("\n\n>> ----------------------------------------------------------------------------------------------------\n\n")
                 make_index_html()
-                make_gridage(ch, pdfs)
+                make_gridage(ch.stem, pdfs)
         finally:
             os.chdir(output_dir)
 
@@ -56,11 +56,11 @@ def make_gridage(ch, pdfs):
         "title": {
             "short": f"Serum Coverage {ch}",
             "long": f"Serum Coverage {ch}",
-            "date": datetime.date.today.strftime("%Y-%m-%d")
+            "date": datetime.date.today().strftime("%Y-%m-%d")
         },
         "page": [{
             "title": "",
-            "columns": [[{"T": "title", "text": ""}, {"T": "pdf", "file": pp.name}] for pp in pdf]
+            "columns": [[{"T": "title", "text": ""}, {"T": "pdf", "file": pp}] for pp in pdf]
         } for pdf in pdfs],
     }
 
