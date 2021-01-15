@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-import sys, os, subprocess, traceback
+import sys, os, subprocess, datetime, traceback, json
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ def main(args):
 
     mapi = make_mapi()
     for ch, chart in charts:
-        chart_dir = Path(chart.stem)
+        chart_dir = Path(ch.stem)
         chart_dir.mkdir(exist_ok=True)
         try:
             os.chdir(chart_dir)
@@ -30,9 +30,68 @@ def main(args):
                     log.write(text)
                     print(text, end="")
 
-                prn(f"> ======================================================================\n${ch.stem}\nSera {number_of_sera}\n\n")
+                pdfs = []
+                prn(f"> ======================================================================\n{ch.stem}\nSera {number_of_sera}\n\n")
+                for sr_no in range(number_of_sera):
+                    prn(f"\nSR {sr_no}\n\n")
+                    pdf = [f"{ch.stem}-{sr_no:03d}-empir.pdf", f"{ch.stem}-{sr_no:03d}-theor.pdf"]
+                    log.flush()
+                    subprocess.check_call(["mapi", "-s", str(mapi), "-D", f"serum-index={sr_no}", "-D", "show-empirical=true", "-D", "show-theoretical=false", chart, pdf[0]], stdout=log, stderr=subprocess.STDOUT)
+                    log.flush()
+                    prn("\n\n")
+                    log.flush()
+                    subprocess.check_call(["mapi", "-s", str(mapi), "-D", f"serum-index={sr_no}", "-D", "show-empirical=false", "-D", "show-theoretical=true", chart, pdf[1]], stdout=log, stderr=subprocess.STDOUT)
+                    log.flush()
+                    pdfs.append(pdf)
+                    prn(">> --------------------------------------------------\n\n")
+                make_index_html()
+                make_gridage(ch, pdfs)
         finally:
             os.chdir(output_dir)
+
+# ----------------------------------------------------------------------
+
+def make_gridage(ch, pdfs):
+    data = {
+        "title": {
+            "short": f"Serum Coverage {ch}",
+            "long": f"Serum Coverage {ch}",
+            "date": datetime.date.today.strftime("%Y-%m-%d")
+        },
+        "page": [{
+            "title": "",
+            "columns": [[{"T": "title", "text": ""}, {"T": "pdf", "file": pp.name}] for pp in pdf]
+        } for pdf in pdfs],
+    }
+
+    json.dump(data, Path("gridage.json").open("w"), indent=1)
+
+# ----------------------------------------------------------------------
+
+def make_index_html():
+    index_html = Path("index.html")
+    if not index_html.exists():
+        with index_html.open("w") as out:
+            out.write("""<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/js/acd/who/gridage/v1/gridage.css">
+        <script src="/js/acd/who/gridage/v1/gridage.js"></script>
+        <style>
+         h1 { color: #0000A0; }
+         body {
+             height: 100%;
+             border-left: 3em solid #ddf;
+             padding: 1em 0 0 1em;
+             margin: 0;
+         }
+        </style>
+    </head>
+    <body>
+    </body>
+</html>
+""")
 
 # ----------------------------------------------------------------------
 
@@ -83,7 +142,7 @@ def make_mapi():
     ]
 }
 """)
-    return fn
+    return fn.resolve()
 
 # ----------------------------------------------------------------------
 
