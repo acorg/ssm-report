@@ -48,6 +48,7 @@ def main(args):
                 make_gridage(ch.stem, pdfs)
         finally:
             os.chdir(output_dir)
+    make_serum_coverage_index_page()
 
 # ----------------------------------------------------------------------
 
@@ -143,6 +144,40 @@ def make_mapi():
 }
 """)
     return fn.resolve()
+
+# ----------------------------------------------------------------------
+
+def make_serum_coverage_index_page():
+    with Path("index.html").open("w") as out:
+            out.write("""<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/js/acd/who/gridage/v1/gridage.css">
+        <script src="/js/acd/who/gridage/v1/gridage.js"></script>
+        <style>
+         h1 { color: #0000A0; }
+         body {
+             height: 100%;
+             border-left: 3em solid #ddf;
+             padding: 1em 0 0 1em;
+             margin: 0;
+         }
+        </style>
+    </head>
+    <body>
+        <h1>Serum Coverage maps</h1>
+        <ol>
+""")
+            for pn in Path(".").glob("*"):
+                if pn.is_dir():
+                    out.write(f"            <li><a href='{pn.name}'>{pn.name.replace('-', ' ').replace(' guinea pig', '').replace(' turkey', '')}</a></li>\n")
+            out.write("""
+        </ol>
+    </body>
+</html>
+""")
+
 
 # ----------------------------------------------------------------------
 
