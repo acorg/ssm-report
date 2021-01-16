@@ -167,7 +167,7 @@ def make_serum_coverage_index_page():
         <h1>Serum Coverage maps</h1>
         <ol>
 """)
-            for pn in Path(".").glob("*"):
+            for pn in sorted(Path(".").glob("*")):
                 if pn.is_dir():
                     out.write(f"            <li><a href='{pn.name}'>{pn.name.replace('-', ' ').replace(' guinea pig', '').replace(' turkey', '')}</a></li>\n")
             out.write("""
