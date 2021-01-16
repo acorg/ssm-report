@@ -153,8 +153,6 @@ def make_serum_coverage_index_page():
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="/js/acd/who/gridage/v1/gridage.css">
-        <script src="/js/acd/who/gridage/v1/gridage.js"></script>
         <style>
          h1 { color: #0000A0; }
          body {
