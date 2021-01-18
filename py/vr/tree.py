@@ -84,8 +84,8 @@ class sp_maker (merge_finder):
     def __init__(self, subtype, lab, assay, rbc, sp="sp"):
         super().__init__(subtype=subtype, assay=assay, rbc=rbc)
         self.lab = lab
-        if self.assay:
-            self.assay_infix = f"-{self.assay_rbc(lab)}"
+        if self.assay and self.subtype == "h3":
+            self.assay_infix = f"-{self.assay}"
         else:
             self.assay_infix = ""
         self.sp = sp
@@ -106,13 +106,12 @@ class sp_maker (merge_finder):
                     self.run_one(lab=lab, sp=sp, interactive=False, open_pdf=False, output_dir=output_dir)
 
     def run_one(self, lab, sp, interactive, open_pdf, output_dir):
-        lab = self.sFixLab.get(lab, lab)
         source_tjz = output_dir.joinpath(f"{self.subtype}.tjz")
         tal_settings = output_dir.joinpath(f"{self.subtype}.tree.tal")
         chart = self.merge(lab=lab)
         pdf = output_dir.joinpath(f"{self.subtype}.{lab}{self.assay_infix}.{sp}.pdf")
         cmd = f"tal -s vr.mapi -s {self.subtype}.mapi"
-        if self.assay:
+        if self.assay and self.subtype == "h3":
             cmd += f" -s {self.subtype}-{self.assay}.mapi"
         cmd += f" -s serology.mapi -s vaccines.mapi -s sp/{self.subtype}.tree.tal -s sp/sp.tal"
         if sp == "spc":
@@ -136,6 +135,10 @@ class sp_maker (merge_finder):
 # ----------------------------------------------------------------------
 
 def makers_sp(subtype, labs, assay, rbc):
+    # print(f"makers_sp {subtype} {labs} {assay} {rbc}")
+    # for lab in labs:
+    #     mk = sp_maker(subtype=subtype, lab=lab, assay=assay, rbc=rbc, sp='sp')
+    #     print(f"    {lab} {mk.merge_exists(lab=mk.lab)} {mk.tree()} {mk.tree_exists()}")
     makers = [mk for mk in (sp_maker(subtype=subtype, lab=lab, assay=assay, rbc=rbc, sp=sp) for lab in labs for sp in ["sp", "spc"]) if mk.tree_exists() and mk.merge_exists(lab=mk.lab)]
     spx_maker = sp_maker(subtype=subtype, lab=labs, assay=assay, rbc=rbc, sp=["sp", "spc"])
     if spx_maker.tree_exists():
