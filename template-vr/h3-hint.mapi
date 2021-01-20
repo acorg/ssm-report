@@ -1,14 +1,26 @@
 {
+    "init": [
+        {"N": "set",
+         "recent-layers-CDC": [],
+         "recent-layers-2-CDC": [],
+        }
+    ],
+
     "loc:rotate:viewport-A(H3N2)hint-CDC": [
-        {"?N": "rotate", "degrees": 20},
-        {"N": "viewport", "rel": [0.5, 0.5, -1]}
+        {"N": "viewport", "rel": [-0.5, 0.5, -1]}
     ],
 
     "loc:title-A(H3N2)hint": [
     ],
 
     "loc:legend-A(H3N2)hint": [
-        {"N": "legend", "offset": [-10, -10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
+        "loc:legend-A(H3N2)",
+    ],
+
+    "? recent-tables": "----------------------------------------------------------------------------------------------------",
+
+    "loc:recent-tables-A(H3N2)hint-CDC": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-CDC", "recent-layers-2": "$recent-layers-2-CDC"}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -32,6 +44,9 @@
     "loc:clades-A(H3N2)hint-CDC": [
         "? hide old 2a antigen to avoid clatter",
         {"?N": "antigens", "select": {"name": "~ALASKA/140/2015"}, "show": false}
+    ],
+
+    "loc:clades-recent-tables-A(H3N2)hint-CDC": [
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",

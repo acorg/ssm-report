@@ -1,18 +1,32 @@
 {
+    "init": [
+        {"N": "set",
+         "recent-layers-CDC": [],
+         "recent-layers-2-CDC": [],
+         "recent-layers-Crick": [],
+         "recent-layers-2-Crick": [],
+         "recent-layers-NIID": [],
+         "recent-layers-2-NIID": [],
+         "recent-layers-VIDRL": [],
+         "recent-layers-2-VIDRL": [],
+         "test-only": false
+        }
+    ],
+
     "loc:rotate:viewport-B/Vic-CDC": [
         {"N": "viewport", "rel": [2, 2, -4]}
     ],
 
-    "loc:rotate:viewport-B/Vic-VIDRL": [
-        {"N": "viewport", "rel": [6, 7.0, -9]}
+    "loc:rotate:viewport-B/Vic-Crick": [
+        {"N": "viewport", "rel": [5.5, 6.0, -9]},
     ],
 
     "loc:rotate:viewport-B/Vic-NIID": [
-        {"N": "viewport", "rel": [1.6, 1.2, -2]}
+        {"N": "viewport", "rel": [1.3, 1.5, -3]}
     ],
 
-    "loc:rotate:viewport-B/Vic-Crick": [
-        {"N": "viewport", "rel": [3.5, 3.0, -5]}
+    "loc:rotate:viewport-B/Vic-VIDRL": [
+        {"N": "viewport", "rel": [6.2, 7.0, -9]}
     ],
 
     "loc:title-B/Vic": [
@@ -20,6 +34,26 @@
 
     "loc:legend-B/Vic": [
         {"N": "legend", "offset": [-10, 10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
+    ],
+
+    "? recent-tables": "----------------------------------------------------------------------------------------------------",
+
+    "?loc:recent-tables": "see vr.mapi",
+
+    "loc:recent-tables-B/Vic-CDC": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-CDC", "recent-layers-2": "$recent-layers-2-CDC"}
+    ],
+
+    "loc:recent-tables-B/Vic-Crick": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-Crick", "recent-layers-2": "$recent-layers-2-Crick"}
+    ],
+
+    "loc:recent-tables-B/Vic-NIID": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-NIID", "recent-layers-2": "$recent-layers-2-NIID"}
+    ],
+
+    "loc:recent-tables-B/Vic-VIDRL": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-VIDRL", "recent-layers-2": "$recent-layers-2-VIDRL"}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -37,10 +71,11 @@
     "? clades": "----------------------------------------------------------------------------------------------------",
 
     "loc:clades-B/Vic": [
-        {"N": "antigens", "select": {"sequenced": true, "date": "$date-recent", "report": true},                                   "?fill":"#C0C000{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "sequenced ({count})",     "show_if_none_selected": true}, "order": "raise"},
-        {"N": "antigens", "select": {"clade-all": ["V1A", "!2DEL2017", "!3DEL2017"],      "date": "$date-recent", "report": true}, "fill": "#6495ED{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "V1.A ({count})",          "show_if_none_selected": true}, "order": "raise"},
-        {"N": "antigens", "select": {"clade": "2DEL2017", "date": "$date-recent", "report": true},                                 "fill": "#DE8244{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "2-Del mutants ({count})", "show_if_none_selected": true}, "order": "raise"},
-        {"N": "antigens", "select": {"clade": "3DEL2017", "date": "$date-recent", "report": true},                                 "fill": "#BF3EFF{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "3-Del mutants ({count})", "show_if_none_selected": true}, "order": "raise"}
+        {"N": "antigens", "select": {"sequenced": true,                              "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only", "report": true},                                   "?fill":"#C0C000{clade-pale}", "outline": "black{clade-pale}", "?legend": {"label": "sequenced ({count})",     "show_if_none_selected": true}, "order": "raise"},
+        {"N": "antigens", "select": {"clade-all": ["V1A", "!2DEL2017", "!3DEL2017"], "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only", "report": true}, "fill": "#6495ED{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "V1.A ({count})",          "show_if_none_selected": true}, "order": "raise"},
+        {"N": "antigens", "select": {"clade": "2DEL2017",                            "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only", "report": true},                                 "fill": "#DE8244{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "2-Del mutants ({count})", "show_if_none_selected": true}, "order": "raise"},
+        {"N": "antigens", "select": {"clade": "3DEL2017",                            "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only", "report": true},                                 "fill": "#BF3EFF{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "3-Del mutants ({count})", "show_if_none_selected": true}, "order": "raise"},
+        {"N": "antigens", "select": {"clade": "3DEL2017", "amino-acid": ["150K", "197D"], "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only", "report": true},                                 "fill": "#ED93BD{clade-pale}", "outline": "black{clade-pale}", "legend": {"label": "3-Del 150K 197D ({count})", "show_if_none_selected": true}, "order": "raise"},
     ],
 
     "loc:clades-B/Vic-CDC": [
@@ -55,33 +90,49 @@
     "loc:clades-B/Vic-Crick": [
     ],
 
+    "loc:clades-recent-tables-B/Vic-CDC": [
+        {"N": "loc:clades-B/Vic", "recent-layers": "$recent-layers-CDC", "date-recent": {"younger-than-days": 365}, "test-only": true}
+    ],
+
+    "loc:clades-recent-tables-B/Vic-VIDRL": [
+        {"N": "loc:clades-B/Vic", "recent-layers": "$recent-layers-VIDRL", "date-recent": {"younger-than-days": 365}, "test-only": true}
+    ],
+
+    "loc:clades-recent-tables-B/Vic-NIID": [
+        {"N": "loc:clades-B/Vic", "recent-layers": "$recent-layers-NIID", "date-recent": {"younger-than-days": 365}, "test-only": true}
+    ],
+
+    "loc:clades-recent-tables-B/Vic-Crick": [
+        {"N": "loc:clades-B/Vic", "recent-layers": "$recent-layers-Crick", "date-recent": {"younger-than-days": 365}, "test-only": true}
+    ],
+
     "loc:N-gly-197-B/Vic": [
-      {"N": "antigens", "select": {"amino_acid": ["197N", "199T"]}, "?outline": "#0000C0", "outline_width": 3, "legend": {"label": "Potential N-gly (197N 199T)", "Count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
-      {"N": "antigens", "select": {"amino_acid": ["197N", "199S"]}, "?outline": "#00C0C0", "outline_width": 3, "legend": {"label": "Potential N-gly (197N 199S)", "count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
+        {"N": "antigens", "select": {"amino_acid": ["197N", "199T"], "date": "$date-recent"}, "?outline": "#0000C0", "outline_width": 3, "legend": {"label": "Gly (197N 199T)", "?label": "Potential N-gly (197N 199T)", "count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
+        {"N": "antigens", "select": {"amino_acid": ["197N", "199S"], "date": "$date-recent"}, "?outline": "#00C0C0", "outline_width": 3, "legend": {"label": "Gly (197N 199S)", "?label": "Potential N-gly (197N 199S)", "count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
 
-      {"N": "antigens", "select": {"amino_acid": ["197N", "!199T"]}, "outline": "#C00000", "outline_width": 3, "legend": {"label": "Loss of gly (197N 199notT)", "count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
-      {"N": "antigens", "select": {"amino_acid": ["!197N"]}, "outline": "#C000C0", "outline_width": 3, "legend": {"label": "Loss of gly (197notN)", "count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
+        {"N": "antigens", "select": {"amino_acid": ["197N", "!199T"], "date": "$date-recent"}, "outline": "#C00000", "outline_width": 3, "legend": {"label": "Loss gly (199notT)", "?label": "Loss of gly (197N 199notT)", "count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
+        {"N": "antigens", "select": {"amino_acid": ["!197N"], "date": "$date-recent"},         "outline": "#C000C0", "outline_width": 3, "legend": {"label": "Loss gly (197notN)", "?label": "Loss of gly (197notN)", "count": true}, "order": "raise", "report": false, "report_names_threshold": 100},
 
-      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["197N", "!199T"]}, "fill": "#C00000FF"},
-      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["!197N"]        }, "fill": "#C00000FF"},
-      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["197X"]         }, "fill": "#C00000FF"},
-      {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["199X"]         }, "fill": "#C00000FF"},
-      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["197N", "!199T"]}, "fill": "#C06495ED"},
-      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["!197N"]        }, "fill": "#C06495ED"},
-      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["197X"]         }, "fill": "#C06495ED"},
-      {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["199X"]         }, "fill": "#C06495ED"},
-      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["197N", "!199T"]}, "fill": "#C0DE8244"},
-      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["!197N"]        }, "fill": "#C0DE8244"},
-      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["197X"]         }, "fill": "#C0DE8244"},
-      {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["199X"]         }, "fill": "#C0DE8244"},
-      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["197N", "!199T"]}, "fill": "#C0BF3EFF"},
-      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["!197N"]        }, "fill": "#C0BF3EFF"},
-      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["197X"]         }, "fill": "#C0BF3EFF"},
-      {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["199X"]         }, "fill": "#C0BF3EFF"},
+        {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["197N", "!199T"], "date": "$date-recent"}, "fill": "#C00000FF"},
+        {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["!197N"]        , "date": "$date-recent"}, "fill": "#C00000FF"},
+        {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["197X"]         , "date": "$date-recent"}, "fill": "#C00000FF"},
+        {"N": "antigens", "select": {"clade": "V1",            "amino_acid": ["199X"]         , "date": "$date-recent"}, "fill": "#C00000FF"},
+        {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["197N", "!199T"], "date": "$date-recent"}, "fill": "#C06495ED"},
+        {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["!197N"]        , "date": "$date-recent"}, "fill": "#C06495ED"},
+        {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["197X"]         , "date": "$date-recent"}, "fill": "#C06495ED"},
+        {"N": "antigens", "select": {"clade": "V1A",           "amino_acid": ["199X"]         , "date": "$date-recent"}, "fill": "#C06495ED"},
+        {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["197N", "!199T"], "date": "$date-recent"}, "fill": "#C0DE8244"},
+        {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["!197N"]        , "date": "$date-recent"}, "fill": "#C0DE8244"},
+        {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["197X"]         , "date": "$date-recent"}, "fill": "#C0DE8244"},
+        {"N": "antigens", "select": {"clade": "DEL2017",       "amino_acid": ["199X"]         , "date": "$date-recent"}, "fill": "#C0DE8244"},
+        {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["197N", "!199T"], "date": "$date-recent"}, "fill": "#C0BF3EFF"},
+        {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["!197N"]        , "date": "$date-recent"}, "fill": "#C0BF3EFF"},
+        {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["197X"]         , "date": "$date-recent"}, "fill": "#C0BF3EFF"},
+        {"N": "antigens", "select": {"clade": "TRIPLEDEL2017", "amino_acid": ["199X"]         , "date": "$date-recent"}, "fill": "#C0BF3EFF"},
 
-      {"N": "antigens", "select": {"amino_acid": ["197X", "199T"]}, "outline": "#00C000", "outline_width": 3, "legend": {"label": "Unclear N-gly (197[XN] 199[XT])", "count": false}, "order": "lower", "report": false, "report_names_threshold": 100},
-      {"N": "antigens", "select": {"amino_acid": ["197N", "199X"]}, "outline": "#00C000", "outline_width": 3, "order": "lower", "report": false, "report_names_threshold": 100},
-      {"N": "antigens", "select": {"amino_acid": ["197X", "199X"]}, "outline": "#00C000", "outline_width": 3, "order": "lower", "report": false, "report_names_threshold": 100}
+        {"N": "antigens", "select": {"amino_acid": ["197X", "199T"], "date": "$date-recent", "report": true}, "outline": "#00C000", "outline_width": 3, "legend": {"label": "? gly (197 or 199X)", "?label": "Unclear N-gly (197[XN] 199[XT])", "count": false, "show_if_none_selected": true}, "order": "lower"},
+        {"N": "antigens", "select": {"amino_acid": ["197N", "199X"], "date": "$date-recent", "report": true}, "outline": "#00C000", "outline_width": 3, "order": "lower", "report_names_threshold": 100},
+        {"N": "antigens", "select": {"amino_acid": ["197X", "199X"], "date": "$date-recent", "report": true}, "outline": "#00C000", "outline_width": 3, "order": "lower", "report_names_threshold": 100}
 
     ],
 
@@ -108,13 +159,13 @@
     ],
 
     "loc:vaccines-B/Vic-VIDRL": [
-        {"N": "antigens", "label": {"offset": [-1, 0]},    "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~BRISBANE"}},
-        {"N": "antigens", "label": {"offset": [-1, 0]},    "select": {"vaccine": {"type": "previous"},  "passage": "cell",        "most-used-for-name": true, "name": "~BRISBANE"}},
-        {"N": "antigens", "label": {"offset": [-0.5, -1]}, "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~MALAYSIA"}},
-        {"N": "antigens", "label": {"offset": [-0.95, 0.2]},  "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~COLORADO"}},
-        {"N": "antigens", "label": {"offset": [0, 1]},     "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [-0.6, 1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0.9, -1]},  "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
+        {"N": "antigens", "label": {"offset": [-1, 0]},      "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~BRISBANE"}},
+        {"N": "antigens", "label": {"offset": [-1, 0]},      "select": {"vaccine": {"type": "previous"},  "passage": "cell",        "most-used-for-name": true, "name": "~BRISBANE"}},
+        {"N": "antigens", "label": {"offset": [-0.5, 1]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~MALAYSIA"}},
+        {"N": "antigens", "label": {"offset": [-0.95, 0.2]}, "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~COLORADO"}},
+        {"N": "antigens", "label": {"offset": [1, 0]},       "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-0.7, -1.1]},    "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [0.95, -0.6]},    "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
     ],
 
     "loc:vaccines-B/Vic-NIID": [
@@ -123,11 +174,13 @@
     ],
 
     "loc:vaccines-B/Vic-Crick": [
+        {"N": "antigens", "show": false, "label": {"offset": [-1, 0]},   "select": {"vaccine": {"type": "previous"}, "name": "~IRELAND"}},
         {"N": "antigens", "label": {"offset": [-1, 0]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~COLORADO"}},
         {"N": "antigens", "label": {"offset": [-1, 0]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~BRISBANE"}},
-        {"N": "antigens", "label": {"offset": [-0.5, 1]},   "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~MALAY"}},
-        {"N": "antigens", "label": {"offset": [1, 0]},  "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [-0.7, -1]},   "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
-        {"N": "antigens", "label": {"offset": [0.8, -1]}, "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
+        {"N": "antigens", "label": {"offset": [ 1, 0]}, "select": {"vaccine": {"type": "previous"},  "passage": "egg",         "most-used-for-name": true, "name": "~MALAY"}},
+
+        {"N": "antigens", "label": {"offset": [1, 0]},     "select": {"vaccine": {"type": "current"},   "passage": "cell",        "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-0.7, -1]}, "select": {"vaccine": {"type": "current"},   "passage": "egg",         "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [0.8, -1]},  "select": {"vaccine": {"type": "current"},   "passage": "reassortant", "most-used-for-name": true}}
     ]
 }

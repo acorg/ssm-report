@@ -32,33 +32,33 @@ def maps(modul):
 
         # H1 --------------------------------------------------
 
-        modul.map.makers(subtype="h1", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade-155-156", "clade-155-156-6m", "clade-155-156-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h1pdm", assay="hi",   labs=["cdc", "crick", "niid", "vidrl"], rbc="turkey",    maps=["clade-155-156", "clade-155-156-6m", "clade-155-156-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # you may add individual maps like below
-        # modul.map.maker(subtype="h1", lab="cdc",  map="clade-156"),
+        # modul.map.maker(subtype="h1pdm", lab="cdc",  map="clade-156"),
 
         # H3 HI --------------------------------------------------
 
-        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"],            maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
-        modul.map.makers(subtype="h3", assay="hi",   labs=["crick", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"],                                             maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hi",   labs=["crick", "vidrl"],                rbc="guinea-pig", maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # H3 Neut --------------------------------------------------
 
-        modul.map.makers(subtype="h3", assay="neut", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="neut", labs=["cdc", "crick", "niid", "vidrl"],                   maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # B/Vic --------------------------------------------------
 
-        modul.map.makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
-        modul.map.info_makers(subtype="bvic", labs=["crick"], maps=["info-clade-2m"]),
-        modul.map.info_makers(subtype="bvic", labs=["cdc", "crick", "niid", "vidrl"], maps=["info-clade-12m"]),
+        modul.map.makers(subtype="bvic", assay="hi", labs=["cdc", "crick", "niid", "vidrl"], rbc=["turkey", "chicken"],  maps=["clade", "clade-6m", "clade-12m", "clade-ngly", "clade-ngly-202001", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        #modul.map.info_makers(subtype="bvic", assay="hi", labs=["crick"], rbc="turkey", maps=["info-clade-2m"]),
+        #modul.map.info_makers(subtype="bvic", assay="hi", labs=["cdc", "crick", "niid", "vidrl"], rbc="turkey", maps=["info-clade-12m"]),
 
         # you may add individual maps like below
-        # modul.map.maker(subtype="bvic", lab="cdc",  map="clade"),
+        # modul.map.maker(subtype="bvic", assay="hi", lab="cdc",  rbc="turkey", map="clade"),
 
         # B/Yam --------------------------------------------------
 
-        modul.map.makers(subtype="byam", labs=["cdc", "crick", "niid", "vidrl"], maps=["clade", "clade-6m", "clade-12m", "serology"], compare_with_previous=compare_with_previous),
-        modul.map.info_makers(subtype="byam", labs=["cdc", "crick"], maps=["info-clade-12m"]),
+        modul.map.makers(subtype="byam", assay="hi", labs=["cdc", "crick", "niid", "vidrl"], rbc=["turkey", "chicken"],  maps=["clade", "clade-6m", "clade-12m", "serology"], compare_with_previous=compare_with_previous),
+        # modul.map.info_makers(subtype="byam", assay="hi", labs=["cdc", "crick"], rbc="turkey", maps=["info-clade-12m"]),
     ]
 
 # ----------------------------------------------------------------------
@@ -114,6 +114,12 @@ def report(output_filename, vr_data, modul):
 
 # ----------------------------------------------------------------------
 
+def bold_recent_viruses(modul):
+    return modul.text_no_indent("{\\fontsize{7}{7} \\selectfont \\textbf{Viruses that have been added to the map since the September 2020 VCM are shown with a thick bold outline and viruses since TC0 with a thicker black outline} }")
+    return modul.text_no_indent("\\textbf{Viruses that have been added to the map since the September 2020 VCM are shown with a thick bold outline and viruses since TC0 with a thicker black outline}")
+
+# ----------------------------------------------------------------------
+
 def h1(modul, vr_data):
     subtype = "A(H1N1)"
     assay = "hi"
@@ -137,33 +143,36 @@ def h1(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} phylogenetic tree"),
         modul.text(sPhylogeneticDescription),
-        modul.whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf")),
+        modul.whole_page_image(Path("tree", f"h1.tree.pdf")),
 
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156"),
         modul.maps_in_two_columns([
-            Path("out", "h1-hi-clade-155-156-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-crick.pdf"),
-            Path("out", "h1-hi-clade-155-156-niid.pdf"), Path("out", "h1-hi-clade-155-156-vidrl.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-cdc.pdf"),  Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-crick.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-niid.pdf"), Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since {modul.months_ago(12)})"),
         modul.maps_in_two_columns([
-            Path("out", "h1-hi-clade-155-156-12m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-12m-crick.pdf"),
-            Path("out", "h1-hi-clade-155-156-12m-niid.pdf"), Path("out", "h1-hi-clade-155-156-12m-vidrl.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-12m-cdc.pdf"),  Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-12m-crick.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-12m-niid.pdf"), Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-12m-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by amino-acid at 155, 156 (since {modul.months_ago(6)})"),
         modul.maps_in_two_columns([
-            Path("out", "h1-hi-clade-155-156-6m-cdc.pdf"),  Path("out", "h1-hi-clade-155-156-6m-crick.pdf"),
-            Path("out", "h1-hi-clade-155-156-6m-niid.pdf"), Path("out", "h1-hi-clade-155-156-6m-vidrl.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-6m-cdc.pdf"),  Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-6m-crick.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-6m-niid.pdf"), Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-clade-155-156-6m-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
 
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
         modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by amino-acid at 155, 156."),
         modul.maps_in_two_columns([
-            Path("out", "h1-hi-serology-cdc.pdf"),  Path("out", "h1-hi-serology-crick.pdf"),
-            Path("out", "h1-hi-serology-niid.pdf"), Path("out", "h1-hi-serology-vidrl.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-serology-cdc.pdf"),  Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-serology-crick.pdf"),
+            Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-serology-niid.pdf"), Path("out", f"{modul.SubtypeFilename[subtype]}-hi-turkey-serology-vidrl.pdf"),
         ]),
     ]
 
@@ -200,37 +209,39 @@ def h3(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
         modul.maps_in_two_columns([
-            Path("out", "h3-hint-clade-cdc.pdf"),     Path("out", "h3-neut-clade-cdc.pdf"),
-            Path("out", "h3-hi-clade-crick.pdf"),     Path("out", "h3-neut-clade-crick.pdf"),
-            None,                                     Path("out", "h3-neut-clade-niid.pdf"),
-            Path("out", "h3-hi-clade-vidrl.pdf"),     Path("out", "h3-neut-clade-vidrl.pdf"),
+            Path("out", "h3-hint-clade-cdc.pdf"),                Path("out", "h3-neut-clade-cdc.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-crick.pdf"),     Path("out", "h3-neut-clade-crick.pdf"),
+            None,                                                Path("out", "h3-neut-clade-niid.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-vidrl.pdf"),     Path("out", "h3-neut-clade-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
         modul.maps_in_two_columns([
-            Path("out", "h3-hint-clade-12m-cdc.pdf"), Path("out", "h3-neut-clade-12m-cdc.pdf"),
-            Path("out", "h3-hi-clade-12m-crick.pdf"), Path("out", "h3-neut-clade-12m-crick.pdf"),
-            None,                                     Path("out", "h3-neut-clade-12m-niid.pdf"),
-            Path("out", "h3-hi-clade-12m-vidrl.pdf"), Path("out", "h3-neut-clade-12m-vidrl.pdf"),
+            Path("out", "h3-hint-clade-12m-cdc.pdf"),            Path("out", "h3-neut-clade-12m-cdc.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-12m-crick.pdf"), Path("out", "h3-neut-clade-12m-crick.pdf"),
+            None,                                                Path("out", "h3-neut-clade-12m-niid.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-12m-vidrl.pdf"), Path("out", "h3-neut-clade-12m-vidrl.pdf"),
         ]),
-
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
         modul.maps_in_two_columns([
-            Path("out", "h3-hint-clade-6m-cdc.pdf"),  Path("out", "h3-neut-clade-6m-cdc.pdf"),
-            Path("out", "h3-hi-clade-6m-crick.pdf"),  Path("out", "h3-neut-clade-6m-crick.pdf"),
-            None,                                     Path("out", "h3-neut-clade-6m-niid.pdf"),
-            Path("out", "h3-hi-clade-6m-vidrl.pdf"),  Path("out", "h3-neut-clade-6m-vidrl.pdf"),
+            Path("out", "h3-hint-clade-6m-cdc.pdf"),             Path("out", "h3-neut-clade-6m-cdc.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-6m-crick.pdf"),  Path("out", "h3-neut-clade-6m-crick.pdf"),
+            None,                                                Path("out", "h3-neut-clade-6m-niid.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-6m-vidrl.pdf"),  Path("out", "h3-neut-clade-6m-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
 
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
         modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by phylogenetic clade."),
         modul.maps_in_two_columns([
-            Path("out", "h3-hint-serology-cdc.pdf"),  Path("out", "h3-neut-serology-cdc.pdf"),
-            Path("out", "h3-hi-serology-crick.pdf"),  Path("out", "h3-neut-serology-crick.pdf"),
-            None,                                     Path("out", "h3-neut-serology-niid.pdf"),
-            Path("out", "h3-hi-serology-vidrl.pdf"),  Path("out", "h3-neut-serology-vidrl.pdf"),
+            Path("out", "h3-hint-serology-cdc.pdf"),             Path("out", "h3-neut-serology-cdc.pdf"),
+            Path("out", "h3-hi-guinea-pig-serology-crick.pdf"),  Path("out", "h3-neut-serology-crick.pdf"),
+            None,                                                Path("out", "h3-neut-serology-niid.pdf"),
+            Path("out", "h3-hi-guinea-pig-serology-vidrl.pdf"),  Path("out", "h3-neut-serology-vidrl.pdf"),
         ]),
     ]
 
@@ -269,34 +280,46 @@ def bvic(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
         modul.maps_in_two_columns([
-            Path("out", "bvic-hi-clade-cdc.pdf"),  Path("out", "bvic-hi-clade-crick.pdf"),
-            Path("out", "bvic-hi-clade-niid.pdf"), Path("out", "bvic-hi-clade-vidrl.pdf"),
+            Path("out", "bvic-hi-turkey-clade-cdc.pdf"),  Path("out", "bvic-hi-turkey-clade-crick.pdf"),
+            Path("out", "bvic-hi-chicken-clade-niid.pdf"), Path("out", "bvic-hi-turkey-clade-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
         modul.maps_in_two_columns([
-            Path("out", "bvic-hi-clade-12m-cdc.pdf"),  Path("out", "bvic-hi-clade-12m-crick.pdf"),
-            Path("out", "bvic-hi-clade-12m-niid.pdf"), Path("out", "bvic-hi-clade-12m-vidrl.pdf"),
+            Path("out", "bvic-hi-turkey-clade-12m-cdc.pdf"),  Path("out", "bvic-hi-turkey-clade-12m-crick.pdf"),
+            Path("out", "bvic-hi-chicken-clade-12m-niid.pdf"), Path("out", "bvic-hi-turkey-clade-12m-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
         modul.maps_in_two_columns([
-            Path("out", "bvic-hi-clade-6m-cdc.pdf"),  Path("out", "bvic-hi-clade-6m-crick.pdf"),
-            Path("out", "bvic-hi-clade-6m-niid.pdf"), Path("out", "bvic-hi-clade-6m-vidrl.pdf"),
+            Path("out", "bvic-hi-turkey-clade-6m-cdc.pdf"),  Path("out", "bvic-hi-turkey-clade-6m-crick.pdf"),
+            Path("out", "bvic-hi-chicken-clade-6m-niid.pdf"), Path("out", "bvic-hi-turkey-clade-6m-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
+
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by clade and potential N-gly"),
         modul.maps_in_two_columns([
-            Path("out", "bvic-hi-clade-ngly-cdc.pdf"),  Path("out", "bvic-hi-clade-ngly-crick.pdf"),
-            Path("out", "bvic-hi-clade-ngly-niid.pdf"), Path("out", "bvic-hi-clade-ngly-vidrl.pdf"),
+            Path("out", "bvic-hi-turkey-clade-ngly-cdc.pdf"),  Path("out", "bvic-hi-turkey-clade-ngly-crick.pdf"),
+            Path("out", "bvic-hi-chicken-clade-ngly-niid.pdf"), Path("out", "bvic-hi-turkey-clade-ngly-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
+        # modul.new_page(), # --------------------------------------------------
+        # modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by clade and potential N-gly (since {modul.months_ago(12)})"),
+        # modul.maps_in_two_columns([
+        #     Path("out", "bvic-hi-turkey-clade-ngly-12m-cdc.pdf"),  Path("out", "bvic-hi-turkey-clade-ngly-12m-crick.pdf"),
+        #     Path("out", "bvic-hi-chicken-clade-ngly-12m-niid.pdf"), Path("out", "bvic-hi-turkey-clade-ngly-12m-vidrl.pdf"),
+        # ]),
+        # bold_recent_viruses(modul),
 
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
         modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by phylogenetic clade."),
         modul.maps_in_two_columns([
-            Path("out", "bvic-hi-serology-cdc.pdf"),  Path("out", "bvic-hi-serology-crick.pdf"),
-            Path("out", "bvic-hi-serology-niid.pdf"), Path("out", "bvic-hi-serology-vidrl.pdf"),
+            Path("out", "bvic-hi-turkey-serology-cdc.pdf"),  Path("out", "bvic-hi-turkey-serology-crick.pdf"),
+            Path("out", "bvic-hi-chicken-serology-niid.pdf"), Path("out", "bvic-hi-turkey-serology-vidrl.pdf"),
         ]),
     ]
 
@@ -316,39 +339,55 @@ def byam(modul, vr_data):
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
         modul.maps_in_two_columns([
-            Path("out", "byam-hi-clade-cdc.pdf"),  Path("out", "byam-hi-clade-crick.pdf"),
-            Path("out", "byam-hi-clade-niid.pdf"), Path("out", "byam-hi-clade-vidrl.pdf"),
+            Path("out", "byam-hi-turkey-clade-cdc.pdf"),  Path("out", "byam-hi-turkey-clade-crick.pdf"),
+            Path("out", "byam-hi-chicken-clade-niid.pdf"), Path("out", "byam-hi-turkey-clade-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
         modul.maps_in_two_columns([
-            Path("out", "byam-hi-clade-12m-cdc.pdf"),  Path("out", "byam-hi-clade-12m-crick.pdf"),
-            Path("out", "byam-hi-clade-12m-niid.pdf"), Path("out", "byam-hi-clade-12m-vidrl.pdf"),
+            Path("out", "byam-hi-turkey-clade-12m-cdc.pdf"),  Path("out", "byam-hi-turkey-clade-12m-crick.pdf"),
+            Path("out", "byam-hi-chicken-clade-12m-niid.pdf"), Path("out", "byam-hi-turkey-clade-12m-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
         modul.maps_in_two_columns([
-            Path("out", "byam-hi-clade-6m-cdc.pdf"),  Path("out", "byam-hi-clade-6m-crick.pdf"),
-            Path("out", "byam-hi-clade-6m-niid.pdf"), Path("out", "byam-hi-clade-6m-vidrl.pdf"),
+            Path("out", "byam-hi-turkey-clade-6m-cdc.pdf"),  Path("out", "byam-hi-turkey-clade-6m-crick.pdf"),
+            Path("out", "byam-hi-chicken-clade-6m-niid.pdf"), Path("out", "byam-hi-turkey-clade-6m-vidrl.pdf"),
         ]),
+        bold_recent_viruses(modul),
 
         modul.new_page(), # --------------------------------------------------
         modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps with serology antigens"),
         modul.text_no_indent("Antigenic maps with serology antigens in orange, other antigens color-coded by by phylogenetic clade."),
         modul.maps_in_two_columns([
-            Path("out", "byam-hi-serology-cdc.pdf"),  Path("out", "byam-hi-serology-crick.pdf"),
-            Path("out", "byam-hi-serology-niid.pdf"), Path("out", "byam-hi-serology-vidrl.pdf"),
+            Path("out", "byam-hi-turkey-serology-cdc.pdf"),  Path("out", "byam-hi-turkey-serology-crick.pdf"),
+            Path("out", "byam-hi-chicken-serology-niid.pdf"), Path("out", "byam-hi-turkey-serology-vidrl.pdf"),
         ]),
     ]
 
 # ----------------------------------------------------------------------
 
-def antigenic_ts(modul, subtype, assay, labs, colored_by, vr_data):
-    return [item for lab in labs for item in antigenic_ts_for_lab(modul=modul, subtype=subtype, assay=assay, lab=lab, colored_by=colored_by, vr_data=vr_data)]
+def antigenic_ts(modul, subtype, assay, rbc, labs, colored_by, vr_data):
+    return [item for lab in labs for item in antigenic_ts_for_lab(modul=modul, subtype=subtype, assay=assay, rbc=rbc, lab=lab, colored_by=colored_by, vr_data=vr_data)]
 
-def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
+def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data, rbc=None):
     lab = lab.upper()
     subtype = subtype.upper()
+    if rbc:
+        if isinstance(rbc, list):
+            for rb in rbc:
+                pdf_pattern = f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-{rb}-ts-{modul.LabFilename[lab]}-*.pdf"
+                if list(Path("out").glob(pdf_pattern)):
+                    break
+        else:
+            pdf_pattern = f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-{rbc}-ts-{modul.LabFilename[lab]}-*.pdf"
+    else:
+        pdf_pattern = f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf"
+    pdfs = sorted(Path("out").glob(pdf_pattern))
+    maps = modul.maps_in_two_columns(pdfs)
+    # print(f">>>> {pdf_pattern!r} {pdfs}")
     return [
         modul.subsection_title(f"{modul.LabDisplay[lab]} {modul.subtype_assay_display(subtype, assay)} antigenic data"),
         modul.vspace(3),
@@ -362,14 +401,14 @@ def antigenic_ts_for_lab(modul, subtype, assay, lab, colored_by, vr_data):
         modul.vspace(3),
         modul.statistics_table(subtype=modul.SubtypeStat[subtype], lab=lab, current=Path("stat", "stat.json.xz"), previous=Path("previous", "stat", "stat.json.xz"), start=vr_data.start_date, end=vr_data.end_date),
         modul.new_page(), # --------------------------------------------------
-        modul.maps_in_two_columns(sorted(Path("out").glob(f"{modul.SubtypeFilename[subtype]}-{assay.lower()}-ts-{modul.LabFilename[lab]}-*.pdf"))),
+        maps,
         modul.new_page()
         ]
 
 # ----------------------------------------------------------------------
 
 def addendum_1(output_filename, vr_data, modul):
-    pages = [modul.signature_page(path) for path in (Path("sp", f"{subtype}.{lab}{assay}.{sp}.pdf") for subtype in ["h1", "h3", "bvic", "byam"] for lab in ["cdc", "nimr", "niid", "melb"] for assay in ["-hi", "-hint", "-neut", ""] for sp in ["sp", "spc"]) if path.exists()]
+    pages = [modul.signature_page(path) for path in (Path("sp", f"{subtype}.{lab}{assay}.{sp}.pdf") for subtype in ["h1pdm", "h3", "bvic", "byam"] for lab in ["cdc", "nimr", "niid", "melb"] for assay in ["-hi", "-hint", "-neut", ""] for sp in ["sp", "spc"]) if path.exists()]
     modul.generate(output_filename=output_filename,
                    paper_size="a4", landscape="landscape", page_numbering=True,
                    usepackage=r"\usepackage[noheadfoot,nomarginpar,margin=0pt,bottom=10pt,paperheight=900.0pt,paperwidth=565.0pt]{geometry}",

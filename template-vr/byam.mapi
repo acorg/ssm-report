@@ -1,4 +1,17 @@
 {
+    "init": [
+        {"N": "set",
+         "recent-layers-CDC": [],
+         "recent-layers-2-CDC": [],
+         "recent-layers-Crick": [],
+         "recent-layers-2-Crick": [],
+         "recent-layers-NIID": [],
+         "recent-layers-2-NIID": [],
+         "recent-layers-VIDRL": [],
+         "recent-layers-2-VIDRL": [],
+        }
+    ],
+
     "loc:rotate:viewport-B/Yam-CDC": [
         {"?N": "viewport", "rel": [2, 2, -4]}
     ],
@@ -12,9 +25,7 @@
     ],
 
     "loc:rotate:viewport-B/Yam-Crick": [
-        {"N": "flip", "direction": "ew"},
-        {"N": "rotate", "degrees": -60},
-        {"N": "viewport", "rel": [2, 3, -7]}
+        {"N": "viewport", "rel": [3, 1, -5]}
     ],
 
     "loc:title-B/Yam": [
@@ -22,6 +33,26 @@
 
     "loc:legend-B/Yam": [
         {"N": "legend", "offset": [-10, -10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
+    ],
+
+    "? recent-tables": "----------------------------------------------------------------------------------------------------",
+
+    "?loc:recent-tables": "see vr.mapi",
+
+    "loc:recent-tables-B/Yam-CDC": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-CDC", "recent-layers-2": "$recent-layers-2-CDC"}
+    ],
+
+    "loc:recent-tables-B/Yam-Crick": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-Crick", "recent-layers-2": "$recent-layers-2-Crick"}
+    ],
+
+    "loc:recent-tables-B/Yam-NIID": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-NIID", "recent-layers-2": "$recent-layers-2-NIID"}
+    ],
+
+    "loc:recent-tables-B/Yam-VIDRL": [
+        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-VIDRL", "recent-layers-2": "$recent-layers-2-VIDRL"}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -39,8 +70,8 @@
     "? clades": "----------------------------------------------------------------------------------------------------",
 
     "loc:clades-B/Yam": [
-      {"N": "antigens", "select": {"clade": "Y2", "date": "$date-recent"}, "fill": "cornflowerblue{clade-pale}", "legend": {"label": "Y2 ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise", "report": true},
-      {"N": "antigens", "select": {"clade": "Y3", "date": "$date-recent"}, "fill": "red{clade-pale}",            "legend": {"label": "Y3 ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise", "report": true}
+        {"N": "antigens", "select": {"clade": "Y2", "date": "$date-recent"}, "fill": "cornflowerblue{clade-pale}", "legend": {"label": "Y2 ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise", "report": true},
+        {"N": "antigens", "select": {"clade": "Y3", "date": "$date-recent"}, "fill": "red{clade-pale}",            "legend": {"label": "Y3 ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise", "report": true}
     ],
 
     "loc:clades-B/Yam-CDC": [
@@ -83,7 +114,8 @@
 
     "loc:vaccines-B/Yam-NIID": [
         {"N": "antigens", "show": false, "select": {"vaccine": {"type": "previous"},  "name": "~(FLORIDA|WISCONSIN)"}},
-        {"N": "antigens", "label": {"offset": [-0.8, 1]}, "select": {"vaccine": {"type": "current"}, "passage": "cell", "most-used-for-name": true}}
+        {"N": "antigens", "label": {"offset": [-0.8, 1]}, "select": {"vaccine": {"type": "current"}, "passage": "cell", "most-used-for-name": true}},
+        {"N": "antigens", "label": {"offset": [-0.8, 1]}, "select": {"vaccine": {"type": "current"}, "passage": "egg", "most-used-for-name": true}}
     ],
 
     "loc:vaccines-B/Yam-Crick": [

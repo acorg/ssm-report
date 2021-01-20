@@ -30,6 +30,7 @@
     "vr:clade": [
         "vr:reset",
         "vr:clade-base",
+        "vr:recent-tables",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus-type/lineage} {assay-cap} by clade"]},
         "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
@@ -49,6 +50,7 @@
         "vr:reset",
         "loc:clade-155-156-{virus-type/lineage-subset}{assay-no-hi-low}",
         "loc:clade-155-156-{virus-type/lineage-subset}{assay-no-hi-low}-{lab}",
+        "vr:recent-tables",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus-type/lineage} by amino-acid at 155, 156"]},
         "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
@@ -68,10 +70,33 @@
         "vr:reset",
         "vr:clade-base",
         "loc:N-gly-197-{virus-type/lineage-subset}{assay-no-hi-low}",
+        "?vr:recent-tables",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus-type/lineage} by clade and potential N-gly"]},
         "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
         "loc:legend-{virus-type/lineage-subset}{assay-no-hi-low}"
+    ],
+
+    "? vr:clade-ngly-202001": [
+        "vr:reset",
+        {"N": "vr:clade-base",                                              "date-recent": {"after": "2020-01-01"}},
+        {"N": "loc:N-gly-197-{virus-type/lineage-subset}{assay-no-hi-low}", "date-recent": {"after": "2020-01-01"}},
+        "?vr:recent-tables",
+        "vr:vaccines",
+        {"N": "title", "lines": ["{lab} {virus-type/lineage} by clade and potential N-gly"]},
+        "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
+        "loc:legend-{virus-type/lineage-subset}{assay-no-hi-low}"
+    ],
+
+    "? recent-tables": "----------------------------------------------------------------------------------------------------",
+
+    "vr:recent-tables": [
+        "loc:recent-tables-{virus-type/lineage-subset}{assay-no-hi-low}-{lab}"
+    ],
+
+    "loc:recent-tables": [
+        {"N": "antigens", "select": {"layer": "$recent-layers-2", "test": true, "date": "$date-recent", "report": true}, "outline": "black", "outline_width": 3, "order": "raise"},
+        {"N": "antigens", "select": {"layer": "$recent-layers",   "test": true, "date": "$date-recent", "report": true}, "outline": "black",   "outline_width": 4.5, "order": "raise"}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -86,7 +111,7 @@
 
         {"N": "time-series",
          "start": "$time-series-start", "end": "$time-series-end", "interval": "$time-series-interval",
-         "output": "{output_dir}/{virus-type-lineage-subset-short-low}-{assay}-ts-{lab-low}-{ts-numeric}.pdf",
+         "output": "{output_dir}/{virus-type-lineage-subset-short-low}-{assay-rbc}-ts-{lab-low}-{ts-numeric}.pdf",
          "title": "{lab} {virus-type/lineage} {assay-cap} {ts-text}"
         }
     ],

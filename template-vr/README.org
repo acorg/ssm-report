@@ -1,4 +1,4 @@
-# Time-stamp: <2020-11-24 08:54:20 eu>
+# Time-stamp: <2021-01-19 16:45:16 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
@@ -9,114 +9,64 @@ keywords: ssm vcm
 #+END_SRC
 
 
-(setq eu-ssm-dir "/syn/eu/ac/results/ssm/2020-0903-tc2")
+(setq eu-ssm-dir "/syn/eu/ac/results/ssm/2021-0119-tc1")
 
-M-x eu-ssm-load
-C-f7 -> helm-ssm
+"H-7" -> helm-ssm
 heml-ssm: ~get-hidb
 heml-ssm: ~get-merges
 helm-ssm: ~stat-geo
+"C-S-7 " -> eu-ssm-sy (./sy)
+"s-7" -> eu-ssm-file (settings in the ssm directory)
+[[file:report.py][report.py]]
+[[vr.mapi]]
 
 * link previous report data
 
 ls -l
-ln -s ../2020-0903-tc2 previous
+rm -f previous && ln -s ../2020-1123-tc0 previous && ls -l
 
 see compare_with_previous in [[report.py]]
 
 
-* TODO
-
-** H1
-
-** H3
-
-** B/Vic
-
-** B/Yam
-
 * set of maps
 
-see [[file:report.py][report.py]]
+** Download charts from chains
 
-** H1
+H-d "WHO CC report chains" (whocc-report-chains in org mode)
+then use vr !get-merge-from-chain from its output
 
-*** CDC
-custom
+** merges
 
-*** Crick
-custom
+|---------+----------------+---+----------+---|
+|         |                |   | Viewport |   |
+|---------+----------------+---+----------+---|
+| H1      | CDC            |   |       14 |   |
+|         | Crick          |   |       17 |   |
+|         | NIID           |   |       15 |   |
+|         | VIDRL          |   |       15 |   |
+|---------+----------------+---+----------+---|
+| H3 HINT | CDC            |   |        8 |   |
+|---------+----------------+---+----------+---|
+| H3 HI   | Crick          |   |       10 |   |
+|         | VIDRL          |   |       13 |   |
+|---------+----------------+---+----------+---|
+| H3 Neut | CDC            |   |       18 |   |
+|         | Crick          |   |       13 |   |
+|         | NIID           |   |       16 |   |
+|         | VIDRL          |   |       14 |   |
+|---------+----------------+---+----------+---|
+| B/Vic   | CDC            |   |       11 |   |
+|         | Crick          |   |       11 |   |
+|         | NIID           |   |       12 |   |
+|         | VIDRL          |   |       12 |   |
+|---------+----------------+---+----------+---|
+| B/Yam   | CDC            |   |        9 |   |
+|         | Crick          |   |       12 |   |
+|         | NIID           |   |        8 |   |
+|         | VIDRL          |   |       11 |   |
+|---------+----------------+---+----------+---|
 
-*** NIID
-custom
-
-*** VIDRL
-
-** H3 HINT
-
-*** CDC
-custom
-
-** H3 HI
-
-*** Crick
-chain
-
-*** VIDRL
-custom
-
-** H3 Neut
-
-*** CDC
-chain
-
-*** Crick
-custom
-
-*** NIID
-chain
-
-*** VIDRL
-custom
-
-** B/Vic
-
-*** CDC
-chain
-
-*** Crick
-custom
-viewport:14
-
-*** NIID
-custom
-viewport:12
-
-*** VIDRL
-custom: 3del left outliers moved
-viewport:12
-
-** B/Yam
-
-*** CDC
-chain
-viewport:9
-
-*** Crick
-chain
-viewport:12
-
-*** NIID
-chain
-viewport:8
-
-*** VIDRL
-chain
-viewport:11
-
-* time series
-
-see [[vr.mapi]] "init"
+* TODO 
 
 * install report
 
