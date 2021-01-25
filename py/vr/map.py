@@ -88,7 +88,7 @@ class maker (merge_finder):
     def ts(self, lab, map_name, open_pdf, output_dir):
         if self.merge_exists(lab=lab):
             compare_with_previous = str(bool(self.options.get("compare_with_previous"))).lower()
-            cmd = f"mapi -a vr:{map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=lab)} {self.previous_merge(lab=lab)} /"
+            cmd = f"mapi -a vr:{map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=lab)} {self.previous_merge(lab=lab, compare_with_previous=self.options.get('compare_with_previous'))} /"
             print(cmd)
             subprocess.check_call(cmd, shell=True)
 
