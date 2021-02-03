@@ -1,14 +1,6 @@
 {
     "init": [
         {"N": "set",
-         "recent-layers-CDC": [],
-         "recent-layers-2-CDC": [],
-         "recent-layers-Crick": [],
-         "recent-layers-2-Crick": [],
-         "recent-layers-NIID": [],
-         "recent-layers-2-NIID": [],
-         "recent-layers-VIDRL": [],
-         "recent-layers-2-VIDRL": [],
         }
     ],
 
@@ -25,7 +17,7 @@
     ],
 
     "loc:rotate:viewport-A(H3N2)neut-VIDRL": [
-        {"N": "viewport", "rel": [0.0, 1.0, -4]},
+        {"N": "viewport", "rel": [-1.0, 1.0, -3]},
     ],
 
     "loc:title-A(H3N2)neut": [
@@ -33,24 +25,7 @@
 
     "loc:legend-A(H3N2)neut": [
         "loc:legend-A(H3N2)",
-    ],
-
-    "? recent-tables": "----------------------------------------------------------------------------------------------------",
-
-    "loc:recent-tables-A(H3N2)neut-CDC": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-CDC", "recent-layers-2": "$recent-layers-2-CDC"}
-    ],
-
-    "loc:recent-tables-A(H3N2)neut-Crick": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-Crick", "recent-layers-2": "$recent-layers-2-Crick"}
-    ],
-
-    "loc:recent-tables-A(H3N2)neut-NIID": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-NIID", "recent-layers-2": "$recent-layers-2-NIID"}
-    ],
-
-    "loc:recent-tables-A(H3N2)neut-VIDRL": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-VIDRL", "recent-layers-2": "$recent-layers-2-VIDRL"}
+        {"?N": "legend", "offset": [-10, -10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -74,29 +49,47 @@
     "loc:clades-A(H3N2)neut-CDC": [
     ],
 
+    "loc:clades-A(H3N2)neut-CDC-post": [
+    ],
+
     "loc:clades-A(H3N2)neut-VIDRL": [
     ],
 
+    "loc:clades-A(H3N2)neut-VIDRL-post": [
+        {"?N": "antigens", "select": {"name": "~TASMANIA/503/2020 SIAT2", "report": true}, "size": "$vaccine-size", "label": {"offset": [0, 1],  "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}, "order": "raise"},
+    ],
+
     "loc:clades-A(H3N2)neut-NIID": [
+        {"?N": "antigens", "select": {"name": ["~MYANMAR/18M139/2018 SIAT0/SIAT2", "~NAGANO/2731/2017 A2/SIAT2"], "report": true}, "show": false, "?": "on Sarahs request 2021-01-28 15:42"},
+        {"?N": "antigens", "select": {"clades-all": ["3C.2A", "!3C.2A1", "!3C.2A2"], "date": ["2018", "2019"], "report": true}, "show": false, "?order": "raise", "?size": 60, "?": "on Sarah/Dereks request 2021-02-01 01:05"},
+    ],
+
+    "loc:clades-A(H3N2)neut-NIID-post": [
     ],
 
     "loc:clades-A(H3N2)neut-Crick": [
     ],
 
-    "loc:clades-recent-tables-A(H3N2)neut-CDC": [
-        {"N": "loc:clades-A(H3N2)-all", "recent-layers": "$recent-layers-CDC", "date-recent": {"younger-than-days": 365}, "test-only": true},
+    "loc:clades-A(H3N2)neut-Crick-post": [
     ],
 
-    "loc:clades-recent-tables-A(H3N2)neut-VIDRL": [
-        {"N": "loc:clades-A(H3N2)-all", "recent-layers": "$recent-layers-VIDRL", "date-recent": {"younger-than-days": 365}, "test-only": true},
+
+
+    "loc:clades-grey-A(H3N2)neut": [
+        "loc:clades-grey-A(H3N2)-all"
     ],
 
-    "loc:clades-recent-tables-A(H3N2)neut-NIID": [
-        {"N": "loc:clades-A(H3N2)-all", "recent-layers": "$recent-layers-NIID", "date-recent": {"younger-than-days": 365}, "test-only": true},
+    "loc:clades-grey-A(H3N2)neut-CDC": [
     ],
 
-    "loc:clades-recent-tables-A(H3N2)neut-Crick": [
-        {"N": "loc:clades-A(H3N2)-all", "recent-layers": "$recent-layers-Crick", "date-recent": {"younger-than-days": 365}, "test-only": true},
+    "loc:clades-grey-A(H3N2)neut-VIDRL": [
+    ],
+
+    "loc:clades-grey-A(H3N2)neut-NIID": [
+        {"?N": "antigens", "select": {"name": ["~MYANMAR/18M139/2018 SIAT0/SIAT2", "~NAGANO/2731/2017 A2/SIAT2"], "report": true}, "show": false, "?": "on Sarahs request 2021-01-28 15:42"},
+    ],
+
+    "loc:clades-grey-A(H3N2)neut-Crick": [
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",
@@ -114,12 +107,12 @@
 
     "loc:vaccines-A(H3N2)neut-VIDRL": [
         {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SWITZERLAND"], "passage": "egg"}, "show": false},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SINGAPORE"],   "passage": "cell"}, "label": {"offset": [-0.8, -1], "format": "{abbreviated_location_year}-{passage_type}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",        "passage": "cell", "most-used-for-name": true}, "label": {"offset": [-1, 0], "format": "{abbreviated_location_year}-{passage_type}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",        "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [0, 1], "format": "{abbreviated_location_year}-{passage_type}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~SWITZERLAND",   "passage": "cell", "most-used-for-name": true}, "label": {"offset": [1, 0],  "format": "{abbreviated_location_year}-{passage_type}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "name": "~KONG",           "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [1, 0],  "format": "{abbreviated_location_year}-{passage_type}"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "name": "~SOUTH",          "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [-1, 0], "format": "{abbreviated_location_year}-{passage_type}"}}
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": ["~SINGAPORE"],   "passage": "cell"},                             "label": {"offset": [0.2, -1], "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",        "passage": "cell", "most-used-for-name": true}, "label": {"offset": [0.5, 1], "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~KANSAS",        "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [0, -1], "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "name": "~SWITZERLAND",   "passage": "cell", "most-used-for-name": true}, "label": {"offset": [-0.5, -1],  "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "name": "~KONG",           "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [0, 1],  "format": "{abbreviated_location_year}-{passage_type}"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"}, "name": "~SOUTH",          "passage": "egg",  "most-used-for-name": true}, "label": {"offset": [0, 1], "format": "{abbreviated_location_year}-{passage_type}"}}
     ],
 
     "loc:vaccines-A(H3N2)neut-NIID": [

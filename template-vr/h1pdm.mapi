@@ -1,15 +1,6 @@
 {
     "init": [
         {"N": "set",
-         "recent-layers-CDC": [],
-         "recent-layers-2-CDC": [],
-         "recent-layers-Crick": [],
-         "recent-layers-2-Crick": [],
-         "recent-layers-NIID": [],
-         "recent-layers-2-NIID": [],
-         "recent-layers-VIDRL": [],
-         "recent-layers-2-VIDRL": [],
-         "test-only": false
         }
     ],
 
@@ -36,26 +27,6 @@
         {"N": "legend", "offset": [-10, -10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
     ],
 
-    "? recent-tables": "----------------------------------------------------------------------------------------------------",
-
-    "?loc:recent-tables": "see vr.mapi",
-
-    "loc:recent-tables-A(H1N1)2009pdm-CDC": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-CDC", "recent-layers-2": "$recent-layers-2-CDC"}
-    ],
-
-    "loc:recent-tables-A(H1N1)2009pdm-Crick": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-Crick", "recent-layers-2": "$recent-layers-2-Crick"}
-    ],
-
-    "loc:recent-tables-A(H1N1)2009pdm-NIID": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-NIID", "recent-layers-2": "$recent-layers-2-NIID"}
-    ],
-
-    "loc:recent-tables-A(H1N1)2009pdm-VIDRL": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-VIDRL", "recent-layers-2": "$recent-layers-2-VIDRL"}
-    ],
-
     "? ts": "----------------------------------------------------------------------------------------------------",
 
     "loc:ts-A(H1N1)2009pdm": [
@@ -71,14 +42,14 @@
     "? clades": "----------------------------------------------------------------------------------------------------",
 
     "loc:clade-155-156-A(H1N1)2009pdm": [
-        {"N": "antigens",  "select": {"sequenced": true,              "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "?fill":"#C0C000{clade-pale}", "legend": {"label": "sequenced ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
-        {"N": "antigens",  "select": {"amino_acid": ["155E"],         "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "fill": "#ffc808{clade-pale}", "legend": {"label": "155E ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
-        {"?N": "antigens", "select": {"amino_acid": ["155X"],         "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "fill": "#742f32{clade-pale}", "legend": {"label": "155X ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
-        {"N": "antigens",  "select": {"amino_acid": ["156D"],         "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "fill": "#a2b324{clade-pale}", "legend": {"label": "156D ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
-        {"N": "antigens",  "select": {"amino_acid": ["156S"],         "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "fill": "#049457{clade-pale}", "legend": {"label": "156S ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
-        {"N": "antigens",  "select": {"amino_acid": ["156K"],         "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "fill": "#e72f27{clade-pale}", "legend": {"label": "156K ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
-        {"?N": "antigens", "select": {"amino_acid": ["156X"],         "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "fill": "#f1b066{clade-pale}", "legend": {"label": "156X ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
-        {"N": "antigens",  "select": {"amino_acid": ["156N" ,"155G"], "date": "$date-recent", "layer": "$recent-layers", "test": "$test-only"}, "fill": "#03569b{clade-pale}", "legend": {"label": "156N 155G ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"N": "antigens",  "select": {"sequenced": true,              "date": "$date-recent"}, "?fill":"#C0C000{clade-pale}", "legend": {"label": "sequenced ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"N": "antigens",  "select": {"amino_acid": ["155E"],         "date": "$date-recent"}, "fill": "#ffc808{clade-pale}", "legend": {"label": "155E ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"?N": "antigens", "select": {"amino_acid": ["155X"],         "date": "$date-recent"}, "fill": "#742f32{clade-pale}", "legend": {"label": "155X ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"N": "antigens",  "select": {"amino_acid": ["156D"],         "date": "$date-recent"}, "fill": "#a2b324{clade-pale}", "legend": {"label": "156D ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"N": "antigens",  "select": {"amino_acid": ["156S"],         "date": "$date-recent"}, "fill": "#049457{clade-pale}", "legend": {"label": "156S ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"N": "antigens",  "select": {"amino_acid": ["156K"],         "date": "$date-recent"}, "fill": "#e72f27{clade-pale}", "legend": {"label": "156K ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"?N": "antigens", "select": {"amino_acid": ["156X"],         "date": "$date-recent"}, "fill": "#f1b066{clade-pale}", "legend": {"label": "156X ({count})",      "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
+        {"N": "antigens",  "select": {"amino_acid": ["156N" ,"155G"], "date": "$date-recent"}, "fill": "#03569b{clade-pale}", "legend": {"label": "156N 155G ({count})", "show_if_none_selected": true}, "outline": "black{clade-pale}", "order": "raise"},
     ],
 
     "loc:clade-155-156-A(H1N1)2009pdm-CDC": [
@@ -111,22 +82,6 @@
 
     "loc:clades-A(H1N1)2009pdm-Crick": [
         "loc:clade-155-156-A(H1N1)2009pdm-Crick"
-    ],
-
-    "loc:clade-155-156-recent-tables-A(H1N1)2009pdm-CDC": [
-        {"N": "loc:clade-155-156-A(H1N1)2009pdm", "recent-layers": "$recent-layers-CDC", "date-recent": {"younger-than-days": 365}, "test-only": true}
-    ],
-
-    "loc:clade-155-156-recent-tables-A(H1N1)2009pdm-VIDRL": [
-        {"N": "loc:clade-155-156-A(H1N1)2009pdm", "recent-layers": "$recent-layers-VIDRL", "date-recent": {"younger-than-days": 365}, "test-only": true}
-    ],
-
-    "loc:clade-155-156-recent-tables-A(H1N1)2009pdm-NIID": [
-        {"N": "loc:clade-155-156-A(H1N1)2009pdm", "recent-layers": "$recent-layers-NIID", "date-recent": {"younger-than-days": 365}, "test-only": true}
-    ],
-
-    "loc:clade-155-156-recent-tables-A(H1N1)2009pdm-Crick": [
-        {"N": "loc:clade-155-156-A(H1N1)2009pdm", "recent-layers": "$recent-layers-Crick", "date-recent": {"younger-than-days": 365}, "test-only": true}
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",

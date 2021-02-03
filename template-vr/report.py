@@ -39,12 +39,12 @@ def maps(modul):
 
         # H3 HI --------------------------------------------------
 
-        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"],                                             maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
-        modul.map.makers(subtype="h3", assay="hi",   labs=["crick", "vidrl"],                rbc="guinea-pig", maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hint", labs=["cdc"],                                             maps=["clade", "clade-6m", "clade-12m", "clade-grey", "clade-grey-6m", "clade-grey-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="hi",   labs=["crick", "vidrl"],                rbc="guinea-pig", maps=["clade", "clade-6m", "clade-12m", "clade-grey", "clade-grey-6m", "clade-grey-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # H3 Neut --------------------------------------------------
 
-        modul.map.makers(subtype="h3", assay="neut", labs=["cdc", "crick", "niid", "vidrl"],                   maps=["clade", "clade-6m", "clade-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
+        modul.map.makers(subtype="h3", assay="neut", labs=["cdc", "crick", "niid", "vidrl"],                   maps=["clade", "clade-6m", "clade-12m", "clade-grey", "clade-grey-6m", "clade-grey-12m", "serology", "ts", "sp"], compare_with_previous=compare_with_previous),
 
         # B/Vic --------------------------------------------------
 
@@ -115,8 +115,9 @@ def report(output_filename, vr_data, modul):
 # ----------------------------------------------------------------------
 
 def bold_recent_viruses(modul):
-    return modul.text_no_indent("{\\fontsize{7}{7} \\selectfont \\textbf{Viruses that have been added to the map since the September 2020 VCM are shown with a thick bold outline and viruses since TC0 with a thicker black outline} }")
-    return modul.text_no_indent("\\textbf{Viruses that have been added to the map since the September 2020 VCM are shown with a thick bold outline and viruses since TC0 with a thicker black outline}")
+    return modul.text_no_indent("\\textbf{Viruses that have been added to the map since TC0 are shown with a thick bold outline and viruses since TC1 with a thicker black outline}")
+    # return modul.text_no_indent("{\\fontsize{7}{7} \\selectfont \\textbf{Viruses that have been added to the map since the September 2020 VCM are shown with a thick bold outline and viruses since TC0 with a thicker black outline} }")
+    # return modul.text_no_indent("\\textbf{Viruses that have been added to the map since the September 2020 VCM are shown with a thick bold outline and viruses since TC0 with a thicker black outline}")
 
 # ----------------------------------------------------------------------
 
@@ -231,6 +232,34 @@ def h3(modul, vr_data):
             Path("out", "h3-hi-guinea-pig-clade-6m-crick.pdf"),  Path("out", "h3-neut-clade-6m-crick.pdf"),
             None,                                                Path("out", "h3-neut-clade-6m-niid.pdf"),
             Path("out", "h3-hi-guinea-pig-clade-6m-vidrl.pdf"),  Path("out", "h3-neut-clade-6m-vidrl.pdf"),
+        ]),
+        bold_recent_viruses(modul),
+
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade"),
+        modul.maps_in_two_columns([
+            Path("out", "h3-hint-clade-grey-cdc.pdf"),                Path("out", "h3-neut-clade-grey-cdc.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-grey-crick.pdf"),     Path("out", "h3-neut-clade-grey-crick.pdf"),
+            None,                                                Path("out", "h3-neut-clade-grey-niid.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-grey-vidrl.pdf"),     Path("out", "h3-neut-clade-grey-vidrl.pdf"),
+        ]),
+        bold_recent_viruses(modul),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(12)})"),
+        modul.maps_in_two_columns([
+            Path("out", "h3-hint-clade-grey-12m-cdc.pdf"),            Path("out", "h3-neut-clade-grey-12m-cdc.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-grey-12m-crick.pdf"), Path("out", "h3-neut-clade-grey-12m-crick.pdf"),
+            None,                                                Path("out", "h3-neut-clade-grey-12m-niid.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-grey-12m-vidrl.pdf"), Path("out", "h3-neut-clade-grey-12m-vidrl.pdf"),
+        ]),
+        bold_recent_viruses(modul),
+        modul.new_page(), # --------------------------------------------------
+        modul.subsection_title(f"{modul.SubtypeDisplay[subtype]} antigenic maps colored by phylogenetic clade (since {modul.months_ago(6)})"),
+        modul.maps_in_two_columns([
+            Path("out", "h3-hint-clade-grey-6m-cdc.pdf"),             Path("out", "h3-neut-clade-grey-6m-cdc.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-grey-6m-crick.pdf"),  Path("out", "h3-neut-clade-grey-6m-crick.pdf"),
+            None,                                                Path("out", "h3-neut-clade-grey-6m-niid.pdf"),
+            Path("out", "h3-hi-guinea-pig-clade-grey-6m-vidrl.pdf"),  Path("out", "h3-neut-clade-grey-6m-vidrl.pdf"),
         ]),
         bold_recent_viruses(modul),
 

@@ -1,8 +1,6 @@
 {
     "init": [
         {"N": "set",
-         "recent-layers-CDC": [],
-         "recent-layers-2-CDC": [],
         }
     ],
 
@@ -16,13 +14,6 @@
     "loc:legend-A(H3N2)hint": [
         "loc:legend-A(H3N2)",
     ],
-
-    "? recent-tables": "----------------------------------------------------------------------------------------------------",
-
-    "loc:recent-tables-A(H3N2)hint-CDC": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-CDC", "recent-layers-2": "$recent-layers-2-CDC"}
-    ],
-
     "? ts": "----------------------------------------------------------------------------------------------------",
 
     "loc:ts-A(H3N2)hint": [
@@ -42,12 +33,24 @@
     ],
 
     "loc:clades-A(H3N2)hint-CDC": [
-        "? hide old 2a antigen to avoid clatter",
-        {"?N": "antigens", "select": {"name": "~ALASKA/140/2015"}, "show": false}
+        "? color PENNSYLVANIA/1026/2019 NYMC as the clade of the original virus -> 3C.2A1B1B",
+        {"?N": "antigens", "select": {"name": "~PENNSYLVANIA/1026/2019 NYMC", "report": true}, "fill": "#ff99cc{clade-pale}"},
     ],
 
-    "loc:clades-recent-tables-A(H3N2)hint-CDC": [
+    "loc:clades-A(H3N2)hint-CDC-post": [
+        {"N": "antigens", "select": {"clades-all": ["3C.2A1", "!3C.2A1B"], "report": true}, "order": "lower"},
     ],
+
+
+    "loc:clades-grey-A(H3N2)hint": [
+        "loc:clades-grey-A(H3N2)-all"
+    ],
+
+    "loc:clades-grey-A(H3N2)hint-CDC": [
+        "? color PENNSYLVANIA/1026/2019 NYMC as the clade of the original virus -> 3C.2A1B1B",
+        {"?N": "antigens", "select": {"name": "~PENNSYLVANIA/1026/2019 NYMC", "report": true}, "fill": "#E7298A{clade-pale}"},
+    ],
+
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",
 

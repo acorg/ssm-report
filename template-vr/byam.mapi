@@ -1,14 +1,6 @@
 {
     "init": [
         {"N": "set",
-         "recent-layers-CDC": [],
-         "recent-layers-2-CDC": [],
-         "recent-layers-Crick": [],
-         "recent-layers-2-Crick": [],
-         "recent-layers-NIID": [],
-         "recent-layers-2-NIID": [],
-         "recent-layers-VIDRL": [],
-         "recent-layers-2-VIDRL": [],
         }
     ],
 
@@ -16,16 +8,16 @@
         {"?N": "viewport", "rel": [2, 2, -4]}
     ],
 
-    "loc:rotate:viewport-B/Yam-VIDRL": [
-        {"N": "viewport", "rel": [3.5, 0, -4]}
+    "loc:rotate:viewport-B/Yam-Crick": [
+        {"N": "viewport", "rel": [3, 2, -5]}
     ],
 
     "loc:rotate:viewport-B/Yam-NIID": [
         {"N": "viewport", "rel": [0, -0.5, -1]}
     ],
 
-    "loc:rotate:viewport-B/Yam-Crick": [
-        {"N": "viewport", "rel": [3, 1, -5]}
+    "loc:rotate:viewport-B/Yam-VIDRL": [
+        {"N": "viewport", "rel": [3.5, 0, -4]}
     ],
 
     "loc:title-B/Yam": [
@@ -33,26 +25,6 @@
 
     "loc:legend-B/Yam": [
         {"N": "legend", "offset": [-10, -10], "label_size": "$legend-label-size", "point_size": "$legend-point-size", "show": true}
-    ],
-
-    "? recent-tables": "----------------------------------------------------------------------------------------------------",
-
-    "?loc:recent-tables": "see vr.mapi",
-
-    "loc:recent-tables-B/Yam-CDC": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-CDC", "recent-layers-2": "$recent-layers-2-CDC"}
-    ],
-
-    "loc:recent-tables-B/Yam-Crick": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-Crick", "recent-layers-2": "$recent-layers-2-Crick"}
-    ],
-
-    "loc:recent-tables-B/Yam-NIID": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-NIID", "recent-layers-2": "$recent-layers-2-NIID"}
-    ],
-
-    "loc:recent-tables-B/Yam-VIDRL": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-VIDRL", "recent-layers-2": "$recent-layers-2-VIDRL"}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -77,13 +49,25 @@
     "loc:clades-B/Yam-CDC": [
     ],
 
-    "loc:clades-B/Yam-VIDRL": [
+    "loc:clades-B/Yam-CDC-post": [
+    ],
+
+    "loc:clades-B/Yam-Crick": [
+    ],
+
+    "loc:clades-B/Yam-Crick-post": [
     ],
 
     "loc:clades-B/Yam-NIID": [
     ],
 
-    "loc:clades-B/Yam-Crick": [
+    "loc:clades-B/Yam-NIID-post": [
+    ],
+
+    "loc:clades-B/Yam-VIDRL": [
+    ],
+
+    "loc:clades-B/Yam-VIDRL-post": [
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",

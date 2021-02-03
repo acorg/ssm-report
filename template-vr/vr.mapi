@@ -16,7 +16,11 @@
          "clade-pale": "",
          "not-found-in-previous-size": 25,
          "found-in-previous-size": 15,
-         "output_dir": "out", "?": "necessary for ts"
+         "output_dir": "out", "?": "necessary for ts",
+
+         "show-new-since-previous": true,
+
+         "?last": ""
         }
     ],
 
@@ -27,10 +31,15 @@
         "loc:clades-{virus-type/lineage-subset}{assay-no-hi-low}-{lab}"
     ],
 
+    "vr:clade-base-post": [
+        "loc:clades-{virus-type/lineage-subset}{assay-no-hi-low}-{lab}-post"
+    ],
+
     "vr:clade": [
         "vr:reset",
         "vr:clade-base",
-        "vr:recent-tables",
+        "vr:new-since-previous",
+        "vr:clade-base-post",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus-type/lineage} {assay-cap} by clade"]},
         "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
@@ -45,12 +54,37 @@
         {"N": "vr:clade", "date-recent": {"younger-than-days": 183}}
     ],
 
+    "? H3 TC2 2021-02-02": "",
+    "vr:clade-grey-base": [
+        "loc:clades-grey-{virus-type/lineage-subset}{assay-no-hi-low}",
+        "loc:clades-grey-{virus-type/lineage-subset}{assay-no-hi-low}-{lab}"
+    ],
+
+    "vr:clade-grey": [
+        "vr:reset",
+        "vr:clade-grey-base",
+        "vr:new-since-previous",
+        "vr:clade-base-post",
+        "vr:vaccines",
+        {"N": "title", "lines": ["{lab} {virus-type/lineage} {assay-cap} by clade"]},
+        "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
+        "loc:legend-{virus-type/lineage-subset}{assay-no-hi-low}"
+    ],
+
+    "vr:clade-grey-12m": [
+        {"N": "vr:clade-grey", "date-recent": {"younger-than-days": 365}}
+    ],
+
+    "vr:clade-grey-6m": [
+        {"N": "vr:clade-grey", "date-recent": {"younger-than-days": 183}}
+    ],
+
     "? H1 2020-02": "",
     "vr:clade-155-156": [
         "vr:reset",
         "loc:clade-155-156-{virus-type/lineage-subset}{assay-no-hi-low}",
         "loc:clade-155-156-{virus-type/lineage-subset}{assay-no-hi-low}-{lab}",
-        "vr:recent-tables",
+        "vr:new-since-previous",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus-type/lineage} by amino-acid at 155, 156"]},
         "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
@@ -70,33 +104,31 @@
         "vr:reset",
         "vr:clade-base",
         "loc:N-gly-197-{virus-type/lineage-subset}{assay-no-hi-low}",
-        "?vr:recent-tables",
+        "?vr:new-since-previous",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus-type/lineage} by clade and potential N-gly"]},
         "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
         "loc:legend-{virus-type/lineage-subset}{assay-no-hi-low}"
     ],
 
-    "? vr:clade-ngly-202001": [
+    "vr:clade-ngly-202001": [
         "vr:reset",
         {"N": "vr:clade-base",                                              "date-recent": {"after": "2020-01-01"}},
         {"N": "loc:N-gly-197-{virus-type/lineage-subset}{assay-no-hi-low}", "date-recent": {"after": "2020-01-01"}},
-        "?vr:recent-tables",
+        "?vr:new-since-previous",
         "vr:vaccines",
         {"N": "title", "lines": ["{lab} {virus-type/lineage} by clade and potential N-gly"]},
         "loc:title-{virus-type/lineage-subset}{assay-no-hi-low}",
         "loc:legend-{virus-type/lineage-subset}{assay-no-hi-low}"
     ],
 
-    "? recent-tables": "----------------------------------------------------------------------------------------------------",
+    "? new-since-previous": "----------------------------------------------------------------------------------------------------",
 
-    "vr:recent-tables": [
-        "loc:recent-tables-{virus-type/lineage-subset}{assay-no-hi-low}-{lab}"
-    ],
-
-    "loc:recent-tables": [
-        {"N": "antigens", "select": {"layer": "$recent-layers-2", "test": true, "date": "$date-recent", "report": true}, "outline": "black", "outline_width": 3, "order": "raise"},
-        {"N": "antigens", "select": {"layer": "$recent-layers",   "test": true, "date": "$date-recent", "report": true}, "outline": "black",   "outline_width": 4.5, "order": "raise"}
+    "vr:new-since-previous": [
+        {"N": "if", "condition": "$show-new-since-previous", "then": [
+            {"N": "antigens", "select": {"not-found-in": 2, "date": "$date-recent", "report": true, "report-threshold": 20}, "outline": "black", "outline_width": 3, "order": "raise"},
+            {"N": "antigens", "select": {"not-found-in": 1, "date": "$date-recent", "report": true, "report-threshold": 20}, "outline": "black", "outline_width": 4.5, "order": "raise"}
+        ]}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",

@@ -1,10 +1,6 @@
 {
     "init": [
         {"N": "set",
-         "recent-layers-Crick": [],
-         "recent-layers-2-Crick": [],
-         "recent-layers-VIDRL": [],
-         "recent-layers-2-VIDRL": [],
         }
     ],
 
@@ -13,7 +9,7 @@
     ],
 
     "loc:rotate:viewport-A(H3N2)hi-Crick": [
-        {"N": "viewport", "rel": [1, 1, -2]},
+        {"N": "viewport", "rel": [2.6, 1.7, -4]},
     ],
 
     "loc:title-A(H3N2)hi": [
@@ -21,16 +17,6 @@
 
     "loc:legend-A(H3N2)hi": [
         "loc:legend-A(H3N2)",
-    ],
-
-    "? recent-tables": "----------------------------------------------------------------------------------------------------",
-
-    "loc:recent-tables-A(H3N2)hi-Crick": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-Crick", "recent-layers-2": "$recent-layers-2-Crick"}
-    ],
-
-    "loc:recent-tables-A(H3N2)hi-VIDRL": [
-        {"N": "loc:recent-tables", "recent-layers": "$recent-layers-VIDRL", "recent-layers-2": "$recent-layers-2-VIDRL"}
     ],
 
     "? ts": "----------------------------------------------------------------------------------------------------",
@@ -54,18 +40,29 @@
     "loc:clades-A(H3N2)hi-VIDRL": [
     ],
 
+    "loc:clades-A(H3N2)hi-VIDRL-post": [
+        {"?N": "antigens", "select": {"name": "~TASMANIA/503/2020 SIAT2", "report": true}, "size": "$vaccine-size", "label": {"offset": [1, 0.5],  "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}, "order": "raise"},
+    ],
+
     "loc:clades-A(H3N2)hi-Crick": [
         {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"], "date": "$date-recent"},   "fill": "green:t+0.7", "outline": ":t+0.7", "legend": {"label": "3a 144N 2015-2017 ({count})"}, "report": true},
-        {"N": "antigens", "select": {"name": ["~ARAGON/13140/2020", "~NORWAY/2231/2020"], "report": true}, "fill": "#CD5C5C{clade-pale}", "?": "2a1b forced, seqdb matching problem", "?size": 90, "report": true}
+        {"?N": "antigens", "select": {"name": ["~ARAGON/13140/2020", "~NORWAY/2231/2020"], "report": true}, "fill": "#CD5C5C{clade-pale}", "?": "2a1b forced, seqdb matching problem", "?size": 90, "report": true},
+        {"?N": "antigens", "select": {"name": "~STAVROPOL/10/2020 MDCK2/SIAT1", "report": true}, "show": false},
     ],
 
-    "loc:clades-recent-tables-A(H3N2)hi-VIDRL": [
-        {"N": "loc:clades-A(H3N2)-all", "recent-layers": "$recent-layers-VIDRL", "date-recent": {"younger-than-days": 365}, "test-only": true}
+    "loc:clades-A(H3N2)hi-Crick-post": [
     ],
 
-    "loc:clades-recent-tables-A(H3N2)hi-Crick": [
-        {"N": "loc:clades-A(H3N2)-all", "recent-layers": "$recent-layers-Crick", "date-recent": {"younger-than-days": 365}, "test-only": true},
-        {"N": "antigens", "select": {"clade": "3C.3A", "amino_acid": ["144N"], "layers": "$recent-layers-Crick", "date": "$date-recent"},   "fill": "green:t+0.7", "outline": ":t+0.7", "legend": {"label": "3a 144N 2015-2017 ({count})"}, "report": true}
+
+    "loc:clades-grey-A(H3N2)hi": [
+        "loc:clades-grey-A(H3N2)-all"
+    ],
+
+    "loc:clades-grey-A(H3N2)hi-VIDRL": [
+    ],
+
+    "loc:clades-grey-A(H3N2)hi-Crick": [
+        {"?N": "antigens", "select": {"name": ["~ARAGON/13140/2020", "~NORWAY/2231/2020"], "report": true}, "fill": "grey80{clade-pale}", "?": "2a1b forced, seqdb matching problem", "?size": 90, "report": true}
     ],
 
     "? vaccines": "----------------------------------------------------------------------------------------------------",
@@ -92,7 +89,7 @@
 
     "loc:vaccines-A(H3N2)hi-Crick": [
         {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "egg",  "most-used-for-name": true, "name": "~KONG"},   "label": {"offset": [0, -1],    "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
-        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "egg",  "most-used-for-name": true, "name": "~SOUTH"},  "label": {"offset": [-0.3, 1],     "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
+        {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "egg",  "most-used-for-name": true, "name": "~SOUTH"},  "label": {"offset": [0.7, 1],     "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
         {"N": "antigens", "select": {"vaccine": {"type": "current"},  "passage": "reassortant",  "most-used-for-name": true, "name": "~SOUTH"},  "label": {"offset": [1, 0],     "format": "{abbreviated_location_year}-{reassortant}-{passage_type}", "size": "$vaccine-label-size"}},
         {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "cell", "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [0.5, 1],   "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
         {"N": "antigens", "select": {"vaccine": {"type": "previous"}, "passage": "egg",  "most-used-for-name": true, "name": "~KANSAS"}, "label": {"offset": [-0.5, -1], "format": "{abbreviated_location_year}-{passage_type}", "size": "$vaccine-label-size"}},
