@@ -1,4 +1,4 @@
-# Time-stamp: <2021-01-19 16:45:16 eu>
+# Time-stamp: <2021-02-03 11:55:23 eu>
 keywords: ssm vcm
 
 [[file:~/AD/sources/ssm-report/doc/report-prepare.org][report preparation doc]]
@@ -8,8 +8,7 @@ keywords: ssm vcm
 ./sy
 #+END_SRC
 
-
-(setq eu-ssm-dir "/syn/eu/ac/results/ssm/2021-0119-tc1")
+(customize-variable 'eu-ssm-dir) "/syn/eu/ac/results/ssm/2021-0217-ssm"
 
 "H-7" -> helm-ssm
 heml-ssm: ~get-hidb
