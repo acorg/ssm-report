@@ -126,7 +126,11 @@ def add_file(source_pathname, target_dir, fields, target_name=None, add_to_git=T
     if not output.exists():
         module_logger.info(f"writing {output} <-- {source_pathname}")
         with open(output, "w") as out:
-            out.write(source_pathname.open().read() % fields)
+            try:
+                out.write(source_pathname.open().read() % fields)
+            except Exception as err:
+                module_logger.error(f"{source_pathname}: {err} {fields}")
+                raise
     else:
         module_logger.warning(f"{output} already exists (not overwritten)")
     if add_to_git:
