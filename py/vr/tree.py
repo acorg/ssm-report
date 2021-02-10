@@ -41,7 +41,7 @@ class maker:
         else:                   # not info
             txt = output_dir.joinpath(f"{self.subtype}.tree.txt")
             if not txt.exists():
-                cmd = f"tal {source_tjz} {txt}"
+                cmd = f"tal -s {tal_settings} {source_tjz} {txt}"
                 print(cmd)
                 subprocess.check_call(cmd, shell=True)
             cmd = f"tal -s {tal_settings} {source_tjz} {pdf}"
