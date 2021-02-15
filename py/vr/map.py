@@ -72,9 +72,9 @@ class maker (merge_finder):
             lab = self.lab
         if not map_name:
             map_name = self.map_name
-        if self.merge_exists(lab=lab):
+        if self.merge_exists(lab=lab, map_name=map_name):
             pdf = f"{output_dir}/{self.subtype}-{self.assay_rbc(lab)}-{map_name}-{lab}.pdf"
-            cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab)} {self.previous_merge(lab=lab)} {self.previous_previous_merge(lab=lab)} {pdf}"
+            cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab, map_name=map_name)} {self.previous_merge(lab=lab)} {self.previous_previous_merge(lab=lab)} {pdf}"
             # if open_pdf:
             #     cmd += " --preview 1050.0.930.980"
             if interactive:
@@ -86,7 +86,7 @@ class maker (merge_finder):
             module_logger.warning(f"No merge present: {self.merge(lab=lab)}: cannot make {map_name}")
 
     def ts(self, lab, map_name, open_pdf, output_dir):
-        if self.merge_exists(lab=lab):
+        if self.merge_exists(lab=lab, map_name=map_name):
             compare_with_previous = str(bool(self.options.get("compare_with_previous"))).lower()
             cmd = f"mapi -a vr:{map_name} {self._settings()} -D compare-with-previous={compare_with_previous} {self.merge(lab=lab)} {self.previous_merge(lab=lab, compare_with_previous=self.options.get('compare_with_previous'))} /"
             print(cmd)

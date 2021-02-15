@@ -12,13 +12,13 @@ class merge_finder:
         self.rbc = rbc
         self.options = options
 
-    def merge_exists(self, lab):
-        mer = self.merge(lab=lab)
+    def merge_exists(self, lab, map_name=None):
+        mer = self.merge(lab=lab, map_name=map_name)
         #print(f"merge {mer} exists {mer.exists()}")
         return mer.exists()
 
-    def merge(self, lab):
-        return Path("merges", self.merge_2021(lab=lab))
+    def merge(self, lab, map_name=None):
+        return Path("merges", self.merge_2021(lab=lab, map_name=map_name))
 
     def previous_merge(self, lab, compare_with_previous=True):
         previous_merges_dir = Path("previous", "merges")
@@ -44,14 +44,17 @@ class merge_finder:
         else:
             return ""
 
-    def merge_2021(self, lab):
+    def merge_2021(self, lab, map_name=None):
         if self.rbc and isinstance(self.rbc, list):
-            for rbc in self.rbc:
-                mrg = f"{self.subtype}-hi-{rbc}-{lab}.ace"
-                # print(f">>>> {mrg} {Path('merges', mrg).exists()}")
-                if Path("merges", mrg).exists():
-                    return mrg
-            return "{self.subtype}-hi-{self.rbc}-{lab}.ace *not-found*"
+            for rbc in self.rbc + [f"{self.rbc}: not-found"]:
+                assay_rbc = f"hi-{rbc}"
+                if Path("merges", f"{self.subtype}-{assay_rbc}-{lab}.ace").exists():
+                    break
+            #     mrg = f"{self.subtype}-hi-{rbc}-{lab}.ace"
+            #     # print(f">>>> {mrg} {Path('merges', mrg).exists()}")
+            #     if Path("merges", mrg).exists():
+            #         return mrg
+            # return "{self.subtype}-hi-{self.rbc}-{lab}.ace *not-found*"
         elif self.rbc:
             assay_rbc = self.assay_rbc(lab)
         elif self.assay == "neut":
@@ -61,7 +64,10 @@ class merge_finder:
                 assay_rbc = "fra"
         else:
             assay_rbc = self.assay
-        return f"{self.subtype}-{assay_rbc}-{lab}.ace"
+        if map_name and Path("merges", f"{self.subtype}-{assay_rbc}-{lab}.{map_name}.ace").exists():
+            return f"{self.subtype}-{assay_rbc}-{lab}.{map_name}.ace"
+        else:
+            return f"{self.subtype}-{assay_rbc}-{lab}.ace"
 
     s_merge_old_subtype_fix = {"h1pdm": "h1", "bvic": "bv", "byam": "by"}
     def merge_old(self, lab):
