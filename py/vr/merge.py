@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 from .lab import lab_new, lab_old
@@ -50,11 +51,6 @@ class merge_finder:
                 assay_rbc = f"hi-{rbc}"
                 if Path("merges", f"{self.subtype}-{assay_rbc}-{lab}.ace").exists():
                     break
-            #     mrg = f"{self.subtype}-hi-{rbc}-{lab}.ace"
-            #     # print(f">>>> {mrg} {Path('merges', mrg).exists()}")
-            #     if Path("merges", mrg).exists():
-            #         return mrg
-            # return "{self.subtype}-hi-{self.rbc}-{lab}.ace *not-found*"
         elif self.rbc:
             assay_rbc = self.assay_rbc(lab)
         elif self.assay == "neut":
@@ -64,10 +60,11 @@ class merge_finder:
                 assay_rbc = "fra"
         else:
             assay_rbc = self.assay
-        if map_name and Path("merges", f"{self.subtype}-{assay_rbc}-{lab}.{map_name}.ace").exists():
-            return f"{self.subtype}-{assay_rbc}-{lab}.{map_name}.ace"
-        else:
-            return f"{self.subtype}-{assay_rbc}-{lab}.ace"
+        if map_name:
+            map_name = re.sub(r"-(12|6)m$", "", map_name)
+            if Path("merges", f"{self.subtype}-{assay_rbc}-{lab}.{map_name}.ace").exists():
+                return f"{self.subtype}-{assay_rbc}-{lab}.{map_name}.ace"
+        return f"{self.subtype}-{assay_rbc}-{lab}.ace"
 
     s_merge_old_subtype_fix = {"h1pdm": "h1", "bvic": "bv", "byam": "by"}
     def merge_old(self, lab):
