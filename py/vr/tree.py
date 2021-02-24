@@ -188,7 +188,7 @@ sTalSettings = """{
 
 sTalInfoSettings = """{
     "tal": [
-        {"N": "canvas", "height": "{canvas-height}"},
+        {"N": "canvas", "height": "$canvas-height"},
         {"N": "margins", "left": 0.01},
         {"N": "title", "show": false},
         {"N": "tree", "width-to-height-ratio": 0.4},
