@@ -6,8 +6,9 @@ from .error import Error
 
 # ----------------------------------------------------------------------
 
-def __get_merges(command, *r, **a): get_merges()
-def __get_merge_from_chain(command, *r, **a): get_merge_from_chain(*r)
+def __get_merges_chains_202105(command, *r, **a): get_merges_chains_202105()
+# def __get_merges_AD_chain(command, *r, **a): get_merges_AD_chain()
+# def __get_merge_from_chain(command, *r, **a): get_merge_from_chain(*r)
 def __get_hidb(command, *r, **a): get_hidb()
 def __stat_geo(command, *r, **a): stat_geo()
 def __geo(command, *r, **a): geo()
@@ -32,8 +33,9 @@ sCommands = {
     "~addendum-4": report.make_addendum_4,
     "~addendum-5": report.make_addendum_5,
     "~addendum-6": report.make_addendum_6,
-    "~get-merges": __get_merges,
-    "!get-merge-from-chain": __get_merge_from_chain, # ! - secondary command, do not list for helm
+    "~get-merges-chains-202105": __get_merges_chains_202105,
+    # "~get-merges-AD.chain": __get_merges_AD_chain,
+    # "!get-merge-from-chain": __get_merge_from_chain, # ! - secondary command, do not list for helm
     "~get-hidb": __get_hidb,
     "~stat-geo": __stat_geo,
     "~stat": __stat,
@@ -96,19 +98,22 @@ def geo():
 
 # ----------------------------------------------------------------------
 
-def get_merges():
-    subprocess.check_call(["ssh", "i19", "ad-run", "ACMACSD_ROOT=/syn/eu/AD.chain", "whocc-report-chains"])
+def get_merges_chains_202105():
+    subprocess.check_call(["ssm-get-recent-merges"])
 
-def get_merge_from_chain(srl, remote_filename):
-    merge_dir = Path("merges")
-    merge_dir.mkdir(exist_ok=True)
-    target = merge_dir.joinpath(f"{srl}.chain.ace")
-    subprocess.check_call(["rsync", "-v", f"i19:{remote_filename}", str(target)])
-    print("\n")
-    subprocess.check_call(["chart-info", str(target)])
-    target_main = merge_dir.joinpath(f"{srl}.ace")
-    if not target_main.exists():
-        target_main.symlink_to(target.name)
+# def get_merges_AD_chain():
+#     subprocess.check_call(["ssh", "i19", "ad-run", "ACMACSD_ROOT=/syn/eu/AD.chain", "whocc-report-chains"])
+
+# def get_merge_from_chain(srl, remote_filename):
+#     merge_dir = Path("merges")
+#     merge_dir.mkdir(exist_ok=True)
+#     target = merge_dir.joinpath(f"{srl}.chain.ace")
+#     subprocess.check_call(["rsync", "-v", f"i19:{remote_filename}", str(target)])
+#     print("\n")
+#     subprocess.check_call(["chart-info", str(target)])
+#     target_main = merge_dir.joinpath(f"{srl}.ace")
+#     if not target_main.exists():
+#         target_main.symlink_to(target.name)
 
 # def get_merges():
 #     output_dir = Path("merges")

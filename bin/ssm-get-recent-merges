@@ -21,12 +21,36 @@ def main(args):
     merges_dir = merges_dir.resolve()
     for chain_dir in sChainsDir.glob("*"):
         if startswith(chain_dir.name, "h1pdm-", "h3-", "bvic-", "byam-"):
-            get_merge_from(chain_dir)
+            get_merge_from(chain_dir, merges_dir=merges_dir)
 
 # ======================================================================
 
-def get_merge_from(chain_dir):
-    pass
+def get_merge_from(chain_dir, merges_dir):
+    print(f"{chain_dir.name}")
+    forward_chain_dir = max(chain_dir.glob("f-*"))
+    scratch_filename = max(forward_chain_dir.glob("*.scratch.ace"))
+    incremental_filename = forward_chain_dir.joinpath(scratch_filename.name.replace(".scratch.", ".incremental."))
+    scratch = acmacs.Chart(scratch_filename)
+    incremental = acmacs.Chart(incremental_filename)
+    print(f"    inc:{incremental.projection(0).stress():10.4f} scr:{scratch.projection(0).stress():10.4f}")
+    if incremental.projection(0).stress() <= scratch.projection(0).stress():
+        use_chart = incremental
+    else:
+        use_chart = scratch
+    output_filename = merges_dir.joinpath(chain_dir.name + ".ace")
+    if not output_filename.exists() or charts_are_different(use_chart, acmacs.Chart(output_filename)):
+        previous = acmacs.Chart(Path("previous", "merges", chain_dir.name + ".ace"))
+        use_chart.orient_to(master=previous)
+        use_chart.populate_from_seqdb()
+        print(f"    exporting {output_filename}")
+        use_chart.export(output_filename)
+    else:
+        print(f"    up to date")
+
+# ----------------------------------------------------------------------
+
+def charts_are_different(c1, c2):
+    return c1.projection().stress() != c2.projection().stress()
 
 # ======================================================================
 
