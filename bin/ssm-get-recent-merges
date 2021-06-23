@@ -50,7 +50,10 @@ def get_merge_from(chain_dir, merges_dir):
 # ----------------------------------------------------------------------
 
 def charts_are_different(c1, c2):
-    return c1.projection().stress() != c2.projection().stress()
+    diff = abs(c1.projection().stress() - c2.projection().stress())
+    is_diff = diff > 1e-10
+    # print(f"        {c1.projection().stress()} {c2.projection().stress()} -> {diff} different: {is_diff}")
+    return is_diff
 
 # ======================================================================
 
