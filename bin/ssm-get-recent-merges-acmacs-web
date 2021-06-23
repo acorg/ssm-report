@@ -1,0 +1,45 @@
+#! /usr/bin/env python3
+# -*- Python -*-
+
+"""
+download recent merges for acmacs-web for ssm report or signature pages
+"""
+
+import sys, os, traceback
+if f"{sys.version_info.major}.{sys.version_info.minor}" < "3.7": raise RuntimeError("Run script with python 3.7+")
+from pathlib import Path
+sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
+import logging; module_logger = logging.getLogger(__name__)
+
+from acmacs_whocc import get_recent_merges
+
+# ----------------------------------------------------------------------
+
+def main(args):
+    os.makedirs(args.target_dir[0], exist_ok=True)
+    get_recent_merges(Path(args.target_dir[0]), subtype=args.flu, lab=args.lab)
+
+# ----------------------------------------------------------------------
+
+try:
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--lab', action='store', dest='lab', default=None)
+    parser.add_argument('--flu', action='store', dest='flu', default=None)
+    parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
+    # parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False)
+
+    parser.add_argument('target_dir', nargs=1, action='store')
+
+    args = parser.parse_args()
+    logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
+    exit_code = main(args)
+except Exception as err:
+    logging.error('{}\n{}'.format(err, traceback.format_exc()))
+    exit_code = 1
+exit(exit_code)
+
+# ======================================================================
+### Local Variables:
+### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
+### End:
