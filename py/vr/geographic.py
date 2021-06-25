@@ -69,7 +69,7 @@ sSettings = {
         #     "ana16": "#00939f"
         # }
     ],
-    "point_size_in_pixels": 4.0,
+    "point_size_in_pixels": 8.0,
     "point_density": 0.8,
     "continent_outline_color": "grey63",
     "continent_outline_width": 0.5,
@@ -78,7 +78,14 @@ sSettings = {
     "title": {"offset": [0, 0], "text_size": 20, "background": "transparent", "border_color": "black", "border_width": 0, "text_color": "black", "padding": 10.0},
 
     "priority?": "draw VICTORIA_DEL on top of VICTORIA",
-    "priority": ["YAMAGATA", "VICTORIA", "VICTORIA_DEL"]
+    "priority": [
+        "YAMAGATA",
+        "VICTORIA",
+        "VICTORIA_DEL",
+        "3C.2A1B",
+        "3C.2A1B1A",
+        "3C.2A1B2A"
+    ]
 }
 
 sColoringByVirusType = {
@@ -97,7 +104,26 @@ sColoringByVirusType = {
         ],
         "report": False
     },
-    "h3": {"N": "clade"}
+    "h3": {
+        "N": "clade",
+        "clade_color": {
+            "SEQUENCED": {
+                "fill": "#FFFF00",
+                "outline": "#A0A000",
+                "outline_width": 0.05
+            },
+            "3C.2A1B1A": {
+                "fill": "#7570B3",
+                "outline": "black",
+                "outline_width": 0
+            },
+            "3C.2A1B2A": {
+                "fill": "#1B9E77",
+                "outline": "black",
+                "outline_width": 0
+            }
+        }
+    }
 }
 
 # ======================================================================
