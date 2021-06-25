@@ -37,13 +37,16 @@ def get_merge_from(chain_dir, merges_dir):
         use_chart = incremental
     else:
         use_chart = scratch
-    output_filename = merges_dir.joinpath(chain_dir.name + ".ace")
+    output_filename = merges_dir.joinpath(chain_dir.name + ".chain.ace")
     if not output_filename.exists() or charts_are_different(use_chart, acmacs.Chart(output_filename)):
         previous = acmacs.Chart(Path("previous", "merges", chain_dir.name + ".ace"))
         use_chart.orient_to(master=previous)
         use_chart.populate_from_seqdb()
         print(f"    exporting {output_filename}")
         use_chart.export(output_filename)
+        link_filename = merges_dir.joinpath(chain_dir.name + ".ace")
+        if not link_filename.exists():
+            link_filename.symlink_to(output_filename.name)
     else:
         print(f"    up to date")
 
@@ -51,7 +54,7 @@ def get_merge_from(chain_dir, merges_dir):
 
 def charts_are_different(c1, c2):
     diff = abs(c1.projection().stress() - c2.projection().stress())
-    is_diff = diff > 1e-10
+    is_diff = diff > 1e-5
     # print(f"        {c1.projection().stress()} {c2.projection().stress()} -> {diff} different: {is_diff}")
     return is_diff
 
