@@ -89,9 +89,13 @@ sSettings = {
 }
 
 sColoringByVirusType = {
-    "b": {"N": "lineage-deletion-mutants"},
+    "b": {
+        "N": "lineage-deletion-mutants",
+        "debug": False,
+    },
     "h1": {
         "N": "amino-acid",
+        "debug": False,
         "apply": [
             {"sequenced": True,      "color": "#a2b324"},
             {"aa": ["155E"],         "color": "#ffc808"},
@@ -106,6 +110,7 @@ sColoringByVirusType = {
     },
     "h3": {
         "N": "clade",
+        "debug": False,
         "clade_color": {
             "SEQUENCED": {
                 "fill": "#FFFF00",
