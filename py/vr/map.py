@@ -6,6 +6,8 @@ from .merge import merge_finder
 
 # ======================================================================
 
+SEP = "> ======================================================================"
+
 s_labs_for_subtype = {}
 s_clade_maps = {}
 
@@ -80,7 +82,7 @@ class maker (merge_finder):
             if interactive:
                 cmd += " -i"
 
-            print(cmd)
+            print(f"{SEP}\n> {lab} {self.subtype} {self.assay_rbc(lab)} {map_name}\n{cmd}\n{SEP}")
             subprocess.check_call(cmd, shell=True)
         else:
             module_logger.warning(f"No merge present: {self.merge(lab=lab)}: cannot make {map_name}")
