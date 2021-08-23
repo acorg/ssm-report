@@ -12,7 +12,7 @@ Output: stdout
 [ merged per-node elements ]
 """
 
-import sys, json
+import sys, json, pprint
 
 # ----------------------------------------------------------------------
 
@@ -20,21 +20,35 @@ def main():
     data = json.load(sys.stdin)
     new_labels = data["per-node"]
     sort_by_node_id(new_labels)
-    new_by_name = make_by_name(new_labels)
     old_labels = data["?per-node"]
     sort_by_node_id(old_labels)
-    old_by_name = make_by_name(old_labels)
-    # print(json.dumps(new_labels, indent=2))
+    merge(new_labels, old_labels)
     print(make_output(new_labels))
+
+# ----------------------------------------------------------------------
+
+def merge(new_labels, old_labels):
+    # new_by_name = make_by_name(new_labels)
+    old_by_name = make_by_name(old_labels)
+    label_count = {}
+    for en in new_labels:
+        name = en["name"]
+        label_count.setdefault(name, 0)
+        old_entries = old_by_name.get(name)
+        if old_entries and len(old_entries) > label_count[name]:
+            old_entry = old_entries[label_count[name]]
+            en["label"] = old_entry["label"]
+        else:
+            print(f""">> name not found in old_labels: {name} index {label_count[name]}""", file=sys.stderr)
+        label_count[name] += 1
 
 # ----------------------------------------------------------------------
 
 def make_by_name(src):
     by_name = {}
-    for en in by_name:
+    for en in src:
         by_name.setdefault(en["name"], []).append(en)
-    for val in by_name.values():
-        val.sort()
+    # pprint.pprint(by_name)
     return by_name
 
 # ----------------------------------------------------------------------
