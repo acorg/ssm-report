@@ -39,8 +39,9 @@ def get_merge_from(chain_dir, merges_dir):
         use_chart = scratch
     output_filename = merges_dir.joinpath(chain_dir.name + ".chain.ace")
     if not output_filename.exists() or charts_are_different(use_chart, acmacs.Chart(output_filename)):
-        previous = acmacs.Chart(Path("previous", "merges", chain_dir.name + ".ace"))
-        use_chart.orient_to(master=previous)
+        if (prev_filename := Path("previous", "merges", chain_dir.name + ".ace")) and prev_filename.exists():
+            previous = acmacs.Chart(prev_filename)
+            use_chart.orient_to(master=previous)
         use_chart.populate_from_seqdb()
         print(f"    exporting {output_filename}")
         use_chart.export(output_filename)
