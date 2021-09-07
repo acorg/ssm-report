@@ -1,5 +1,6 @@
 sLabNew = {
     "cdc": "cdc",
+    "cnic": "cnic",
     "melb": "vidrl",
     "vidrl": "vidrl",
     "niid": "niid",
@@ -9,6 +10,7 @@ sLabNew = {
 
 sLabOld = {
     "cdc": "cdc",
+    "cnic": "cnic",
     "melb": "melb",
     "vidrl": "melb",
     "niid": "niid",
