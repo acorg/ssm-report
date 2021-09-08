@@ -5,8 +5,8 @@ from .report import generate, substitute
 
 # ----------------------------------------------------------------------
 
-LabDisplay = {"CDC": "CDC", "NIMR": "Crick", "CRICK": "Crick", "MELB": "VIDRL", "VIDRL": "VIDRL", "NIID": "NIID"}
-LabFilename = {"CDC": "cdc", "NIMR": "crick", "CRICK": "crick", "MELB": "vidrl", "VIDRL": "vidrl", "NIID": "niid"}
+LabDisplay = {"CDC": "CDC", "CNIC": "CNIC", "NIMR": "Crick", "CRICK": "Crick", "MELB": "VIDRL", "VIDRL": "VIDRL", "NIID": "NIID"}
+LabFilename = {"CDC": "cdc", "CNIC": "cnic", "NIMR": "crick", "CRICK": "crick", "MELB": "vidrl", "VIDRL": "vidrl", "NIID": "niid"}
 
 SubtypeDisplay = {"A(H1N1)": "H1N1pdm09", "A(H3N2)": "H3N2", "B": "B", "BVIC": "B/Vic", "BYAM": "B/Yam"}
 SubtypeFilename = {"A(H1N1)": "h1pdm", "A(H3N2)": "h3", "BVIC": "bvic", "BYAM": "byam"}
