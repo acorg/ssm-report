@@ -21,9 +21,9 @@ class merge_finder:
     def merge(self, lab, map_name=None):
         return Path("merges", self.merge_2021(lab=lab, map_name=map_name))
 
-    def previous_merge(self, lab, compare_with_previous=True):
+    def previous_merge(self, lab, map_name=None, compare_with_previous=True):
         previous_merges_dir = Path("previous", "merges")
-        mer = previous_merges_dir.joinpath(self.merge_2021(lab=lab))
+        mer = previous_merges_dir.joinpath(self.merge_2021(lab=lab, map_name=map_name))
         # print(f">>>> prev 2021 {mer} {mer.exists()}")
         if not mer.exists():
             mer = previous_merges_dir.joinpath(self.merge_old(lab=lab))
@@ -33,9 +33,9 @@ class merge_finder:
         else:
             return ""
 
-    def previous_previous_merge(self, lab):
+    def previous_previous_merge(self, lab, map_name=None):
         previous_previous_merges_dir = Path("previous", "previous", "merges")
-        mer = previous_previous_merges_dir.joinpath(self.merge_2021(lab=lab))
+        mer = previous_previous_merges_dir.joinpath(self.merge_2021(lab=lab, map_name=map_name))
         # print(f">>>> prev-prev 2021 {mer} {mer.exists()}")
         if not mer.exists():
             mer = previous_previous_merges_dir.joinpath(self.merge_old(lab=lab))

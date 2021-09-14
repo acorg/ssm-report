@@ -76,7 +76,7 @@ class maker (merge_finder):
             map_name = self.map_name
         if self.merge_exists(lab=lab, map_name=map_name):
             pdf = f"{output_dir}/{self.subtype}-{self.assay_rbc(lab)}-{map_name}-{lab}.pdf"
-            cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab, map_name=map_name)} {self.previous_merge(lab=lab)} {self.previous_previous_merge(lab=lab)} {pdf}"
+            cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab, map_name=map_name)} {self.previous_merge(lab=lab, map_name=map_name)} {self.previous_previous_merge(lab=lab, map_name=map_name)} {pdf}"
             # if open_pdf:
             #     cmd += " --preview 1050.0.930.980"
             if interactive:
