@@ -45,9 +45,9 @@ def main(dir_name, previous_name):
     for subdir in ["tree", "sp"]:
         target_subdir = target_dir.joinpath(subdir)
         target_subdir.mkdir(exist_ok=True)
-        # for src in template_dir.joinpath(subdir).glob("*"):
-        #     if not src.is_dir() and src.name not in sInitialFiles:
-        #         add_file(source_pathname=src, target_dir=target_subdir, fields=fields)
+        for patt in ["*.tal", "newick-to-json"]:
+            for src in previous_dir.joinpath("tree").glob(patt):
+                shutil.copy(src, target_subdir)
 
     target_sp_dir = target_dir.joinpath("sp")
     for vt in ["h1", "h3", "bvic", "byam"]:
