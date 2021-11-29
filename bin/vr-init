@@ -5,8 +5,7 @@
 ssm/vcm report initializer 2020-06
 """
 
-import sys, os, re, datetime, subprocess, traceback, pprint
-if f"{sys.version_info.major}.{sys.version_info.minor}" < "3.7": raise RuntimeError("Run script with python 3.7+")
+import sys, os, re, datetime, shutil, subprocess, traceback, pprint
 from pathlib import Path
 # sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
 import logging; module_logger = logging.getLogger(__name__)
@@ -14,37 +13,39 @@ import logging; module_logger = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 
 sInitialFiles = ["root-gitignore"]
+sRootDir = Path("/Users/eu/ac/results/ssm")
 
 # ----------------------------------------------------------------------
 
-def main(dir_name):
+def main(dir_name, previous_name):
     if not re.match(r"^202\d-[01][0-9][0-3][0-9]-.+$", dir_name):
         raise RuntimeError(f"Invalid name format ({dir_name}), expected YYYY-MMDD-text")
-    target_dir = Path("/syn/eu/ac/results/ssm", dir_name)
-    # if target_dir.exists():
-    #     raise RuntimeError(f"Target dir already exists: \"{target_dir}\"")
 
-    template_dir = Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("sources/ssm-report/template-vr")
-    if not template_dir.exists():
-        raise RuntimeError(f"Template dir not found: \"{template_dir}\"")
+    target_dir = sRootDir.joinpath(dir_name)
+    previous_dir = sRootDir.joinpath(previous_name)
+    if target_dir.exists():
+        raise RuntimeError(f"Target dir already exists: \"{target_dir}\"")
 
     target_dir.mkdir(exist_ok=True)
 
-    fields = make_fields(target_dir=target_dir)
-    add_file(source_pathname=template_dir.joinpath("root-gitignore"), target_dir=target_dir, fields=fields, target_name=".gitignore", add_to_git=False)
-    init_git(target_dir=target_dir)
-    for src in template_dir.glob("*"):
-        if not src.is_dir() and src.name not in sInitialFiles:
-            add_file(source_pathname=src, target_dir=target_dir, fields=fields)
+    fields = make_fields(target_dir=target_dir, previous_dir=previous_dir)
+    shutil.copy(previous_dir.joinpath(".gitignore"), target_dir)
+#    init_git(target_dir=target_dir)
+    for patt in ["*.mapi", "*.py", "README.org", "index.html", "install-reports", "make-serum-coverage-maps", "sy"]:
+        for src in previous_dir.glob(patt):
+            shutil.copy(src, target_dir)
+
+    fix_index_html(target_dir.joinpath("index.html"), fields=fields)
+    exit(1)
 
     target_dir.joinpath("custom").mkdir(exist_ok=True)
 
     for subdir in ["tree", "sp"]:
         target_subdir = target_dir.joinpath(subdir)
         target_subdir.mkdir(exist_ok=True)
-        for src in template_dir.joinpath(subdir).glob("*"):
-            if not src.is_dir() and src.name not in sInitialFiles:
-                add_file(source_pathname=src, target_dir=target_subdir, fields=fields)
+        # for src in template_dir.joinpath(subdir).glob("*"):
+        #     if not src.is_dir() and src.name not in sInitialFiles:
+        #         add_file(source_pathname=src, target_dir=target_subdir, fields=fields)
 
     target_sp_dir = target_dir.joinpath("sp")
     for vt in ["h1", "h3", "bvic", "byam"]:
@@ -53,7 +54,7 @@ def main(dir_name):
 
 # ----------------------------------------------------------------------
 
-def make_fields(target_dir):
+def make_fields(target_dir, previous_dir):
     m = re.match(r"^(\d{4})-(\d\d)(\d\d)-(.+)", target_dir.name)
     if not m:
         raise RuntimeError(f"invalid target_dir name pattern: {target_dir.name}")
@@ -63,7 +64,7 @@ def make_fields(target_dir):
     meeting_date = datetime.date(meeting_year, meeting_month, meeting_day)
     tc = m.group(4)
 
-    if meeting_month > 6:
+    if meeting_month > 6 and meeting_month < 11:
         report_hemisphere = "Southern"
         report_year = f"{meeting_year + 1}"
     else:
@@ -86,15 +87,19 @@ def make_fields(target_dir):
     time_series_start = (meeting_date - datetime.timedelta(days=30*7)).strftime("%Y-%m")
     time_series_end = (meeting_date - datetime.timedelta(days=30)).strftime("%Y-%m")
 
-    prev_dirs = sorted(target_dir.parent.glob(f"*-{prev_suffix}"))
-    # pprint.pprint(prev_dirs)
-    if prev_dirs:
-        previous = f"../{prev_dirs[-1].name}"
-        previous_link = target_dir.joinpath("previous")
-        if not previous_link.exists():
-            previous_link.symlink_to(previous)
-    else:
-        previous = "/UNKNOWN"
+    previous_link = target_dir.joinpath("previous")
+    previous = Path("..", previous_dir.name)
+    previous_link.symlink_to(previous)
+
+    # prev_dirs = sorted(target_dir.parent.glob(f"*-{prev_suffix}"))
+    # # pprint.pprint(prev_dirs)
+    # if prev_dirs:
+    #     previous = f"../{prev_dirs[-1].name}"
+    #     previous_link = target_dir.joinpath("previous")
+    #     if not previous_link.exists():
+    #         previous_link.symlink_to(previous)
+    # else:
+    #     previous = "/UNKNOWN"
 
     fields = {
         "dir_name": target_dir.name,
@@ -111,39 +116,31 @@ def make_fields(target_dir):
         "time_series_start": time_series_start,
         "time_series_end": time_series_end,
 
-        "previous": previous
+        "previous": str(previous)
     }
     pprint.pprint(fields)
     return fields
 
 # ----------------------------------------------------------------------
 
-def add_file(source_pathname, target_dir, fields, target_name=None, add_to_git=True):
-    if target_name:
-        output = target_dir.joinpath(target_name)
-    else:
-        output = target_dir.joinpath(source_pathname.name)
-    if not output.exists():
-        module_logger.info(f"writing {output} <-- {source_pathname}")
-        with open(output, "w") as out:
-            try:
-                out.write(source_pathname.open().read() % fields)
-            except Exception as err:
-                module_logger.error(f"{source_pathname}: {err} {fields}")
-                raise
-    else:
-        module_logger.warning(f"{output} already exists (not overwritten)")
-    if add_to_git:
-        subprocess.check_call(f"cd {target_dir} && git add '{output.name}'", shell=True)
+def fix_index_html(index_html, fields):
+    with index_html.open("rt") as inp:
+        data = inp.read()
+    title = f"WHO VCM {fields['meeting_year']} {fields['report_hemisphere'][0]}H {fields['teleconference']}   {fields['meeting_date']}"
+    data = re.sub(r"<title>([^<]+)</title>", f"<title>{title}</title>", data)
+    data = re.sub(r"<h1>([^<]+)</h1>", f"<h1>{title}</h1>", data)
+    with index_html.open("wt") as out:
+        out.write(data)
 
 # ----------------------------------------------------------------------
+
 
 def init_git(target_dir):
     project_git_dir = target_dir.name + ".git"
     module_logger.info("init_git {}".format(project_git_dir))
     # remote
     if not subprocess.call("ssh albertine '[[ -f who-reports/{p}/HEAD ]]'".format(p=project_git_dir), shell=True):
-        module_logger.info("Remote git repo exists")
+        module_logger.info(f"Remote git repo exists: /syn/eu/who-reports/{project_git_dir}")
     elif not subprocess.call("ssh albertine '[[ -e who-reports/{p} ]]'".format(p=project_git_dir), shell=True):
         raise RuntimeError("albertine:who-reports/{project_git_dir} present but it is not a git repository")
     else:
@@ -155,7 +152,7 @@ def init_git(target_dir):
     elif target_dir.joinpath(".git").exists():
         raise RuntimeError(".git exists and it is not a directory")
     else:
-        subprocess.check_call(f"cd {target_dir} && git init && git add .gitignore && git commit -m 'vr-init init_git' && git remote add origin ssh://albertine/home/eu/who-reports/{project_git_dir} && git push --set-upstream origin master", shell=True)
+        subprocess.check_call(f"cd {target_dir} && git init && git add .gitignore && git commit -m 'vr-init init_git' && git remote add origin ssh://albertine/syn/eu/who-reports/{project_git_dir} && git push --set-upstream origin master", shell=True)
 
 # ----------------------------------------------------------------------
 
@@ -163,10 +160,11 @@ try:
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-d', '--debug', action='store_const', dest='loglevel', const=logging.DEBUG, default=logging.INFO, help='Enable debugging output.')
-    parser.add_argument('name', nargs=1, action='store')
+    parser.add_argument('name', action='store')
+    parser.add_argument('previous_name', action='store')
     args = parser.parse_args()
     logging.basicConfig(level=args.loglevel, format="%(levelname)s %(asctime)s: %(message)s [%(name)s.%(funcName)s %(lineno)d]")
-    main(args.name[0])
+    main(dir_name=args.name, previous_name=args.previous_name)
 # except maker.Error as err:
 #     logging.error(f"{err}")
 #     exit(1)

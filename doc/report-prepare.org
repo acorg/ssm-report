@@ -1,8 +1,11 @@
-# Time-stamp: <2021-07-21 16:24:13 eu>
+# Time-stamp: <2021-11-29 12:36:26 eu>
 
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 
 * Init
+- vr-init 2022-0127-tc2 2021-1216-tc1
+- vr-init 2021-1216-tc1 2021-0913-ssm
+
 - vr-init 2021-0913-ssm
 - vr-init 2021-0902-tc2
 - vr-init 2021-0811-tc1
