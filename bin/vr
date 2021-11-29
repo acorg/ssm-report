@@ -6,7 +6,6 @@ ssm/vcm report maker 2020-06
 """
 
 import sys, os, traceback, subprocess
-if f"{sys.version_info.major}.{sys.version_info.minor}" < "3.7": raise RuntimeError("Run script with python 3.7+")
 from pathlib import Path
 sys.path[:0] = [str(Path(os.environ["ACMACSD_ROOT"]).resolve().joinpath("py"))]
 import logging; module_logger = logging.getLogger(__name__)
