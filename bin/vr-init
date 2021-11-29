@@ -30,13 +30,15 @@ def main(dir_name, previous_name):
 
     fields = make_fields(target_dir=target_dir, previous_dir=previous_dir)
     shutil.copy(previous_dir.joinpath(".gitignore"), target_dir)
-#    init_git(target_dir=target_dir)
+    init_git(target_dir=target_dir)
     for patt in ["*.mapi", "*.py", "README.org", "index.html", "install-reports", "make-serum-coverage-maps", "sy"]:
         for src in previous_dir.glob(patt):
             shutil.copy(src, target_dir)
 
     fix_index_html(target_dir.joinpath("index.html"), fields=fields)
-    exit(1)
+    fix_install_reports(target_dir.joinpath("install-reports"), fields=fields)
+    fix_report_py(target_dir.joinpath("report.py"), fields=fields)
+    fix_vr_mapi(target_dir.joinpath("vr.mapi"), fields=fields)
 
     target_dir.joinpath("custom").mkdir(exist_ok=True)
 
@@ -69,7 +71,10 @@ def make_fields(target_dir, previous_dir):
         report_year = f"{meeting_year + 1}"
     else:
         report_hemisphere = "Northern"
-        report_year = f"{meeting_year}/{meeting_year + 1}"
+        if meeting_month < 10:
+            report_year = f"{meeting_year}/{meeting_year + 1}"
+        else:
+            report_year = f"{meeting_year + 1}/{meeting_year + 2}"
 
     if tc == "tc1":
         teleconference = "Teleconference 1"
@@ -84,22 +89,12 @@ def make_fields(target_dir, previous_dir):
         teleconference = ""
         prev_suffix = "tc2"
 
-    time_series_start = (meeting_date - datetime.timedelta(days=30*7)).strftime("%Y-%m")
-    time_series_end = (meeting_date - datetime.timedelta(days=30)).strftime("%Y-%m")
+    time_series_start = (meeting_date - datetime.timedelta(days=30*6)).strftime("%Y-%m")
+    time_series_end = meeting_date.strftime("%Y-%m")
 
     previous_link = target_dir.joinpath("previous")
     previous = Path("..", previous_dir.name)
     previous_link.symlink_to(previous)
-
-    # prev_dirs = sorted(target_dir.parent.glob(f"*-{prev_suffix}"))
-    # # pprint.pprint(prev_dirs)
-    # if prev_dirs:
-    #     previous = f"../{prev_dirs[-1].name}"
-    #     previous_link = target_dir.joinpath("previous")
-    #     if not previous_link.exists():
-    #         previous_link.symlink_to(previous)
-    # else:
-    #     previous = "/UNKNOWN"
 
     fields = {
         "dir_name": target_dir.name,
@@ -130,6 +125,33 @@ def fix_index_html(index_html, fields):
     data = re.sub(r"<title>([^<]+)</title>", f"<title>{title}</title>", data)
     data = re.sub(r"<h1>([^<]+)</h1>", f"<h1>{title}</h1>", data)
     with index_html.open("wt") as out:
+        out.write(data)
+
+def fix_install_reports(install_reports, fields):
+    with install_reports.open("rt") as inp:
+        data = inp.read()
+    data = re.sub(r"dtc=.*", f"dtc={install_reports.parent.name}", data)
+    drf = install_reports.parent.name.split('-')
+    data = re.sub(r"dr=.*", f"dr={drf[0]}-{drf[1][:2]}-{drf[1][2:]}", data)
+    with install_reports.open("wt") as out:
+        out.write(data)
+
+def fix_report_py(report_py, fields):
+    with report_py.open("rt") as inp:
+        data = inp.read()
+    data = re.sub(r"\"report_hemisphere\": \"[^\"]+\"", f"\"report_hemisphere\": \"{fields['report_hemisphere']}\"", data)
+    data = re.sub(r"\"report_year\": \"[^\"]+\"", f"\"report_year\": \"{fields['report_year']}\"", data)
+    data = re.sub(r"(#\s*)?\"teleconference\": \"[^\"]+\"", f"\"teleconference\": \"{fields['teleconference']}\"", data)
+    data = re.sub(r"\"meeting_date\": \"[^\"]+\"", f"\"meeting_date\": \"{fields['meeting_date']}\"", data)
+    with report_py.open("wt") as out:
+        out.write(data)
+
+def fix_vr_mapi(vr_mapi, fields):
+    with vr_mapi.open("rt") as inp:
+        data = inp.read()
+    for key in ["time-series-start", "time-series-end"]:
+        data = re.sub(f"\"{key}\":\s*\"[^\"]+\"", f"\"{key}\": \"{fields[key.replace('-', '_')]}\"", data)
+    with vr_mapi.open("wt") as out:
         out.write(data)
 
 # ----------------------------------------------------------------------
