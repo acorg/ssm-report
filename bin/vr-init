@@ -53,6 +53,8 @@ def main(dir_name, previous_name):
     for vt in ["h1", "h3", "bvic", "byam"]:
         for suff in [".tjz", ".tree.tal"]:
             target_sp_dir.joinpath(vt + suff).symlink_to(f"../tree/{vt + suff}")
+    for src in previous_dir.joinpath("sp").glob("*sp*.tal"):
+        shutil.copy(src, target_sp_dir)
 
 # ----------------------------------------------------------------------
 
