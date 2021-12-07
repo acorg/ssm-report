@@ -5,7 +5,7 @@
 Get recent merges from /syn/eu/ac/results/chains-202105 via sshfs
 """
 
-import sys, os, traceback, logging
+import sys, os, traceback, logging, subprocess
 from pathlib import Path
 import acmacs
 
@@ -42,9 +42,10 @@ def get_merge_from(chain_dir, merges_dir):
         if (prev_filename := Path("previous", "merges", chain_dir.name + ".ace")) and prev_filename.exists():
             previous = acmacs.Chart(prev_filename)
             use_chart.orient_to(master=previous)
-        use_chart.populate_from_seqdb()
+        # obsolete, use seqdb4 below use_chart.populate_from_seqdb()
         print(f"    exporting {output_filename}")
         use_chart.export(output_filename)
+        subprocess.check_call([os.path.join(os.environ["AE_ROOT"], "bin", "seqdb-chart-populate"), str(output_filename)])
         link_filename = merges_dir.joinpath(chain_dir.name + ".ace")
         if not link_filename.exists():
             link_filename.symlink_to(output_filename.name)
