@@ -140,7 +140,7 @@ def make_geographic_settings(start_date, end_date, settings_dir=Path("."), force
             settings["coloring"] = sColoringByVirusType[virus_type]
             settings["start_date"] = start_date
             settings["end_date"] = end_date
-            json.dump(settings, filename.open("w"))
+            json.dump(settings, filename.open("w"), indent=4)
 
 # ======================================================================
 ### Local Variables:
