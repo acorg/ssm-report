@@ -92,6 +92,30 @@ T_ColorCodedBy = r"""
   \end{tabular}
 }
 
+\definecolor{2a1b.2}{HTML}{1B9E77}
+\definecolor{2a1b.1}{HTML}{66A61E}
+\definecolor{2a1b.2a1}{HTML}{D95F02}
+\definecolor{2a1b.2a2}{HTML}{E6AB02}
+\definecolor{2a1b.2a2 156S}{HTML}{674d01}
+\definecolor{2a1b.2a2 156Q}{HTML}{fede83}
+\definecolor{2a1b1a}{HTML}{4037B3}
+\definecolor{2a1b1a+192F}{HTML}{9a4ef2}
+\definecolor{2a1b.1b}{HTML}{E7298A}
+
+\newcommand{\ColorCodedHThreeSecondSet}{%
+  \begin{tabular}{l l}
+    \cbox[2a1b.2]     & 2a1b.2 \\
+    \cbox[2a1b.1]     & 2a1b.1 \\
+    \cbox[2a1b.2a1]      & 2a1b.2a1 \\
+    \cbox[2a1b.2a2]      & 2a1b.2a2 \\
+    \cbox[2a1b.2a2 156S] & 2a1b.2a2 156S \\
+    \cbox[2a1b.2a2 156Q] & 2a1b.2a2 156Q \\
+    \cbox[2a1b1a]        & 2a1b1a \\
+    \cbox[2a1b1a+192F]   & 2a1b1a+192F \\
+    \cbox[2a1b.1b]       & 2a1b.1b \\
+  \end{tabular}
+}
+
 % \newcommand{\ColorCodedByYear}{%
 % {\color{YearGrey}Grey - before 2012},
 % {\color{YearOrange}Orange - 2012},
