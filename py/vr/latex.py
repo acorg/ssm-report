@@ -77,21 +77,6 @@ T_ColorCodedBy = r"""
 {\color{Unknown}Grey = unknown}
 }
 
-% \newcommand{\ColorCodedByLineage}{%
-% {\color{Yamagata}Red = Yamagata},
-% {\color{Victoria}Blue = Victoria}.
-% {\color{Victoria}Green = Victoria deletion mutants}.
-% }
-
-\newcommand{\ColorCodedByLineageVicDelMut}{%
-  \begin{tabular}{l l l}
-    \cbox[Yamagata]     & Yamagata               & Red \\
-    \cbox[Victoria]     & Victoria               & Blue \\
-    \cbox[Victoria2del] & Victoria 2-del mutants & Cyan \\
-    \cbox[Victoria3del] & Victoria 3-del mutants & Purple \\
-  \end{tabular}
-}
-
 \definecolor{2a1b.2}{HTML}{1B9E77}
 \definecolor{2a1b.1}{HTML}{66A61E}
 \definecolor{2a1b.2a1}{HTML}{D95F02}
@@ -113,6 +98,45 @@ T_ColorCodedBy = r"""
     \cbox[2a1b1a]        & 2a1b1a \\
     \cbox[2a1b1a+192F]   & 2a1b1a+192F \\
     \cbox[2a1b.1b]       & 2a1b.1b \\
+  \end{tabular}
+}
+
+% \newcommand{\ColorCodedByLineage}{%
+% {\color{Yamagata}Red = Yamagata},
+% {\color{Victoria}Blue = Victoria}.
+% {\color{Victoria}Green = Victoria deletion mutants}.
+% }
+
+\newcommand{\ColorCodedByLineageVicDelMut}{%
+  \begin{tabular}{l l l}
+    \cbox[Yamagata]     & Yamagata               & Red \\
+    \cbox[Victoria]     & Victoria               & Blue \\
+    \cbox[Victoria2del] & Victoria 2-del mutants & Cyan \\
+    \cbox[Victoria3del] & Victoria 3-del mutants & Purple \\
+  \end{tabular}
+}
+
+\definecolor{V1A.3 126K}{HTML}{8DA0CB}
+\definecolor{V1A.3 133G 129N}{HTML}{8C6BB1}
+\definecolor{V1A.3 150K}{HTML}{66C2A5}
+\definecolor{V1A.3 150K 220M}{HTML}{A6D854}
+\definecolor{V1A.3 150K 144L}{HTML}{33A02C}
+\definecolor{V1A.3 133R}{HTML}{FFD92F}
+\definecolor{V1A.3 133R 128K}{HTML}{FC8D62}
+\definecolor{V1A.3 133R 129N}{HTML}{E78AC3}
+\definecolor{V1A.3 133R 136K}{HTML}{E5C494}
+
+\newcommand{\ColorCodedBVicSecondSet}{%
+  \begin{tabular}{l l}
+    \cbox[V1A.3 126K]       &       V1A.3 126K        \\
+    \cbox[V1A.3 133G 129N]  &       V1A.3 133G 129N   \\
+    \cbox[V1A.3 150K]       &       V1A.3 150K        \\
+    \cbox[V1A.3 150K 220M]  &       V1A.3 150K 220M   \\
+    \cbox[V1A.3 150K 144L]  &       V1A.3 150K 144L   \\
+    \cbox[V1A.3 133R]       &       V1A.3 133R        \\
+    \cbox[V1A.3 133R 128K]  &       V1A.3 133R 128K   \\
+    \cbox[V1A.3 133R 129N]  &       V1A.3 133R 129N   \\
+    \cbox[V1A.3 133R 136K]  &       V1A.3 133R 136K   \\
   \end{tabular}
 }
 

@@ -88,10 +88,28 @@ sSettings = {
 }
 
 sColoringByVirusType = {
-    "b": {
+    "b": {                     # 2021-1216-tc1, Sarah 2021-12-11 14:27: colour the points as per clade in the second set of maps
+        "N": "amino-acid",
+        "apply": [
+            {"sequenced": True, "color": "#ffff80"},
+            {"aa": ["162-", "163-",  "164-", "!165-"],                   "color": "#C0C0C0"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "126K"],         "color": "#8DA0CB"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "133G", "129N"], "color": "#8C6BB1"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "150K"],         "color": "#66C2A5"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "150K", "220M"], "color": "#A6D854"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "150K", "144L"], "color": "#33A02C"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "133R"],         "color": "#FFD92F"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "133R", "128K"], "color": "#FC8D62"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "133R", "129N"], "color": "#E78AC3"},
+            {"aa": ["162-", "163-",  "164-", "!165-",   "133R", "136K"], "color": "#E5C494"}
+        ],
+        "report": False
+    },
+    "b-before-2021-1216-tc1": {
         "N": "lineage-deletion-mutants",
         "debug": False,
     },
+
     "h1": {
         "N": "amino-acid",
         "debug": False,
@@ -107,6 +125,7 @@ sColoringByVirusType = {
         ],
         "report": False
     },
+
     "h3": {                     # 2021-1216-tc1, Sarah 2021-12-11 14:27: colour the points as per clade in the second set of maps
         "N": "amino-acid",
         "apply": [
