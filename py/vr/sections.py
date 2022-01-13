@@ -309,6 +309,3 @@ class statistics_table:
         return result
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

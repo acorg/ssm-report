@@ -67,6 +67,3 @@ except Exception as err:
     exit(1)
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

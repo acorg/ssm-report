@@ -55,6 +55,8 @@ for map_maker in maps(sys.modules[__name__]):
 
 def process(command, interactive=False):
     command, *args = command.split()
+    if ":" in command:
+        command = command.split(":", maxsplit=1)[1]
     cmd = sCommands.get(command)
     if not cmd:
         raise Error(f"unknown command {command}")
@@ -131,7 +133,28 @@ def get_hidb():
 def list_for_helm():
     # print("\n".join(sorted(sCommands)))
 
-    def key(name):
+    def improve_name(name):
+        prefix = ""
+        if "-hint-" in name:
+            prefix += "4"
+        elif "-neut-" in name:
+            prefix += "5"
+        if "-cdc" in name:
+            prefix += "C"
+        elif "-crick" in name:
+            prefix += "X"
+        elif "-niid" in name:
+            prefix += "I"
+        elif "-vidrl" in name:
+            prefix += "V"
+        if "tree" in name:
+            prefix += "T"
+        if prefix:
+            return f"{prefix}:{name}"
+        else:
+            return name
+
+    def sorting_key(name):
         if name[0] == 'h':
             return f"1{name}"
         elif name[0] == 'b':
@@ -139,7 +162,7 @@ def list_for_helm():
         else:
             return f"3{name}"
 
-    print("\n".join(sorted((cmd for cmd in sCommands if cmd and cmd[0] != '!'), key=key))) # commands started with ! are secondary and not listed
+    print("\n".join(sorted((improve_name(cmd) for cmd in sCommands if cmd and cmd[0] != '!'), key=sorting_key))) # commands started with ! are secondary and not listed
 
 # ----------------------------------------------------------------------
 
@@ -147,6 +170,3 @@ def sy():
     subprocess.check_call("./sy", shell=True)
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

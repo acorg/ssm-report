@@ -182,6 +182,3 @@ def make_geographic_settings(start_date, end_date, settings_dir=Path("."), force
             json.dump(settings, filename.open("w"), indent=4)
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

@@ -42,7 +42,7 @@ def main(dir_name, previous_name):
 
     target_dir.joinpath("custom").mkdir(exist_ok=True)
 
-    for subdir in ["tree", "sp"]:
+    for subdir in ["tree"]:
         target_subdir = target_dir.joinpath(subdir)
         target_subdir.mkdir(exist_ok=True)
         for patt in ["*.tal", "newick-to-json"]:
@@ -197,6 +197,3 @@ except Exception as err:
     exit(2)
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

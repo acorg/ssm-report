@@ -257,6 +257,3 @@ def _fix_virus_type_for_previous(virus_type, previous_stat):
     return virus_type
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

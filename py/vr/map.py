@@ -149,6 +149,3 @@ def info_makers(subtype, labs, maps, assay=None, rbc=None, **options):
     return result
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

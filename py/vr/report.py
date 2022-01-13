@@ -148,6 +148,3 @@ def make_addendum_6(command_name, *r, **a):
     make_addendum_X(6, *r, **a)
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

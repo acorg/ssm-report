@@ -39,6 +39,3 @@ def lab_display_name(lab):
     return sLabDisplayName[lab.lower()]
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

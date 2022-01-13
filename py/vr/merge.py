@@ -87,6 +87,3 @@ class merge_finder:
             return self.assay or "hi"
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:
