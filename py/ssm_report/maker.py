@@ -315,6 +315,3 @@ class Commands:
         return {"raw_subtype": subtype, "subtype": inferred_subtype, "assay": assay, "map": map_type, "lab": lab, "interactive": interactive, "months": months, "information": information}
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:

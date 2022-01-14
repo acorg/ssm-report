@@ -86,7 +86,7 @@ def stat_geo():
 def stat():
     from .stat import make_stat
     data = vr_data()
-    make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["ACMACSD_ROOT"], "data"), start=data.start_date, end=data.end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
+    make_stat(output_dir=Path("stat"), hidb_dir=Path(os.environ["HIDB_V5"]), start=data.start_date, end=data.end_date, previous_stat_dir=Path("previous/stat"), make_all_names=False, make_tabs=False, make_csv=False, make_webpage=True)
     subprocess.check_call("open stat/index.html", shell=True)
 
 def geo():
