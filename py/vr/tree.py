@@ -1,4 +1,4 @@
-import subprocess
+import sys, subprocess
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 from .merge import merge_finder
@@ -7,13 +7,16 @@ from .merge import merge_finder
 
 class maker:
 
-    def __init__(self, subtype, **options):
+    def __init__(self, subtype, infix, **options):
         self.subtype = subtype
+        self.infix = infix
         self.options = options
 
     def command_name_for_helm(self):
         if self.options.get("info"):
             return f"info-{self.subtype}-tree"
+        elif self.infix:
+            return f"{self.subtype}-tree-{self.infix}"
         else:
             return f"{self.subtype}-tree"
 
@@ -26,12 +29,15 @@ class maker:
             else:
                 output_dir = tree_dir
         output_dir.mkdir(exist_ok=True)
-        source_tjz = tree_dir.joinpath(f"{self.subtype}.tjz")
-        tal_settings = tree_dir.joinpath(f"{self.subtype}.tree.tal")
+        source_tjz = self.tree()
+        if self.infix:
+            tal_settings = next(tree_dir.glob(f"{self.subtype}.{self.infix}*.tree.tal"))
+        else:
+            tal_settings = tree_dir.joinpath(f"{self.subtype}.tree.tal")
         if not tal_settings.exists():
             with tal_settings.open("w") as fd:
                 fd.write(sTalSettings)
-        pdf = output_dir.joinpath(f"{self.subtype}.tree.pdf")
+        pdf = tal_settings.with_suffix(".pdf")
         if info:
             info_settings = output_dir.joinpath(f"{self.subtype}.info.tal")
             if not info_settings.exists():
@@ -39,7 +45,7 @@ class maker:
                     fd.write(sTalInfoSettings)
             cmd = f"tal -s {tal_settings} -s {info_settings} {source_tjz} {pdf}"
         else:                   # not info
-            txt = output_dir.joinpath(f"{self.subtype}.tree.txt")
+            txt = tal_settings.with_suffix(".txt")
             if not txt.exists():
                 cmd = f"tal -s {tal_settings} {source_tjz} {txt}"
                 print(cmd)
@@ -54,7 +60,13 @@ class maker:
         subprocess.check_call(cmd, shell=True)
 
     def tree(self):
-        return f"tree/{self.subtype}.tjz"
+        if self.infix:
+            if files := list(Path("tree").glob(f"{self.subtype}.{self.infix}*.tjz")):
+                return files[0]
+            else:
+                return ""
+        else:
+            return f"tree/{self.subtype}.tjz"
 
     def tree_exists(self):
         return Path(self.tree()).exists()
@@ -72,10 +84,10 @@ class maker:
 # ----------------------------------------------------------------------
 
 def makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
-    return [mk for mk in (maker(subtype=subtype, **options) for subtype in subtypes) if mk.tree_exists()]
+    return [mk for mk in (maker(subtype=subtype, infix=infix, **options) for subtype in subtypes for infix in ["after", None]) if mk.tree_exists()]
 
 def info_makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
-    return [mk for mk in (maker(subtype=subtype, info=True, **options) for subtype in subtypes) if mk.tree_exists()]
+    return [mk for mk in (maker(subtype=subtype, infix=None, info=True, **options) for subtype in subtypes) if mk.tree_exists()]
 
 # ======================================================================
 
