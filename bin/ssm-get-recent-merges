@@ -5,7 +5,7 @@
 Get recent merges from /syn/eu/ac/results/chains-202105 via sshfs
 """
 
-import sys, os, traceback, logging, subprocess
+import sys, os, traceback, logging, subprocess, socket
 from pathlib import Path
 import acmacs
 
@@ -14,14 +14,21 @@ sChainsDir = Path("/syn/eu/ac/results/chains-202105")
 # ----------------------------------------------------------------------
 
 def main(args):
-    if "/ac/results/ssm/" not in os.getcwd():
-        raise RuntimeError("invalid current directory, must be under results/ssm")
-    merges_dir = Path("merges")
-    merges_dir.mkdir(exist_ok=True)
-    merges_dir = merges_dir.resolve()
-    for chain_dir in sChainsDir.glob("*"):
-        if startswith(chain_dir.name, "h1pdm-", "h3-", "bvic-", "byam-"):
-            get_merge_from(chain_dir, merges_dir=merges_dir)
+    if socket.gethostname() != "i22":
+        i22_dir = os.getcwd().replace('/Users', '/syn')
+        subprocess.check_call(["ssh", "i22", f"cd {i22_dir} && env PYTHONPATH=$HOME/ae/build:$HOME/ae/py:/syn/eu/AD/lib:/syn/eu/AD/py {Path(sys.argv[0]).name}"])
+        print(f">> download from i22:{i22_dir}/merges, then run seqdb-chart-populate")
+    else:
+        if "/ac/results/ssm/" not in os.getcwd():
+            raise RuntimeError("invalid current directory, must be under results/ssm")
+        merges_dir = Path("merges")
+        merges_dir.mkdir(exist_ok=True)
+        merges_dir = merges_dir.resolve()
+        if not sChainsDir.exists():
+            raise RuntimeError(f"chain dir {sChainsDir} does not exist")
+        for chain_dir in sChainsDir.glob("*"):
+            if startswith(chain_dir.name, "h1pdm-", "h3-", "bvic-", "byam-"):
+                get_merge_from(chain_dir, merges_dir=merges_dir)
 
 # ======================================================================
 
@@ -45,7 +52,7 @@ def get_merge_from(chain_dir, merges_dir):
         # obsolete, use seqdb4 below use_chart.populate_from_seqdb()
         print(f"    exporting {output_filename}")
         use_chart.export(output_filename)
-        subprocess.check_call([os.path.join(os.environ["AE_ROOT"], "bin", "seqdb-chart-populate"), str(output_filename)])
+        # subprocess.check_call([os.path.join(os.environ["AE_ROOT"], "bin", "seqdb-chart-populate"), str(output_filename)])
         link_filename = merges_dir.joinpath(chain_dir.name + ".ace")
         if not link_filename.exists():
             link_filename.symlink_to(output_filename.name)
@@ -86,6 +93,3 @@ except Exception as err:
 exit(exit_code)
 
 # ======================================================================
-### Local Variables:
-### eval: (if (fboundp 'eu-rename-buffer) (eu-rename-buffer))
-### End:
