@@ -17,7 +17,7 @@ def main(args):
     if socket.gethostname() != "i22":
         i22_dir = os.getcwd().replace('/Users', '/syn')
         subprocess.check_call(["ssh", "i22", f"cd {i22_dir} && env PYTHONPATH=$HOME/ae/build:$HOME/ae/py:/syn/eu/AD/lib:/syn/eu/AD/py {Path(sys.argv[0]).name}"])
-        print(f">> download from i22:{i22_dir}/merges, then run seqdb-chart-populate")
+        print(f">> rsync -a i22:{i22_dir}/merges/\\*.ace , then run seqdb-chart-populate")
     else:
         if "/ac/results/ssm/" not in os.getcwd():
             raise RuntimeError("invalid current directory, must be under results/ssm")
