@@ -1,4 +1,4 @@
-import subprocess
+import sys, subprocess, traceback
 from pathlib import Path
 import logging; module_logger = logging.getLogger(__name__)
 from .lab import lab_new, lab_old
@@ -125,6 +125,7 @@ class maker (merge_finder):
 # ======================================================================
 
 def makers(subtype, labs, maps, assay=None, rbc=None, **options):
+    # print(f">>>> makers {subtype} {labs} {maps} {assay} {rbc} {options}\n{' '.join(traceback.format_stack())}", file=sys.stderr)
     result = [mk for mk in (maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map=map, **options) for lab in labs for map in maps if map != "sp") if mk.merge_exists(mk.lab)]
     if result and len([en for en in maps if en.startswith("clade")]) > 1:
         for lab in labs:

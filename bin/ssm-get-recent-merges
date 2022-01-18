@@ -14,16 +14,19 @@ sChainsDir = Path("/syn/eu/ac/results/chains-202105")
 # ----------------------------------------------------------------------
 
 def main(args):
+    merges_dir = Path("merges")
+    merges_dir.mkdir(exist_ok=True)
+    merges_dir = merges_dir.resolve()
+
     if socket.gethostname() != "i22":
-        i22_dir = os.getcwd().replace('/Users', '/syn')
-        subprocess.check_call(["ssh", "i22", f"cd {i22_dir} && env PYTHONPATH=$HOME/ae/build:$HOME/ae/py:/syn/eu/AD/lib:/syn/eu/AD/py {Path(sys.argv[0]).name}"])
-        print(f">> rsync -a i22:{i22_dir}/merges/\\*.ace , then run seqdb-chart-populate")
+        i22_merges_dir = str(merges_dir).replace('/Users', '/syn')
+        subprocess.check_call(["ssh", "i22", f"cd {i22_merges_dir}/.. && env PYTHONPATH=$HOME/ae/build:$HOME/ae/py:/syn/eu/AD/lib:/syn/eu/AD/py {Path(sys.argv[0]).name}"])
+        subprocess.check_call(["rsync", "-av", f"i22:{i22_merges_dir}/" + "*.chain.ace", "."], cwd=merges_dir)
+        print(f">>> populating charts (seqdb4)", file=sys.stderr)
+        subprocess.check_call("seqdb-chart-populate *.chain.ace", shell=True, cwd=merges_dir)
     else:
         if "/ac/results/ssm/" not in os.getcwd():
             raise RuntimeError("invalid current directory, must be under results/ssm")
-        merges_dir = Path("merges")
-        merges_dir.mkdir(exist_ok=True)
-        merges_dir = merges_dir.resolve()
         if not sChainsDir.exists():
             raise RuntimeError(f"chain dir {sChainsDir} does not exist")
         for chain_dir in sChainsDir.glob("*"):
@@ -45,6 +48,7 @@ def get_merge_from(chain_dir, merges_dir):
     else:
         use_chart = scratch
     output_filename = merges_dir.joinpath(chain_dir.name + ".chain.ace")
+    print(f">>> charts are different due to populating with seqdb4", file=sys.stderr)
     if not output_filename.exists() or charts_are_different(use_chart, acmacs.Chart(output_filename)):
         if (prev_filename := Path("previous", "merges", chain_dir.name + ".ace")) and prev_filename.exists():
             previous = acmacs.Chart(prev_filename)
