@@ -215,7 +215,8 @@ T_WholePagePdf = r"""
    \begin{center}
 }{\end{center}\par}
 % \newcommand{\WholePagePdf}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdf[pages=-,pagecommand={\thispagestyle{fancy}}]{#1}\end{WholePagePdfEnv}}
-\newcommand{\WholePagePdf}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdf[pages={1}]{#1}\end{WholePagePdfEnv}}
+\newcommand{\WholePagePdf}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdf[pages={1},noautoscale=false]{#1}\end{WholePagePdfEnv}}
+\newcommand{\WholePagePdfMerge}[1]{\begin{WholePagePdfEnv}\pagestyle{empty} \includepdfmerge[]{#1}\end{WholePagePdfEnv}}
 \newcommand{\WholePagePdfFit}[1]{\begin{WholePagePdfEnv}\includegraphics[page=1,scale=0.9]{#1}\end{WholePagePdfEnv}}
 \newcommand{\WholePagePdfTwoToc}[3]{
   \begin{WholePagePdfEnv}

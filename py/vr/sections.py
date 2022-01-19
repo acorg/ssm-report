@@ -91,13 +91,21 @@ class subsection_title (_single_latex_entry):
 # ----------------------------------------------------------------------
 
 # whole_page_image(Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf"))
+# whole_page_image([Path("tree", f"{modul.SubtypeFilename[subtype]}.tree.pdf"), Path("tree", f"{modul.SubtypeFilename[subtype]}.after-2021.tree.pdf")])
 class whole_page_image:
-    def __init__(self, filename):
+    def __init__(self, filename, fit=False):
         self.filename = filename
+        self.fit = fit
 
     def latex(self):
-        if self.filename.exists():
-            return [f"\\WholePagePdf{{{self.filename.resolve()}}}"]
+        if isinstance(self.filename, list):
+            fns = ",".join(str(fn.resolve()) for fn in self.filename)
+            return [f"\\WholePagePdfMerge{{{fns}}}"]
+        elif self.filename.exists():
+            if self.fit:
+                return [f"\\WholePagePdfFit{{{self.filename.resolve()}}}"]
+            else:
+                return [f"\\WholePagePdf{{{self.filename.resolve()}}}"]
         else:
             return [f"\\newpage \\vspace*{{15em}} {{\\fontsize{{40}}{{50}} \\selectfont \\noindent \\rotatebox{{315}}{{ \\textbf{{ \\textcolor{{red}}{{{self.filename}}} }} }}}}"]
 
