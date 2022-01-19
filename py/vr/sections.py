@@ -188,7 +188,7 @@ class maps_in_two_columns:
             if image.exists():
                 return f"\\AntigenicMap{{{image.resolve()}}}"
             else:
-                return f"{{\\fontsize{{18}}{{22}} \\selectfont \\noindent \\rotatebox{{45}}{{ \\textbf{{ \\textcolor{{red}}{{{image}}} }} }}}}"
+                return f"{{\\fontsize{{12}}{{16}} \\selectfont \\noindent \\rotatebox{{45}}{{ \\textbf{{ \\textcolor{{red}}{{{image}}} }} }}}}"
         else:
             return r"\hspace{18em}"
 
