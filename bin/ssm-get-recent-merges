@@ -37,7 +37,7 @@ def main(args):
 
 def get_merge_from(chain_dir, merges_dir):
     print(f"{chain_dir.name}")
-    forward_chain_dir = max(chain_dir.glob("f-*"))
+    forward_chain_dir = max(fn for fn in chain_dir.glob("f-*") if fn.is_dir())
     scratch_filename = max(forward_chain_dir.glob("*.scratch.ace"))
     incremental_filename = forward_chain_dir.joinpath(scratch_filename.name.replace(".scratch.", ".incremental."))
     scratch = acmacs.Chart(scratch_filename)
