@@ -1,9 +1,9 @@
-# Time-stamp: <2022-01-13 08:33:12 eu>
+# Time-stamp: <2022-01-31 11:27:17 eu>
 
 * Gisaid [[file:~/AD/sources/acmacs-whocc/doc/gisaid.org][instructions for downloading sequences from gisaid]]
 
 * Init
-- vr-init 2022-0214-ssm 2022-0127-tc2
+- vr-init 2022-0221-ssm 2022-0127-tc2
 - vr-init 2022-0127-tc2 2021-1216-tc1
 - vr-init 2021-1216-tc1 2021-0913-ssm
 
@@ -64,4 +64,3 @@ D=YYYY-MMDD-tc; mkdir ~/ac/results/ssm/${D} && cd ~/ac/results/ssm/${D} && ssm-r
 # eval: (auto-fill-mode 0)
 # eval: (add-hook 'before-save-hook 'time-stamp)
 # End:
-
