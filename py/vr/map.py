@@ -77,6 +77,9 @@ class maker (merge_finder):
         if self.merge_exists(lab=lab, map_name=map_name):
             pdf = f"{output_dir}/{self.subtype}-{self.assay_rbc(lab)}-{map_name}-{lab}.pdf"
             cmd = f"mapi -a vr:{map_name} {self._settings()} {self.merge(lab=lab, map_name=map_name)} {self.previous_merge(lab=lab, map_name=map_name)} {self.previous_previous_merge(lab=lab, map_name=map_name)} {pdf}"
+            if map_name == "serology":
+                # export ace
+                cmd += " --export " + pdf.replace(".pdf", ".ace")
             # if open_pdf:
             #     cmd += " --preview 1050.0.930.980"
             if interactive:
