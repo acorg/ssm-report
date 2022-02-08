@@ -135,7 +135,9 @@ def list_for_helm():
 
     def improve_name(name):
         prefix = ""
-        if "-hint-" in name:
+        if "h1pdm" in name:
+            prefix += "1"
+        elif "-hint-" in name:
             prefix += "4"
         elif "-neut-" in name:
             prefix += "5"
@@ -153,6 +155,8 @@ def list_for_helm():
             prefix += "V"
         if "tree" in name:
             prefix += "T"
+        elif "clade" in name and "clades" not in name:
+            prefix += "L"
         elif "serology" in name:
             prefix += "S"
         if prefix:

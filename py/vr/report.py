@@ -15,9 +15,14 @@ def generate(output_filename: Path, data: list,
     output_dir.mkdir(exist_ok=True)
     latex_source = output_dir.joinpath(output_filename.stem + ".tex")
     generate_latex(latex_source, inspect.getargvalues(inspect.currentframe()).locals)
+    latex_source = latex_source.resolve()
     if output_filename.exists():
         output_filename.chmod(0o644)
-    subprocess.check_call(f"cd {output_dir} && pdflatex -interaction=nonstopmode -file-line-error {latex_source.resolve()}", shell=True)
+    cmd = ["pdflatex", "-interaction=batchmode", "-no-shell-escape", "-file-line-error", str(latex_source)]
+    print(f">>> cd {output_dir}\n>>> {' '.join(cmd)}", file=sys.stderr)
+    returncode = subprocess.call(cmd, cwd=output_dir)
+    if returncode:
+        subprocess.call(["grep", "-i", "error", "report.log"], cwd=output_dir)
     if output_filename.exists():
         output_filename.chmod(0o444)
     subprocess.check_call(f"open {output_filename}", shell=True)
