@@ -91,6 +91,7 @@ sColoringByVirusType = {
     "b": {                     # 2021-1216-tc1, Sarah 2021-12-11 14:27: colour the points as per clade in the second set of maps
         "N": "amino-acid",
         "report": True,
+        "default": {"color": "transparent", "outline": "#A0A0A0", "outline_width": 0.3},
         "apply": [
             {"sequenced": True,                                                  "color": "#ffff80", "outline": "#808080", "outline_width": 1},
             {"aa": ["162-", "163-",  "164-", "!165-"],                           "color": "#C0C0C0", "outline": "#808080", "outline_width": 1},
@@ -116,8 +117,9 @@ sColoringByVirusType = {
         "N": "amino-acid",
         "debug": False,
         "report": True,
+        "default": {"color": "transparent", "outline": "#A0A0A0", "outline_width": 0.5},
         "apply": [
-            {"sequenced": True,      "color": "#a2b324"},
+            {"sequenced": True,      "color": "#a2b324", "outline": "black", "outline_width": 3},
             {"aa": ["155E"],         "color": "#ffc808"},
             {"aa": ["155X"],         "color": "#742f32"},
             {"aa": ["156D"],         "color": "#a2b324"},
@@ -132,6 +134,7 @@ sColoringByVirusType = {
     "h3": {                     # 2021-1216-tc1, Sarah 2021-12-11 14:27: colour the points as per clade in the second set of maps
         "N": "amino-acid",
         "report": True,
+        "default": {"color": "transparent", "outline": "#A0A0A0", "outline_width": 0.5},
         "apply": [
             {"sequenced": True, "color": "transparent"},
             {"color": "#1B9E77", "aa": ["92R", "121K", "158N", "159Y", "171K", "311Q", "406V",  "131K"]},
