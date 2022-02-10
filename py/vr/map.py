@@ -130,11 +130,11 @@ class maker (merge_finder):
 def makers(subtype, labs, maps, assay=None, rbc=None, **options):
     # print(f">>>> makers {subtype} {labs} {maps} {assay} {rbc} {options}\n{' '.join(traceback.format_stack())}", file=sys.stderr)
     result = [mk for mk in (maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map=map, **options) for lab in labs for map in maps if map != "sp") if mk.merge_exists(mk.lab)]
-    if result and len([en for en in maps if en.startswith("clade")]) > 1:
-        for lab in labs:
-            mk = maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map="clades", **options)
-            if mk.merge_exists(lab):
-                result.append(maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map="clades", **options))
+    # if result and len([en for en in maps if en.startswith("clade")]) > 1:
+    #     for lab in labs:
+    #         mk = maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map="clades", **options)
+    #         if mk.merge_exists(lab):
+    #             result.append(maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, map="clades", **options))
     for lab in labs:
         result.append(maker(subtype=subtype, assay=assay, rbc=rbc, lab=lab, maps=maps, **options))
     result.append(maker(subtype=subtype, assay=assay, rbc=rbc, labs=labs, maps=maps, **options))

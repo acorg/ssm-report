@@ -147,6 +147,8 @@ def list_for_helm():
             prefix += "7"
         if "-cdc" in name:
             prefix += "C"
+        elif "-cnic" in name:
+            prefix += "K"
         elif "-crick" in name:
             prefix += "X"
         elif "-niid" in name:
@@ -159,6 +161,8 @@ def list_for_helm():
             prefix += "L"
         elif "serology" in name:
             prefix += "S"
+        elif "ts" in name:
+            prefix += "T"
         if prefix:
             return f"{prefix}:{name}"
         else:
