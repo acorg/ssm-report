@@ -137,9 +137,11 @@ def list_for_helm():
         prefix = ""
         if "h1pdm" in name:
             prefix += "1"
-        elif "-hint-" in name:
+        elif "h3-hint" in name:
             prefix += "4"
-        elif "-neut-" in name:
+        elif "h3-hi" in name:
+            prefix += "3"
+        elif "-neut" in name:
             prefix += "5"
         elif "bvic" in name:
             prefix += "6"
