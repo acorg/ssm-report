@@ -135,7 +135,7 @@ def list_for_helm():
 
     def improve_name(name):
         prefix = ""
-        if "h1pdm" in name:
+        if "h1pdm" in name or "h1-" in name:
             prefix += "1"
         elif "h3-hint" in name:
             prefix += "4"
