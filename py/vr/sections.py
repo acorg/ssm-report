@@ -194,6 +194,52 @@ class maps_in_two_columns:
 
 # ----------------------------------------------------------------------
 
+# maps_in_three_columns(Path("out").glob("h1-hi-ts-cdc-*.pdf")),
+class maps_in_three_columns:
+
+    # args: image_scale, tabcolsep, arraystretch, images_per_page
+    def __init__(self, pdfs, **args):
+        self.image_scale = "15 / 30"
+        self.tabcolsep = 7.0
+        self.arraystretch = 3.5
+        self.images_per_page = 6
+        self.pdfs = pdfs
+        for k, v in args.items():
+            setattr(self, k, v)
+
+    def latex(self):
+        result = []
+        for page_no, images_on_page in enumerate(itertools.zip_longest(*([iter(self.pdfs)] * self.images_per_page))):
+            if page_no:
+                result.append("\\newpage")
+            result.extend(self.antigenic_map_table(images_on_page))
+        return result
+
+    def antigenic_map_table(self, images):
+        result = []
+        if getattr(self, "image_scale", None) is not None:
+            result.append("\\begin{AntigenicMapTable3WithSep}{%fpt}{%f}{%s}" % (getattr(self, "tabcolsep", None), getattr(self, "arraystretch", None), self.image_scale))
+        else:
+            result.append("\\begin{AntigenicMapTable}")
+        for no in range(0, len(images), 3):
+            result.append(f"{self.map(images[no])} & {self.map(images[no + 1])} & {self.map(images[no + 2])} \\\\")
+        if getattr(self, "image_scale", None) is not None:
+            result.append("\\end{AntigenicMapTableWithSep}")
+        else:
+            result.append("\\end{AntigenicMapTable}")
+        return result
+
+    def map(self, image):
+        if image:
+            if image.exists():
+                return f"\\AntigenicMap{{{image.resolve()}}}"
+            else:
+                return f"{{\\fontsize{{12}}{{16}} \\selectfont \\noindent \\rotatebox{{45}}{{ \\textbf{{ \\textcolor{{red}}{{{image}}} }} }}}}"
+        else:
+            return r"\hspace{18em}"
+
+# ----------------------------------------------------------------------
+
 class serum_circle_description_page:
 
     def __init__(self, **args):

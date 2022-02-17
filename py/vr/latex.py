@@ -202,6 +202,14 @@ T_AntigenicMapTable = r"""
   \begin{center}
     \begin{tabular}{c c}
 }{\end{tabular}\end{center}\par}
+
+\newenvironment{AntigenicMapTable3WithSep}[3]{
+  \setlength{\tabcolsep}{#1}
+  \renewcommand{\arraystretch}{#2}
+  \newcommand{\AntigenicMap}[1]{\includegraphics[width={(\textheight-20pt) * {#3}},frame]{##1}}
+  \begin{center}
+    \begin{tabular}{c c c}
+}{\end{tabular}\end{center}\par}
 """
 
 # ----------------------------------------------------------------------
@@ -503,7 +511,7 @@ T_Subsection = r"\subsection{%title%}"
 T_SerumCirclesDescriptionEggCell = r"""%no-eol%
 \newpage
 
-\newgeometry{top=5em, bottom=5em, left=2.5em, right=10em}
+% \newgeometry{top=5em, bottom=5em, left=2.5em, right=10em}
 
 \subsection{Serum circle description}
 
