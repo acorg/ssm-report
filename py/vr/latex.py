@@ -511,14 +511,15 @@ T_Subsection = r"\subsection{%title%}"
 T_SerumCirclesDescriptionEggCell = r"""%no-eol%
 \newpage
 
-% \newgeometry{top=5em, bottom=5em, left=2.5em, right=10em}
+\newgeometry{top=5em, bottom=5em, left=2.5em, right=10em}
 
 \subsection{Serum circle description}
 
 \vspace{1em}
 % \small
 \noindent
-Serum circles shown in blue are for sera raised against cell passaged-viruses, in red for sera raised against egg-passaged viruses.
+Serum circles shown in blue are for sera raised against cell passaged-viruses, in red for sera raised against egg-passaged viruses,
+in orange for sera raised against reassortant viruses.
 
 
 \vspace{1em}
