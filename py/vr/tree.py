@@ -23,13 +23,11 @@ class maker:
     def __call__(self, command_name, interactive, open_pdf=True, output_dir=None, *r, **a):
         tree_dir = Path("tree")
         info = self.options.get("info")
-        print(f">>>> output_dir: {output_dir}  info: {info}", file=sys.stderr)
         if not output_dir:
             if info:
                 output_dir = Path("info")
             else:
                 output_dir = tree_dir
-        print(f">>>> output_dir: {output_dir}  info: {info}", file=sys.stderr)
         output_dir.mkdir(exist_ok=True)
         source_tjz = self.tree()
         if self.infix:
@@ -63,6 +61,7 @@ class maker:
 
     def tree(self):
         if self.infix:
+            print(f">>>> glob {self.subtype}.{self.infix}*.tjz", file=sys.stderr)
             if files := list(Path("tree").glob(f"{self.subtype}.{self.infix}*.tjz")):
                 return files[0]
             else:
@@ -89,7 +88,7 @@ def makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
     return [mk for mk in (maker(subtype=subtype, infix=infix, **options) for subtype in subtypes for infix in ["after", None]) if mk.tree_exists()]
 
 def info_makers(subtypes=["h1", "h3", "bvic", "byam"], **options):
-    return [mk for mk in (maker(subtype=subtype, infix=None, info=True, **options) for subtype in subtypes) if mk.tree_exists()]
+    return [mk for mk in (maker(subtype=subtype, infix=infix, info=True, **options) for subtype in subtypes for infix in ["after", None]) if mk.tree_exists()]
 
 # ======================================================================
 
