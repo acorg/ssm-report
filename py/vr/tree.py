@@ -23,11 +23,13 @@ class maker:
     def __call__(self, command_name, interactive, open_pdf=True, output_dir=None, *r, **a):
         tree_dir = Path("tree")
         info = self.options.get("info")
+        print(f">>>> output_dir: {output_dir}  info: {info}", file=sys.stderr)
         if not output_dir:
             if info:
                 output_dir = Path("info")
             else:
                 output_dir = tree_dir
+        print(f">>>> output_dir: {output_dir}  info: {info}", file=sys.stderr)
         output_dir.mkdir(exist_ok=True)
         source_tjz = self.tree()
         if self.infix:
@@ -37,7 +39,7 @@ class maker:
         if not tal_settings.exists():
             with tal_settings.open("w") as fd:
                 fd.write(sTalSettings)
-        pdf = tal_settings.with_suffix(".pdf")
+        pdf = output_dir.joinpath(tal_settings.name).with_suffix(".pdf")
         if info:
             info_settings = output_dir.joinpath(f"{self.subtype}.info.tal")
             if not info_settings.exists():
@@ -199,8 +201,17 @@ sTalSettings = """{
 # ======================================================================
 
 sTalInfoSettings = """{
-    "tal": [
+    "tal-default": [
         {"N": "canvas", "height": "$canvas-height"},
+        {"N": "ladderize", "method": "$ladderize-method"},
+        {"N": "tree", "color-by": "continent", "width-to-height-ratio": 0.4, "legend": {"show": true}, "debug-outline": false},
+        {"N": "nodes", "select": {"all": true}, "apply": {"tree-label-scale": -1, "?": "use -1 to hide label"}},
+        {"N": "nodes", "select": {"all-and-intermediate": true}, "apply": {"tree-edge-line-width": 45}},
+        {"N": "time-series", "start": "2019-03", "?end": "2020-07", "color-by": "continent", "slot": {"width": 0.0085, "label": {"scale": 0.7, "rotation": "clockwise"}}, "color-scale": {"show": false}, "report": "$report-time-series-output"},
+        {"N": "gap", "id": "gap-right", "width-to-height-ratio": 0.02}
+    ],
+
+    "? tal": [
         {"N": "margins", "left": 0.01},
         {"N": "title", "show": false},
         {"N": "tree", "width-to-height-ratio": 0.4},
