@@ -6,6 +6,7 @@ sLabNew = {
     "niid": "niid",
     "nimr": "crick",
     "crick": "crick",
+    "crick2": "crick2",
     }
 
 sLabOld = {
@@ -16,6 +17,7 @@ sLabOld = {
     "niid": "niid",
     "nimr": "nimr",
     "crick": "nimr",
+    "crick2": "nimr2",
     }
 
 sLabDisplayName = {
@@ -23,6 +25,7 @@ sLabDisplayName = {
     "cnic": "CNIC",
     "nimr": "Crick",
     "crick": "Crick",
+    "crick2": "Crick",
     "niid": "NIID",
     "melb": "VIDRL",
     "vidrl": "VIDRL",

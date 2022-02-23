@@ -165,6 +165,8 @@ def list_for_helm():
             prefix += "S"
         elif "ts" in name:
             prefix += "T"
+        if "info" in name:
+            prefix += "F"
         if prefix:
             return f"{prefix}:{name}"
         else:
